@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+     <artifactId>bare</artifactId>
+     <groupId>ar.com.zauber.maven.poms</groupId>
+     <version>1.0.1</version>
+  </parent>
+  <groupId>ar.com.zauber.commons</groupId>
+  <artifactId>zauber-commons-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+  <name>Zauber Commons: (reusable classes between projects)</name>
+  <modules>
+     <module>commons</module>
+     <module>commons-spring</module>
+  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.0</version>
+    </dependency>
+  </dependencies>
+</project>
