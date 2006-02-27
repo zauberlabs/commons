@@ -3,10 +3,12 @@
  */
 package ar.com.zauber.commons.auth.acegi;
 
-import net.sf.acegisecurity.Authentication;
-import net.sf.acegisecurity.context.ContextHolder;
-import net.sf.acegisecurity.context.security.SecureContextImpl;
+import javax.servlet.http.HttpServletRequest;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.userdetails.User;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.auth.AuthenticationUserMapper;
@@ -43,12 +45,12 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T> implements Authen
     }
     
     /** @return the username of the current session */
-    private String getUsername() {
-        final SecureContextImpl context = (SecureContextImpl)
-                                           ContextHolder.getContext();
+    protected String getUsername() {
+        final SecurityContext context = SecurityContextHolder
+                .getContext();
         String ret = null;
         
-        context.validate();
+        // context.validate();
         // TODO leer un poco mas sobre acegis para emprolijar el codigo
         final Authentication auth = context.getAuthentication();
         if(auth.isAuthenticated()) {
@@ -56,8 +58,7 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T> implements Authen
             if(o instanceof String) {
                 ret = (String)o;
             } else {
-                ret = ((net.sf.acegisecurity.providers.dao.User)
-                        auth.getPrincipal()).getUsername();
+                ret = ((User)auth.getPrincipal()).getUsername();
             }
             Validate.notNull(ret);
         } else {

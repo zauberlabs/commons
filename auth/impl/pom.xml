@@ -7,7 +7,7 @@
     <version>1.0</version>
   </parent>
   <artifactId>commons-auth-impl</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -16,14 +16,34 @@
 	<version>1.0</version>
     </dependency>
    <dependency>
-      <groupId>acegisecurity</groupId>
+      <groupId>org.acegisecurity</groupId>
       <artifactId>acegi-security</artifactId>
-      <version>0.8.3</version>
+      <version>1.0.0-RC1</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-dao</artifactId>
       <version>1.2.6</version>
+      <exclusions>
+         <exclusion>
+	   <groupId>org.springframework</groupId>
+	   <artifactId>spring-beans</artifactId>
+	 </exclusion>
+         <exclusion>
+	   <groupId>org.springframework</groupId>
+	   <artifactId>spring-support</artifactId>
+	 </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-aop</artifactId>
+	<version>1.2.6</version>
+    </dependency>
+    <dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-webmvc</artifactId>
+	<version>1.2.6</version>
     </dependency>
 
   </dependencies>

@@ -5,10 +5,9 @@ package ar.com.zauber.commons.auth.acegi;
 
 import java.lang.reflect.Method;
 
-import net.sf.acegisecurity.UserDetails;
-import net.sf.acegisecurity.providers.dao.User;
-import net.sf.acegisecurity.providers.dao.memory.InMemoryDaoImpl;
-
+import org.acegisecurity.userdetails.User;
+import org.acegisecurity.userdetails.UserDetails;
+import org.acegisecurity.userdetails.memory.InMemoryDaoImpl;
 import org.apache.commons.lang.Validate;
 import org.springframework.aop.AfterReturningAdvice;
 
