@@ -32,10 +32,11 @@ public class CharLengthPasswordValidator implements PasswordValidator {
     /** @see PasswordValidator#validate(java.lang.String) */
     public final void validate(final String password) throws InvalidPassword {
         if(password == null) {
-            throw new InvalidPassword("password can't be null");
+            throw new InvalidPassword(
+                    "la password debe contener algún caracter");
         } else if(password.length() < minLength) {
             throw new InvalidPassword("La password debe tener por lo menos una"
-                    + "longitud de " + minLength + "caracteres");
+                    + " longitud de " + minLength + " caracteres");
         }
     }
 }
