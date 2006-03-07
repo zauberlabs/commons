@@ -84,6 +84,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
        } else {
            try {
                final T cmd = secretsMap.getT(secret);
+               setup(cmd);
                cmd.run();
                if(unregisterCmd) {
                    secretsMap.unregister(cmd);
@@ -128,6 +129,11 @@ public abstract class AbstractConfirmationController<T extends Runnable>
        
        return ret; 
    }
+   
+   /**
+    * @param cmd cmd to setup
+    */
+   protected abstract void setup(final T cmd);
    
    /**
     * @param cmd cmd
