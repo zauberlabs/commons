@@ -14,6 +14,8 @@
   <modules>
      <module>commons</module>
      <module>commons-spring</module>
+     <module>auth</module>
+     <module>message</module>
   </modules>
   <dependencies>
     <dependency>
