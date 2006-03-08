@@ -11,6 +11,13 @@
   <packaging>pom</packaging>
   <version>1.0</version>
   <name>Zauber Commons: (reusable classes between projects)</name>
+  <repositories>
+    <repository>
+      <id>zauber-private-repo</id>
+      <name>private zauber repository</name>
+      <url>https://intra.zauber.com.ar/m2</url>
+     </repository>
+  </repositories>
   <modules>
      <module>commons</module>
      <module>commons-spring</module>
