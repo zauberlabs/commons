@@ -21,4 +21,9 @@ public class CurrentTimeExpirationDateValidator implements
     public final boolean isValid(final Date date) {
         return Calendar.getInstance().getTime().before(date);
     }
+
+    /** @see ExpirationDateValidator#getNowInvalid() */
+    public Date getNowInvalid() {
+        return Calendar.getInstance().getTime();
+    }
 }

@@ -19,4 +19,7 @@ public interface ExpirationDateValidator {
      * @return <code>true</code> if the date has not expired
      */
     boolean isValid(Date date);
+    
+    /** @return the last invalid date */
+    Date getNowInvalid();
 }

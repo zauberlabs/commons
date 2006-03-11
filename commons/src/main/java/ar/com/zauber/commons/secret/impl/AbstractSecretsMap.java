@@ -186,7 +186,7 @@ public abstract class AbstractSecretsMap<T> implements SecretsMap<T> {
      * @author Juan F. Codagnone
      * @since Jun 20, 2005
      */
-    protected static class QueryResult<E> {
+    public static class QueryResult<E> {
 
         /** the E... */
         private final E e;
