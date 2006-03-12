@@ -3,6 +3,7 @@
  */
 package ar.com.zauber.commons.spring.web;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,11 +37,15 @@ public abstract class AbstractConfirmationController<T extends Runnable>
     /** error view */
     private final String errorView;
     /** confirm success view */
-    private String successRejectView;
+    private final String successRejectView;
     /** reject success view */
-    private String successConfirmView;
+    private final String successConfirmView;
     /** unregister cmd */
-    private boolean unregisterCmd;
+    private final boolean unregisterCmd;
+    /** preSuccees view */
+    private final String preSuccessView;
+    /** reject view */
+    private final String preRejectView;
     
     /**
      * Creates the ConfirmChangeEmailController.
@@ -54,17 +59,58 @@ public abstract class AbstractConfirmationController<T extends Runnable>
     public AbstractConfirmationController(
             final SecretsMap<T> secretsMap,
             final String errorView, final String successConfirmView,
-            final String successRejectView, final boolean unregisterCmd) {
+            final String successRejectView, 
+            final String preSuccessView, 
+            final String preRejectView, 
+            final boolean unregisterCmd) {
+        
         Validate.notNull(secretsMap, "secret map");
         Validate.notNull(errorView, "error view");
         Validate.notNull(successConfirmView, "successConfirmView");
         Validate.notNull(successRejectView, "successRejectView");
+        Validate.notNull(preSuccessView, "preSuccessView");
+        Validate.notNull(preRejectView, "preRejectView");
         
         this.secretsMap = secretsMap;
         this.errorView = errorView;
         this.successConfirmView = successConfirmView;
         this.successRejectView = successRejectView;
         this.unregisterCmd = unregisterCmd;
+        this.preSuccessView = preSuccessView;
+        this.preRejectView = preRejectView;
+    }
+   
+    public final ModelAndView postconfirm(final HttpServletRequest request,
+            final HttpServletResponse response) {
+        if(!request.getMethod().toLowerCase().equals("post")) {
+            throw new IllegalArgumentException("only accept POST method");
+        }
+       
+        ModelAndView ret = null;
+        final String secret = RequestUtils.getStringParameter(request,
+               "secret", null);
+        
+        if(secret == null) {
+            ret = new ModelAndView(errorView);
+        } else {
+            try {
+                final T cmd = secretsMap.getT(secret);
+                setup(cmd);
+                cmd.run();
+                if(unregisterCmd) {
+                    secretsMap.unregister(cmd);
+                }
+                ret = new ModelAndView(successConfirmView, getViewModel(cmd));
+            } catch(final NoSuchEntityException e) {
+                // void
+            }
+            
+            if(ret == null) {
+                ret = new ModelAndView(errorView);
+            }
+        }
+        
+        return ret;
     }
     
    /**
@@ -75,26 +121,20 @@ public abstract class AbstractConfirmationController<T extends Runnable>
     */
    public final ModelAndView confirm(final HttpServletRequest request, 
            final HttpServletResponse response) {
-       ModelAndView ret = null;
        final String secret = RequestUtils.getStringParameter(request,
-              "secret", null);
+               "secret", null);
+       ModelAndView ret;
        
        if(secret == null) {
            ret = new ModelAndView(errorView);
        } else {
            try {
-               final T cmd = secretsMap.getT(secret);
-               setup(cmd);
-               cmd.run();
-               if(unregisterCmd) {
-                   secretsMap.unregister(cmd);
-               }
-               ret = new ModelAndView(successConfirmView, getViewModel(cmd));
+               Object cmd = secretsMap.getT(secret);
+               Map<String, Object> map = new HashMap<String, Object>();
+               map.put("cmd", cmd);
+               map.put("secret", secret);
+               ret = new ModelAndView(preSuccessView, map);
            } catch(final NoSuchEntityException e) {
-               // void
-           }
-           
-           if(ret == null) {
                ret = new ModelAndView(errorView);
            }
        }
@@ -120,6 +160,40 @@ public abstract class AbstractConfirmationController<T extends Runnable>
        } else {
            try {
                final T cmd = secretsMap.getT(secret);
+               Map<String, Object> map = new HashMap<String, Object>();
+               map.put("cmd", cmd);
+               map.put("secret", secret);
+               ret = new ModelAndView(preRejectView, map);
+           } catch(final NoSuchEntityException e) {
+               ret = new ModelAndView(errorView);
+           }
+       }
+       
+       return ret; 
+   }
+
+   /**
+    * Reject the change
+    * 
+    * @see org.springframework.web.servlet.mvc.AbstractController#
+    *              handleRequest(HttpServletRequest, HttpServletResponse)
+    */
+   public final ModelAndView postreject(final HttpServletRequest request, 
+           final HttpServletResponse response) {
+       ModelAndView ret = null;
+       final String secret = RequestUtils.getStringParameter(request,
+              "secret", null);
+
+       if(!request.getMethod().toLowerCase().equals("post")) {
+           throw new IllegalArgumentException("only accept POST method");
+       }
+      
+       
+       if(secret == null) {
+           ret = new ModelAndView(errorView);
+       } else {
+           try {
+               final T cmd = secretsMap.getT(secret);
                secretsMap.unregister(cmd);
                ret = new ModelAndView(successRejectView, getViewModel(cmd));
            } catch(final NoSuchEntityException e) {
@@ -129,6 +203,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
        
        return ret; 
    }
+
    
    /**
     * @param cmd cmd to setup
