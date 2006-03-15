@@ -23,7 +23,7 @@ import ar.com.zauber.commons.message.NotificationAddress;
  * @author Juan F. Codagnone
  * @since Oct 6, 2005
  */
-public class VelocityMessageResolver implements MessageFactory {
+public class VelocityMessageResolver extends AbstractMessageFactory {
     /** velocity engine */
     private final VelocityEngine ve = new VelocityEngine();
     
@@ -37,18 +37,6 @@ public class VelocityMessageResolver implements MessageFactory {
         ve.init();
     }
     
-    /** @see MessageFactory#createMessage(String, String, Map, 
-     *                                                  NotificationAddress) */
-    public final Message createMessage(final String stringMessage, 
-            final String subject, final Map<String, Object> model,
-            final NotificationAddress address) {
-        Validate.notNull(stringMessage);
-        Validate.notNull(model);
-        
-        return new StringMessage(renderString(stringMessage, model), subject,
-                address);
-    }
-
     /** @see MessageFactory#renderString(java.lang.String, java.util.Map) */
     public final String renderString(final String message,
             final Map<String, Object> model) {
