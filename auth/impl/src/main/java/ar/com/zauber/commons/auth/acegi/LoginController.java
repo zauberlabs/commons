@@ -48,7 +48,12 @@ public final class LoginController extends AbstractController {
         addToModel(request, model,
                 AuthenticationProcessingFilter.ACEGI_SECURITY_TARGET_URL_KEY,
                 "url");
-
+        
+        WebUtils.setSessionAttribute(request, 
+                AbstractProcessingFilter.ACEGI_SECURITY_LAST_EXCEPTION_KEY, 
+                null);
+        
+        
         // XXX AuthenticationException tiene varios hijos, con lo cual se podria
         // determinar diferentes páginas segun lo que haya pasado (expiración?)
         
