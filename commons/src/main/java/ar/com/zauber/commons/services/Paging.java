@@ -19,7 +19,7 @@ public class Paging {
     /** <code>pageNumber</code> */
     private Integer pageNumber;
     /** <code>resultSize</code> */
-    private Integer resultSize;
+    private Long resultSize;
 
     /** <code>FIRST_PAGE</code> */
     private static final int FIRST_PAGE = 1;
@@ -58,10 +58,11 @@ public class Paging {
      *
      * @param resultSize <code>Integer</code> with the resultSize.
      */
-    public final void setResultSize(final Integer resultSize) {
+    public final void setResultSize(final long resultSize) {
         Validate.notNull(resultSize);
         
-        if(resultSize <= 0) {
+        // 0 es validao ya que en una consulta pueda ser vacio...
+        if(resultSize < 0) { 
             throw new IllegalArgumentException("El tamaño del resultado " 
                     + "debe ser mayor a 0");
         }
