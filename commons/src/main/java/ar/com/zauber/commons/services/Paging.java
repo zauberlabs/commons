@@ -1,0 +1,155 @@
+/*
+ * Copyright (c) 2006 Zauber  -- All rights reserved
+ */
+package ar.com.zauber.commons.services;
+
+import org.apache.commons.lang.Validate;
+
+
+/**
+ * Mantiene información relativa al paginado.
+ * 
+ * @author Andrés Moratti
+ * @since Mar 21, 2006
+ */
+public class Paging {
+
+    /** <code>resultsPerPage</code> */
+    private final Integer resultsPerPage;
+    /** <code>pageNumber</code> */
+    private Integer pageNumber;
+    /** <code>resultSize</code> */
+    private Integer resultSize;
+
+    /** <code>FIRST_PAGE</code> */
+    private static final int FIRST_PAGE = 1;
+    /** load result size? */
+    private final boolean loadResultSize;
+  
+    
+    /** @see #Paging(Integer, Integer, boolean) */
+    public Paging(final Integer pageNumber, final Integer resultsPerPage) {
+        this(pageNumber, resultsPerPage, true);
+    }
+    
+    /**
+     * Creates the Paging.
+     *
+     * @param pageNumber the current page number 
+     * @param resultsPerPage how many results are shown by page
+     * @param loadResultSize load result size
+     */
+    public Paging(final Integer pageNumber, final Integer resultsPerPage,
+            final boolean loadResultSize) {
+        Validate.notNull(pageNumber);
+        Validate.notNull(resultsPerPage);
+        
+        if(pageNumber <= 0 || resultsPerPage <= 0) {
+            throw new IllegalArgumentException("El número de página y los " 
+                    + "resultados por página deben ser mayores a 0");
+        }
+        
+        this.pageNumber = pageNumber;
+        this.resultsPerPage = resultsPerPage;
+        this.loadResultSize = loadResultSize;
+    }
+    /**
+     * Sets the resultSize. 
+     *
+     * @param resultSize <code>Integer</code> with the resultSize.
+     */
+    public final void setResultSize(final Integer resultSize) {
+        Validate.notNull(resultSize);
+        
+        if(resultSize <= 0) {
+            throw new IllegalArgumentException("El tamaño del resultado " 
+                    + "debe ser mayor a 0");
+        }
+
+        this.resultSize = resultSize;
+        
+        if(getPageNumber() > getLastPageNumber()) {
+            pageNumber = getLastPageNumber();
+        }
+    }
+
+
+    /**
+     * Retorna el número de la primer página.
+     * 
+     * @return the number of the first page
+     */
+    public final int getFirstPageNumber() {
+        return FIRST_PAGE;
+    }
+    
+    /**
+     * Retorna el número de la página previa.
+     * 
+     * @return the number of the previus page
+     */
+    public final int getPrevPageNumber() {
+        return getPageNumber() > getFirstPageNumber() 
+                 ? pageNumber - 1 : getFirstPageNumber(); 
+    }
+    
+    /**
+     * Retorna el número de la página actual.
+     * 
+     * @return <code>int</code> with the pageNumber.
+     */
+    public final int getPageNumber() {
+        return pageNumber;
+    }
+    
+    /**
+     * Retorna el número de la siguiente página.
+     * 
+     * @return the number of the next page
+     */
+    public final int getNextPageNumber() {
+        return getPageNumber() < getLastPageNumber() 
+            ? getPageNumber() + 1 : getLastPageNumber(); 
+    }
+    
+    /**
+     * Retorna el número de la última página.
+     * 
+     * @return the last page number
+     */
+    public final int getLastPageNumber() {
+        if(resultSize == null) {
+            throw new IllegalStateException("No se seteó el tamaño del " 
+                    + "resultado");
+        }
+        
+        return Math.round(
+                new Float(Math.ceil((double)resultSize / resultsPerPage)));
+    }
+    
+    /**
+     * @return Primer resultado a obtener. 
+     */
+    public final int getFirstResult() {
+        return (getPageNumber() - 1) * resultsPerPage;
+    }
+    
+    /**
+     * Cantidad de resultados por página.
+     * 
+     * @return <code>int</code> with the resultsPerPage.
+     */
+    public final int getResultsPerPage() {
+        return resultsPerPage;
+    }
+
+    
+    /**
+     * Returns the loadResultSize.
+     * 
+     * @return <code>boolean</code> with the loadResultSize.
+     */
+    public final boolean loadResultSize() {
+        return loadResultSize;
+    }
+}
