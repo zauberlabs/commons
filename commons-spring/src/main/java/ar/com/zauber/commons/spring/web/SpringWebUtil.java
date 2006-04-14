@@ -5,27 +5,37 @@ package ar.com.zauber.commons.spring.web;
 
 import org.springframework.web.servlet.view.RedirectView;
 
-
 /**
  * Spring MVC utilities.
  * 
  * @author Andrés Moratti
  * @since Nov 8, 2005
  */
-public final class SpringWebUtil {
+public  class SpringWebUtil {
+    /** redirections are context relative? */
+    private boolean contextRelative;
 
     /** Creates the SpringWebUtil. */
-    private SpringWebUtil() {
-        // utility class
+    public SpringWebUtil() {
+        this(true);
+    }
+    
+    /** 
+     * Creates the SpringWebUtil. 
+     * 
+     * @param contextRelative redirects are contextRelative?
+     */
+    public SpringWebUtil(final boolean contextRelative) {
+        this.contextRelative = contextRelative;
     }
     
     /**
      * @param url url to redirect to
      * @return a <code>RedirectView</code> object for url 
      */
-    public static RedirectView createRedirect(final String url) {
+    public final RedirectView createRedirect(final String url) {
         final RedirectView rv = new RedirectView(url);
-        rv.setContextRelative(true);
+        rv.setContextRelative(contextRelative);
         rv.setHttp10Compatible(false);
         
         return rv;
