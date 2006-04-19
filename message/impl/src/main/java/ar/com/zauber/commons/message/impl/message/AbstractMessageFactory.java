@@ -29,7 +29,8 @@ public abstract class AbstractMessageFactory implements MessageFactory {
         Validate.notNull(stringMessage);
         Validate.notNull(model);
         
-        return new StringMessage(renderString(stringMessage, model), subject,
+        return new StringMessage(renderString(stringMessage, model), 
+                renderString(subject, model),
                 address);
     }
 }
