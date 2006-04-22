@@ -14,7 +14,7 @@ import org.springframework.web.bind.RequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import ar.com.zauber.commons.exception.NoSuchEntityException;
+import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.secret.SecretsMap;
 
 /**

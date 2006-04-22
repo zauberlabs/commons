@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.SqlRowSetResultSetExtractor;
 import org.springframework.jdbc.support.rowset.ResultSetWrappingSqlRowSet;
 
-import ar.com.zauber.commons.exception.NoSuchEntityException;
+import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.secret.ExpirationDatePolicy;
 import ar.com.zauber.commons.secret.ExpirationDateValidator;
 import ar.com.zauber.commons.secret.SecretGenerator;
