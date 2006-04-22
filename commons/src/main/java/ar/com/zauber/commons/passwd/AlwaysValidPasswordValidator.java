@@ -3,6 +3,8 @@
  */
 package ar.com.zauber.commons.passwd;
 
+import ar.com.zauber.commons.dao.exception.InvalidPassword;
+
 
 /**
  * Implementation that always returns <code>true</code> of

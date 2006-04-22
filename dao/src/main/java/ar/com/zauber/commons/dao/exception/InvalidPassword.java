@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2006 Zauber  -- All rights reserved
  */
-package ar.com.zauber.commons.passwd;
+package ar.com.zauber.commons.dao.exception;
 
 
 /**

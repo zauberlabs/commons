@@ -7,7 +7,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.Validate;
 
-import ar.com.zauber.commons.exception.NoSuchEntityException;
+import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.secret.*;
 
 /**

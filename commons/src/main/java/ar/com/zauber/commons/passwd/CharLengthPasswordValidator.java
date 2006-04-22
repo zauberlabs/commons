@@ -5,6 +5,8 @@ package ar.com.zauber.commons.passwd;
 
 import org.apache.commons.lang.Validate;
 
+import ar.com.zauber.commons.dao.exception.InvalidPassword;
+
 
 /**
  * TODO Brief description.

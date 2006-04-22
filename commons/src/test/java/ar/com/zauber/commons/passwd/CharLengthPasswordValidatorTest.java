@@ -4,6 +4,7 @@
 package ar.com.zauber.commons.passwd;
 
 import junit.framework.TestCase;
+import ar.com.zauber.commons.dao.exception.InvalidPassword;
 
 
 /**

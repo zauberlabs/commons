@@ -1,4 +1,5 @@
-package ar.com.zauber.commons.exception;
+package ar.com.zauber.commons.dao.exception;
+
 
 /**
  * The entry is duplicated

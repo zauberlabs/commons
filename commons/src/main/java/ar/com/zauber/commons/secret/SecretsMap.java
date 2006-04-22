@@ -5,7 +5,7 @@ package ar.com.zauber.commons.secret;
 
 import java.util.Date;
 
-import ar.com.zauber.commons.exception.NoSuchEntityException;
+import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 
 
 /**
