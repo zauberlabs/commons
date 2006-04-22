@@ -23,6 +23,7 @@
      <module>commons-spring</module>
      <module>auth</module>
      <module>message</module>
+     <module>dao</module>
   </modules>
   <dependencies>
     <dependency>
