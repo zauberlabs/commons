@@ -3,6 +3,7 @@
  */
 package ar.com.zauber.commons.auth.acegi;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +49,17 @@ public final class LoginController extends AbstractController {
         addToModel(request, model,
                 AuthenticationProcessingFilter.ACEGI_SECURITY_TARGET_URL_KEY,
                 "url");
+        
+        String referer = request.getHeader("Referer");
+        
+        if (referer != null) {
+            int paramIndex = referer.indexOf("?");
+            if (paramIndex != -1) {
+                referer = referer.substring(0, paramIndex);
+            }
+            URL url = new URL(referer);
+            model.put("refererPath", url.getPath());
+        }
         
         WebUtils.setSessionAttribute(request, 
                 AbstractProcessingFilter.ACEGI_SECURITY_LAST_EXCEPTION_KEY, 
