@@ -73,4 +73,14 @@ public class NullSecretsMap<T> implements SecretsMap<T> {
         throw new NotImplementedException("not implemented");
     }
 
+    /** @see SecretsMap#removeByKey(java.lang.String) */
+    public void removeByKey(String key) {
+        throw new NotImplementedException("not implemented");
+    }
+    
+    /** @see SecretsMap#getByKey(java.lang.String) */
+    public final T getByKey(final String key) {
+        throw new NotImplementedException("not implemented");
+    }
+
 }

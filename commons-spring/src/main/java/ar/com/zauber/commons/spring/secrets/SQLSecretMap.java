@@ -16,9 +16,7 @@ import org.springframework.jdbc.core.SqlRowSetResultSetExtractor;
 import org.springframework.jdbc.support.rowset.ResultSetWrappingSqlRowSet;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
-import ar.com.zauber.commons.secret.ExpirationDatePolicy;
-import ar.com.zauber.commons.secret.ExpirationDateValidator;
-import ar.com.zauber.commons.secret.SecretGenerator;
+import ar.com.zauber.commons.secret.*;
 import ar.com.zauber.commons.secret.impl.AbstractSecretsMap;
 
 
@@ -75,6 +73,13 @@ public class SQLSecretMap<T> extends AbstractSecretsMap {
          */
         QueryResult map(ResultSet rset) throws SQLException,
                 DataAccessException;
+        
+        /**
+         * @return <code>null</code> si no se soporta borrar por llave. 
+         *         sino la columna que contiene la llave.
+         * @see SecretsMap#removeByKey(String) 
+         */
+        String getRemoveByKeyColumn();
     };
     
     /** sql table name */
@@ -255,5 +260,39 @@ public class SQLSecretMap<T> extends AbstractSecretsMap {
                 throws SQLException, DataAccessException {
             return mapper.map(rs);
         }
+    }
+
+    /** @see SecretsMap#removeByKey(java.lang.String) */
+    public final void removeByKey(final String key) {
+        Validate.notNull(key);
+        
+        final String col = mapper.getRemoveByKeyColumn();
+        
+        if(col != null) {
+            final String sql = "DELETE from " + table + " WHERE " 
+                               + col + "= ?";  
+            template.update(sql, new Object[]{key});
+        }
+    }
+
+
+    /** @see SecretsMap#getByKey(java.lang.String) */
+    public final T getByKey(final String key) {
+        Validate.notNull(key);
+        final String col = mapper.getRemoveByKeyColumn();
+        final T ret;
+        
+        if(col == null) {
+            ret = null;
+        } else {
+            final String sql = "SELECT * FROM " + table + " WHERE " 
+                + mapper.getRemoveByKeyColumn() + "=? ";
+            final QueryResult<T> result = (QueryResult<T>)template.query(sql,
+                    new Object[] {key}, new int[] {Types.VARCHAR},
+                    queryExtrator);
+            ret = result.getE();
+        }
+        
+        return ret;
     }
 }

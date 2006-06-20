@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
@@ -142,5 +143,15 @@ public class JavaUtilMapSecretsMap<T> extends AbstractSecretsMap<T>
                 return new QueryResult<T>(t, secret, date);
             }
         }
+    }
+
+    /** @see SecretsMap#removeByKey(java.lang.String) */
+    public final void removeByKey(final String key) {
+        throw new NotImplementedException("todo: implement ;^)");
+    }
+    
+    /** @see SecretsMap#getByKey(String) */
+    public final T getByKey(final String key) {
+        throw new NotImplementedException("todo: implement ;^)");
     }
 }

@@ -92,6 +92,22 @@ public interface SecretsMap<T> {
      */
      T getT(String secret) throws NoSuchEntityException;
 
+     /**
+      * remove all secrets that belongs to a key. Implementation
+      * decides how to match the key.
+      * 
+      * @param key key to match
+      */
+     void removeByKey(String key);
+     
+     /**
+      * get all the Ts that belongs to a key. Implementation
+      * decides how to match the key.
+      * 
+      * @param key key to match
+      */
+     T getByKey(String key);
+     
     /**
      * Maintenance method: cleans up a bit. (secrets that expired...)
      */
