@@ -2,11 +2,11 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>1.0</version>
+    <version>1.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-spring</artifactId>
-  <version>1.8</version>
+  <version>1.9</version>
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -50,7 +50,7 @@
     <dependency>
       <groupId>ar.com.zauber.commons</groupId>
       <artifactId>commons</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
   </dependencies>
 </project>

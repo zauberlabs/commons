@@ -4,12 +4,12 @@
   <parent>
      <artifactId>bare</artifactId>
      <groupId>ar.com.zauber.maven.poms</groupId>
-     <version>1.0.1</version>
+     <version>1.0.2</version>
   </parent>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.0</version>
+  <version>1.1</version>
   <name>Zauber Commons: (reusable classes between projects)</name>
   <repositories>
     <repository>

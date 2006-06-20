@@ -4,9 +4,9 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.auth</groupId>
-    <version>1.0</version>
+    <version>1.1</version>
   </parent>
   <artifactId>commons-auth-api</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 </project>
