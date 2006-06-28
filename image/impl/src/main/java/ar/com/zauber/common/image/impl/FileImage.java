@@ -1,0 +1,53 @@
+/*
+ * Copyright (c) 2005 Zauber  -- All rights reserved
+ */
+package ar.com.zauber.common.image.impl;
+
+import java.io.*;
+
+import org.apache.commons.lang.Validate;
+
+/**
+ * Flyer stored in the filesystem. Relative path are saved (thanks to the 
+ * reference to FileFlyerFactory) so it is portable around the filesystem.
+ *
+ * @author Juan F. Codagnone
+ * @since Nov 14, 2005
+ */
+public class FileImage extends AbstractImage {
+    /** factory */
+    private final FileImageFactory factory;
+    /** the directory */
+    private String directory;
+
+    /**
+     * Creates the FileFlyer.
+     *
+     * @param factory factory
+     * @param directory eg: "a214s132d41asd
+     * @param name my_nice_flyer.jpg"
+     * @throws IOException on io error 
+     * @throws IllegalArgumentException if the params are wrong 
+     */
+    public FileImage(final FileImageFactory factory, 
+                     final String directory, 
+                     final String name)
+                   throws IllegalArgumentException, IOException {
+        super(name);
+        Validate.notNull(factory, "factory");
+        Validate.notNull(directory, "directory");
+        
+        this.factory = factory;
+        this.directory = directory;
+    }
+    
+    /** @see ar.com.zauber.eventz.domain.event.Flyer#getInputStream() */
+    public final InputStream getInputStream() throws IOException {
+        return new FileInputStream(getFile());
+    }
+
+    /** @return the file where the flyer is stored */
+    public final File getFile() {
+        return new File(new File(factory.getBaseDir(), directory), getName());
+    }
+}
