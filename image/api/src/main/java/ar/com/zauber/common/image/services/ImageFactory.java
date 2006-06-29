@@ -1,10 +1,13 @@
 /*
  * Copyright (c) 2005 Zauber  -- All rights reserved
  */
-package ar.com.zauber.common.image.model;
+package ar.com.zauber.common.image.services;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+
+import ar.com.zauber.common.image.model.Image;
 
 
 /**
@@ -16,14 +19,19 @@ import java.io.InputStream;
 public interface ImageFactory {
 
     /**
-     * Creates a flyer to use with an event, reading content from is.
+     * Creates an image to use with an object, reading content from is.
      * It doesnt call to close. it is your responsability.
      * 
      * @param is input source
-     * @param name name of the flyer
-     * @return a new Flyer
+     * @param name name of the image
+     * @return a new Image
      * @throws IOException if there is an error reading is
      */
-    Image createFlyer(InputStream is, final String name) throws IOException;
+    Image createImage(InputStream is, final String name) throws IOException;
     
+    /**
+     * @param id
+     * @return
+     */
+    Image retrieveImage(Serializable id) throws IOException;;
 }
