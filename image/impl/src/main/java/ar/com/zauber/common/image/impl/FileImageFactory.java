@@ -10,7 +10,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 
 import ar.com.zauber.common.image.model.Image;
-import ar.com.zauber.common.image.model.ImageFactory;
+import ar.com.zauber.common.image.services.ImageFactory;
 
 
 /**
@@ -44,7 +44,7 @@ public class FileImageFactory implements ImageFactory {
     }
     
     /** @see ImageFactory#createFlyer(java.io.InputStream) */
-    public final synchronized Image createFlyer(final InputStream is, 
+    public final synchronized Image createImage(final InputStream is, 
             final String name) throws IOException {
         
         if(name.indexOf(File.separatorChar) != -1) {
@@ -75,6 +75,17 @@ public class FileImageFactory implements ImageFactory {
         ret.setThumb(thumb);
         
         return ret;
+    }
+
+    
+    /**
+     * @throws IOException 
+     * @throws  
+     * @see ar.com.zauber.common.image.model.ImageFactory#retrieveImage(java.io.Serializable)
+     */
+    public Image retrieveImage(Serializable id) throws IOException {
+        final FileImage img = new FileImage(this, "" + i, "thumb_" + id.toString());
+        return img;
     }
 
     /** @return the base directory */
