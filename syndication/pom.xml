@@ -1,0 +1,23 @@
+<?xml version="1.0"?><project>
+  <parent>
+    <artifactId>zauber-commons-parent</artifactId>
+    <groupId>ar.com.zauber.commons</groupId>
+    <version>1.1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>commons-syndication</artifactId>
+  <version>1.0</version>
+  <dependencies>
+    <dependency>
+    	<groupId>rome</groupId>
+	<artifactId>rome</artifactId>
+	<version>0.8</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+ 
+  </dependencies>
+</project>

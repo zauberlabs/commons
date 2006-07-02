@@ -24,6 +24,8 @@
      <module>auth</module>
      <module>message</module>
      <module>dao</module>
+     <module>image</module>
+     <module>syndication</module>
   </modules>
   <dependencies>
     <dependency>
