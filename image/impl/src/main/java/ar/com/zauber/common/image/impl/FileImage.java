@@ -48,6 +48,6 @@ public class FileImage extends AbstractImage {
 
     /** @return the file where the flyer is stored */
     public final File getFile() {
-        return new File(new File(factory.getBaseDir(), directory), getName());
+        return new File(directory, getName());
     }
 }
