@@ -13,7 +13,7 @@
     <dependency>
     	<groupId>ar.com.zauber.commons.image</groupId>
   	<artifactId>commons-image-api</artifactId> 
-	<version>1.0</version>
+	<version>1.1</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>

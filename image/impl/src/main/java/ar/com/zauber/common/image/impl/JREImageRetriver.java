@@ -9,6 +9,8 @@ import java.net.*;
 
 import org.apache.commons.lang.Validate;
 
+import ar.com.zauber.common.image.services.ImageRetriver;
+
 
 /**
  * Trae imagenes de otros sitios, de forma segura.
@@ -17,7 +19,7 @@ import org.apache.commons.lang.Validate;
  * @author Gabriel V. Baños
  * @since 03/07/2006
  */
-public class ImageRetriver {
+public class JREImageRetriver implements ImageRetriver {
     /** user agent */
     private String userAgent = null;
     /** time out in seconds */
@@ -27,25 +29,15 @@ public class ImageRetriver {
     private final int maxBytes;
 
     /**
-     * Creates the ImageRetriver.
+     * Creates the JREImageRetriver.
      * 
      * @param maxBytes cantidad maxima de bytes dispuesto a bajar por archivo
      */
-    public ImageRetriver(final int maxBytes) {
+    public JREImageRetriver(final int maxBytes) {
         this.maxBytes = maxBytes;
     }
 
-    /**
-     * Intenta bajar una imagen usando http desde otro host.
-     * 
-     * Si la imagen es mas grande maxBytes no la baja.
-     * 
-     * Si el content type no parece una imagen, no la baja.
-     * 
-     * @param url the url of the photo to download
-     * @return an inputStream con la imagen 
-     * @throws IOException in case of error
-     */
+
     public final InputStream retrive(final URL url) 
         throws IOException {
         Validate.notNull(url);

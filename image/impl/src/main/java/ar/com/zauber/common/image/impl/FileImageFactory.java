@@ -20,17 +20,23 @@ import ar.com.zauber.common.image.services.ImageFactory;
  * @since Nov 14, 2005
  */
 public class FileImageFactory implements ImageFactory {
-    /** base dir */
+    /** ver construcor */
     private final File baseDir;
+    /** ver construcor */
+    private long maxBytes;
     /** default file extension for images */
     private static final String DEFAULT_FILE_EXTENSION = ".jpg";
     /**
      * Creates the FileFlyerFactory.
      *
      * @param baseDir the basedir
+     * @param maxBytes cantidad maxima de bytes a bajar. si es 0 
+     *                 no hay limite, si es se pasa el maximo
+     *                 se tira una excepcion
      */
-    public FileImageFactory(final File baseDir) {
+    public FileImageFactory(final File baseDir, final long maxBytes) {
         Validate.notNull(baseDir, "baseDir");
+        Validate.isTrue(maxBytes >= 0);
         if(!baseDir.exists()) {
             FileUtils.mkdir(baseDir.getAbsolutePath());
         }
@@ -40,6 +46,7 @@ public class FileImageFactory implements ImageFactory {
         }
         
         this.baseDir = baseDir;
+        this.maxBytes = maxBytes;
     }
     
     /** @see ImageFactory#createImage(InputStream, String) */
@@ -99,5 +106,32 @@ public class FileImageFactory implements ImageFactory {
     /** @return the base directory */
     public final File getBaseDir() {
         return baseDir;
+    }
+    
+
+    /** ble */
+    private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
+
+    /**
+     * de IOUtil...
+     * 
+     * Copy bytes from an <code>InputStream</code> to an 
+     * <code>OutputStream</code>.
+     * @param input in
+     * @param output out
+     * @throws IOException on error
+     */
+    public final void copy(final InputStream input, 
+            final OutputStream output) throws IOException {
+        final byte [] buffer = new byte[DEFAULT_BUFFER_SIZE];
+        long bytes = 0;
+        int n = 0;
+        while(-1 != (n = input.read(buffer))) {
+            output.write(buffer, 0, n);
+            bytes += n;
+            if(maxBytes > 0 && bytes > maxBytes) {
+                throw new RuntimeException("imagen muy grande. cancelando.");
+            }
+        }
     }
 }
