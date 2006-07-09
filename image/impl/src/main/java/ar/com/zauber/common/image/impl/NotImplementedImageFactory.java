@@ -28,7 +28,8 @@ public class NotImplementedImageFactory implements ImageFactory {
      * @see ar.com.zauber.common.image.services.ImageFactory#createImage(
      * java.io.InputStream, java.lang.String)
      */
-    public Image createImage(InputStream is, String name) throws IOException {
+    public Image createImage(final InputStream is, final String name)
+         throws IOException {
         throw new NotImplementedException("Won't implement in this class.");
     }
 
@@ -36,7 +37,7 @@ public class NotImplementedImageFactory implements ImageFactory {
      * @see ar.com.zauber.common.image.services.ImageFactory#retrieveImage(
      * java.io.Serializable)
      */
-    public Image retrieveImage(Serializable id) throws IOException {
+    public Image retrieveImage(final Serializable id) throws IOException {
         throw new NotImplementedException("Won't implement in this class.");
     }
 
