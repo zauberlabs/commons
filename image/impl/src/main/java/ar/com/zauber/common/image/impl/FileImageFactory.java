@@ -10,7 +10,6 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 
 import ar.com.zauber.common.image.model.Image;
-import ar.com.zauber.common.image.model.Resource;
 import ar.com.zauber.common.image.services.ImageFactory;
 
 
@@ -23,8 +22,6 @@ import ar.com.zauber.common.image.services.ImageFactory;
 public class FileImageFactory implements ImageFactory {
     /** base dir */
     private final File baseDir;
-    /** index of the directory used to store the flyer */ 
-    private long i;
     /** default file extension for images */
     private static final String DEFAULT_FILE_EXTENSION = ".jpg";
     /**
@@ -45,7 +42,7 @@ public class FileImageFactory implements ImageFactory {
         this.baseDir = baseDir;
     }
     
-    /** @see ImageFactory#createFlyer(java.io.InputStream) */
+    /** @see ImageFactory#createImage(InputStream, String) */
     public final synchronized Image createImage(final InputStream is, 
             final String name) throws IOException {
         
@@ -62,8 +59,8 @@ public class FileImageFactory implements ImageFactory {
 //                break;
 //            }
         //}
-        final FileImage ret = new FileImage(this, baseDir.getAbsolutePath(), name 
-                + DEFAULT_FILE_EXTENSION);
+        final FileImage ret = new FileImage(this, baseDir.getAbsolutePath(),
+                name + DEFAULT_FILE_EXTENSION);
         final File f = ret.getFile();
         f.getParentFile().mkdir();
         final OutputStream os = new FileOutputStream(f);
@@ -73,8 +70,8 @@ public class FileImageFactory implements ImageFactory {
         FileImage.validateImage(ret.getInputStream());
         
         // thumb
-        final FileImage thumb = new FileImage(this, baseDir.getAbsolutePath(), "thumb_" + name
-                + DEFAULT_FILE_EXTENSION);
+        final FileImage thumb = new FileImage(this, baseDir.getAbsolutePath(),
+                "thumb_" + name + DEFAULT_FILE_EXTENSION);
         FileImage.createThumbnail(ret.getInputStream(), new FileOutputStream(
                 thumb.getFile()));
         ret.setThumb(thumb);
@@ -84,14 +81,16 @@ public class FileImageFactory implements ImageFactory {
 
     
     /**
-     * @throws IOException 
-     * @throws  
-     * @see ar.com.zauber.common.image.model.ImageFactory#retrieveImage(java.io.Serializable)
+     * @param id de la imagen a buscar
+     * @throws  IOException on error
+     * @see ImageFactory#retrieveImage(java.io.Serializable)
      */
-    public Image retrieveImage(Serializable id) throws IOException {
+    public final Image retrieveImage(final Serializable id) 
+        throws IOException {
         final FileImage img = new FileImage(this, baseDir.getAbsolutePath(), 
                 id.toString() + DEFAULT_FILE_EXTENSION);
-        final FileImage thumbnail = new FileImage(this, baseDir.getAbsolutePath(), 
+        final FileImage thumbnail = new FileImage(this, baseDir
+                .getAbsolutePath(), 
                 "thumb_" + id.toString() + DEFAULT_FILE_EXTENSION);
         img.setThumb(thumbnail);
         return img;
