@@ -46,9 +46,10 @@ public class JREImageRetriver implements ImageRetriver {
         if(uc instanceof HttpURLConnection) {
             final HttpURLConnection huc = (HttpURLConnection)uc;
             prepare(uc);
-            huc.setRequestMethod("HEAD");
             huc.connect();
-            if(!huc.getContentType().startsWith("image/")) {
+            final String contentType = huc.getContentType().trim();
+            if(contentType != null && contentType.length() > 0 && 
+                    !huc.getContentType().startsWith("image/")) {
                 throw new RuntimeException(
                         "la URL no parece apuntar a una imagen ");
             }
@@ -56,7 +57,6 @@ public class JREImageRetriver implements ImageRetriver {
                 throw new RuntimeException("la imagen pesa más de "
                         + maxBytes);
             } 
-            
             final InputStream is = uc.getInputStream();
             return is;
         } else {
