@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean name="hostnameProvider" class="ar.com.zauber.commons.spring.beans.factory.impl.MockHostnameProvider">
+		<constructor-arg index="0">
+			<value>aretha</value>
+		</constructor-arg>
+	</bean>				
+	
+    <bean name="test1" class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean">
+          <property name="caseBlocks">
+              <list>
+              	 <bean class="ar.com.zauber.commons.spring.beans.factory.impl.HostnameCaseBlock" >
+              	 	<constructor-arg index="0" type="java.lang.String" value="aretha"/>
+              	 	<constructor-arg index="1" ref="hostnameProvider"/>
+              	 	<constructor-arg index="2">
+					     <value>es aretha</value>
+              	 	</constructor-arg>
+              	 </bean>
+              	 <bean class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock" >
+              	 	<constructor-arg index="0">
+				        		<value>defualt</value>
+              	 	</constructor-arg>
+              	 </bean>
+              </list>
+          </property>
+     </bean>
+
+</beans>
