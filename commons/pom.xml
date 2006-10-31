@@ -7,7 +7,7 @@
     <version>1.1</version>
   </parent>
   <artifactId>commons</artifactId>
-  <version>1.6</version>
+  <version>1.7</version>
   <dependencies>
     <dependency>
       <groupId>ar.com.zauber.commons</groupId>
