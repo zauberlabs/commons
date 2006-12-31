@@ -20,7 +20,7 @@
   </repositories>
   <modules>
      <module>commons</module>
-     <module>commons-spring</module>
+     <module>spring</module>
      <module>auth</module>
      <module>message</module>
      <module>dao</module>
