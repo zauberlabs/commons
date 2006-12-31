@@ -2,7 +2,7 @@ package ar.com.zauber.commons.auth;
 
 
 /**
- * Obtiene el usuario actual.
+ * Obtiene el usuario logueado en el contexto actual.
  *  
  * @author Juan F. Codagnone
  * @since Sep 29, 2005
