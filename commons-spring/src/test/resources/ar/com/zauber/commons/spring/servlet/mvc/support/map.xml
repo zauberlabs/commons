@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean name="handlerMapping" class="ar.com.zauber.commons.spring.servlet.mvc.support.ZauberBeanNameBasedClassNameHandlerMapping"/>
+
+	<bean name="logoutController"
+	    class="ar.com.zauber.commons.spring.servlet.mvc.support.DummyController">
+		<constructor-arg index="0" value="logout"/>
+	</bean>
+
+	<bean name="changePasswordController"
+	    class="ar.com.zauber.commons.spring.servlet.mvc.support.DummyController">
+		<constructor-arg index="0" value="changepassword"/>
+	</bean>
+
+
+	<bean name="ForgotPasswordController"
+	    class="ar.com.zauber.commons.spring.servlet.mvc.support.DummyController">
+		<constructor-arg index="0" value="forgotpassword"/>
+	</bean>
+</beans>

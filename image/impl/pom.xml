@@ -4,16 +4,15 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.image</groupId>
-    <version>1.0</version>
+    <version>2.0</version>
   </parent>
+  <name>Zauber::Commons::Image:Implementation</name>
   <artifactId>commons-image-impl</artifactId>
-  <version>1.2</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
-    	<groupId>ar.com.zauber.commons.image</groupId>
-  	<artifactId>commons-image-api</artifactId> 
-	<version>1.1</version>
+        <groupId>ar.com.zauber.commons.image</groupId>
+        <artifactId>commons-image-api</artifactId> 
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>

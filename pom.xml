@@ -6,11 +6,11 @@
      <groupId>ar.com.zauber.maven.poms</groupId>
      <version>1.0.2</version>
   </parent>
+  <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
+  <version>2.0</version>
   <packaging>pom</packaging>
-  <version>1.1</version>
-  <name>Zauber Commons: (reusable classes between projects)</name>
   <repositories>
     <repository>
       <id>zauber-private-repo</id>
@@ -50,4 +50,101 @@
      </plugin>
    </plugins>
   </build>
+  <properties>
+      <spring.version>2.0.1</spring.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>ar.com.zauber.commons.auth</groupId>
+        <artifactId>commons-auth-api</artifactId>
+        <version>1.1</version>
+     </dependency>
+     <dependency>
+        <groupId>ar.com.zauber.commons</groupId>
+        <artifactId>commons</artifactId>
+        <version>1.7</version>
+     </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons</groupId>
+        <artifactId>commons-dao</artifactId>
+        <version>1.1</version>
+     </dependency>
+     <dependency>
+        <groupId>ar.com.zauber.commons.image</groupId>
+        <artifactId>commons-image-api</artifactId>
+        <version>1.1</version>
+     </dependency>
+     <dependency>
+        <groupId>ar.com.zauber.commons.message</groupId>
+        <artifactId>commons-message-api</artifactId>
+        <version>1.1</version>
+     </dependency>
+ 
+     <!-- spring -->
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-mock</artifactId>
+        <version>${spring.version}</version>
+        <scope>test</scope>
+     </dependency>
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-dao</artifactId>
+        <version>${spring.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-support</artifactId>
+          </exclusion>
+        </exclusions>
+     </dependency>
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-support</artifactId>
+        <version>${spring.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>connector</artifactId>
+            <groupId>javax.resource</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>commons-dbcp</artifactId>
+            <groupId>commons-dbcp</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>cos</artifactId>
+            <groupId>com.servlets</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-support</artifactId>
+          </exclusion>
+        </exclusions>
+     </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

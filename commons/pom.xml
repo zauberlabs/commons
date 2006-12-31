@@ -4,11 +4,10 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>1.1</version>
+    <version>2.0</version>
   </parent>
   <name>Zauber::Commons::Lang Common</name>
   <artifactId>commons</artifactId>
-  <version>1.7</version>
   <dependencies>
     <dependency>
       <groupId>ar.com.zauber.commons</groupId>
