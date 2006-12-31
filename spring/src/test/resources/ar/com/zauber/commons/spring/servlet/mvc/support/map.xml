@@ -23,4 +23,8 @@
 	    class="ar.com.zauber.commons.spring.servlet.mvc.support.DummyController">
 		<constructor-arg index="0" value="forgotpassword"/>
 	</bean>
+	
+	<bean class="ar.com.zauber.commons.spring.servlet.mvc.support.AnotherController">
+		<constructor-arg index="0" value="another"/>	
+	</bean>
 </beans>

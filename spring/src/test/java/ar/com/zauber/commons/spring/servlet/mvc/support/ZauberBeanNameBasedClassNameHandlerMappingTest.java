@@ -57,4 +57,11 @@ public class ZauberBeanNameBasedClassNameHandlerMappingTest extends TestCase {
         final HandlerExecutionChain hec = hm.getHandler(req);
         assertEquals(((DummyController)hec.getHandler()).getId(), "forgotpassword");
     }
+    
+    public void testControllerWithNoName() throws Exception {
+        MockHttpServletRequest req = new MockHttpServletRequest("GET", "/another/");
+        final HandlerExecutionChain hec = hm.getHandler(req);
+        assertEquals(((DummyController)hec.getHandler()).getId(), "another");
+    }
+
 }

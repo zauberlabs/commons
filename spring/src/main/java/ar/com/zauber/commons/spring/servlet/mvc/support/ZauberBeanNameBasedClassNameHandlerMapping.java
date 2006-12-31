@@ -38,7 +38,8 @@ public class ZauberBeanNameBasedClassNameHandlerMapping
         final Class controllerClass = getApplicationContext().getType(beanName);
         
         if (Controller.class.isAssignableFrom(controllerClass) &&
-                beanName.endsWith(CONTROLLER_SUFFIX)) {
+                beanName.endsWith(CONTROLLER_SUFFIX) &&
+                !beanName.equals(controllerClass.getName())) {
             final StringBuffer pathMapping = new StringBuffer("/");
             final String path = getCompoundPath(
                     beanName.substring(0, beanName.length()
