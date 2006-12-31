@@ -47,7 +47,7 @@ public final class LoginController extends AbstractController {
                 AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY,
                 "username");
         addToModel(request, model,
-                AuthenticationProcessingFilter.ACEGI_SECURITY_TARGET_URL_KEY,
+                AuthenticationProcessingFilter.ACEGI_SAVED_REQUEST_KEY,
                 "url");
         
         String referer = request.getHeader("Referer");

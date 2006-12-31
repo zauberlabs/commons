@@ -18,30 +18,31 @@
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons</artifactId> 
     </dependency>
-   <dependency>
-      <groupId>org.acegisecurity</groupId>
-      <artifactId>acegi-security</artifactId>
-      <version>1.0.0-RC1</version>
-      <exclusions>
-        <exclusion>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-support</artifactId>
-        </exclusion>       
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-dao</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
     </dependency>
+ 
+   <dependency>
+      <groupId>org.acegisecurity</groupId>
+      <artifactId>acegi-security</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <!-- sobreescribo las dependencias de acegi  -->
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-remoting</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-support</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+   <dependency>
        <groupId>javax.servlet</groupId>
        <artifactId>servlet-api</artifactId>
        <version>2.4</version>
