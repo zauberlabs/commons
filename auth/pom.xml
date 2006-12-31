@@ -6,6 +6,7 @@
     <groupId>ar.com.zauber.commons</groupId>
     <version>1.1</version>
   </parent>
+  <name>Zauber::Commons::Auth</name>
   <artifactId>parent</artifactId>
   <groupId>ar.com.zauber.commons.auth</groupId>
   <version>1.1</version>
