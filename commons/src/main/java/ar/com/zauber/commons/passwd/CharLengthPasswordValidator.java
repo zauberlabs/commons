@@ -9,9 +9,8 @@ import ar.com.zauber.commons.dao.exception.InvalidPassword;
 
 
 /**
- * TODO Brief description.
- * 
- * TODO Detail
+ * {@link PasswordValidator} que requiere que la password tenga por 
+ * lo menos N letras.
  * 
  * @author Juan F. Codagnone
  * @since Mar 6, 2006

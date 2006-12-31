@@ -16,7 +16,8 @@ import ar.com.zauber.commons.auth.AuthenticationUserMapper;
 
 
 /**
- * Implementation for Acegi
+ * Implementación de {@link AuthenticationUserMapper} para usar
+ * en arquitecturas que usan acegi.
  * 
  * @author Juan F. Codagnone
  * @since Sep 29, 2005
