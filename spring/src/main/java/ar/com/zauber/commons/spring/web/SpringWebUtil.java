@@ -5,6 +5,8 @@ package ar.com.zauber.commons.spring.web;
 
 import org.springframework.web.servlet.view.RedirectView;
 
+import ar.com.zauber.commons.spring.servlet.view.PermanentlyRedirectView;
+
 /**
  * Spring MVC utilities.
  * 
@@ -35,6 +37,18 @@ public  class SpringWebUtil {
      */
     public final RedirectView createRedirect(final String url) {
         final RedirectView rv = new RedirectView(url);
+        rv.setContextRelative(contextRelative);
+        rv.setHttp10Compatible(false);
+        
+        return rv;
+    }
+    
+    /**
+     * @param url url to redirect to
+     * @return a <code>RedirectView</code> object for url 
+     */
+    public final PermanentlyRedirectView createPermanentlyRedirect(final String url) {
+        final PermanentlyRedirectView rv = new PermanentlyRedirectView(url);
         rv.setContextRelative(contextRelative);
         rv.setHttp10Compatible(false);
         
