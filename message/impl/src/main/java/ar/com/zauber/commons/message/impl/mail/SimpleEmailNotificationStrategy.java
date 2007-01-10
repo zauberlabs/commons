@@ -28,20 +28,30 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     /** our domain (ej. eventz.com.ar) */
     private final String senderDomain;
 
+    private String account;
+
     /**
+     * @deprecated
      * Creates the SimpleEmailNotificationStrategy.
      * 
      * @param mailSender
      *            the class that actually know how to send an email
      * @param senderDomain
      *            domain address that apperas in the from address
+     * 
      */
     public SimpleEmailNotificationStrategy(final MailSender mailSender, 
             final String senderDomain) {
-        this.mailSender = mailSender;
-        this.senderDomain = senderDomain;
+        this(mailSender, senderDomain, "bounce");
     }
 
+    public SimpleEmailNotificationStrategy(final MailSender mailSender, 
+            final String senderDomain, final String account) {
+        this.mailSender = mailSender;
+        this.senderDomain = senderDomain;
+        this.account = account;
+    }
+    
     /** @see NotificationStrategy#execute(NotificationAddress[], Message) */
     public final void execute(final NotificationAddress [] addresses,
             final Message message) {
@@ -100,8 +110,7 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
      * @return the from address to use in the email
      */
     private JavaMailEmailAddress getFromAddress() {
-        // TODO unwire action ("bounce")
-        return new JavaMailEmailAddress("bounce" + "@"
+        return new JavaMailEmailAddress(account + "@"
                 + senderDomain);
     }
 }
