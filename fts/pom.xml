@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+     <artifactId>zauber-commons-parent</artifactId>
+     <groupId>ar.com.zauber.commons</groupId>
+     <version>2.2-SNAPSHOT</version>
+  </parent>
+  <name>Zauber::Commons::Full Text Search</name>
+  <groupId>ar.com.zauber.commons.fts</groupId>
+  <artifactId>parent</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+     <module>lucene</module>
+  </modules>
+</project>
