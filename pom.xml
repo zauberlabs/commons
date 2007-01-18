@@ -20,6 +20,7 @@
   </repositories>
   <modules>
      <module>commons</module>
+     <module>clustering</module>
      <module>spring</module>
      <module>auth</module>
      <module>message</module>
