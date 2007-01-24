@@ -6,8 +6,6 @@ package ar.com.zauber.commons.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import ar.com.zauber.commons.dao.Closure;
 
 
