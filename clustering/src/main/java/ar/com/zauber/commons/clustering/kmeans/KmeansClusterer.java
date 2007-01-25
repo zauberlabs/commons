@@ -3,14 +3,11 @@
  */
 package ar.com.zauber.commons.clustering.kmeans;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-import java.util.Vector;
 
-import ar.com.zauber.commons.clustering.Distanceable;
-import ar.com.zauber.commons.clustering.MyPoint;
-
+import ar.com.zauber.commons.clustering.Clusterable;
 
 
 /**
@@ -21,11 +18,11 @@ import ar.com.zauber.commons.clustering.MyPoint;
  * @author Martin Andres Marquez
  * @since Dec 13, 2006
  */
-public class KmeansClusterer implements Iterable<KmeansCluster>{
+public class KmeansClusterer<T extends Clusterable> implements Iterable<KmeansCluster<T>>{
 
-    private List<Distanceable> data;
+    private Collection<T> data;
     private Integer clusterQuantity;
-    private List<KmeansCluster> clusters;
+    private List<KmeansCluster<T>> clusters;
     private double objectiveFunctionResult = -1;
     private double previousObjectiveFunctionResult = -1;
     private boolean isClustered = false;
@@ -38,11 +35,11 @@ public class KmeansClusterer implements Iterable<KmeansCluster>{
      * @param data
      * @param clusterQuantity
      */
-    public KmeansClusterer(List<Distanceable> data, Integer clusterQuantity) {
+    public KmeansClusterer(Collection<T> data, Integer clusterQuantity) {
         super();
         this.data = data;
         this.clusterQuantity = clusterQuantity;
-        this.clusters = new ArrayList<KmeansCluster>();
+        this.clusters = new ArrayList<KmeansCluster<T>>();
     }
 
     public void cluster() {
@@ -52,7 +49,7 @@ public class KmeansClusterer implements Iterable<KmeansCluster>{
         
         while(true) {
         	iterations++;
-        	Iterator<Distanceable> dataIterator = data.iterator(); 
+        	Iterator<T> dataIterator = data.iterator(); 
             if(		
                     objectiveFunctionResult != -1
                     && previousObjectiveFunctionResult != -1
@@ -99,42 +96,42 @@ public class KmeansClusterer implements Iterable<KmeansCluster>{
         
     }
 
-    private void addToCorrespondantCluster(Distanceable distanceable) {
+    private void addToCorrespondantCluster(T clusterable) {
         int index = 0;
         int minimalObjectiveFunctionClusterIndex = 0;
         double minimalObjectiveFunctionClusterDifference = Double.MAX_VALUE;
         double previousObjectiveFunctionClusterValue = -1;
         double objectiveFunctionClusterValue = -1;
         double objectiveFunctionClusterDifference;
-        for(KmeansCluster cluster : clusters) {
+        for(KmeansCluster<T> cluster : clusters) {
             previousObjectiveFunctionClusterValue = cluster.calculateObjectiveFunctionResult();
-            cluster.addElement(distanceable);
+            cluster.addElement(clusterable);
             objectiveFunctionClusterValue  = cluster.calculateObjectiveFunctionResult();
             objectiveFunctionClusterDifference = objectiveFunctionClusterValue - previousObjectiveFunctionClusterValue;
             if(minimalObjectiveFunctionClusterDifference > objectiveFunctionClusterDifference) {
                 minimalObjectiveFunctionClusterIndex = index;
                 minimalObjectiveFunctionClusterDifference = objectiveFunctionClusterDifference;
             }
-            cluster.removeElement(distanceable);
+            cluster.removeElement(clusterable);
             index++;
         }
-        clusters.get(minimalObjectiveFunctionClusterIndex).addElement(distanceable);
+        clusters.get(minimalObjectiveFunctionClusterIndex).addElement(clusterable);
         
     }
 
-    private Iterator<Distanceable> initCluster() {
-        KmeansCluster aCluster;
-        Iterator<Distanceable> dataIterator = getDataIterator();
+    private Iterator<T> initCluster() {
+        KmeansCluster<T> aCluster;
+        Iterator<T> dataIterator = getDataIterator();
         for(Integer i = 0; i < clusterQuantity; i++) {
             if(dataIterator.hasNext()) {
-                aCluster = new KmeansCluster(dataIterator.next());
+                aCluster = new KmeansCluster<T>(dataIterator.next());
                 clusters.add(aCluster);
             }
         }
         return dataIterator;
     }
 
-    public Iterator<KmeansCluster> iterator() {
+    public Iterator<KmeansCluster<T>> iterator() {
         
         if(isClustered) {
             return clusters.iterator();
@@ -159,7 +156,7 @@ public class KmeansClusterer implements Iterable<KmeansCluster>{
      *
      * @return <code>Vector<Distanceable></code> con el/la data.
      */
-    public Iterator<Distanceable> getDataIterator() {
+    public Iterator<T> getDataIterator() {
         return data.iterator();
     }
 
@@ -182,25 +179,8 @@ public class KmeansClusterer implements Iterable<KmeansCluster>{
     public double getObjectiveFunctionResult() {
         return objectiveFunctionResult;
     }
-    
-    
-    public static void main(String [] args) {
-        
-        Random randomGenerator = new Random();
-        
-        Vector<Distanceable> data;
-        
-        data = new Vector<Distanceable>(); 
-        
-        for(int i = 0; i < 100; i++) {
-            data.add(new MyPoint(randomGenerator.nextInt(50), randomGenerator.nextInt(50)));
-        }
-        
-        KmeansClusterer clusterer = new KmeansClusterer(data, new Integer(10));
-        
-        clusterer.cluster();
-        
-        System.out.println(clusterer);
-    }
-    
+
+	public Collection<KmeansCluster<T>> getClusters() {
+		return clusters;
+	}
 }

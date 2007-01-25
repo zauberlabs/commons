@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import ar.com.zauber.commons.clustering.Distanceable;
+import ar.com.zauber.commons.clustering.Clusterable;
 
 
-public class KmeansCluster implements Iterable<Distanceable> {
+public class KmeansCluster<T extends Clusterable> implements Iterable<T> {
 
-    private Distanceable centroid;
-    private List<Distanceable> elements;
+    private Clusterable centroid;
+    private List<T> elements;
 
-    public Iterator<Distanceable> iterator() {
+    public Iterator<T> iterator() {
         return elements.iterator();
     }
 
@@ -24,10 +24,11 @@ public class KmeansCluster implements Iterable<Distanceable> {
      *
      * @param elements
      */
-    public KmeansCluster(Distanceable firstElement) {
+    public KmeansCluster(T firstElement) {
         super();
-        this.elements = new ArrayList<Distanceable>();
-        this.centroid = firstElement;
+        this.elements = new ArrayList<T>();
+        this.elements.add(firstElement);
+        recalculateCentroid();
     }
     
     /**
@@ -47,7 +48,7 @@ public class KmeansCluster implements Iterable<Distanceable> {
         
         double distance;
         
-        for(Distanceable element : elements) {
+        for(T element : elements) {
             distance = centroid.distance(element).doubleValue();
             result = result + distance;
         }
@@ -55,17 +56,17 @@ public class KmeansCluster implements Iterable<Distanceable> {
         return result;
     } 
     
-    public void addElement(Distanceable distanceable) {
-        this.elements.add(distanceable);
+    public void addElement(T clusterable) {
+        this.elements.add(clusterable);
     }
 
-    public void removeElement(Distanceable distanceable) {
-    	this.elements.remove(distanceable);
+    public void removeElement(T clusterable) {
+    	this.elements.remove(clusterable);
     }
 
 	public void recalculateCentroid() {
-		Distanceable newCentroid = null;
-		for(Distanceable element : elements) {
+		Clusterable newCentroid = null;
+		for(T element : elements) {
 			newCentroid = element.addToCentroid(newCentroid, elements.size());
         }
 		if(newCentroid != null) {
@@ -73,7 +74,7 @@ public class KmeansCluster implements Iterable<Distanceable> {
 		}
 	}
 
-	public Distanceable getCentroid() {
+	public Clusterable getCentroid() {
 		return centroid;
 	}
 
