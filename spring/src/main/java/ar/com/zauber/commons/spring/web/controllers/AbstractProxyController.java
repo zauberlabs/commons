@@ -93,7 +93,10 @@ public abstract class AbstractProxyController extends AbstractController {
            try {
                IOUtil.copy(is, response.getOutputStream());
            } finally {
-               is.close();
+               try {
+                  is.close();
+               } catch(Exception e) {
+               }
            }
            
            return null;
