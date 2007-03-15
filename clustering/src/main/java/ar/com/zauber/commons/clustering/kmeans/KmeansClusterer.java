@@ -4,8 +4,10 @@
 package ar.com.zauber.commons.clustering.kmeans;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import ar.com.zauber.commons.clustering.Clusterable;
 
@@ -26,7 +28,7 @@ public class KmeansClusterer<T extends Clusterable> implements Iterable<KmeansCl
     private double objectiveFunctionResult = -1;
     private double previousObjectiveFunctionResult = -1;
     private boolean isClustered = false;
-    
+    Map<Clusterable, Map<T, Double>> distanceCache = new HashMap<Clusterable, Map<T,Double>>();
     
     
     /**
@@ -79,8 +81,11 @@ public class KmeansClusterer<T extends Clusterable> implements Iterable<KmeansCl
 	}
 
 	private void recalculateClusterCentroids() {
+		Map<T, Double> distanceMap;
         for(KmeansCluster cluster : clusters) {
             cluster.recalculateCentroid();
+            distanceMap = new HashMap<T, Double>();
+            distanceCache.put(cluster.getCentroid(), distanceMap);
         }		
 	}
 
@@ -89,7 +94,7 @@ public class KmeansClusterer<T extends Clusterable> implements Iterable<KmeansCl
         double result = 0;
         
         for(KmeansCluster cluster : clusters) {
-        	result += cluster.calculateObjectiveFunctionResult();
+        	result += cluster.calculateObjectiveFunctionResult(distanceCache);
         }
         
         return result;
@@ -104,9 +109,9 @@ public class KmeansClusterer<T extends Clusterable> implements Iterable<KmeansCl
         double objectiveFunctionClusterValue = -1;
         double objectiveFunctionClusterDifference;
         for(KmeansCluster<T> cluster : clusters) {
-            previousObjectiveFunctionClusterValue = cluster.calculateObjectiveFunctionResult();
+            previousObjectiveFunctionClusterValue = cluster.calculateObjectiveFunctionResult(distanceCache);
             cluster.addElement(clusterable);
-            objectiveFunctionClusterValue  = cluster.calculateObjectiveFunctionResult();
+            objectiveFunctionClusterValue  = cluster.calculateObjectiveFunctionResult(distanceCache);
             objectiveFunctionClusterDifference = objectiveFunctionClusterValue - previousObjectiveFunctionClusterValue;
             if(minimalObjectiveFunctionClusterDifference > objectiveFunctionClusterDifference) {
                 minimalObjectiveFunctionClusterIndex = index;

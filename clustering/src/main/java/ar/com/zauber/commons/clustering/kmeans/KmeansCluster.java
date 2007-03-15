@@ -6,6 +6,7 @@ package ar.com.zauber.commons.clustering.kmeans;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import ar.com.zauber.commons.clustering.Clusterable;
 
@@ -39,18 +40,25 @@ public class KmeansCluster<T extends Clusterable> implements Iterable<T> {
         throw new UnsupportedOperationException();
     }
 
-    public double calculateObjectiveFunctionResult() {
+    public double calculateObjectiveFunctionResult(Map<Clusterable, Map<T, Double>> distanceCache) {
         double result = 0;
         
         if(this.elements.size()==0) {
             return result;
         }
         
-        double distance;
+        Double distance = null;
+        
+        Map<T, Double> distanceMap = distanceCache.get(centroid);
         
         for(T element : elements) {
-            distance = centroid.distance(element).doubleValue();
+       		distance = distanceMap.get(element);
+        	if(distance == null) {
+        		distance = centroid.distance(element).doubleValue();
+        		distanceMap.put(element, distance);
+        	}
             result = result + distance;
+            distance = null;
         }
         
         return result;

@@ -60,7 +60,7 @@ public class MyClusterMap extends JFrame {
         
         data = new Vector<Clusterable>(); 
         
-        for(int i = 0; i < 200; i++) {
+        for(int i = 0; i < 300; i++) {
             data.add(new MyPoint(randomGenerator.nextInt(500)+100, randomGenerator.nextInt(500)+100));
         }
         
