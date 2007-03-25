@@ -4,7 +4,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.auth</groupId>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2</version>
   </parent>
   <artifactId>commons-auth-api</artifactId>
   <packaging>jar</packaging>
