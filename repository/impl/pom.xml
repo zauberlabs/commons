@@ -13,4 +13,11 @@
   <modules>
   	<module>spring-hbm</module>
   </modules>
+  <dependencies>
+    <dependency>
+      <artifactId>commons-repository-api</artifactId>
+      <groupId>ar.com.zauber.commons.repository</groupId>
+      <version>${pom.version}</version>
+    </dependency>
+  </dependencies>
 </project>
