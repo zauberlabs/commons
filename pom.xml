@@ -28,6 +28,7 @@
      <module>image</module>
      <module>syndication</module>
      <module>fts</module>
+     <module>repository</module>
   </modules>
   <dependencies>
     <dependency>
