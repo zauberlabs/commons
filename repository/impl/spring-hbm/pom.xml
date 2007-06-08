@@ -99,13 +99,15 @@
         <directory>src/test/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>ar/com/zauber/commons/repository/config/spring-repository-impl.properties</include>
+          <include>log4j.properties</include>        
+          <include>ar/com/zauber/commons/repository/config/repository-impl-springhbm.properties</include>
 	    </includes>
       </testResource>
       <testResource>
         <directory>src/test/resources</directory>
         <excludes>
-          <exclude>ar/com/zauber/commons/repository/config/spring-repository-impl.properties</exclude>          
+          <exclude>log4j.properties</exclude>
+          <exclude>ar/com/zauber/commons/repository/config/repository-impl-springhbm.properties</exclude>          
         </excludes>
       </testResource>
     </testResources>
