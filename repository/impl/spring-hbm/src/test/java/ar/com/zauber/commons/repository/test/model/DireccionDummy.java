@@ -1,27 +1,27 @@
 /*
- * Copyright (c) 2006 Globant  -- All rights reserved
+ * Copyright (c) 2006 Zauber  -- All rights reserved
  */
 package ar.com.zauber.commons.repository.test.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import ar.com.zauber.commons.dao.Persistible;
-import ar.com.zauber.commons.dao.Reference;
+import ar.com.zauber.commons.repository.Persistible;
+import ar.com.zauber.commons.repository.Reference;
 
 
 /**
  * Direccion dumy 
  *
- * @author Marco Reggi
+ * @author Martin A. Marquez
  * @since Aug 11, 2006
  */
 @Entity
 public class DireccionDummy implements Persistible {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
     private String direccion;

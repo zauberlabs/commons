@@ -10,11 +10,23 @@
   <artifactId>commons-repository-impl-springhbm</artifactId>
   <groupId>ar.com.zauber.commons.repository.impl</groupId>
   <dependencies>
-    <!-- dependency>
+    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate</artifactId>
-      <version>3.2.4.sp1</version>
-    </dependency -->
+      <version>3.2.2.ga</version>
+	  <scope>test</scope>      
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+      <version>3.3.0.ga</version>
+      <scope>test</scope>      
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-commons-annotations</artifactId>
+      <version>3.3.0.ga</version>
+    </dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-context</artifactId>
@@ -26,9 +38,10 @@
 		<version>${spring.version}</version>
 	</dependency>    
 	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-mock</artifactId>
-		<version>${spring.version}</version>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-mock</artifactId>
+	  <version>${spring.version}</version>
+	  <scope>test</scope>		
 	</dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -39,28 +52,60 @@
       <groupId>commons-dbcp</groupId>
       <artifactId>commons-dbcp</artifactId>
       <version>1.2.2</version>
+	  <scope>test</scope>      
     </dependency>         
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>1.0</version>
-    </dependency>     
+	  <scope>test</scope>      
+    </dependency>
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>8.1-407.jdbc3</version>
+	  <scope>test</scope>      
+    </dependency>        
   </dependencies>
   <build>
+    <plugins>
+      <!-- Defines the set of tests -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/BaseTransactionalRollbackTest.java</exclude>
+          </excludes>
+        </configuration>
+		<!-- executions>
+          <execution>
+            <id>setup-test</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>**/*DropTablesTest.java</include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions -->
+      </plugin>
+    </plugins>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>spring-dao-impl.properties</include>
-          <include>log4j.properties</include>          
+          <include>ar/com/zauber/commons/repository/config/spring-repository-impl.properties</include>
 	    </includes>
       </testResource>
       <testResource>
         <directory>src/test/resources</directory>
         <excludes>
-          <exclude>spring-dao-impl.properties</exclude>
-          <exclude>log4j.properties</exclude>          
+          <exclude>ar/com/zauber/commons/repository/config/spring-repository-impl.properties</exclude>          
         </excludes>
       </testResource>
     </testResources>

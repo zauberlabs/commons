@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Globant  -- All rights reserved
+ * Copyright (c) 2006 Zauber  -- All rights reserved
  */
 package ar.com.zauber.commons.repository.test.model;
 
@@ -10,14 +10,14 @@ import javax.persistence.Id;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import ar.com.zauber.commons.dao.Persistible;
-import ar.com.zauber.commons.dao.Reference;
+import ar.com.zauber.commons.repository.Persistible;
+import ar.com.zauber.commons.repository.Reference;
 
 
 /**
  * Entidad dummy para testear el repositorio de hibernate 
  *
- * @author Marco Reggi
+ * @author Martin A. Marquez
  * @since Aug 10, 2006
  */
 @Entity

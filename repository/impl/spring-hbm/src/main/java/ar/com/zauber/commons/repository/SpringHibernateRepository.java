@@ -23,7 +23,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * en la mayoria de los casos un Wrapper de la clase provista por Spring
  * <code>HibernateDaoSupport</code>. TODO Detail
  * 
- * @author Martin Andres Marquez
+ * @author Martin A. Marquez
  * @since Jul 19, 2006
  */
 public class SpringHibernateRepository extends HibernateDaoSupport implements

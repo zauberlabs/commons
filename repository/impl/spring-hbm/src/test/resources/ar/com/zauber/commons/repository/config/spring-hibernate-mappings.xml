@@ -7,10 +7,10 @@
     <constructor-arg>
       <list>
         <value>
-          ar.com.zauber.commons.dao.test.model.DireccionDummy
+          ar.com.zauber.commons.repository.test.model.DireccionDummy
         </value>
         <!-- value>
-          com/globant/test/dummy/DireccionDummy.hbm.xml
+          ar.com.zauber.commons.repository.test.model.PersonaDummy
         </value -->
       </list>
     </constructor-arg>

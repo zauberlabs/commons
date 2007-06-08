@@ -36,6 +36,6 @@
 		</property>
 	</bean -->
 	
-	<alias alias="ds" name="C3poDataSource"/>
+	<alias alias="ds" name="DbcpdataSource"/>
 	
 </beans>
