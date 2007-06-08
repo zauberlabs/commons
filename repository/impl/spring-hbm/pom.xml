@@ -7,6 +7,62 @@
     <version>2.3-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::Spring HBM implementation</name>
-  <artifactId>common-repository-impl-springhbm</artifactId>
+  <artifactId>commons-repository-impl-springhbm</artifactId>
   <groupId>ar.com.zauber.commons.repository.impl</groupId>
+  <dependencies>
+    <!-- dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>3.2.4.sp1</version>
+    </dependency -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>    
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-hibernate3</artifactId>
+		<version>${spring.version}</version>
+	</dependency>    
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-mock</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+    </dependency>       
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.2.2</version>
+    </dependency>         
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>
+    </dependency>     
+  </dependencies>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>spring-dao-impl.properties</include>
+          <include>log4j.properties</include>          
+	    </includes>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <excludes>
+          <exclude>spring-dao-impl.properties</exclude>
+          <exclude>log4j.properties</exclude>          
+        </excludes>
+      </testResource>
+    </testResources>
+  </build>
 </project>

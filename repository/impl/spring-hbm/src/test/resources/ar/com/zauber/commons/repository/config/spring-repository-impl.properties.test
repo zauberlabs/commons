@@ -1,0 +1,13 @@
+# Database
+dataSource.url=${spring-dao-impl.dataSource.url}
+dataSource.driverClassName=${spring-dao-impl.dataSource.driverClassName}
+dataSource.username=${spring-dao-impl.dataSource.username}
+dataSource.password=${spring-dao-impl.dataSource.password}
+
+# Hibernate
+hibernate.dialect=${spring-dao-impl.hibernate.dialect}
+hibernate.hbm2ddl.auto=${spring-dao-impl.hibernate.hbm2ddl.auto}
+hibernate.show_sql=${spring-dao-impl.hibernate.show_sql}
+
+# Drop Definition
+dropDefinition.testMarkerTableName=${boldt-insequi.dropDefinition.testMarkerTableName}
