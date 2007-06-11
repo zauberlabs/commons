@@ -14,13 +14,11 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate</artifactId>
       <version>3.2.2.ga</version>
-	  <scope>test</scope>      
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-annotations</artifactId>
       <version>3.3.0.ga</version>
-      <scope>test</scope>      
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -78,20 +76,6 @@
             <exclude>**/BaseTransactionalRollbackTest.java</exclude>
           </excludes>
         </configuration>
-		<!-- executions>
-          <execution>
-            <id>setup-test</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>test</goal>
-            </goals>
-            <configuration>
-              <includes>
-                <include>**/*DropTablesTest.java</include>
-              </includes>
-            </configuration>
-          </execution>
-        </executions -->
       </plugin>
     </plugins>
     <testResources>
