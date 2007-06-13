@@ -7,6 +7,8 @@ import java.util.Set;
 import junit.framework.Assert;
 import ar.com.zauber.commons.repository.Repository;
 import ar.com.zauber.commons.repository.SpringHibernateRepository;
+import ar.com.zauber.commons.repository.query.EqualsQuery;
+import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.test.model.DireccionDummy;
 import ar.com.zauber.commons.test.utils.BaseTransactionalRollbackTest;
 
@@ -51,7 +53,7 @@ public class SpringHibernateRepositoryTest
  
     public void testABMColeccion() {
         Collection direcciones = crearGuardarDosDirecciones();
-        
+
         // se elimina la coleccion
         repository.deleteAll(direcciones);        
         direcciones = repository.findAll(DireccionDummy.class);
@@ -65,6 +67,12 @@ public class SpringHibernateRepositoryTest
         Assert.assertEquals(2, direcciones.size());
         
         repository.updateAll(direcciones);
+        
+        Query query = new EqualsQuery("direccion", "Santa Fe");
+        
+        direcciones = repository.find(DireccionDummy.class, query);
+        
+        Assert.assertEquals(1, direcciones.size());
     }
     
 //    public void testFind() {

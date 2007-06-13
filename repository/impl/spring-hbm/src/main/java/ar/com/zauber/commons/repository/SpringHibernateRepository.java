@@ -12,9 +12,13 @@ import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.EntityMode;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import ar.com.zauber.commons.repository.query.Query;
 
 
 /**
@@ -117,7 +121,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     /* (non-Javadoc)
      * @see com.globant.persist.Repository#findAll(java.lang.Class)
      */
-    public Collection findAll(final Class clazz) {
+    public List findAll(final Class clazz) {
 
         return getHibernateTemplate().loadAll(clazz);
     }
@@ -197,12 +201,13 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
 //        return this.findByCriteria(aClass, criteria);
 //    }
 //
-//    public List findByCriteria(final Class aClass, final BaseFilterObject filterObject) {
-//        CriteriaVisitor criteriaVisitor = new CriteriaVisitor(aClass, getSessionFactory());        
-//        filterObject.accept(criteriaVisitor);
-//        CriteriaSpecification criteria = criteriaVisitor.getCriteria();
-//        CriteriaSpecification criteriaForCount = criteriaVisitor.getCriteriaForCount(); 
-//        if (criteriaVisitor.getPaging() != null){
+    public List find(final Class aClass, final Query query) {
+        CriteriaTranslator criteriaTranslator = new CriteriaTranslator(aClass, getSessionFactory());        
+        query.acceptTranslator(criteriaTranslator);
+        CriteriaSpecification criteria = criteriaTranslator.getCriteria();
+//        CriteriaSpecification criteriaForCount =
+//            criteriaTranslator.getCriteriaForCount(); 
+//        if (criteriaTranslator.getPaging() != null){
 //            if (criteriaVisitor.getPaging().getResultSize().equals(new Integer(0)) ) {
 //                ((DetachedCriteria) criteriaForCount).setProjection(Projections.rowCount());
 //                Integer rowCount = (Integer) getHibernateTemplate().findByCriteria((DetachedCriteria) criteriaForCount).
@@ -211,8 +216,12 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
 //            }    
 //            return this.findByCriteria(criteria, criteriaVisitor.getPaging());
 //        }
-//        return this.findByCriteria(criteria);
-//    }
+        
+        logger.debug("HOLAAAA: " + criteria.toString());
+        
+        return getHibernateTemplate()
+            .findByCriteria((DetachedCriteria)criteria);
+    }
     
     public Long getId(Persistible anObject) {
         return anObject.getId();
