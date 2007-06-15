@@ -6,6 +6,8 @@ package ar.com.zauber.commons.repository;
 import java.util.Collection;
 import java.util.List;
 
+import ar.com.zauber.commons.repository.query.Query;
+
 /**
  *
  * Es la interfaz generica de cierta implementacion que realiza el acceso
@@ -80,7 +82,7 @@ public interface Repository {
      * que se quieren obtener
      * @return a <code>Collection</code> de <code>Persistible</code>
      */
-    Collection findAll(Class clazz);
+    List findAll(Class clazz);
 
     /**
      *
@@ -128,19 +130,19 @@ public interface Repository {
 //    List find(Class clazz, String property, Object value);
 
     
-//   /**
-//    *
-//    * Obtiene todos los objetos que cumplen con el filtro.
-//    *
-//    * @param aClass que es la <code>Class</code> de los objetos
-//    * que quiero recuperar.
-//    * @param criteria el <code>FilterObject</code> que uso como
-//    * filtro.
-//    * @return una <code>List</code> de <code>Persistible</code> con los
-//    * objetos recuperados.
-//    * @throws PersistenceException
-//    */
-//    List findByCriteria(Class aClass, BaseFilterObject filterObject);
+   /**
+    *
+    * Obtiene todos los objetos que cumplen con el filtro.
+    *
+    * @param aClass que es la <code>Class</code> de los objetos
+    * que quiero recuperar.
+    * @param criteria el <code>FilterObject</code> que uso como
+    * filtro.
+    * @return una <code>List</code> de <code>Persistible</code> con los
+    * objetos recuperados.
+    * @throws PersistenceException
+    */
+    List find(Class aClass, Query filterObject);
     
     List find(Class aClass, List parameters);
     
