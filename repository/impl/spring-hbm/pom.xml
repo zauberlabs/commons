@@ -4,7 +4,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.repository.impl</groupId>
-    <version>2.3-SNAPSHOT</version>
+    <version>2.4</version>
   </parent>
   <name>Zauber::Commons::Repository::Spring HBM implementation</name>
   <artifactId>commons-repository-impl-springhbm</artifactId>
