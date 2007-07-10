@@ -35,12 +35,22 @@
 		<artifactId>spring-hibernate3</artifactId>
 		<version>${spring.version}</version>
 	</dependency>    
+
 	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-mock</artifactId>
+		<version>${spring.version}</version>
+	</dependency>    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+	<!-- dependency>
 	  <groupId>org.springframework</groupId>
 	  <artifactId>spring-mock</artifactId>
 	  <version>${spring.version}</version>
-	  <scope>test</scope>		
-	</dependency>
+	</dependency -->
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
@@ -67,6 +77,16 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <encoding>ISO-8859-1</encoding>
+        </configuration>
+        <inherited>true</inherited>
+      </plugin>
       <!-- Defines the set of tests -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
