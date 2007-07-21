@@ -66,7 +66,7 @@ public class FileImageFactory implements ImageFactory {
 //                break;
 //            }
         //}
-        final FileImage ret = new FileImage(this, baseDir.getAbsolutePath(),
+        final FileImage ret = new FileImage(baseDir.getAbsolutePath(),
                 name + DEFAULT_FILE_EXTENSION);
         final File f = ret.getFile();
         f.getParentFile().mkdir();
@@ -77,7 +77,7 @@ public class FileImageFactory implements ImageFactory {
         FileImage.validateImage(ret.getInputStream());
         
         // thumb
-        final FileImage thumb = new FileImage(this, baseDir.getAbsolutePath(),
+        final FileImage thumb = new FileImage(baseDir.getAbsolutePath(),
                 "thumb_" + name + DEFAULT_FILE_EXTENSION);
         FileImage.createThumbnail(ret.getInputStream(), new FileOutputStream(
                 thumb.getFile()));
@@ -94,9 +94,9 @@ public class FileImageFactory implements ImageFactory {
      */
     public final Image retrieveImage(final Serializable id) 
         throws IOException {
-        final FileImage img = new FileImage(this, baseDir.getAbsolutePath(), 
+        final FileImage img = new FileImage(baseDir.getAbsolutePath(), 
                 id.toString() + DEFAULT_FILE_EXTENSION);
-        final FileImage thumbnail = new FileImage(this, baseDir
+        final FileImage thumbnail = new FileImage(baseDir
                 .getAbsolutePath(), 
                 "thumb_" + id.toString() + DEFAULT_FILE_EXTENSION);
         img.setThumb(thumbnail);

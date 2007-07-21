@@ -15,8 +15,6 @@ import org.apache.commons.lang.Validate;
  * @since Nov 14, 2005
  */
 public class FileImage extends AbstractImage {
-    /** factory */
-    private final FileImageFactory factory;
     /** the directory */
     private String directory;
 
@@ -29,15 +27,12 @@ public class FileImage extends AbstractImage {
      * @throws IOException on io error 
      * @throws IllegalArgumentException if the params are wrong 
      */
-    public FileImage(final FileImageFactory factory, 
-                     final String directory, 
+    public FileImage(final String directory, 
                      final String name)
                    throws IllegalArgumentException, IOException {
         super(name);
-        Validate.notNull(factory, "factory");
         Validate.notNull(directory, "directory");
         
-        this.factory = factory;
         this.directory = directory;
     }
     
