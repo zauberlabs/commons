@@ -23,7 +23,7 @@ public class JavaMailEmailAddress implements NotificationAddress {
     private String emailStr;
     
     /** <code>id</code> */
-    @Id(generate = GeneratorType.AUTO)
+    @SuppressWarnings("unused")
     private Long id;
 
     /**
@@ -46,6 +46,7 @@ public class JavaMailEmailAddress implements NotificationAddress {
     }
 
     /** Creates the EmailAddress. Used by the persistence */
+    @SuppressWarnings("unused")
     private JavaMailEmailAddress() {
         // void -- used by the persistence
     }
