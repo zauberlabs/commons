@@ -42,6 +42,7 @@ public class ByteArrayImage extends ByteArrayResource implements Image {
     }
     
     /** Creates the ByteArrayFlyer. used by the persistence  */
+    @SuppressWarnings("unused")
     private ByteArrayImage() {
         super();
     }
