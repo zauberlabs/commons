@@ -87,7 +87,7 @@ public abstract class AbstractImage implements Image {
             IllegalArgumentException {
         try {
             final ImageInputStream iis = ImageIO.createImageInputStream(is);
-            final Iterator i = ImageIO.getImageReaders(iis);
+            final Iterator<ImageReader> i = ImageIO.getImageReaders(iis);
             iis.close();
             if(!i.hasNext()) {
                 throw new IllegalArgumentException("don't know how to read "
@@ -120,7 +120,7 @@ public abstract class AbstractImage implements Image {
         
         try {
             final BufferedImage bi = ImageIO.read(is);
-            final Iterator iter = ImageIO.getImageWritersByFormatName("JPG");
+            final Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("JPG");
             if(!iter.hasNext()) {
                 throw new IllegalStateException("can't find JPG subsystem");
             }
