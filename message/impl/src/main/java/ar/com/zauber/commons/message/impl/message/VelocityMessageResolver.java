@@ -7,14 +7,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
-import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageFactory;
-import ar.com.zauber.commons.message.NotificationAddress;
 
 
 /**
