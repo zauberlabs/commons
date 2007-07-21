@@ -33,5 +33,5 @@ public interface ImageFactory {
      * @param id
      * @return
      */
-    Image retrieveImage(Serializable id) throws IOException;;
+    Image retrieveImage(Serializable id) throws IOException;
 }
