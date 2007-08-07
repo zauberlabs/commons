@@ -3,9 +3,13 @@
  */
 package ar.com.zauber.commons.spring.web.controllers;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,26 +34,50 @@ public abstract class AbstractProxyController extends AbstractController {
     private final String userAgent;
     /** cookie a usar cuando nos conectamos al servicio original */
     private String cookie;
+    /** transformers */
+    private final OutputTransformer transformer;
     
-    private static String []forbiddenHeader = {
+    private static String []defaultForbiddenHeader = {
         "Set-Cookie",
         "Server",
         "X-Cache",
         "X-Cache-Lookup",
     };
     
+    private final String []forbiddenHeader;
+    
+    public AbstractProxyController(final URL baseUrl,
+            final String userAgent) {
+        this(baseUrl, userAgent, new NullOutputTransformer());
+    }
+    
     /**
      * Creates the GeocoderProxyController.
-     *
+     *} else {
+                   throw new NotImplementedException("busca desarrolador para "
+                           + "que lo implemente");
+               }
      * @param baseUrl url del servicio de geocoding
      */
     public AbstractProxyController(final URL baseUrl,
-            final String userAgent) {
+            final String userAgent, 
+            final OutputTransformer outputTransformer) {
         Validate.notNull(baseUrl);
         Validate.notNull(userAgent);
+        Validate.notNull(outputTransformer);
         
         this.baseUrl = baseUrl;
         this.userAgent = userAgent;
+        this.transformer = outputTransformer;
+        
+        final List<String> h = new ArrayList<String>();
+        for(final String header : defaultForbiddenHeader) {
+            h.add(header);
+        }
+        if(transformer.getContentType() != null) {
+            h.add("Content-Type");
+        }
+        forbiddenHeader = h.toArray(new String[]{});
     }
 
     /**
@@ -88,10 +116,12 @@ public abstract class AbstractProxyController extends AbstractController {
            
            proxyHeaders(response, huc);
            addOtherHeaders(response, huc);
+           if(transformer.getContentType() != null) {
+               response.setContentType(transformer.getContentType()); 
+           }
            
-           // response.setContentType(huc.getContentType());
            try {
-               IOUtil.copy(is, response.getOutputStream());
+               transformer.transform(is, response.getOutputStream());
            } finally {
                try {
                   is.close();
@@ -162,5 +192,36 @@ public abstract class AbstractProxyController extends AbstractController {
      */
     protected final URL getBaseUrl() {
         return baseUrl;
+    }
+    
+    public static interface OutputTransformer {
+        String getContentType();
+        void transform(InputStream is, OutputStream os);
+    }
+}
+
+/**
+ * 
+ * Implementacion nula de transformador de salida. Copia lo que viene
+ * del target hacia la salida.
+ * 
+ * 
+ * @author Juan F. Codagnone
+ * @since Aug 7, 2007
+ */
+class NullOutputTransformer implements AbstractProxyController.OutputTransformer {
+
+    /** @see OutputTransformer#getContentType() */
+    public String getContentType() {
+        return null;
+    }
+
+    /** @see OutputTransformer#transform(InputStream, OutputStream) */
+    public void transform(final InputStream is, final OutputStream os) {
+        try {
+            IOUtil.copy(is, os);
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
