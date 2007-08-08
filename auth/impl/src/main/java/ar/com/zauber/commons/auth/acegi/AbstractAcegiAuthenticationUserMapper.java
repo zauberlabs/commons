@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.userdetails.User;
+import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.auth.AuthenticationUserMapper;
@@ -59,7 +59,7 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T> implements Authen
             if(o instanceof String) {
                 ret = (String)o;
             } else {
-                ret = ((User)auth.getPrincipal()).getUsername();
+                ret = ((UserDetails)auth.getPrincipal()).getUsername();
             }
             Validate.notNull(ret);
         } else {
