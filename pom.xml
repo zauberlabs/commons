@@ -29,6 +29,7 @@
      <module>syndication</module>
      <module>fts</module>
      <module>repository</module>
+     <module>gis</module>
   </modules>
   <dependencies>
     <dependency>
