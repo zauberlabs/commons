@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,10 +54,7 @@ public abstract class AbstractProxyController extends AbstractController {
     
     /**
      * Creates the GeocoderProxyController.
-     *} else {
-                   throw new NotImplementedException("busca desarrolador para "
-                           + "que lo implemente");
-               }
+     *
      * @param baseUrl url del servicio de geocoding
      */
     public AbstractProxyController(final URL baseUrl,
@@ -97,25 +95,29 @@ public abstract class AbstractProxyController extends AbstractController {
             final HttpServletResponse response) throws Exception {
 
            final URL url = getURL(request);
-           HttpURLConnection huc = (HttpURLConnection)url.openConnection();
-           huc.setAllowUserInteraction(true);
-           huc.setRequestProperty("User-Agent", userAgent);
-           huc.setRequestMethod("GET");
-           if(cookie != null) {
-               huc.setRequestProperty("Cookie", cookie);
-           }
-           InputStream is = huc.getInputStream();
-         
-           // mantenemos la sesion en el cliente
-           final String requestCookie = huc.getHeaderField("Set-Cookie"); 
-           if(requestCookie != null) {
-              if(!requestCookie.equals(cookie)) {
-                  cookie = requestCookie;
-              }
+           final URLConnection uc = url.openConnection();
+           if(uc instanceof HttpURLConnection) {
+               final HttpURLConnection huc = (HttpURLConnection) uc;
+               huc.setAllowUserInteraction(true);
+               huc.setRequestProperty("User-Agent", userAgent);
+               huc.setRequestMethod("GET");
+               if(cookie != null) {
+                   huc.setRequestProperty("Cookie", cookie);
+               }
+               
+             
+               // mantenemos la sesion en el cliente
+               final String requestCookie = huc.getHeaderField("Set-Cookie"); 
+               if(requestCookie != null) {
+                  if(!requestCookie.equals(cookie)) {
+                      cookie = requestCookie;
+                  }
+               }
+               proxyHeaders(response, huc);
+               addOtherHeaders(response, huc);
            }
            
-           proxyHeaders(response, huc);
-           addOtherHeaders(response, huc);
+           final InputStream is = uc.getInputStream();
            if(transformer.getContentType() != null) {
                response.setContentType(transformer.getContentType()); 
            }
