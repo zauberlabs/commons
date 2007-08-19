@@ -83,7 +83,8 @@ public abstract class AbstractProxyController extends AbstractController {
      * @return the destination url for this request
      * @throws Exception on error
      */
-    protected abstract URL getURL(final HttpServletRequest request)
+    protected abstract URL getURL(final HttpServletRequest request, 
+            final HttpServletResponse response)
             throws Exception;
     
     /**
@@ -94,40 +95,41 @@ public abstract class AbstractProxyController extends AbstractController {
             final HttpServletRequest request, 
             final HttpServletResponse response) throws Exception {
 
-           final URL url = getURL(request);
-           final URLConnection uc = url.openConnection();
-           if(uc instanceof HttpURLConnection) {
-               final HttpURLConnection huc = (HttpURLConnection) uc;
-               huc.setAllowUserInteraction(true);
-               huc.setRequestProperty("User-Agent", userAgent);
-               huc.setRequestMethod("GET");
-               if(cookie != null) {
-                   huc.setRequestProperty("Cookie", cookie);
+           final URL url = getURL(request, response);
+           if(url != null) {
+               final URLConnection uc = url.openConnection();
+               if(uc instanceof HttpURLConnection) {
+                   final HttpURLConnection huc = (HttpURLConnection) uc;
+                   huc.setAllowUserInteraction(true);
+                   huc.setRequestProperty("User-Agent", userAgent);
+                   huc.setRequestMethod("GET");
+                   if(cookie != null) {
+                       huc.setRequestProperty("Cookie", cookie);
+                   }
+                   
+                   // mantenemos la sesion en el cliente
+                   final String requestCookie = huc.getHeaderField("Set-Cookie"); 
+                   if(requestCookie != null) {
+                      if(!requestCookie.equals(cookie)) {
+                          cookie = requestCookie;
+                      }
+                   }
+                   proxyHeaders(response, huc);
+                   addOtherHeaders(response, huc);
                }
                
-             
-               // mantenemos la sesion en el cliente
-               final String requestCookie = huc.getHeaderField("Set-Cookie"); 
-               if(requestCookie != null) {
-                  if(!requestCookie.equals(cookie)) {
-                      cookie = requestCookie;
-                  }
+               final InputStream is = uc.getInputStream();
+               if(transformer.getContentType() != null) {
+                   response.setContentType(transformer.getContentType()); 
                }
-               proxyHeaders(response, huc);
-               addOtherHeaders(response, huc);
-           }
-           
-           final InputStream is = uc.getInputStream();
-           if(transformer.getContentType() != null) {
-               response.setContentType(transformer.getContentType()); 
-           }
-           
-           try {
-               transformer.transform(is, response.getOutputStream());
-           } finally {
+               
                try {
-                  is.close();
-               } catch(Exception e) {
+                   transformer.transform(is, response.getOutputStream());
+               } finally {
+                   try {
+                      is.close();
+                   } catch(Exception e) {
+                   }
                }
            }
            
