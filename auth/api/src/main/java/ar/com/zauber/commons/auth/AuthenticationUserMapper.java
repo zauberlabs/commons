@@ -1,5 +1,7 @@
 package ar.com.zauber.commons.auth; 
 
+import java.util.Set;
+
 
 /**
  * Obtiene el usuario logueado en el contexto actual.
@@ -16,5 +18,7 @@ public interface AuthenticationUserMapper<T> {
 
     /**  @return <code>true</code> if the current user is anonymous */
     boolean isAnonymous();
-
+    
+    /** @return a list of granted roles*/
+    Set<String> getRoles();
 }

@@ -3,9 +3,13 @@
  */
 package ar.com.zauber.commons.auth.acegi;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.acegisecurity.Authentication;
+import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.userdetails.UserDetails;
@@ -51,8 +55,6 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T> implements Authen
                 .getContext();
         String ret = null;
         
-        // context.validate();
-        // TODO leer un poco mas sobre acegis para emprolijar el codigo
         final Authentication auth = context.getAuthentication();
         if(auth.isAuthenticated()) {
             final Object o = auth.getPrincipal();
@@ -67,6 +69,21 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T> implements Authen
                     + "authenticate the user. Shame on ...!!");
         }
         
+        return ret;
+    }
+    
+    /** @see AuthenticationUserMapper#getRoles() */
+    public Set<String> getRoles() {
+        final SecurityContext context = SecurityContextHolder.getContext();
+        final Authentication auth = context.getAuthentication();
+        final Set<String>ret = new HashSet<String>();
+        if(auth.isAuthenticated()) {
+            final GrantedAuthority [] roles = auth.getAuthorities();
+            for (int i = 0; i < roles.length; i++) {
+                ret.add(roles[i].getAuthority());
+            }
+        }
+            
         return ret;
     }
 }
