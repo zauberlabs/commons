@@ -3,6 +3,9 @@
  */
 package ar.com.zauber.commons.auth.mock;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.auth.AuthenticationUserMapper;
@@ -38,6 +41,11 @@ public class MockAuthenticationUser<T> implements AuthenticationUserMapper<T> {
     /** @see AuthenticationUserMapper#isAnonymous() */
     public final boolean isAnonymous() {
         return false;
+    }
+
+    /** @see AuthenticationUserMapper#getRoles() */
+    public Set<String> getRoles() {
+        return new HashSet<String>();
     }
 
 }
