@@ -9,8 +9,15 @@
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
-  <version>2.6-SNAPSHOT</version>
+  <version>2.6</version>
   <packaging>pom</packaging>
+
+  <scm>
+     <connection>scm:svn:https://svn.zauber.com.ar/private/sandbox/zaubercommons/trunk/</connection>
+     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/sandbox/zaubercommons/trunk/</developerConnection>
+     <url>https://svn.zauber.com.ar/private/sandbox/zaubercommons/trunk/</url>
+  </scm>
+
   <repositories>
     <repository>
       <id>zauber-private-repo</id>
@@ -52,6 +59,46 @@
            </execution>
         </executions>
      </plugin>
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>announcement-generate</goal>
+            </goals>
+            <id>announcement-generate</id>
+          </execution>
+          <execution>
+            <goals>
+              <goal>announcement-mail</goal>
+            </goals>
+            <id>announcement-mail</id>
+          </execution>
+        </executions>
+        <configuration>
+          <smtpHost>localhost</smtpHost>
+          <smtpPort implementation="java.lang.Integer">2525</smtpPort>
+          <toAddresses>
+            <toAddress implementation="java.lang.String">broadcast@zauber.com.ar</toAddress>
+          </toAddresses>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+          <docletArtifact>
+            <groupId>gr.spinellis</groupId>
+            <artifactId>UmlGraph</artifactId>
+            <version>4.4</version>
+          </docletArtifact>
+          <additionalparam> -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9 -nodefontpackagesize 7
+          </additionalparam>
+        </configuration>
+      </plugin>
+ 
    </plugins>
   </build>
   <properties>
@@ -163,4 +210,19 @@
      </dependency>
     </dependencies>
   </dependencyManagement>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
