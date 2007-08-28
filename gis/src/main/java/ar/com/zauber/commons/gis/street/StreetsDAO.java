@@ -5,6 +5,8 @@ package ar.com.zauber.commons.gis.street;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.Validate;
 
@@ -194,4 +196,6 @@ public interface StreetsDAO {
             return street1 + " y " + street2 + " en " + point;
         }
     }
+
+    
 }

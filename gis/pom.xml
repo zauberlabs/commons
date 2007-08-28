@@ -23,5 +23,11 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
     </dependency>
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>8.0-312.jdbc3</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
