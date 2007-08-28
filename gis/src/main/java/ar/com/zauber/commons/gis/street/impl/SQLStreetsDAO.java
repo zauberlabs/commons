@@ -40,14 +40,22 @@ public class SQLStreetsDAO implements StreetsDAO {
     private final List<Options> optionsList;
     /** der */
     private final WKTReader wktReader = new WKTReader();
+    
+    static private final List<Options> DEFAULT_OPTIONS = new ArrayList<Options>();
+    static {
+        DEFAULT_OPTIONS.add(Options.IGNORE_COMMON_WORDS);
+        DEFAULT_OPTIONS.add(Options.REMOVE_EXTRA_SPACES);
+    }
+    
     /**
      * Creates the SQLStreetsDAO.
      *
      * @param template jdbc template
      */
     public SQLStreetsDAO(final JdbcTemplate template) {
-    	this(template, null);
+    	this(template, DEFAULT_OPTIONS);
     }
+    
     /**
      * @param template jdbc template
      * @param optionsList la lista de opciones. Notar que las opciones se aplican en el orden
@@ -55,10 +63,7 @@ public class SQLStreetsDAO implements StreetsDAO {
      */
     public SQLStreetsDAO(final JdbcTemplate template, List<Options> optionsList) {
     	Validate.notNull(template);
-    	
-    	if (optionsList == null) {
-    		optionsList = Collections.emptyList();
-    	}
+    	Validate.notNull(optionsList);
     	
     	this.template = template;
     	this.optionsList = Collections.unmodifiableList(optionsList);
