@@ -4,6 +4,17 @@
     <title>Zauber Commons Changes</title>
   </properties>
   <body>
+    <release version="2.7-SNAPSHOT" date="who knows">
+      <action dev="eduardo" type="add" issue="1062">
+       common.gis: SQLStreetsDAO:
+       Se agregan las Options para configurar las busquedas de calles.
+Por ahora hay dos options: 
+   Una que filtra palabras comunes de los nombres de calles (por ahora solo quita la palabra Avenida, case-insensitive).
+   La otra limpia espacios de más. O sea, cada vez que haya muchos espacios juntos seguidos los reemplaza por un solo espacio (en la rev 
+930 se agregó el parche que limpia la base de las pocas calles que tenian más de un espacio seguido en su nombre). 
+
+      </action>
+    </release>
     <release version="2.6" date="2007-08-23"
              description="Trigereada por tiles/officenet">
       <action dev="juan" type="update" issue="1006">
