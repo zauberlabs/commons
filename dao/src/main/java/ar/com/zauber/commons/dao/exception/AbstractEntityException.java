@@ -30,7 +30,7 @@ public abstract class AbstractEntityException extends RuntimeException {
      *            the cause
      */
     public AbstractEntityException(final Object entity, final Throwable th) {
-        super(th);
+        super(String.valueOf(entity), th);
         this.entity = entity;
     }
 
@@ -41,7 +41,7 @@ public abstract class AbstractEntityException extends RuntimeException {
      *            the entity that wasn't found
      */
     public AbstractEntityException(final Object entity) {
-        super();
+        super(String.valueOf(entity));
         this.entity = entity;
     }
 
