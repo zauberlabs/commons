@@ -4,7 +4,6 @@
 package ar.com.zauber.commons.passwd.cracklib;
 
 import junit.framework.TestCase;
-import ar.com.zauber.commons.CracklibPasswordValidator;
 import ar.com.zauber.commons.dao.exception.InvalidPassword;
 
 /**

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2007 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons;
+package ar.com.zauber.commons.passwd.cracklib;
 
 import java.net.MalformedURLException;
 import java.net.URL;
