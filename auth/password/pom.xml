@@ -6,7 +6,7 @@
     <version>2.7-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Auth::Password</name>
-  <artifactId>password</artifactId>
+  <artifactId>commons-auth-password</artifactId>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>    
