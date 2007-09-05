@@ -64,6 +64,7 @@ struct options {
     char *groupname;
     int port;
     char *logfile;
+    int fork;
 };
 
 
@@ -102,6 +103,7 @@ help ( void )
     "      --group  <groupname>   run server as group <groupname>\n"
     "      --port  <port>         run server in port [default: 9097]\n"
     "      --log  <filename>      logfile\n"
+    " -f   --fork                 fork (modo servidor)\n"
     "\n"
     "Send bugs to http://tracker.zauber.com.ar/\n"
     "\n");
@@ -123,6 +125,8 @@ parseOptions(int argc, char * const * argv, struct options *opt)
      /*06*/ {"group",   OPT_NORMAL, 0,  OPT_T_GENER, NULL },
      /*07*/ {"port",    OPT_NORMAL, 0,  OPT_T_INT,   NULL },
      /*08*/ {"log",     OPT_NORMAL, 0,  OPT_T_GENER, NULL },
+     /*09*/ {"f",       OPT_NORMAL, 1,  OPT_T_FLAG,  NULL },
+     /*10*/ {"fork",    OPT_NORMAL, 0,  OPT_T_FLAG,  NULL },
         {NULL}
     };  
     lopt[4].data = &(opt->listen_addr);
@@ -130,6 +134,7 @@ parseOptions(int argc, char * const * argv, struct options *opt)
     lopt[6].data = &(opt->groupname);
     lopt[7].data = &(opt->port);
     lopt[8].data = &(opt->logfile);
+    lopt[9].data = lopt[10].data = &(opt->fork);
 
     i = GetOptions(argv, lopt, 0, 0);
     if( i < 0 ) {
@@ -212,7 +217,7 @@ main(int           const argc,
         ret = EXIT_FAILURE;
     } else {
         int sd = -1;
-        if(0) {
+        if(opt.fork) {
             rs_trace_to(rs_trace_syslog);
         }
         if(opt.listen_addr) {
@@ -243,6 +248,10 @@ main(int           const argc,
                 serverparm.socket_bound = TRUE;
             } else {
                 serverparm.port_number = opt.port;
+            }
+
+            if(opt.fork) {
+                hechizar();
             }
 
             rs_log_info("Running password validator server...,"
