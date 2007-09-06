@@ -24,6 +24,7 @@
 #include <libdaemon/daemon.h>
 #include <libmisc/newopt.h>
 #include <libmisc/trace.h>
+#include <libcrash/sigsegv.h>
 
 #define ATTR_UNUSED __attribute__((__unused__))
 #define VERSION 0.0
@@ -204,6 +205,7 @@ main(int           const argc,
     int ret = EXIT_SUCCESS;
 
     rs_program_name = progname = argv[0];
+    signal(SIGSEGV, sigsegv_handler_fnc);
 
     /* defaults */
     memset(&opt, 0, sizeof(opt));
