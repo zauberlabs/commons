@@ -33,6 +33,19 @@
 const char * progname;
 const char * rs_program_name;
 
+
+struct options {
+    char *listen_addr;
+    char *username;
+    char *groupname;
+    int port;
+    char *logfile;
+    int fork;
+    char *dictpath;
+};
+
+struct options *gOpt;
+
 static xmlrpc_value *
 sample_add(xmlrpc_env *   const env, 
            xmlrpc_value * const param_array, 
@@ -47,7 +60,7 @@ sample_add(xmlrpc_env *   const env,
         return NULL;
     }
     
-    msg = FascistCheck( pass[0], "/tmp/foo/");
+    msg = FascistCheck( pass[0],  gOpt->dictpath);
 
     if (msg != NULL) {
 	/*Check With errors*/
@@ -59,19 +72,9 @@ sample_add(xmlrpc_env *   const env,
     }
 }
 
-struct options {
-    char *listen_addr;
-    char *username;
-    char *groupname;
-    int port;
-    char *logfile;
-    int fork;
-};
-
-
 static void
 usage(void) {
-    printf("%s [-hVf] [--help] [--version] [--listen <address>] [--port port] [--log logfile]\n",
+    printf("%s [-hVf] [--help] [--version] [--listen <address>] [--port port] [--log logfile] [--dictpath]\n",
     progname);
 
     exit( EXIT_SUCCESS );
@@ -105,6 +108,7 @@ help ( void )
     "      --port  <port>         run server in port [default: 9097]\n"
     "      --log  <filename>      logfile\n"
     " -f   --fork                 fork (modo servidor)\n"
+    "      --dictpath             directorio con diccionarios cracklib)\n"
     "\n"
     "Send bugs to http://tracker.zauber.com.ar/\n"
     "\n");
@@ -128,6 +132,7 @@ parseOptions(int argc, char * const * argv, struct options *opt)
      /*08*/ {"log",     OPT_NORMAL, 0,  OPT_T_GENER, NULL },
      /*09*/ {"f",       OPT_NORMAL, 1,  OPT_T_FLAG,  NULL },
      /*10*/ {"fork",    OPT_NORMAL, 0,  OPT_T_FLAG,  NULL },
+     /*11*/ {"dictpath",OPT_NORMAL, 0,  OPT_T_GENER,  NULL },
         {NULL}
     };  
     lopt[4].data = &(opt->listen_addr);
@@ -136,6 +141,7 @@ parseOptions(int argc, char * const * argv, struct options *opt)
     lopt[7].data = &(opt->port);
     lopt[8].data = &(opt->logfile);
     lopt[9].data = lopt[10].data = &(opt->fork);
+    lopt[11].data = &(opt->dictpath);
 
     i = GetOptions(argv, lopt, 0, 0);
     if( i < 0 ) {
@@ -203,13 +209,14 @@ main(int           const argc,
 
     struct options opt;
     int ret = EXIT_SUCCESS;
-
+    gOpt = &opt;
     rs_program_name = progname = argv[0];
     signal(SIGSEGV, sigsegv_handler_fnc);
 
     /* defaults */
     memset(&opt, 0, sizeof(opt));
     opt.port = 9097;
+    opt.dictpath = "/usr/lib64/cracklib_dict";
 
     if(parseOptions(argc, argv, &opt ) < 0) {
         ret = EXIT_FAILURE;
