@@ -236,9 +236,8 @@ main(int           const argc,
         }
         if(ret != EXIT_FAILURE) {
             xmlrpc_env_init(&env);
-
             registryP = xmlrpc_registry_new(&env);
-
+            env.fault_occurred = 0;
             xmlrpc_registry_add_method(
                 &env, registryP, NULL, "password.check", &sample_add, NULL);
 
@@ -248,14 +247,13 @@ main(int           const argc,
                 serverparm.log_file_name    = opt.logfile;
             }
 
-            serverparm.log_file_name  = "/tmp/xmlrpc_log";
             if(opt.listen_addr) {
                 serverparm.keepalive_timeout  = 0;
                 serverparm.keepalive_max_conn = 0;
                 serverparm.timeout            = 0;
-                serverparm.socket_handle = sd;
+                serverparm.dont_advertise     = FALSE;
                 serverparm.socket_bound = TRUE;
-                serverparm.port_number = 0;
+                serverparm.socket_handle = sd;
             } else {
                 serverparm.port_number = opt.port;
             }
@@ -269,9 +267,9 @@ main(int           const argc,
                      opt.listen_addr ? opt.listen_addr : "0.0.0.0",
                      opt.port);
 
-            env.fault_occurred = 0;
             xmlrpc_server_abyss(&env, &serverparm, 
-                               XMLRPC_APSIZE(log_file_name));
+                               XMLRPC_APSIZE(socket_handle));
+            puts(env.fault_string);
         }
     }
 
