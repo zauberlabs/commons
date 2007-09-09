@@ -255,6 +255,7 @@ main(int           const argc,
                 serverparm.timeout            = 0;
                 serverparm.socket_handle = sd;
                 serverparm.socket_bound = TRUE;
+                serverparm.port_number = 0;
             } else {
                 serverparm.port_number = opt.port;
             }
@@ -268,6 +269,7 @@ main(int           const argc,
                      opt.listen_addr ? opt.listen_addr : "0.0.0.0",
                      opt.port);
 
+            env.fault_occurred = 0;
             xmlrpc_server_abyss(&env, &serverparm, 
                                XMLRPC_APSIZE(log_file_name));
         }
