@@ -33,7 +33,7 @@ public class ZauberBeanNameBasedClassNameHandlerMapping
     private static String CONTROLLER_SUFFIX  = "Controller";
     /**  @see AbstractUrlHandlerMapping#registerHandler(String) */
     @Override
-    protected final void registerController(String beanName)
+    protected final void registerController(String beanName, Class beanClass) 
       throws BeansException ,IllegalStateException {   
         final Class controllerClass = getApplicationContext().getType(beanName);
         
@@ -48,7 +48,7 @@ public class ZauberBeanNameBasedClassNameHandlerMapping
             pathMapping.append("*");
             super.registerHandler(pathMapping.toString(), beanName);
         } else {
-            super.registerController(beanName);
+            super.registerController(beanName, beanClass);
         }
     }
     
