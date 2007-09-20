@@ -9,7 +9,7 @@ package ar.com.zauber.commons.repository.query;
  * Este componente representa un filtro de busqueda de igualdad
  * sobre algun atributo del objecto en cuestion.
  *
- * @author Marco Reggi
+ * @author Martin Andres Marquez
  * @since Aug 30, 2006
  */
 public class EqualsQuery implements Query {
