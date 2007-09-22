@@ -46,6 +46,7 @@ public class SQLStreetsDAO implements StreetsDAO {
     static {
         DEFAULT_OPTIONS.add(Options.IGNORE_COMMON_WORDS);
         DEFAULT_OPTIONS.add(Options.REMOVE_EXTRA_SPACES);
+        DEFAULT_OPTIONS.add(Options.REMOVE_U_DIERESIS);
     }
     
     /**
@@ -246,8 +247,11 @@ public class SQLStreetsDAO implements StreetsDAO {
                 new Object[]{fullStreetName}, new ResultSetExtractor() {
                     public Object extractData(final ResultSet rs)
                             throws SQLException, DataAccessException {
-                        while (rs.next()) { 
-                            ret.add(rs.getString(1));
+                        while (rs.next()) {
+                            final String s = rs.getString(1);
+                            if(s != null) {
+                                ret.add(s);
+                            }
                         }
                         return null;
                     }
@@ -295,5 +299,12 @@ public class SQLStreetsDAO implements StreetsDAO {
         }
         
         return ret;
+    }
+
+    /** @see ar.com.zauber.commons.gis.street.StreetsDAO#fullNameStreetExist(java.lang.String) */
+    public boolean fullNameStreetExist(final String name) {
+        int i = template.queryForInt("select count(nomoficial) from streets where nomoficial =  upper(?)",
+                new Object[]{name});
+        return i != 0;
     }
 }

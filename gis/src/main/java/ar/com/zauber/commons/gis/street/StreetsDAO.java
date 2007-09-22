@@ -58,6 +58,8 @@ public interface StreetsDAO {
      */
     List<String> suggestStreets(String beggining, Paging paging);
     
+    boolean fullNameStreetExist(String name);
+    
     /**
      * @return la lista de calles que cruzan a una calle. La calle tiene
      * que estar dado por el nombre completo. 
