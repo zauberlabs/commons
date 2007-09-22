@@ -10,7 +10,7 @@ public enum Options {
 		 */
 		@Override
 		public String filter(String street) {
-			final String[] palabrasAFiltrar = {"avenida"};
+			final String[] palabrasAFiltrar = {"avenida", "doctor"};
 			
 			for (String palabra : palabrasAFiltrar) {
 				Pattern pattern = Pattern.compile("(^|\\G|\\s)("+palabra+")($|\\s)", Pattern.CASE_INSENSITIVE);
