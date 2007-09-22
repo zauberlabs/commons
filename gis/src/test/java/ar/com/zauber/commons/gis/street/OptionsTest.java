@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test.ar.com.zauber.commons.gis.street;
+package ar.com.zauber.commons.gis.street;
 
 import junit.framework.TestCase;
 import ar.com.zauber.commons.gis.street.Options;

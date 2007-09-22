@@ -1,4 +1,4 @@
-package test.ar.com.zauber.commons.gis.street;
+package ar.com.zauber.commons.gis.street;
 
 import java.util.Arrays;
 import java.util.Collection;
