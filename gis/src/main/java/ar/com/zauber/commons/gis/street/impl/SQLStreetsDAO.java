@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.dao.DataAccessException;
@@ -234,5 +235,65 @@ public class SQLStreetsDAO implements StreetsDAO {
 			street = options.filter(street);
 		}
     	return street.trim();
+    }
+
+    /** @see StreetsDAO#getIntersectionsFor(String) */
+    public List<String> getIntersectionsFor(String fullStreetName) {
+        Validate.notNull(fullStreetName);
+
+        final List<String> ret = new ArrayList<String>();
+        template.query("select distinct nomoficial from geocode_calles_que_cortan(?) order by nomoficial",
+                new Object[]{fullStreetName}, new ResultSetExtractor() {
+                    public Object extractData(final ResultSet rs)
+                            throws SQLException, DataAccessException {
+                        while (rs.next()) { 
+                            ret.add(rs.getString(1));
+                        }
+                        return null;
+                    }
+        });
+        return ret;
+    }
+
+    /** @see StreetsDAO#guessStreetName(java.util.List, java.lang.String) */
+    public final List<GuessStreetResult> guessStreetName(List<String> streets,
+            String unnomalizedStreetName) {
+        final List <String> unknownStreetTokens = tokenizeCalle(unnomalizedStreetName);
+        final List<GuessStreetResult> ret = new ArrayList<GuessStreetResult>();
+        
+        for(final String street : streets) {
+            final List <String> tokens = tokenizeCalle(street);
+            int hits = 0;
+            for (final String token : tokens) {
+                for (final String unknownToken : unknownStreetTokens) {
+                    if(unknownToken.equals(token)) {
+                        hits++;
+                    }
+                }
+            }
+            ret.add(new GuessStreetResult(street, hits));
+        }
+        
+        Collections.sort(ret);
+        return ret;
+    }
+    
+    
+    private final List<String> tokenizeCalle(final String streets) {
+        final List<String> ret = new ArrayList<String>();
+        
+        final String s = streets.replace(',', ' ')
+                                .replace(';', ' ')
+                                .replace('.', ' ');
+        
+        StringTokenizer t = new StringTokenizer(s, " ", false);
+        while(t.hasMoreTokens()) {
+            final String token = t.nextToken();
+            if(!token.equals("de")) {
+                ret.add(token);
+            }
+        }
+        
+        return ret;
     }
 }

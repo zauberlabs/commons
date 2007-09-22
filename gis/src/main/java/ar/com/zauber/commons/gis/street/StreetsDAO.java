@@ -59,6 +59,54 @@ public interface StreetsDAO {
     List<String> suggestStreets(String beggining, Paging paging);
     
     /**
+     * @return la lista de calles que cruzan a una calle. La calle tiene
+     * que estar dado por el nombre completo. 
+     */
+    List<String> getIntersectionsFor(String fullStreetName);
+    
+
+    /**
+     * Dado una lista de nombres  de calle y un nombre de calle, retorna una
+     * lista ordenada por puntos
+     */
+    List<GuessStreetResult> guessStreetName(List<String> streets, String unnomalizedStreetName);
+    
+    class GuessStreetResult implements Comparable<GuessStreetResult> {
+        private String streetName;
+        private double points;
+        
+        public GuessStreetResult(final String streetName, final double points) {
+            Validate.notEmpty(streetName);
+            this.streetName = streetName;
+            this.points = points;
+        }
+        
+        public final String getStreetName() {
+            return streetName;
+        }
+        public final double getPoints() {
+            return points;
+        }
+        
+        /** @see java.lang.Object#toString() */
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append(streetName);
+            sb.append(' ');
+            sb.append("points: ");
+            sb.append(points);
+            
+            return sb.toString();
+        }
+
+        /** @see java.lang.Comparable#compareTo(java.lang.Object) */
+        public int compareTo(final GuessStreetResult o) {
+            return Double.compare(o.points, points);
+        }
+    };
+    
+    /**
      * Collect items. 
      * 
      * @author Juan F. Codagnone
