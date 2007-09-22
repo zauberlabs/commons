@@ -26,6 +26,11 @@ public enum Options {
 		public String filter(String street) {
 			return street.replaceAll("\\s+", " ").trim();
 		}
+	},REMOVE_U_DIERESIS() {
+	    // GÜEMES está escrita como GUEMES
+	    public String filter(String street) {
+            return street.replaceAll("Ü", "U").replaceAll("ü", "u");
+        }
 	};
 	
 	/**
