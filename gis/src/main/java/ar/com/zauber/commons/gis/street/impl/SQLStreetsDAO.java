@@ -98,6 +98,7 @@ public class SQLStreetsDAO implements StreetsDAO {
             + "AS c1, streets As c2 WHERE c1.nomoficial ILIKE ? ESCAPE '+' "
             + "AND  c2.nomoficial ILIKE ? ESCAPE '+' "
             + "AND c1.ciudad = c2.ciudad AND c1.ciudad = 'buenos aires' "
+            + "and not IsEmpty(AsText(intersection(c1.the_geom, c2.the_geom))) "
             + "LIMIT 10";
 
         String street1Filtered = executeFilters(street1Param);
