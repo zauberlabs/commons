@@ -17,7 +17,6 @@ import ar.com.zauber.commons.dao.Closure;
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 
 import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.MultiLineString;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -59,10 +58,12 @@ public class UsigRouter {
                 new ResultSetExtractor() {
             public Object extractData(final ResultSet rset) throws SQLException,
                     DataAccessException {
-                int i = 0;
                 while(rset.next()) {
                     try {
-                        ret.execute((LineString) reader.read(rset.getString(1)));
+                        final String s = rset.getString(1);
+                        if(s != null) {
+                            ret.execute((LineString) reader.read(s));
+                        }
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
