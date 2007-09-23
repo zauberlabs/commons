@@ -66,6 +66,8 @@ public interface StreetsDAO {
      */
     List<String> getIntersectionsFor(String fullStreetName);
     
+    /** retorna otros nombres para una calle */
+    List<String> getSinonimos(String fullStreetName);
 
     /**
      * Dado una lista de nombres  de calle y un nombre de calle, retorna una

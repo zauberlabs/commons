@@ -82,6 +82,15 @@ public class SQLStreetsDAO implements StreetsDAO {
                 (street2Param != null && street2Param.length() <= 2)) {
             return ret;
         }
+
+        final String wildcard;
+        // EJ. busco CORDOBA esquina CORDOBA AV.
+        if(street1Param.startsWith(street2Param) 
+                || street2Param.startsWith(street1Param)) {
+           wildcard = ""; 
+        } else {
+           wildcard = "%";
+        }
         
         final String sql = "select DISTINCT AsText(intersection(c1.the_geom, "
             + "c2.the_geom)) AS the_geom, c1.nomoficial AS c1, "
@@ -94,9 +103,10 @@ public class SQLStreetsDAO implements StreetsDAO {
         String street1Filtered = executeFilters(street1Param);
         String street2Filtered = executeFilters(street2Param);
         
+        
         template.query(sql , new Object[] {
-                "%" + escapeForLike(street1Filtered, '+') + "%",
-                "%" + escapeForLike(street2Filtered, '+') + "%"},
+                wildcard + escapeForLike(street1Filtered, '+') + wildcard,
+                wildcard + escapeForLike(street2Filtered, '+') + wildcard},
             new ResultSetExtractor() {
                 /** @see ResultSetExtractor#extractData(java.sql.ResultSet) */
                 public Object extractData(final ResultSet rs) 
@@ -106,10 +116,17 @@ public class SQLStreetsDAO implements StreetsDAO {
                             final Geometry geom  = 
                                 wktReader.read(rs.getString("the_geom"));
                             if(!geom.isEmpty()) {
-                                ret.add(new IntersectionResult(
-                                        rs.getString("c1"), 
-                                        rs.getString("c2"), 
-                                        (Point)geom));
+                                if(geom instanceof Point) {
+                                    /* a veces, si buscamos la interseccion
+                                     * de una calle con si misma, 
+                                     * da una linea. hay que ignorarlo.
+                                     */
+                                    ret.add(new IntersectionResult(
+                                            rs.getString("c1"), 
+                                            rs.getString("c2"), 
+                                            (Point)geom));
+                                }
+                                
                             }
                             
                         } catch(final ParseException e) {
@@ -306,5 +323,27 @@ public class SQLStreetsDAO implements StreetsDAO {
         int i = template.queryForInt("select count(nomoficial) from streets where nomoficial =  upper(?)",
                 new Object[]{name});
         return i != 0;
+    }
+
+    /** @see StreetsDAO#getSinonimos(String) */
+    public List<String> getSinonimos(final String fullStreetName) {
+        final String s = "select distinct nomoficial from streets where nomanter ILIKE ?";
+        final List<String> ret = new ArrayList<String>();
+        
+        template.query(s, new Object[] {fullStreetName}, new ResultSetExtractor() {
+            public Object extractData(final ResultSet rs) throws SQLException,
+                    DataAccessException {
+                while(rs.next()) {
+                    final String s = rs.getString(1);
+                    if(s != null) {
+                        ret.add(s);
+                    }
+                }
+                
+                return null;
+            }
+        });
+        
+        return ret;
     }
 }
