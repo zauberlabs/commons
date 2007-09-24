@@ -36,8 +36,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     /** <code>logger</code>. */
     private Log logger = LogFactory.getLog(getClass());
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository#createNew(com.globant.persist.Reference)
+    /**
+     * @see Repository#createNew(Reference)
      */
     public final Persistible createNew(final Reference aRef) {
         Persistible persistible = null;
@@ -54,10 +54,10 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         return persistible;
     }
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository
+    /**
+     * @see Repository
      *  #createNew(
-     *              com.globant.persist.Reference,
+     *              Reference,
      *              java.lang.Object[],
      *              java.lang.Class[])
      */
@@ -79,9 +79,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         return persistible;
     }
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository
-     *        #delete(com.globant.persist.Persistible)
+    /**
+     * @see Repository#delete(Persistible)
      */
     public final void delete(final Persistible anObject) {
 
@@ -90,9 +89,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         getHibernateTemplate().delete(anObject);
     }
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository
-     *        #save(com.globant.persist.Persistible, boolean)
+    /**
+     * @see Repository#save(Persistible, boolean)
      */
     public final Long save(final Persistible anObject) {
 
@@ -103,23 +101,22 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         return getId(anObject);
     }
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository
-     *        #update(com.globant.persist.Persistible, boolean)
+    /**
+     * @see Repository#update(Persistible, boolean)
      */
     public final void update(final Persistible anObject) {
         getHibernateTemplate().merge(anObject);
     }
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository#deleteAll(java.util.Collection)
+    /**
+     * @see Repository#deleteAll(java.util.Collection)
      */
     public void deleteAll(final Collection lista) {
         getHibernateTemplate().deleteAll(lista);
     }
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository#findAll(java.lang.Class)
+    /**
+     * @see Repository#findAll(java.lang.Class)
      */
     public List findAll(final Class clazz) {
 
@@ -128,8 +125,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
 
 
     /* (non-Javadoc)
-     * @see com.globant.persist.Repository
-     *        #retrieve(com.globant.persist.Reference)
+     * @see Repository#retrieve(Reference)
      */
     public Persistible retrieve(final Reference aRef) {
         if(aRef.getId()==null) {
@@ -146,8 +142,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         
     }
 
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository#saveAll(java.util.Collection)
+    /**
+     * @see Repository#saveAll(java.util.Collection)
      */
     public void saveAll(final Collection list) {
         for (Iterator iter = list.iterator(); iter.hasNext();) {
@@ -179,8 +175,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
 //    }
 //
 //    /* (non-Javadoc)
-//     * @see com.globant.persist.Repository
-//     *        #find(java.lang.Class, java.lang.String, java.lang.Object)
+//     * @see Repository#find(java.lang.Class, java.lang.String, java.lang.Object)
 //     */
 //    public List find(final Class clazz, final String property, final Object value) {
 //
@@ -252,8 +247,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         getHibernateTemplate().saveOrUpdate(anObject);
     }
     
-    /* (non-Javadoc)
-     * @see com.globant.persist.Repository#refresh(java.lang.Object)
+    /**
+     * @see Repository#refresh(java.lang.Object)
      */
     public void refresh(Object anObject) {
         getHibernateTemplate().refresh(anObject);
