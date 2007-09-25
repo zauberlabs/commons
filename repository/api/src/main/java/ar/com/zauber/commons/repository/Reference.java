@@ -36,6 +36,18 @@ public class Reference implements Serializable {
         this(className);
         this.id = id;
     }
+    
+    /**
+     * Creates the Reference.
+     *
+     * @param className
+     * @param id
+     * @param version
+     */
+    public Reference(final String className, final Long id, final long version) {
+        this(className, id);
+        this.version = version;
+    }
 
     /**
      * Creates the Reference.
@@ -48,6 +60,18 @@ public class Reference implements Serializable {
     public Reference(final Class clazz, final Long id) {
         this(clazz);
         this.id = id;
+    }
+    
+    /**
+     * Creates the Reference.
+     *
+     * @param clazz
+     * @param id
+     * @param version
+     */
+    public Reference(final Class clazz, final Long id, final long version) {
+        this(clazz, id);
+        this.version = version;
     }
 
     /**
@@ -104,7 +128,10 @@ public class Reference implements Serializable {
      * 
      * @param version
      *            <code>long</code> with the version.
+     * @deprecated no se debería setear nunca la version, debería sólo cargarse
+     * en el construtor.
      */
+    @Deprecated
     public final void setVersion(final long version) {
         this.version = version;
     }
