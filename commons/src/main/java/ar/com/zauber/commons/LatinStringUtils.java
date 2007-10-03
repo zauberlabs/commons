@@ -63,7 +63,7 @@ public abstract class LatinStringUtils {
      * 
      * @return s sin acentos
      */
-    static String replaceAccents(final String s) {
+    public static String replaceAccents(final String s) {
         final StringBuilder sb = new StringBuilder();
         
         final int n = s.length();
