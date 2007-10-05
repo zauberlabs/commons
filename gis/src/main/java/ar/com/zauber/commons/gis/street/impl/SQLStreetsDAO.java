@@ -19,8 +19,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import ar.com.zauber.commons.dao.Paging;
+import ar.com.zauber.commons.gis.Result;
 import ar.com.zauber.commons.gis.street.Options;
 import ar.com.zauber.commons.gis.street.StreetsDAO;
+import ar.com.zauber.commons.gis.street.impl.parser.AddressParser;
+import ar.com.zauber.commons.gis.street.model.results.GeocodeResult;
+import ar.com.zauber.commons.gis.street.model.results.IntersectionResult;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
@@ -42,11 +46,15 @@ public class SQLStreetsDAO implements StreetsDAO {
     /** der */
     private final WKTReader wktReader = new WKTReader();
     
+    private final AddressParser parser;
+    
     static private final List<Options> DEFAULT_OPTIONS = new ArrayList<Options>();
     static {
         DEFAULT_OPTIONS.add(Options.IGNORE_COMMON_WORDS);
         DEFAULT_OPTIONS.add(Options.REMOVE_EXTRA_SPACES);
         DEFAULT_OPTIONS.add(Options.REMOVE_U_DIERESIS);
+        DEFAULT_OPTIONS.add(Options.REMOVE_U_DIERESIS);
+        DEFAULT_OPTIONS.add(Options.AVENUE_WORD_MOVE);
     }
     
     /**
@@ -55,7 +63,16 @@ public class SQLStreetsDAO implements StreetsDAO {
      * @param template jdbc template
      */
     public SQLStreetsDAO(final JdbcTemplate template) {
-    	this(template, DEFAULT_OPTIONS);
+    	this(template, DEFAULT_OPTIONS, null);
+    }
+    
+    /**
+     * Creates the SQLStreetsDAO.
+     *
+     * @param template jdbc template
+     */
+    public SQLStreetsDAO(final JdbcTemplate template, final AddressParser parser) {
+        this(template, DEFAULT_OPTIONS, parser);
     }
     
     /**
@@ -63,10 +80,12 @@ public class SQLStreetsDAO implements StreetsDAO {
      * @param optionsList la lista de opciones. Notar que las opciones se aplican en el orden
      * en que se reciben.
      */
-    public SQLStreetsDAO(final JdbcTemplate template, List<Options> optionsList) {
+    public SQLStreetsDAO(final JdbcTemplate template, List<Options> optionsList, 
+            final AddressParser parser) {
     	Validate.notNull(template);
     	Validate.notNull(optionsList);
     	
+    	this.parser = parser;
     	this.template = template;
     	this.optionsList = Collections.unmodifiableList(optionsList);
     }
@@ -346,5 +365,11 @@ public class SQLStreetsDAO implements StreetsDAO {
         });
         
         return ret;
+    }
+
+    /** @see ar.com.zauber.commons.gis.street.StreetsDAO#suggestAddresses(java.lang.String)
+     */
+    public final List<Result> suggestAddresses(final String text) {
+        return parser.parse(text, this);
     }
 }

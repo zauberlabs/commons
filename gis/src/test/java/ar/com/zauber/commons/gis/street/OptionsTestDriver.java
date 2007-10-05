@@ -11,10 +11,8 @@ import junit.framework.TestCase;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import ar.com.zauber.commons.gis.street.Options;
-import ar.com.zauber.commons.gis.street.StreetsDAO;
-import ar.com.zauber.commons.gis.street.StreetsDAO.GeocodeResult;
 import ar.com.zauber.commons.gis.street.impl.SQLStreetsDAO;
+import ar.com.zauber.commons.gis.street.model.results.GeocodeResult;
 
 /**
  * Este test necesita que esté instalada una base de postgres con la base gis
@@ -35,9 +33,9 @@ public class OptionsTestDriver extends TestCase {
 
 	public void testConConexion() {
 		JdbcTemplate jdbcTemplate = makeJdbcTemplate();
-		StreetsDAO streetsDAOIgnoreCommonWords = new SQLStreetsDAO(jdbcTemplate, Arrays.asList(new Options[] {Options.IGNORE_COMMON_WORDS}));
-		StreetsDAO streetsDAOIgnoreCommonWordsIgnoreExtraSpaces = new SQLStreetsDAO(jdbcTemplate, Arrays.asList(new Options[] {Options.IGNORE_COMMON_WORDS, Options.REMOVE_EXTRA_SPACES}));
-		StreetsDAO streetsDAOIgnoreExtraSpaces = new SQLStreetsDAO(jdbcTemplate, Arrays.asList(new Options[] {Options.REMOVE_EXTRA_SPACES}));
+		StreetsDAO streetsDAOIgnoreCommonWords = new SQLStreetsDAO(jdbcTemplate, Arrays.asList(new Options[] {Options.IGNORE_COMMON_WORDS}), null);
+		StreetsDAO streetsDAOIgnoreCommonWordsIgnoreExtraSpaces = new SQLStreetsDAO(jdbcTemplate, Arrays.asList(new Options[] {Options.IGNORE_COMMON_WORDS, Options.REMOVE_EXTRA_SPACES}), null);
+		StreetsDAO streetsDAOIgnoreExtraSpaces = new SQLStreetsDAO(jdbcTemplate, Arrays.asList(new Options[] {Options.REMOVE_EXTRA_SPACES}), null);
 		StreetsDAO streetsDAOComun = new SQLStreetsDAO(jdbcTemplate);
 		
 		Collection<GeocodeResult> result1 =  streetsDAOIgnoreCommonWords.geocode("Avenida Santa Fe", 1500);
