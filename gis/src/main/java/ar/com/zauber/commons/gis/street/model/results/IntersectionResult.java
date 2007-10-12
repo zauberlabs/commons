@@ -27,9 +27,10 @@ public class IntersectionResult extends IntersectionAddress implements Result {
      * @param street2 calle2 de la interseccion
      * @param point punto donde las calles se intersectan
      */
-    public IntersectionResult(final String street1, final String street2, 
+    public IntersectionResult(final String street1, final String street2,
+            final String countryCode,
             final Point point) {
-        super(street1, street2);
+        super(street1, street2, countryCode);
         Validate.notNull(point);
 
         this.point = point;

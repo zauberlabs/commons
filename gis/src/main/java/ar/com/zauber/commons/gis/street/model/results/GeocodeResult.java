@@ -29,8 +29,8 @@ public class GeocodeResult extends NormalAddress implements Result {
      * @param point punto
      */
     public GeocodeResult(final int id, final String street,
-            final int altura, final Point point) {
-        super(street, altura);
+            final int altura, final String countryCode, final Point point) {
+        super(street, altura, countryCode);
         Validate.notNull(id, "id");
         Validate.notNull(point, "point");
         

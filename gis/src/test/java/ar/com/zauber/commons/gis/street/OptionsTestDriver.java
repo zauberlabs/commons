@@ -20,7 +20,7 @@ import ar.com.zauber.commons.gis.street.model.results.GeocodeResult;
  * @author epere4
  */
 public class OptionsTestDriver extends TestCase {
-	private static String url = "jdbc:postgresql:gis";
+	private static String url = "jdbc:postgresql://localhost:5433/gis";
 	private static String driver = "org.postgresql.Driver";
 	private static String user = "gis";
 	private static String password = "gis";
@@ -64,4 +64,10 @@ public class OptionsTestDriver extends TestCase {
 			assertEquals(res1.getPoint().getY(), res2.getPoint().getY());
 		}
 	}
+	
+    public void testStreet() {
+        JdbcTemplate jdbcTemplate = makeJdbcTemplate();
+        StreetsDAO streetsDAO = new SQLStreetsDAO(jdbcTemplate, Arrays.asList(new Options[] {Options.IGNORE_COMMON_WORDS}), null);
+        streetsDAO.getStreets("Quirno Costa");
+    }
 }

@@ -21,4 +21,6 @@ public interface Result {
      * @return la descripcion del resultado
      */
     String getDescription();
+    
+    String getCountryCode();
 }

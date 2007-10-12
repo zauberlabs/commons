@@ -14,16 +14,35 @@ public class NormalAddress {
     private String street;
     /** <code>altura</code> */
     private int altura;
+    private String countryCode;
+    /**
+     * Returns the countryCode.
+     * 
+     * @return <code>String</code> with the countryCode.
+     */
+    public final String getCountryCode() {
+        return countryCode;
+    }
+    /**
+     * Sets the countryCode. 
+     *
+     * @param countryCode <code>String</code> with the countryCode.
+     */
+    public final void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
     /**
      * Creates the NormalAddress.
      *
      * @param street
      * @param altura
      */
-    public NormalAddress(final String street, final int altura) {
+    public NormalAddress(final String street, final int altura, 
+            final String countryCode) {
         super();
         this.street = street;
         this.altura = altura;
+        this.countryCode = countryCode;
     }
     /**
      * Returns the street.

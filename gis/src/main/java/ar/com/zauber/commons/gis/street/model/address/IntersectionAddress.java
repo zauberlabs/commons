@@ -14,16 +14,34 @@ public class IntersectionAddress {
     private String street1;
     /** <code>street2</code> */
     private String street2;
+    private String countryCode;
+    /**
+     * Returns the countryCode.
+     * 
+     * @return <code>String</code> with the countryCode.
+     */
+    public final String getCountryCode() {
+        return countryCode;
+    }
+    /**
+     * Sets the countryCode. 
+     *
+     * @param countryCode <code>String</code> with the countryCode.
+     */
+    public final void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
     /**
      * Creates the IntersectionAddress.
      *
      * @param street1
      * @param street2
      */
-    public IntersectionAddress(String street1, String street2) {
+    public IntersectionAddress(String street1, String street2, String countryCode) {
         super();
         this.street1 = street1;
         this.street2 = street2;
+        this.countryCode = countryCode;
     }
     /**
      * Returns the street1.

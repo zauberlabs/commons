@@ -25,6 +25,7 @@ import ar.com.zauber.commons.gis.street.StreetsDAO;
 import ar.com.zauber.commons.gis.street.impl.parser.AddressParser;
 import ar.com.zauber.commons.gis.street.model.results.GeocodeResult;
 import ar.com.zauber.commons.gis.street.model.results.IntersectionResult;
+import ar.com.zauber.commons.gis.street.model.results.StreetResult;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
@@ -143,7 +144,7 @@ public class SQLStreetsDAO implements StreetsDAO {
                                      */
                                     ret.add(new IntersectionResult(
                                             rs.getString("c1"), 
-                                            rs.getString("c2"), 
+                                            rs.getString("c2"),"AR", 
                                             (Point)geom));
                                 }
                                 
@@ -216,6 +217,7 @@ public class SQLStreetsDAO implements StreetsDAO {
                                         rs.getInt("id"),
                                         rs.getString("nomoficial"),
                                         rs.getInt("altura"),
+                                        "AR",
                                         (Point)wktReader.read(rs.getString
                                                   ("astext"))
                                         ));
@@ -371,5 +373,41 @@ public class SQLStreetsDAO implements StreetsDAO {
      */
     public final List<Result> suggestAddresses(final String text) {
         return parser.parse(text, this);
+    }
+    
+    public final List<Result> getStreets(final String text) {
+        final List<Result> results = new ArrayList<Result>();
+        
+        final String q = "%" + escapeForLike(text, '+') + "%";
+        final List<Object> args = new ArrayList<Object>(4);
+        args.add(q);
+        template.query("select nomoficial, ciudad, AsText(line_interpolate_point( "
+                + "ST_GeometryN(LineMerge(Collect(the_geom)), " 
+                + "ST_NumGeometries(LineMerge(Collect(the_geom)))/2 + 1), 0.5)) as middle "
+                + "from streets where nomoficial ILIKE ? group by nomoficial, ciudad "
+                + "ORDER BY nomoficial",
+                args.toArray(),
+                new ResultSetExtractor() {
+                    public Object extractData(final ResultSet rset) 
+                        throws SQLException, DataAccessException {
+                        while(rset.next()) {
+                            try {
+                                results.add(
+                                        new StreetResult(
+                                                rset.getString("nomoficial"),
+                                                (Point)wktReader.read(rset.getString
+                                                        ("middle")),
+                                                "Buenos Aires", 
+                                                "AR"));
+                            } catch(ParseException e) {
+                                throw new DataRetrievalFailureException(
+                                "parsing feature geom"); 
+                            } 
+                        }
+                        return null;
+                    }
+                });
+        
+        return results;
     }
 }

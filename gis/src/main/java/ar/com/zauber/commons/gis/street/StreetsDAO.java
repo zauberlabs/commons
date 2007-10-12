@@ -65,6 +65,13 @@ public interface StreetsDAO {
      */
     List<Result> suggestAddresses(String text);
     
+    /**
+     * 
+     * @param text
+     * @return un listado de resultados que contienen el punto intermedio de las 
+     * calles que matchean con text.
+     */
+    List<Result> getStreets(final String text);
     
     boolean fullNameStreetExist(String name);
     
@@ -117,4 +124,5 @@ public interface StreetsDAO {
             return Double.compare(o.points, points);
         }
     };
+    
 }
