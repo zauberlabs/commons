@@ -378,7 +378,7 @@ public class SQLStreetsDAO implements StreetsDAO {
     public final List<Result> getStreets(final String text) {
         final List<Result> results = new ArrayList<Result>();
         
-        final String q = "%" + escapeForLike(text, '+') + "%";
+        final String q = "%" + executeFilters(escapeForLike(text, '+')) + "%";
         final List<Object> args = new ArrayList<Object>(4);
         args.add(q);
         template.query("select * from geocode_street(?)",
