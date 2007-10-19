@@ -381,11 +381,7 @@ public class SQLStreetsDAO implements StreetsDAO {
         final String q = "%" + escapeForLike(text, '+') + "%";
         final List<Object> args = new ArrayList<Object>(4);
         args.add(q);
-        template.query("select nomoficial, ciudad, AsText(line_interpolate_point( "
-                + "ST_GeometryN(LineMerge(Collect(the_geom)), " 
-                + "ST_NumGeometries(LineMerge(Collect(the_geom)))/2 + 1), 0.5)) as middle "
-                + "from streets where nomoficial ILIKE ? group by nomoficial, ciudad "
-                + "ORDER BY nomoficial",
+        template.query("select * from geocode_street(?)",
                 args.toArray(),
                 new ResultSetExtractor() {
                     public Object extractData(final ResultSet rset) 
