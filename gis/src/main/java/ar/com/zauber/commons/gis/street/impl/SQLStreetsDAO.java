@@ -94,6 +94,7 @@ public class SQLStreetsDAO implements StreetsDAO {
     /** @see StreetsDAO#getIntersection(String, String) */
     public final Collection<IntersectionResult> getIntersection(
             final String street1Param, final String street2Param) {
+        
         final Collection<IntersectionResult> ret = 
              new ArrayList<IntersectionResult>();
 
@@ -111,19 +112,11 @@ public class SQLStreetsDAO implements StreetsDAO {
         } else {
            wildcard = "%";
         }
-        
-        final String sql = "select DISTINCT AsText(intersection(c1.the_geom, "
-            + "c2.the_geom)) AS the_geom, c1.nomoficial AS c1, "
-            + "c2.nomoficial AS c2  from streets "
-            + "AS c1, streets As c2 WHERE c1.nomoficial ILIKE ? ESCAPE '+' "
-            + "AND  c2.nomoficial ILIKE ? ESCAPE '+' "
-            + "AND c1.ciudad = c2.ciudad AND c1.ciudad = 'buenos aires' "
-            + "and not IsEmpty(AsText(intersection(c1.the_geom, c2.the_geom))) "
-            + "LIMIT 10";
+                
+        final String sql = "select * from geocode_intersection(?,?)";
 
         String street1Filtered = executeFilters(street1Param);
         String street2Filtered = executeFilters(street2Param);
-        
         
         template.query(sql , new Object[] {
                 wildcard + escapeForLike(street1Filtered, '+') + wildcard,
@@ -135,7 +128,7 @@ public class SQLStreetsDAO implements StreetsDAO {
                     while(rs.next()) {
                         try {
                             final Geometry geom  = 
-                                wktReader.read(rs.getString("the_geom"));
+                                wktReader.read(rs.getString("point"));
                             if(!geom.isEmpty()) {
                                 if(geom instanceof Point) {
                                     /* a veces, si buscamos la interseccion
@@ -143,8 +136,8 @@ public class SQLStreetsDAO implements StreetsDAO {
                                      * da una linea. hay que ignorarlo.
                                      */
                                     ret.add(new IntersectionResult(
-                                            rs.getString("c1"), 
-                                            rs.getString("c2"),"AR", 
+                                            rs.getString("nomoficial1"), 
+                                            rs.getString("nomoficial2"),"AR", 
                                             (Point)geom));
                                 }
                                 
@@ -158,7 +151,7 @@ public class SQLStreetsDAO implements StreetsDAO {
                     return null;
                 }
             });
-            
+        
         
         return ret;
     }
