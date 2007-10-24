@@ -127,7 +127,7 @@ public class GeonameSpot implements Result {
     }
     
     public final String getDescription() {
-        return name;
+        return "Ciudad de " + name;
     }
     
     public final Point getPoint() {

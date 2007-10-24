@@ -61,7 +61,7 @@ public class StreetResult implements Result {
      * @see ar.com.zauber.commons.gis.Result#getDescription()
      */
     public String getDescription() {
-        return name + " en " + city;
+        return "Calle " + name + " en " + city;
     }
     /**
      * Returns the countryCode.
