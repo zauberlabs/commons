@@ -4,34 +4,15 @@
     <title>Zauber Commons Changes</title>
   </properties>
   <body>
-    <release version="2.7" date="2007-10-23">
-    <action dev="martin" type="add" >
-        commons-spring: clase para proveer properties via jndi. 
-      </action>
-      <action dev="christian" type="add" issue="349">
-        Nuevo proyecto commons-password con una implementación de PasswordValidator 
-        que valida claves contra cracklib (backend programado en C.).
-      </action>
-      <action dev="juan" type="add">
-       common-gis: UsigRouter: Soporte de ruteo desde java.
-      </action>
-      <action dev="juan" type="add">
-       commons-gis: StreetsDAO: mejoras en la busqueda de esquinas, y nuevos métodos varios:
-     
-       fullNameStreetExist(String fullStreetName), getSinonimos(String fullStreetName),
-        guessStreetName(List&lt;String&gt; streets, String unnomalizedStreetName); 
-        
-        metodo mas inteligente de geocoding: 
-        (CALLE ALTURA, CALLE y CALLE, CALLE al ALTURA, al ALTURA de CALLE) y ciudades en argentina, chile y uruguay.
-        
-      </action>
+    <release version="2.8-SNAPSHOT" date="who knows">
       <action dev="eduardo" type="add" issue="1062">
-       common-gis: SQLStreetsDAO:
-       Se agregan la posibilidad de "canonizar" los strings que se buscan en las calles:
-          IGNORE_COMMON_WORDS (ej avenida, doctor)
-          REMOVE_EXTRA_SPACES
-          REMOVE_U_DIERESIS
-          AVENUE_WORD_MOVE (avenida al comienzo)
+       common.gis: SQLStreetsDAO:
+       Se agregan las Options para configurar las busquedas de calles.
+Por ahora hay dos options: 
+   Una que filtra palabras comunes de los nombres de calles (por ahora solo quita la palabra Avenida, case-insensitive).
+   La otra limpia espacios de más. O sea, cada vez que haya muchos espacios juntos seguidos los reemplaza por un solo espacio (en la rev 
+930 se agregó el parche que limpia la base de las pocas calles que tenian más de un espacio seguido en su nombre). 
+
       </action>
     </release>
     <release version="2.6" date="2007-08-23"
