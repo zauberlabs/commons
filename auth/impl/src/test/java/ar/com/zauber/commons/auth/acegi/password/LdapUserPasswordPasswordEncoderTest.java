@@ -3,6 +3,7 @@
  */
 package ar.com.zauber.commons.auth.acegi.password;
 
+import ar.com.zauber.commons.auth.acegi.password.ldap.LdapUserPasswordPasswordEncoder;
 import junit.framework.TestCase;
 
 
