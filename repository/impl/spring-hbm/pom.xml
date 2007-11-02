@@ -115,14 +115,14 @@
         <filtering>true</filtering>
         <includes>
           <include>log4j.properties</include>        
-          <include>ar/com/zauber/commons/repository/config/**</include>
+          <exclude>ar/com/zauber/commons/repository/config/repository-impl-springhbm.properties</exclude>
 	    </includes>
       </testResource>
       <testResource>
         <directory>src/test/resources</directory>
         <excludes>
           <exclude>log4j.properties</exclude>          
-          <exclude>ar/com/zauber/commons/repository/config/**</exclude>
+          <exclude>ar/com/zauber/commons/repository/config/repository-impl-springhbm.properties</exclude>
         </excludes>
       </testResource>
     </testResources>
