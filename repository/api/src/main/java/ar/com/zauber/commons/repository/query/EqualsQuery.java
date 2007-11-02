@@ -11,6 +11,7 @@ package ar.com.zauber.commons.repository.query;
  *
  * @author Martin Andres Marquez
  * @since Aug 30, 2006
+ * @deprecated
  */
 public class EqualsQuery implements Query {
     /**

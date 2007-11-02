@@ -3,6 +3,7 @@
  */
 package ar.com.zauber.commons.repository.query;
 
+import ar.com.zauber.commons.repository.Persistible;
 
 
 /**
@@ -13,6 +14,6 @@ package ar.com.zauber.commons.repository.query;
  * @author Gabriel V. Baños
  * @since 19/06/2005
  */
-public interface Query extends Translatable {
+public interface Query<T extends Persistible> extends Translatable {
 
 }

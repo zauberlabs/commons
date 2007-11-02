@@ -9,7 +9,6 @@ public class BaseTransactionalRollbackTest
 		setPopulateProtectedVariables(true);
 	}
 	
-	@Override
 	protected String[] getConfigLocations() {
 		return new String[]  {
 			"classpath:ar/com/zauber/commons/repository/config/spring-ds.xml",

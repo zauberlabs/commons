@@ -15,6 +15,6 @@ public interface Translator {
     /**
      * @param aQuery a Query
      */
-    void translate(EqualsQuery aQuery);
+    void translate(Query aQuery);
     
 }

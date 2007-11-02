@@ -20,7 +20,6 @@ import ar.com.zauber.commons.repository.query.Query;
  */
 public interface Repository {
 
-
     /**
      *
      * Crea un nuevo objeto persistente a partir de una referencia.
@@ -53,10 +52,70 @@ public interface Repository {
 
     /**
      *
+     * Obtiene un objeto a partir de una referencia.
+     *
+     * @param aRef
+     * @return un <code>Persistible</code> con el Objeto representado por
+     * la referencia.
+     */
+    <T extends Persistible> T retrieve(Reference aRef);
+   
+   /**
+    * 
+    * Cuenta los objetos que cumplen con el filtro.
+    *
+    * @param criteria el <code>FilterObject</code> que uso como
+    * filtro.
+    * @return un <code>Integer</code> con la cantidad de registros.
+    * @throws PersistenceException
+    */
+   Integer count(Query filterObject);
+
+   /**
+    * 
+    * Este es el metodo que se utiliza para hacer todas las consultas al
+    * <code>Repository</code>
+    * 
+    * @param filterObject
+    * @return
+    */
+   List<Persistible> find(Query filterObject);
+   
+   /**
+    * 
+    * Devuelve las clases que son persistibles. Este metodo suele ser util para
+    * saber en runtime que clases puedo persistir.
+    * 
+    * @return
+    */
+   Collection<Class> getPersistibleClasses();
+   
+   /**
+    * 
+    * Graba un objeto nuevo en caso de que el <code>id</code> estuviera en null y
+    * de lo contrario lo actualiza.
+    * 
+    * @param anObject
+    */
+   void saveOrUpdate(Object anObject);
+      
+   /**
+    * 
+    * Obtiene los datos persistidos para un objeto que quizas esta out of sync con
+    * el mismo pero que contiene el <code>id</code> correspondiente.
+    * 
+    * @param anObject
+    */
+   void refresh(Object anObject);
+    
+    
+    /**
+     *
      * Salva un objeto devuelve su identificador.
      *
      * @param anObject Un <code>Persistible</code>
      * @return un <code>Long</code> con el id del objeto guardado.
+     * @deprecated Use saveOrUpdate instead
      */
     Long save(Persistible anObject);
 
@@ -65,6 +124,7 @@ public interface Repository {
      * Realiza la actualizacion de un objeto.
      *
      * @param anObject Un <code>Persistible</code>
+     * @deprecated Use saveOrUpdate instead
      */
     void update(Persistible anObject);
 
@@ -73,6 +133,7 @@ public interface Repository {
      * Borra todos los objetos de la coleccion.
      *
      * @param lista una <code>Collection</code> de <code>Persistible</code>
+     * @deprecated To simplify the class
      */
     void deleteAll(Collection lista);
 
@@ -81,18 +142,9 @@ public interface Repository {
      * @param clazz la <code>Class</code> de los <code>Persistible</code>
      * que se quieren obtener
      * @return a <code>Collection</code> de <code>Persistible</code>
+     * @deprecated Use find(Query) instead where the query only indicates de Class.
      */
     List findAll(Class clazz);
-
-    /**
-     *
-     * Obtiene un objeto a partir de una referencia.
-     *
-     * @param aRef
-     * @return un <code>Persistible</code> con el Objeto representado por
-     * la referencia.
-     */
-    Persistible retrieve(Reference aRef);
 
     /**
      *
@@ -100,6 +152,7 @@ public interface Repository {
      *
      * @param aCollection la <code>Collection</code> de objetos
      * <code>Persistible</code> a persistir
+     * @deprecated To simplify the class
      */
     void saveAll(Collection aCollection);
 
@@ -111,45 +164,37 @@ public interface Repository {
      * <code>Persistible</code> a persistir
      * @throws PersistenceException
      * @throws ConcurrencyException
+     * @deprecated To simplify the class
      */
     void updateAll(Collection aCollection);
-
-//    /**
-//     *
-//     * Busca todos aquellos objetos que tienen una propiedad igual a un valor.
-//     *
-//     * @deprecated Deberia usarse un filtro
-//     *
-//     * @param clazz la <code>Class</code> de los objetos que quiero recuperar
-//     * @param property la propiedad cuyo valor necesito que sea igual.
-//     * @param value el valor al cual debo igualar la propiedad
-//     * @return una <code>List</code> con los objetos que tienen esa propiedad
-//     * igual a ese valor.
-//     * @throws PersistenceException
-//     */
-//    List find(Class clazz, String property, Object value);
-
     
-   /**
-    *
-    * Obtiene todos los objetos que cumplen con el filtro.
-    *
-    * @param aClass que es la <code>Class</code> de los objetos
-    * que quiero recuperar.
-    * @param criteria el <code>FilterObject</code> que uso como
-    * filtro.
-    * @return una <code>List</code> de <code>Persistible</code> con los
-    * objetos recuperados.
-    * @throws PersistenceException
+    /**
+     *
+     * Obtiene todos los objetos que cumplen con el filtro.
+     *
+     * @param aClass que es la <code>Class</code> de los objetos
+     * que quiero recuperar.
+     * @param criteria el <code>FilterObject</code> que uso como
+     * filtro.
+     * @return una <code>List</code> de <code>Persistible</code> con los
+     * objetos recuperados.
+     * @throws PersistenceException
+     * @deprecated Use find(Query) instead
     */
     List find(Class aClass, Query filterObject);
-    
-    List find(Class aClass, List parameters);
-    
-    Collection getPersistibleClasses();
 
-    void saveOrUpdate(Object anObject);
-    
-    void refresh(Object anObject);
+    /**
+     *
+     * Cuenta los objetos que cumplen con el filtro para dicha clase.
+     *
+     * @param aClass que es la <code>Class</code> de los objetos
+     * que quiero contar.
+     * @param criteria el <code>FilterObject</code> que uso como
+     * filtro.
+     * @return un <code>Integer</code> con la cantidad de registros.
+     * @throws PersistenceException
+     * @deprecated Use count(Query) instead
+     */
+    Integer count(Class aClass, Query filterObject);
     
 }

@@ -3,6 +3,7 @@
  */
 package ar.com.zauber.commons.repository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -12,13 +13,20 @@ import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.EntityMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.RowCountProjection;
 import org.hibernate.metadata.ClassMetadata;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ar.com.zauber.commons.repository.query.Query;
+import ar.com.zauber.commons.repository.query.SimpleQuery;
+import ar.com.zauber.commons.repository.query.filters.NullFilter;
 
 
 /**
@@ -89,42 +97,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         getHibernateTemplate().delete(anObject);
     }
 
-    /**
-     * @see Repository#save(Persistible, boolean)
-     */
-    public final Long save(final Persistible anObject) {
-
-        HibernateTemplate template = getHibernateTemplate();
-
-        template.save(anObject);
-
-        return getId(anObject);
-    }
 
     /**
-     * @see Repository#update(Persistible, boolean)
-     */
-    public final void update(final Persistible anObject) {
-        getHibernateTemplate().merge(anObject);
-    }
-
-    /**
-     * @see Repository#deleteAll(java.util.Collection)
-     */
-    public void deleteAll(final Collection lista) {
-        getHibernateTemplate().deleteAll(lista);
-    }
-
-    /**
-     * @see Repository#findAll(java.lang.Class)
-     */
-    public List findAll(final Class clazz) {
-
-        return getHibernateTemplate().loadAll(clazz);
-    }
-
-
-    /* (non-Javadoc)
      * @see Repository#retrieve(Reference)
      */
     public Persistible retrieve(final Reference aRef) {
@@ -143,106 +117,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     }
 
     /**
-     * @see Repository#saveAll(java.util.Collection)
+     * @see Repository#saveOrUpdate(Object)
      */
-    public void saveAll(final Collection list) {
-        for (Iterator iter = list.iterator(); iter.hasNext();) {
-            save((Persistible)iter.next());
-
-        }
-
-    }
-    
-//    public List findByCriteria(final CriteriaSpecification criteria) {
-//        return getHibernateTemplate().findByCriteria((DetachedCriteria)criteria);
-//    }
-//
-//    public List findByCriteria(final CriteriaSpecification criteria, Paging paging) {
-//        HibernateTemplate hibernateTemplate = getHibernateTemplate();
-//        List result = getHibernateTemplate().findByCriteria((DetachedCriteria)criteria, 
-//                paging.getFirstResult().intValue(), paging.getResultsPerPage().intValue());
-//        return result;
-//    }
-//    
-//        
-//    /**
-//     * @param aClass
-//     * @param criteria
-//     * @return
-//     */
-//    public List findByCriteria(final Class aClass, final CriteriaSpecification criteria) {
-//        return getHibernateTemplate().findByCriteria((DetachedCriteria)criteria);
-//    }
-//
-//    /* (non-Javadoc)
-//     * @see Repository#find(java.lang.Class, java.lang.String, java.lang.Object)
-//     */
-//    public List find(final Class clazz, final String property, final Object value) {
-//
-//    	return null;
-//    }
-//
-//    public void evict(final Object anObject) {
-//        getHibernateTemplate().evict(anObject);
-//
-//    }
-//
-//    public List findByCriteria(final Class aClass, final Object criteria) {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    public List findByCriteria(final Class aClass, final FilterObject filterObject) {
-//        CriteriaSpecification criteria = QueryBuilder.createCriteria(filterObject, aClass);
-//        return this.findByCriteria(aClass, criteria);
-//    }
-//
-    public List find(final Class aClass, final Query query) {
-        CriteriaTranslator criteriaTranslator = new CriteriaTranslator(aClass, getSessionFactory());        
-        query.acceptTranslator(criteriaTranslator);
-        CriteriaSpecification criteria = criteriaTranslator.getCriteria();
-//        CriteriaSpecification criteriaForCount =
-//            criteriaTranslator.getCriteriaForCount(); 
-//        if (criteriaTranslator.getPaging() != null){
-//            if (criteriaVisitor.getPaging().getResultSize().equals(new Integer(0)) ) {
-//                ((DetachedCriteria) criteriaForCount).setProjection(Projections.rowCount());
-//                Integer rowCount = (Integer) getHibernateTemplate().findByCriteria((DetachedCriteria) criteriaForCount).
-//                                            iterator().next();
-//                criteriaVisitor.getPaging().setResultSize(rowCount);
-//            }    
-//            return this.findByCriteria(criteria, criteriaVisitor.getPaging());
-//        }
-        
-        logger.debug("HOLAAAA: " + criteria.toString());
-        
-        return getHibernateTemplate()
-            .findByCriteria((DetachedCriteria)criteria);
-    }
-    
-    public Long getId(Persistible anObject) {
-        return anObject.getId();
-    }
-
-    public void updateAll(Collection aCollection) {
-        for (Iterator iter = aCollection.iterator(); iter.hasNext();) {
-            update((Persistible)iter.next());
-
-        }
-    }
-
-    public Collection getPersistibleClasses() {
-        ClassMetadata aClassMetadata;
-        Collection classMetadatas;
-        Collection classes = new ArrayList();
-        classMetadatas = getSessionFactory().getAllClassMetadata().values();
-        
-        for(Iterator iter = classMetadatas.iterator(); iter.hasNext();) {
-            aClassMetadata = (ClassMetadata)iter.next();
-            classes.add(aClassMetadata.getMappedClass(EntityMode.POJO));
-        }
-        
-        return classes;
-    }
-
     public void saveOrUpdate(Object anObject) {
         getHibernateTemplate().saveOrUpdate(anObject);
     }
@@ -254,8 +130,122 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         getHibernateTemplate().refresh(anObject);
     }
 
-    public List find(Class arg0, List arg1)
-    {
-        throw new UnsupportedOperationException();
+
+    /** @see Repository#find(Query) */
+    public List find(final Query query) {
+        CriteriaSpecification criteria = getCriteriaSpecification(null, query);
+        return getHibernateTemplate()
+            .findByCriteria((DetachedCriteria)criteria);
     }
+	
+	
+	/**
+	 * @see Repository#count(Query)
+	 */
+	public Integer count(Query query) {
+	    final DetachedCriteria criteria = (DetachedCriteria) getCriteriaSpecification(null, query);
+	    criteria.setProjection(Projections.rowCount());
+	    return (Integer) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				return criteria.getExecutableCriteria(session).uniqueResult();
+			}
+	    	
+	    });
+	}    
+    
+    /**
+     * @see Repository#getPersistibleClasses()
+     */
+    public Collection<Class> getPersistibleClasses() {
+        ClassMetadata aClassMetadata;
+        Collection classMetadatas;
+        Collection<Class> classes = new ArrayList<Class>();
+        classMetadatas = getSessionFactory().getAllClassMetadata().values();
+        
+        for(Iterator iter = classMetadatas.iterator(); iter.hasNext();) {
+            aClassMetadata = (ClassMetadata)iter.next();
+            classes.add(aClassMetadata.getMappedClass(EntityMode.POJO));
+        }
+        
+        return classes;
+    }
+    
+	/**
+	 * 
+	 * It's used to get a <code>CriteriaSpecification</code> from a query. Finders
+	 * and counters will use this method.
+	 * 
+	 * @param aClass (Now is always null as the query has it as a member)
+	 * @param query
+	 * @return a <code>CriteriaSpecification</code>
+	 */
+	private CriteriaSpecification getCriteriaSpecification(final Class aClass,
+			final Query query) {
+		CriteriaTranslator criteriaTranslator = new CriteriaTranslator(aClass, getSessionFactory());
+        if(query != null) {        	
+        	query.acceptTranslator(criteriaTranslator);	        	
+        }
+        CriteriaSpecification criteria = criteriaTranslator.getCriteria();
+		return criteria;
+	}
+
+    
+    
+    /**
+     * @see Repository#save(Persistible, boolean)
+     */
+    public final Long save(final Persistible anObject) {
+    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
+    }
+
+    /**
+     * @see Repository#update(Persistible, boolean)
+     */
+    public final void update(final Persistible anObject) {
+    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
+    }
+
+    /**
+     * @see Repository#deleteAll(java.util.Collection)
+     */
+    public void deleteAll(final Collection lista) {
+    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
+    }
+
+    /**
+     * @see Repository#findAll(java.lang.Class)
+     */
+    public List findAll(final Class clazz) {
+    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
+    }
+    
+    
+    /**
+     * @see Repository#saveAll(java.util.Collection)
+     */
+    public void saveAll(final Collection list) {
+    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
+    }
+    
+    public List<Persistible> find(final Class aClass, final Query query) {
+    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");    }
+
+    
+    public void updateAll(Collection aCollection) {
+    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");    }
+
+
+
+    /** @see ar.com.zauber.commons.repository.Repository#find(java.lang.Class, java.util.List) */
+    public List find(Class class1, List parameters) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
+    }
+
+	public Integer count(Class clazz, Query query) {
+		throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
+	}
+
+    
 }

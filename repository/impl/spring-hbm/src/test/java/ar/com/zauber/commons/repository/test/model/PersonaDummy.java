@@ -5,8 +5,14 @@ package ar.com.zauber.commons.repository.test.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -24,6 +30,7 @@ import ar.com.zauber.commons.repository.Reference;
 public class PersonaDummy implements Persistible {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
     private Integer numeroFiscal;
@@ -32,7 +39,9 @@ public class PersonaDummy implements Persistible {
     
     private String descripcion;
     
-    private Set direcciones;
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="persona_id")    
+    private Set<DireccionDummy> direcciones;
 
     /**
      * Crea el/la PersonaDummy.
@@ -42,7 +51,7 @@ public class PersonaDummy implements Persistible {
 
     }
 
-    public PersonaDummy(int numeroFiscal, String nombre, String descripcion, Set direcciones) {
+    public PersonaDummy(int numeroFiscal, String nombre, String descripcion, Set<DireccionDummy> direcciones) {
         this.numeroFiscal = new Integer(numeroFiscal);
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -97,7 +106,7 @@ public class PersonaDummy implements Persistible {
      *
      * @return <code>Collection</code> con el/la direcciones.
      */
-    public Set getDirecciones() {
+    public Set<DireccionDummy> getDirecciones() {
         return direcciones;
     }
 
@@ -107,7 +116,7 @@ public class PersonaDummy implements Persistible {
      *
      * @param direcciones <code>Collection</code> con el/la direcciones.
      */
-    public void setDirecciones(Set direcciones) {
+    public void setDirecciones(Set<DireccionDummy> direcciones) {
         this.direcciones = direcciones;
     }
 
