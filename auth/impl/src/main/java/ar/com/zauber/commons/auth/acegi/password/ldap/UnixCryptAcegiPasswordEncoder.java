@@ -29,6 +29,13 @@ public class UnixCryptAcegiPasswordEncoder implements PasswordEncoder {
     public final boolean isPasswordValid(final String encPass, 
             final String rawPass, final Object salt) 
             throws DataAccessException {
-        return UnixCrypt.matches(encPass, rawPass);
+        LdapPassword p = new LdapPassword(encPass);
+        final String s;
+        if(p.getAlgorithm() != null && p.getAlgorithm().equals("CRYPT")) {
+            s = p.getData();
+        } else {
+            s = encPass;
+        }
+        return UnixCrypt.matches(s, rawPass);
     }
 }
