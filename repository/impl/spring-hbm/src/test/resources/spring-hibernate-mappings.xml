@@ -9,9 +9,9 @@
         <value>
           ar.com.zauber.commons.repository.test.model.DireccionDummy
         </value>
-        <!-- value>
+        <value>
           ar.com.zauber.commons.repository.test.model.PersonaDummy
-        </value -->
+        </value>
       </list>
     </constructor-arg>
   </bean>	

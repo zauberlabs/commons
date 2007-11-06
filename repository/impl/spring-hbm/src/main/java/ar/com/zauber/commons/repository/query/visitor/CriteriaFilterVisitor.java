@@ -92,10 +92,6 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param aSessionFactory para obtener metadata.
      */
     public CriteriaFilterVisitor(Class aClazz, SessionFactory aSessionFactory) {
-        criteriaForCount = DetachedCriteria.forClass(aClazz);
-        criteriaForCount.setResultTransformer(
-                CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        
         criteria = DetachedCriteria.forClass(aClazz);
         criteria.setResultTransformer(
                 CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -144,27 +140,6 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 //        NegateIfNeeded(equalsFilterObject);
 //    }
 //
-//    /*
-//     * (non-Javadoc)
-//     * @see FilterObjectVisitor#visitOrderByFilterObject(OrderByFilterObject)
-//     */
-//    public void visitOrderByFilterObject(OrderByFilterObject orderByFilterObject) {
-//        String fieldName = getFieldName(orderByFilterObject.getFieldName());
-//        if (orderByFilterObject.getOrder()
-//                .equals(OrderType.ASC_ORDER)) {
-//            if (orderByFilterObject.isNegated()) {
-//                criteria = criteria.addOrder(Order.desc(fieldName));
-//            } else {
-//                criteria = criteria.addOrder(Order.asc(fieldName));
-//            }
-//        } else {
-//            if (orderByFilterObject.isNegated()) {
-//                criteria = criteria.addOrder(Order.asc(fieldName));
-//            } else {
-//                criteria = criteria.addOrder(Order.desc(fieldName));
-//            }
-//        }
-//    }
 
 //    /*
 //     * (non-Javadoc)
@@ -180,11 +155,9 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 //    }
 
 
-    /*
-     * (non-Javadoc)
-     * @see FilterObjectVisitor#visitIsNullFilterObject(IsNullFilterObject)
-     */
-    public void visitIsNullFilterObject(IsNullPropertyFilter isNullPropertyFilter) {
+    /** @see FilterVisitor#visitIsNullPropertyFilter(IsNullPropertyFilter) */
+    public void visitIsNullPropertyFilter(
+            IsNullPropertyFilter isNullPropertyFilter) {
         String fieldName = getFieldName(
                 isNullPropertyFilter.getProperty());
         criterion = Restrictions.isNull(fieldName);
@@ -485,10 +458,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 //        return paging;
 //    }
 
-    /* (non-Javadoc)
-     * @see FilterObjectVisitor#visitInFilterObject(InFilterObject)
-     */
-    public void visitInFilterObject(InPropertyFilter inPropertyFilter) {
+    /** @see FilterVisitor#visitInPropertyFilter(InPropertyFilter) */
+    public void visitInPropertyFilter(InPropertyFilter inPropertyFilter) {
         String fieldName = getFieldName(inPropertyFilter.getProperty());
         criterion = Restrictions.in(fieldName, CollectionUtils.collect(inPropertyFilter.getValues(), new BeanToPropertyValueTransformer("value")).toArray());
         negateIfNeeded(inPropertyFilter);
@@ -545,18 +516,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 
     }
 
-    /** @see ar.com.zauber.commons.repository.query.visitor.FilterVisitor#visitInPropertyFilter(ar.com.zauber.commons.repository.query.filters.InPropertyFilter) */
-    public void visitInPropertyFilter(InPropertyFilter inPropertyFilter) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    /** @see ar.com.zauber.commons.repository.query.visitor.FilterVisitor#visitIsNullPropertyFilter(ar.com.zauber.commons.repository.query.filters.IsNullPropertyFilter) */
-    public void visitIsNullPropertyFilter(
-            IsNullPropertyFilter isNullPropertyFilter) {
-        // TODO Auto-generated method stub
-        
-    }
 
     /** @see ar.com.zauber.commons.repository.query.visitor.FilterVisitor#visitNullFilter(ar.com.zauber.commons.repository.query.filters.NullFilter) */
     public void visitNullFilter(NullFilter nullFilter) {

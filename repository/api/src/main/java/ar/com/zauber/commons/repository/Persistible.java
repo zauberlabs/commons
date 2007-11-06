@@ -24,6 +24,6 @@ public interface Persistible {
     /**
      * @return
      */
-    Reference getReference();
+    <T> Reference<? extends Persistible> generateReference();
 
 }

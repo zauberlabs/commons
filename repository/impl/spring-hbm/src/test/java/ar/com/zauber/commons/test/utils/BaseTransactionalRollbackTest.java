@@ -11,11 +11,11 @@ public class BaseTransactionalRollbackTest
 	
 	protected String[] getConfigLocations() {
 		return new String[]  {
-			"classpath:ar/com/zauber/commons/repository/config/spring-ds.xml",
-            "classpath:ar/com/zauber/commons/repository/config/spring-hibernate-mappings.xml",
-			"classpath:ar/com/zauber/commons/repository/config/spring-hibernate.xml",
-            "classpath:ar/com/zauber/commons/repository/config/spring-repository.xml",
-			"classpath:ar/com/zauber/commons/repository/config/spring-postprocessing.xml",
+			"classpath:spring-ds.xml",
+            "classpath:spring-hibernate-mappings.xml",
+			"classpath:spring-hibernate.xml",
+            "classpath:spring-repository.xml",
+			"classpath:spring-postprocessing.xml",
 		};
 	}
 }

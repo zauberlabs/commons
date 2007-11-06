@@ -115,8 +115,8 @@ public class DireccionDummy implements Persistible {
      * @return una <code>Reference</code> que representa al objeto
      *         correspondiente.
      */
-    public Reference getReference() {
-        return new Reference(this.getClass(), id);
+    public Reference<DireccionDummy> generateReference() {
+        return new Reference<DireccionDummy>(DireccionDummy.class, id);
     }
 
 
@@ -127,7 +127,7 @@ public class DireccionDummy implements Persistible {
             return new ToStringBuilder(this).append("numero", this.numero).append(
                     "id", this.id).append("codpostal", this.codpostal).append(
                     "direccion", this.direccion).append("reference",
-                    this.getReference()).toString();
+                    this.generateReference()).toString();
         }
     
     

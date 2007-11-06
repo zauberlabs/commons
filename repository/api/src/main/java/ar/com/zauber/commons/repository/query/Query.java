@@ -14,6 +14,6 @@ import ar.com.zauber.commons.repository.Persistible;
  * @author Gabriel V. Baños
  * @since 19/06/2005
  */
-public interface Query<T extends Persistible> extends Translatable {
+public interface Query<T> extends Translatable {
 
 }

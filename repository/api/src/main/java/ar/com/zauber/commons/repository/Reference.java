@@ -13,17 +13,17 @@ import java.io.Serializable;
  * 
  * @author Martin Andres Marquez
  */
-public class Reference implements Serializable {
+public class Reference<T> implements Serializable {
 
     /** <code>id</code> */
     private Long id;
 
-    /** <code>className</code> */
-    private String className;
-
     /** <code>version</code> */
     private long version;
 
+    /** <code>clazz</code> */
+    private Class<T> clazz;
+    
     /**
      * Creates the Reference.
      * 
@@ -32,32 +32,7 @@ public class Reference implements Serializable {
      * @param className
      *            the class name
      */
-    public Reference(final String className, final Long id) {
-        this(className);
-        this.id = id;
-    }
-    
-    /**
-     * Creates the Reference.
-     *
-     * @param className
-     * @param id
-     * @param version
-     */
-    public Reference(final String className, final Long id, final long version) {
-        this(className, id);
-        this.version = version;
-    }
-
-    /**
-     * Creates the Reference.
-     * 
-     * @param id
-     *            the id
-     * @param clazz
-     *            the class
-     */
-    public Reference(final Class clazz, final Long id) {
+    public Reference(final Class<T> clazz, final Long id) {
         this(clazz);
         this.id = id;
     }
@@ -65,34 +40,22 @@ public class Reference implements Serializable {
     /**
      * Creates the Reference.
      *
-     * @param clazz
+     * @param className
      * @param id
      * @param version
      */
-    public Reference(final Class clazz, final Long id, final long version) {
+    public Reference(final Class<T> clazz, final Long id, final long version) {
         this(clazz, id);
         this.version = version;
     }
-
+    
     /**
      * Creates the Reference.
      * 
-     * @param className
-     *            the class name
      */
-    public Reference(final String className) {
-        this.className = className;
+    public Reference(Class<T> clazz) {
+        this.clazz = clazz;
         this.version = -1;
-    }
-
-    /**
-     * Creates the Reference.
-     * 
-     * @param clazz
-     *            the class
-     */
-    public Reference(final Class clazz) {
-        this.className = clazz.getName();
     }
 
     /**
@@ -105,16 +68,6 @@ public class Reference implements Serializable {
     }
 
     /**
-     * Sets the id.
-     * 
-     * @param id
-     *            <code>Serializable</code> with the id.
-     */
-    public final void setId(final Long id) {
-        this.id = id;
-    }
-
-    /**
      * Returns the version.
      * 
      * @return <code>long</code> with the version.
@@ -124,25 +77,12 @@ public class Reference implements Serializable {
     }
 
     /**
-     * Sets the version.
-     * 
-     * @param version
-     *            <code>long</code> with the version.
-     * @deprecated no se debería setear nunca la version, debería sólo cargarse
-     * en el construtor.
-     */
-    @Deprecated
-    public final void setVersion(final long version) {
-        this.version = version;
-    }
-
-    /**
      * Returns the className.
      * 
      * @return <code>String</code> with the className.
      */
     public final String getClassName() {
-        return this.className;
+        return clazz.getName();
     }
 
     /** @see java.lang.Object#toString() */

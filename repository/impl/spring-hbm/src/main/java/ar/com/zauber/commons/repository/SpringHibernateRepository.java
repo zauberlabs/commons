@@ -13,11 +13,15 @@ import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.EntityMode;
+import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.IdentifierProjection;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.RowCountProjection;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -47,12 +51,12 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     /**
      * @see Repository#createNew(Reference)
      */
-    public final Persistible createNew(final Reference aRef) {
-        Persistible persistible = null;
+    public final <T> T  createNew(final Reference<T> aRef) {
+        T persistible = null;
 
         try {
             persistible =
-                (Persistible)
+                (T)
                     Class.forName(aRef.getClassName()).newInstance();
         } catch(Exception e) {
             e.printStackTrace();
@@ -69,13 +73,13 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
      *              java.lang.Object[],
      *              java.lang.Class[])
      */
-    public final Persistible createNew(final Reference aRef,
+    public final <T> T  createNew(final Reference<T> aRef,
             final Object [] args, final Class [] types) {
-        Persistible persistible = null;
+        T persistible = null;
 
         try {
             persistible =
-                (Persistible)ConstructorUtils
+                (T)ConstructorUtils
                     .invokeConstructor(
                             Class.forName(aRef.getClassName()),args, types);
         } catch(Exception e) {
@@ -91,9 +95,6 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
      * @see Repository#delete(Persistible)
      */
     public final void delete(final Persistible anObject) {
-
-
-
         getHibernateTemplate().delete(anObject);
     }
 
@@ -101,14 +102,14 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     /**
      * @see Repository#retrieve(Reference)
      */
-    public Persistible retrieve(final Reference aRef) {
+    public <T> T  retrieve(final Reference<T> aRef) {
         if(aRef.getId()==null) {
             return createNew(aRef);
         }
         else {
-            Persistible persistible;
+            T persistible;
             persistible =
-                (Persistible)this.getHibernateTemplate().get(
+                (T)this.getHibernateTemplate().get(
                     aRef.getClassName(), aRef.getId());
             //this.getHibernateTemplate().evict(persistible);
             return persistible;
@@ -132,17 +133,40 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
 
 
     /** @see Repository#find(Query) */
-    public List find(final Query query) {
+    public <T> List<T> find(final Query<T> query) {
         CriteriaSpecification criteria = getCriteriaSpecification(null, query);
-        return getHibernateTemplate()
-            .findByCriteria((DetachedCriteria)criteria);
+        SimpleQuery simpleQuery = (SimpleQuery) query;
+        // TODO: Esto deberí ir en el metodo que hace getCriteriaSpecification
+        // pero como no tiene DetachedCriteria posibilidad de setearle valores
+        // para paginación hubo que hacerlo así.
+        if(simpleQuery.getPaging()!=null) {
+            int firstResult = (simpleQuery.getPaging().getPageNumber()-1)
+                * simpleQuery.getPaging().getResultsPerPage();
+            DetachedCriteria idsCriteria = (DetachedCriteria)criteria;
+            idsCriteria.setProjection(Projections.id());
+            List ids = getHibernateTemplate().findByCriteria(
+                    idsCriteria,
+                    firstResult,
+                    simpleQuery.getPaging().getResultsPerPage());
+            DetachedCriteria theCriteria =
+                (DetachedCriteria) getCriteriaSpecification(null, query);
+            if(ids.isEmpty()) {
+                return new ArrayList<T>();
+            }
+            theCriteria.add(Restrictions.in("id", ids));
+            return getHibernateTemplate()
+                .findByCriteria(theCriteria);
+        } else {
+            return getHibernateTemplate()
+                .findByCriteria((DetachedCriteria)criteria);
+        }
     }
 	
 	
 	/**
 	 * @see Repository#count(Query)
 	 */
-	public Integer count(Query query) {
+	public int count(Query query) {
 	    final DetachedCriteria criteria = (DetachedCriteria) getCriteriaSpecification(null, query);
 	    criteria.setProjection(Projections.rowCount());
 	    return (Integer) getHibernateTemplate().execute(new HibernateCallback() {
@@ -189,63 +213,5 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         CriteriaSpecification criteria = criteriaTranslator.getCriteria();
 		return criteria;
 	}
-
-    
-    
-    /**
-     * @see Repository#save(Persistible, boolean)
-     */
-    public final Long save(final Persistible anObject) {
-    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
-    }
-
-    /**
-     * @see Repository#update(Persistible, boolean)
-     */
-    public final void update(final Persistible anObject) {
-    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
-    }
-
-    /**
-     * @see Repository#deleteAll(java.util.Collection)
-     */
-    public void deleteAll(final Collection lista) {
-    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
-    }
-
-    /**
-     * @see Repository#findAll(java.lang.Class)
-     */
-    public List findAll(final Class clazz) {
-    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
-    }
-    
-    
-    /**
-     * @see Repository#saveAll(java.util.Collection)
-     */
-    public void saveAll(final Collection list) {
-    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
-    }
-    
-    public List<Persistible> find(final Class aClass, final Query query) {
-    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");    }
-
-    
-    public void updateAll(Collection aCollection) {
-    	throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");    }
-
-
-
-    /** @see ar.com.zauber.commons.repository.Repository#find(java.lang.Class, java.util.List) */
-    public List find(Class class1, List parameters) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
-    }
-
-	public Integer count(Class clazz, Query query) {
-		throw new UnsupportedOperationException("Esta operacion se va a eliminar en las proximas versiones");
-	}
-
     
 }

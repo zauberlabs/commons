@@ -7,7 +7,8 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 
-import ar.com.zauber.commons.repository.query.EqualsQuery;
+import ar.com.zauber.commons.dao.Order;
+import ar.com.zauber.commons.dao.Ordering;
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
 import ar.com.zauber.commons.repository.query.Translator;
@@ -48,18 +49,33 @@ public class CriteriaTranslator implements Translator
     	if(clazz == null) {
     		clazz = ((SimpleQuery)aQuery).getClazz();
     	}
-        if(aQuery instanceof EqualsQuery) {
-            criteria = DetachedCriteria.forClass(clazz);
-            Criterion criterion = Restrictions.eq(((EqualsQuery)aQuery).getFieldName(), ((EqualsQuery)aQuery).getValue());
-            criteria.add(criterion);
-        } else {
-            FilterVisitor filterVisitor = new CriteriaFilterVisitor(clazz, sessionFactory);
-            ((SimpleQuery) aQuery).getFilter().accept(filterVisitor);
-            criteria = ((CriteriaFilterVisitor)filterVisitor).getCriteria();
-        }
+        SimpleQuery simpleQuery = (SimpleQuery) aQuery;
+        
+        FilterVisitor filterVisitor = new CriteriaFilterVisitor(clazz, sessionFactory);
+        ((SimpleQuery) aQuery).getFilter().accept(filterVisitor);
+        criteria = ((CriteriaFilterVisitor)filterVisitor).getCriteria();
+        
+        addOrder(simpleQuery.getOrdering());
+
         criteria.setResultTransformer(
                 CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        
         logger.info("Criteria: " + criteria);
+    }
+
+    
+    
+    private void addOrder(Ordering ordering) {
+        if(ordering == null) {
+            return;
+        }
+        for (Order order : ordering.getOrders()) {
+            if (order.getAscending()) {
+                criteria = criteria.addOrder(org.hibernate.criterion.Order.asc(order.getProperty()));
+            } else {
+                criteria = criteria.addOrder(org.hibernate.criterion.Order.desc(order.getProperty()));
+            }            
+        }
     }
 
     /**
