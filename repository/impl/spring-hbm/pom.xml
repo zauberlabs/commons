@@ -127,4 +127,19 @@
       </testResource>
     </testResources>
   </build>
+    <properties>
+      <!-- the datasource for test url. -->
+      <repository-impl-springhbm.dataSource.url>jdbc:hsqldb:mem:testdb</repository-impl-springhbm.dataSource.url>
+      <repository-impl-springhbm.dataSource.driverClassName>org.hsqldb.jdbcDriver</repository-impl-springhbm.dataSource.driverClassName>
+      <repository-impl-springhbm.dataSource.username>sa</repository-impl-springhbm.dataSource.username>
+      <repository-impl-springhbm.dataSource.password></repository-impl-springhbm.dataSource.password>
+
+      <repository-impl-springhbm.log4j.debugLevel>info</repository-impl-springhbm.log4j.debugLevel>
+      <repository-impl-springhbm.log4j.appender>console</repository-impl-springhbm.log4j.appender>
+
+      <repository-impl-springhbm.hibernate.dialect>org.hibernate.dialect.HSQLDialect</repository-impl-springhbm.hibernate.dialect>
+      <repository-impl-springhbm.hibernate.hbm2ddl.auto>create</repository-impl-springhbm.hibernate.hbm2ddl.auto>
+      <repository-impl-springhbm.hibernate.show_sql>true</repository-impl-springhbm.hibernate.show_sql>
+      <repository-impl-springhbm.hibernate.default_schema>public</repository-impl-springhbm.hibernate.default_schema>
+    </properties>
 </project>

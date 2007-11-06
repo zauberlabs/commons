@@ -153,7 +153,8 @@ public class SpringHibernateRepositoryTest
 
     public void testFiltersOrderingAndPaging() {
         
-        String[] nombres = {"Luis Fernandez", "Jose Leon", "Alberto Sifran", "Alejandro Diez", "alfredo Alcon", "Juan Llamon"};
+        //Algunas bases son case sensitive ojo con eso!!!
+        String[] nombres = {"Luis Fernandez", "Jose Leon", "Alberto Sifran", "Alejandro Diez", "Alfredo Alcon", "Juan Llamon"};
         Integer[] nros = {new Integer(11111), new Integer(2000), new Integer(4000), new Integer(100), new Integer(34), new Integer(222)};
         String[] descripciones = {"Un grande", "Un atleta", "Un ganzo", "Un famoso", "y este?", "otro mas"};
         
@@ -173,7 +174,7 @@ public class SpringHibernateRepositoryTest
         
         personas = repository.find(new SimpleQuery<PersonaDummy>(PersonaDummy.class, beginsLikeFilter, null, null));
 
-        Assert.assertEquals(2, personas.size());
+        Assert.assertEquals(3, personas.size());
         
         BaseFilter nullFilter = new NullFilter();
         BaseFilter greaterThanFilter = new GreaterThanPropertyFilter("numeroFiscal", new SimpleValue(new Integer(1000)));
@@ -190,14 +191,14 @@ public class SpringHibernateRepositoryTest
         personas = repository.find(new SimpleQuery<PersonaDummy>(
                 PersonaDummy.class, new CompositeFilter(new OrConnector(), filters), null, null));
 
-        Assert.assertEquals(4, personas.size());
+        Assert.assertEquals(5, personas.size());
 
         // El null filter no agrega nada!!!:D
         filters.add(nullFilter);
         personas = repository.find(new SimpleQuery<PersonaDummy>(
                 PersonaDummy.class, new CompositeFilter(new OrConnector(), filters), null, null));
 
-        Assert.assertEquals(4, personas.size());
+        Assert.assertEquals(5, personas.size());
 
         filters.add(nullFilter);
         personas = repository.find(new SimpleQuery<PersonaDummy>(
@@ -211,18 +212,13 @@ public class SpringHibernateRepositoryTest
                 PersonaDummy.class, new NullFilter(), null,
                 new Ordering(orderList)));
         
-        //Es case insensitive
         assertEquals("Alberto Sifran", personas.get(0).getNombre());
-        assertEquals("alfredo Alcon", personas.get(2).getNombre());
+        assertEquals("Alfredo Alcon", personas.get(2).getNombre());
         assertEquals("Luis Fernandez", personas.get(5).getNombre());
-        
         
         personas = repository.find(new SimpleQuery<PersonaDummy>(
                 PersonaDummy.class, new NullFilter(), new Paging(1, 3),
                 new Ordering(orderList)));
-        for (PersonaDummy persona : personas) {
-            System.out.println("PERSONA: " + persona.getNombre());
-        }
         assertEquals(3, personas.size());
         assertEquals("Alejandro Diez", personas.get(1).getNombre());
         personas = repository.find(new SimpleQuery<PersonaDummy>(
