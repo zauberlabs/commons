@@ -8,7 +8,7 @@ import java.util.List;
         
 
 /**
- * Representa un orden.
+ * Representa un orden ascendente o descendente en base a una propiedad.
  * 
  * 
  * @author Martin A. Marquez
@@ -17,8 +17,8 @@ import java.util.List;
 public class Order {
 
     
-    /** <code>properties</code> */
-    private List<String> properties;
+    /** <code>property</code> */
+    private String property;
     
     /** <code>direction</code> */
     private Boolean ascending = ASCENDING;
@@ -31,9 +31,9 @@ public class Order {
      *
      * @param properties
      */
-    public Order(List<String> properties) {
+    public Order(String property) {
         super();
-        this.properties = properties;
+        this.property = property;
     }
 
     
@@ -43,15 +43,15 @@ public class Order {
      * @param properties
      * @param ascending
      */
-    public Order(List<String> properties, Boolean ascending) {
+    public Order(String property, Boolean ascending) {
         super();
-        this.properties = properties;
+        this.property = property;
         this.ascending = ascending;
     }
 
 
-    public List<String> getProperties() {
-        return properties;
+    public String getProperty() {
+        return property;
     }
 
 
