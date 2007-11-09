@@ -37,6 +37,7 @@
      <module>fts</module>
      <module>repository</module>
      <module>gis</module>
+     <module>doxia</module>
   </modules>
   <dependencies>
     <dependency>
