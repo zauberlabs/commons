@@ -58,7 +58,7 @@ public class AcegiLdapUserPasswordEncoder implements PasswordEncoder {
             final String rawPass, final Object salt) throws DataAccessException {
         final LdapPassword ldapPass = new LdapPassword(encPass);
         
-        return getEncoder(ldapPass).isPasswordValid(ldapPass.getData(), 
+        return getEncoder(ldapPass).isPasswordValid(encPass, 
                 rawPass, salt);
     }
 
@@ -72,6 +72,10 @@ public class AcegiLdapUserPasswordEncoder implements PasswordEncoder {
         }
         
         return encoder;
+    }
+    
+    private String password(String s) {
+        return s;
     }
 }
 
