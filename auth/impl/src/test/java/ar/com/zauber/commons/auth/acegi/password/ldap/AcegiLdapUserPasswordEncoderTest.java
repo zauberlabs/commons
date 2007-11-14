@@ -29,7 +29,7 @@ public class AcegiLdapUserPasswordEncoderTest extends TestCase {
         map.put("A", new PasswordEncoder() {
             public String encodePassword(final String rawPass, final Object salt)
                     throws DataAccessException {
-                return "asdsad";
+                return "{A}asdsad";
             }
 
             public boolean isPasswordValid(final String encPass, 
@@ -43,7 +43,7 @@ public class AcegiLdapUserPasswordEncoderTest extends TestCase {
         map.put("C", new PasswordEncoder() {
             public String encodePassword(final String rawPass, final Object salt)
                     throws DataAccessException {
-                return "asdsad";
+                return "{C}asdsad";
             }
             public boolean isPasswordValid(final String encPass, 
                     final String rawPass, final Object salt) 
