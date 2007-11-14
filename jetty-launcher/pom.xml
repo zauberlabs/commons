@@ -45,22 +45,20 @@
       <version>6.1.5</version>
     </dependency>
   </dependencies>
-<build>
+  <build>
     <plugins>
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.1</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>ar.com.zauber.garfio.client.GarfioClient</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-      </plugin>
+          <groupId> org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <archive>
+                  <manifest>
+                      <addClasspath>true</addClasspath>
+                      <mainClass>ar.com.zauber.commons.launcher.Main</mainClass>
+                  </manifest>
+              </archive>
+           </configuration>
+       </plugin>      
     </plugins>
-</build>
+  </build>
 </project>
