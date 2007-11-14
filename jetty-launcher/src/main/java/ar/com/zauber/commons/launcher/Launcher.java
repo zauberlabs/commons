@@ -42,6 +42,7 @@ public class Launcher {
         Validate.isTrue(!StringUtils.strip(webApplicationPath).equals(""));
         Validate.isTrue(!StringUtils.strip(contextPath).equals(""));
         Validate.isTrue(port > 0);
+        this.contextPath = contextPath;
         this.webApplicationPath = webApplicationPath;
         this.port = port;
     }

@@ -41,8 +41,8 @@ public final class Main {
             showUssage();
             System.exit(1);
         }
-        contextpath = args[1];
-        path = args[2];
+        contextpath = args[2];
+        path = args[1];
         new Launcher(path, contextpath, port).run();
     }
 
