@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Garbarino S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
  */
 
 package ar.com.zauber.commons.repository.query;

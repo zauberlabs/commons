@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Garbarino S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
  */
 
 package ar.com.zauber.commons.repository.query.filters;
@@ -8,7 +8,7 @@ import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
         
 
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Filtro que busque que una propiedad sea null.
  * 
  * 
  * @author Martin A. Marquez

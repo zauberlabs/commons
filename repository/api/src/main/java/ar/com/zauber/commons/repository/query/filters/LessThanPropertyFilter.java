@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Garbarino S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
  */
 
 package ar.com.zauber.commons.repository.query.filters;
@@ -8,7 +8,8 @@ import ar.com.zauber.commons.repository.query.values.Value;
         
 
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Filtro que toma solo aquellos objetos que cumplen con que cierta propiedad
+ * sea menor a un valor.
  * 
  * 
  * @author Martin A. Marquez

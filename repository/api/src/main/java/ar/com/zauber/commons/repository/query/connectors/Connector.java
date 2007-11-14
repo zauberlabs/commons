@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2007 Garbarino S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
  */
 
 package ar.com.zauber.commons.repository.query.connectors;
         
 
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Interface que deben implementar los conectores.
  * 
  * 
  * @author Martin A. Marquez

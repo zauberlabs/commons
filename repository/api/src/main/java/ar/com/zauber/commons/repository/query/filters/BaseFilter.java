@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2007 Garbarino S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
  */
 
 package ar.com.zauber.commons.repository.query.filters;
         
 
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Clase base para todos los filtros, permite negarlo.
  * 
  * 
  * @author Martin A. Marquez

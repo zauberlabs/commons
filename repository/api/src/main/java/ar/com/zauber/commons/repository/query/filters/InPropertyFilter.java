@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Garbarino S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
  */
 
 package ar.com.zauber.commons.repository.query.filters;
@@ -9,8 +9,8 @@ import java.util.List;
 import ar.com.zauber.commons.repository.query.values.Value;
 import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
- * 
+ * Filtro que limita a aquellos objetos cuya propiedad este incluida en el
+ * conjunto de valores.
  * 
  * @author Martin A. Marquez
  * @since Sep 21, 2007

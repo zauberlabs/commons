@@ -1,5 +1,5 @@
-/**
- * 
+/*
+ * Copyright (c) 2005 Zauber -- All rights reserved
  */
 package ar.com.zauber.commons.repository;
 

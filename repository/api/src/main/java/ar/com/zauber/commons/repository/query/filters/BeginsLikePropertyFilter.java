@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Garbarino S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
  */
 
 package ar.com.zauber.commons.repository.query.filters;
@@ -9,7 +9,8 @@ import ar.com.zauber.commons.repository.query.values.Value;
         
 
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Clase que representa un filtro para valores de tipo String donde se busca
+ * aquellas propiedades que comiencen con la secuencia indicada.
  * 
  * 
  * @author Martin A. Marquez
