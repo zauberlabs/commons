@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2007 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.garfio.server;
+package ar.com.zauber.commons.launcher;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
