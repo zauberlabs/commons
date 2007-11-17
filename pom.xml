@@ -38,6 +38,7 @@
      <module>repository</module>
      <module>gis</module>
      <module>doxia</module>
+     <module>jetty-launcher</module>
   </modules>
   <dependencies>
     <dependency>
