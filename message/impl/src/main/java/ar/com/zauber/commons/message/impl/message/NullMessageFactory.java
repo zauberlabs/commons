@@ -5,7 +5,9 @@ package ar.com.zauber.commons.message.impl.message;
 
 import java.util.Map;
 
+import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageFactory;
+import ar.com.zauber.commons.message.NotificationAddress;
 
 
 /**
@@ -20,6 +22,10 @@ public class NullMessageFactory extends AbstractMessageFactory {
     public final String renderString(final String message, 
             final Map<String, Object> model) {
         
+        return message;
+    }
+
+    public String renderString(String message, Object[] params) {
         return message;
     }
 

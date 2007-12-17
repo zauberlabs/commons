@@ -33,4 +33,20 @@ public abstract class AbstractMessageFactory implements MessageFactory {
                 renderString(subject, model),
                 address);
     }
+    
+    /** @see MessageFactory#createMessage(String, String, Map, 
+     *                                                  NotificationAddress) */
+    public final Message createMessage(final String stringMessage, 
+            final String subject, final Object[] model,
+            final NotificationAddress address) {
+        
+        Validate.notNull(stringMessage);
+        Validate.notNull(model);
+        
+        return new StringMessage(renderString(stringMessage, model), 
+                renderString(subject, model),
+                address);
+    }
+
+    
 }

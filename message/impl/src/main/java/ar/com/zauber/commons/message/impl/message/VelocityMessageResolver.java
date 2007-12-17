@@ -47,4 +47,9 @@ public class VelocityMessageResolver extends AbstractMessageFactory {
         
         return writer.toString();
     }
+
+    public String renderString(String message, Object[] params) {
+        // TODO Try to do something.
+        return message;
+    }
 }
