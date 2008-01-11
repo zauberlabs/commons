@@ -5,12 +5,14 @@
 package ar.com.zauber.commons.repository.query;
         
 
+import org.apache.commons.lang.Validate;
+
 import ar.com.zauber.commons.dao.Ordering;
 import ar.com.zauber.commons.dao.Paging;
 import ar.com.zauber.commons.repository.query.filters.Filter;
 
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Implementación tonta de {@link Query}.
  * 
  * 
  * @author Martin A. Marquez
@@ -26,12 +28,13 @@ public class SimpleQuery<T> implements Query<T> {
     /**
      * Crea el/la SimpleQuery.  
      *
-     * @param filter
-     * @param paging
-     * @param ordering
+     * @param clazz  clase que se está buscando.
+     * @param filter filter no puede ser null
+     * @param paging objeto de pagina. parece que puede ser null.
+     * @param ordering parece que puede ser null.
      */
     public SimpleQuery(Class<T> clazz, Filter filter, Paging paging, Ordering ordering) {
-        super();
+        Validate.notNull(filter);
         this.clazz = clazz;
         this.filter = filter;
         this.paging = paging;
