@@ -14,7 +14,8 @@ import javax.persistence.MappedSuperclass;
  * @since Nov 12, 2007
  */
 @MappedSuperclass
-public class BaseCreationModificationAuditableEntity extends BaseModifiableEntity implements CreationAuditable, ModificationAuditable {
+public class BaseCreationModificationAuditableEntity extends BaseModifiableEntity 
+                           implements CreationAuditable, ModificationAuditable {
 
     /** <code>createdAt</code> */
     private Date createdAt;
@@ -25,20 +26,20 @@ public class BaseCreationModificationAuditableEntity extends BaseModifiableEntit
     /** <code>modifiedBy</code> */
     private String modifiedBy;
     
-    public Date getCreatedAt() {
+    public final Date getCreatedAt() {
         return createdAt;
     }
 
-    public String getCreatedBy() {
+    public final String getCreatedBy() {
         return createdBy;
     }
 
     
-    public Date getModifiedAt() {
+    public final Date getModifiedAt() {
         return modifiedAt;
     }
 
-    public String getModifiedBy() {
+    public final String getModifiedBy() {
         return modifiedBy;
     }
 

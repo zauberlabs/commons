@@ -17,11 +17,11 @@ public class BaseModifiableEntity extends BaseEntity implements Modifiable {
 
     private Long version;
     
-    public Long getVersion() {
+    public final Long getVersion() {
         return version;
     }
     
-    public Reference generateReference() {
+    public final Reference generateReference() {
         return new Reference(this.getClass(), getId(), getVersion());
     }
 

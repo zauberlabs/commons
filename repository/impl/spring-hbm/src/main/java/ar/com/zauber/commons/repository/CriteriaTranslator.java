@@ -1,24 +1,22 @@
 package ar.com.zauber.commons.repository;
 
-import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.*;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.DetachedCriteria;
 
 import ar.com.zauber.commons.dao.Order;
 import ar.com.zauber.commons.dao.Ordering;
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
 import ar.com.zauber.commons.repository.query.Translator;
-import ar.com.zauber.commons.repository.query.filters.BaseFilter;
 import ar.com.zauber.commons.repository.query.visitor.CriteriaFilterVisitor;
 import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 
 
-public class CriteriaTranslator implements Translator
-{
+public class CriteriaTranslator implements Translator {
 
     private SessionFactory sessionFactory;
     private Class clazz;
@@ -33,19 +31,17 @@ public class CriteriaTranslator implements Translator
      * @param aClass
      * @param aSessionFactory
      */
-    public CriteriaTranslator(Class aClass, SessionFactory aSessionFactory)
-    {
+    public CriteriaTranslator(final Class aClass, 
+            final SessionFactory aSessionFactory) {
         clazz = aClass;
         sessionFactory = aSessionFactory;
     }
 
-    public CriteriaTranslator(SessionFactory aSessionFactory)
-    {
+    public CriteriaTranslator(final SessionFactory aSessionFactory)  {
         sessionFactory = aSessionFactory;
     }
 
-    public void translate(Query aQuery)
-    {
+    public void translate(final Query aQuery)  {
     	if(clazz == null) {
     		clazz = ((SimpleQuery)aQuery).getClazz();
     	}
@@ -65,7 +61,7 @@ public class CriteriaTranslator implements Translator
 
     
     
-    private void addOrder(Ordering ordering) {
+    private void addOrder(final Ordering ordering) {
         if(ordering == null) {
             return;
         }
@@ -82,9 +78,9 @@ public class CriteriaTranslator implements Translator
      * @return
      */
     public CriteriaSpecification getCriteria() {
-    	if(criteria == null) {
-    		criteria = DetachedCriteria.forClass(clazz); 
-    	}
+        if(criteria == null) {
+            criteria = DetachedCriteria.forClass(clazz); 
+        }
         return criteria;
     }
 

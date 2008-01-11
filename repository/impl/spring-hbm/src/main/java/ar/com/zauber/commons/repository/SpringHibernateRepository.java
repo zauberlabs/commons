@@ -13,24 +13,18 @@ import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.EntityMode;
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.IdentifierProjection;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.RowCountProjection;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
-import ar.com.zauber.commons.repository.query.filters.NullFilter;
 
 
 /**
@@ -161,22 +155,25 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
                 .findByCriteria((DetachedCriteria)criteria);
         }
     }
-	
-	
+
+
 	/**
-	 * @see Repository#count(Query)
-	 */
-	public int count(Query query) {
-	    final DetachedCriteria criteria = (DetachedCriteria) getCriteriaSpecification(null, query);
-	    criteria.setProjection(Projections.rowCount());
-	    return (Integer) getHibernateTemplate().execute(new HibernateCallback() {
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				return criteria.getExecutableCriteria(session).uniqueResult();
-			}
-	    	
-	    });
-	}    
+     * @see Repository#count(Query)
+     */
+    public int count(final Query query) {
+        final DetachedCriteria criteria = (DetachedCriteria) getCriteriaSpecification(
+                null, query);
+        criteria.setProjection(Projections.rowCount());
+        return (Integer) getHibernateTemplate().execute(
+                new HibernateCallback() {
+                    public Object doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                        return criteria.getExecutableCriteria(session)
+                                .uniqueResult();
+                    }
+
+                });
+    }    
     
     /**
      * @see Repository#getPersistibleClasses()
@@ -195,23 +192,25 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         return classes;
     }
     
-	/**
-	 * 
-	 * It's used to get a <code>CriteriaSpecification</code> from a query. Finders
-	 * and counters will use this method.
-	 * 
-	 * @param aClass (Now is always null as the query has it as a member)
-	 * @param query
-	 * @return a <code>CriteriaSpecification</code>
-	 */
-	private CriteriaSpecification getCriteriaSpecification(final Class aClass,
-			final Query query) {
-		CriteriaTranslator criteriaTranslator = new CriteriaTranslator(aClass, getSessionFactory());
+    /**
+     * 
+     * It's used to get a <code>CriteriaSpecification</code> from a query.
+     * Finders and counters will use this method.
+     * 
+     * @param aClass
+     *            (Now is always null as the query has it as a member)
+     * @param query
+     * @return a <code>CriteriaSpecification</code>
+     */
+    private CriteriaSpecification getCriteriaSpecification(final Class aClass,
+            final Query query) {
+        CriteriaTranslator criteriaTranslator = new CriteriaTranslator(aClass,
+                getSessionFactory());
         if(query != null) {        	
-        	query.acceptTranslator(criteriaTranslator);	        	
+            query.acceptTranslator(criteriaTranslator);
         }
         CriteriaSpecification criteria = criteriaTranslator.getCriteria();
-		return criteria;
-	}
+        return criteria;
+    }
     
 }

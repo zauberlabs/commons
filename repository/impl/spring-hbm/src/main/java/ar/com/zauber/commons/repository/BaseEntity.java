@@ -23,34 +23,24 @@ public class BaseEntity implements Persistible {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see ar.com.zauber.commons.repository.Persistible#getId()
-     */
-    public Long getId() {
+    /** @see Persistible#getId() */
+    public final  Long getId() {
         return id;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see ar.com.zauber.commons.repository.Persistible#getReference()
-     */
+    /** @see Persistible#getReference() */
     public Reference generateReference() {
         return new Reference(this.getClass(), getId());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see ar.com.zauber.commons.repository.Persistible#setId(java.lang.Long)
+    /** @see Persistible#setId(Long)
      */
-    public void setId(Long anId) {
+    public final void setId(final Long anId) {
         id = anId;
     }
 
-    public boolean equals(Object obj) {
+    /** @see Object#equals(Object) */
+    public boolean equals(final Object obj) {
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
@@ -81,6 +71,7 @@ public class BaseEntity implements Persistible {
         return equalsBuilder.isEquals();
     }
 
+    /** @see Object#hashCode() */
     public int hashCode() {
 
         if (getId() != null) {

@@ -14,15 +14,16 @@ import javax.persistence.MappedSuperclass;
  * @since Nov 12, 2007
  */
 @MappedSuperclass
-public class BaseCreationAuditableEntity extends BaseEntity implements CreationAuditable {
+public class BaseCreationAuditableEntity extends BaseEntity 
+                                      implements CreationAuditable {
     private Date createdAt;
     private String createdBy;
     
-    public Date getCreatedAt() {
+    public final Date getCreatedAt() {
         return createdAt;
     }
 
-    public String getCreatedBy() {
+    public final String getCreatedBy() {
         return createdBy;
     }
 
