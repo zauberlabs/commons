@@ -4,7 +4,6 @@
 package ar.com.zauber.commons.repository.query.visitor;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
@@ -14,8 +13,6 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Junction;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.type.CollectionType;
@@ -91,7 +88,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param aClazz clase a buscar.
      * @param aSessionFactory para obtener metadata.
      */
-    public CriteriaFilterVisitor(Class aClazz, SessionFactory aSessionFactory) {
+    public CriteriaFilterVisitor(final Class aClazz, 
+            final SessionFactory aSessionFactory) {
         criteria = DetachedCriteria.forClass(aClazz);
         criteria.setResultTransformer(
                 CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -106,7 +104,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @return <code>Criteria</code> de Hibernate.
      */
-    public DetachedCriteria getCriteria() {
+    public final DetachedCriteria getCriteria() {
         if (criterion != null) {
             criteria.add(criterion);
         }
@@ -119,7 +117,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @return <code>Criteria</code> de Hibernate.
      */
-    public DetachedCriteria getCriteriaForCount() {
+    public final DetachedCriteria getCriteriaForCount() {
         if (criterion != null) {
             criteriaForCount.add(criterion);
         }
@@ -156,8 +154,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 
 
     /** @see FilterVisitor#visitIsNullPropertyFilter(IsNullPropertyFilter) */
-    public void visitIsNullPropertyFilter(
-            IsNullPropertyFilter isNullPropertyFilter) {
+    public final void visitIsNullPropertyFilter(
+            final IsNullPropertyFilter isNullPropertyFilter) {
         String fieldName = getFieldName(
                 isNullPropertyFilter.getProperty());
         criterion = Restrictions.isNull(fieldName);
@@ -168,11 +166,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
     // composite en forma anidada              //
     /////////////////////////////////////////////
 
-    /*
-     * (non-Javadoc)
-     * @see FilterObjectVisitor#visitCompositeFilterObject(CompositeFilterObject)
-     */
-    public void visitCompositeFilter(CompositeFilter compositeFilter) {
+    /** @see FilterObjectVisitor#visitCompositeFilterObject(CompositeFilterObject) */
+    public final void visitCompositeFilter(final CompositeFilter compositeFilter) {
         // se itera sobre los hijos a aplicar operaciones
         visitCompositeChildren(compositeFilter);
     }
@@ -214,7 +209,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @param pathName asociacion a resolver
      */
-    private void multipartQueryResolver(String pathName) {
+    private void multipartQueryResolver(final String pathName) {
         int dotIndex = pathName.indexOf(".");
         int lastDotIndex = 0;
         int dotIndexAcum = dotIndex;
@@ -240,7 +235,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
                                 nestedAlias + "." + pathPart, alias);
                     } else { // si es la primera porcion del path
                         criteria = criteria.createAlias(pathPart, alias);
-                        criteriaForCount = criteriaForCount.createAlias(pathPart, alias);
+                        criteriaForCount = criteriaForCount.createAlias(
+                                pathPart, alias);
                     }
                 } else { // si es un component no se usa alias directamente
                     String prefixComponent = null;
@@ -279,7 +275,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param pathPart siguiente pathPart a procesar
      * @return
      */
-    private Class getNextPathPartClass(Class pathPartClass, String pathPart) {
+    private Class getNextPathPartClass(final Class pathPartClass, 
+            final String pathPart) {
         Type hibernateType      = null;
         Class nextPathPartClass = null;
 
@@ -314,7 +311,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param pathPart
      * @return
      */
-    private Type getHibernateTypeFromComponent(String pathPart) {
+    private Type getHibernateTypeFromComponent(final String pathPart) {
         Type[] subTypes = componentType.getSubtypes();
         String[] propNames = componentType.getPropertyNames();
         Type hibernateType = null;
@@ -335,7 +332,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param pathPart nombre del atributo
      * @return
      */
-    private boolean isComponentType(Class pathPartClass, String pathPart) {
+    private boolean isComponentType(final Class pathPartClass, 
+            final String pathPart) {
         ClassMetadata classMetadata = sessionFactory.
             getClassMetadata(pathPartClass);
 
@@ -353,14 +351,14 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param fieldName fieldName del componente
      * @return verdadero si contiene puntos, falso sino
      */
-    private boolean isMultipartQuery(String fieldName) {
+    private boolean isMultipartQuery(final String fieldName) {
         return (fieldName.indexOf(".") > 0);
     }
 
     /**
      * Crea los alias necesarios por cada <code>BaseFilterObject</code>.
      */
-    private void createAliases(String fieldName) {
+    private void createAliases(final String fieldName) {
         multipartQueryResolver(fieldName);
     }
 
@@ -370,7 +368,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param fieldName nombre original
      * @return nombre con o sin alias
      */
-    private String getFieldName(String fieldName) {
+    private String getFieldName(final String fieldName) {
         if (isMultipartQuery(fieldName)) {
             createAliases(fieldName);
             return getAliasPathName(fieldName);
@@ -384,7 +382,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param fieldName nombre original
      * @return nombre con o sin alias
      */
-    private String getAliasPathName(String fieldName) {
+    private String getAliasPathName(final String fieldName) {
         String prefixFieldName = fieldName.substring(0,
                 fieldName.lastIndexOf("."));
         if (aliases.containsKey(prefixFieldName)) {
@@ -403,7 +401,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @param baseFilterObject
      */
-    private void negateIfNeeded(BaseFilter baseFilterObject) {
+    private void negateIfNeeded(final BaseFilter baseFilterObject) {
         if (baseFilterObject.getNegated()) {
             criterion = Restrictions.not(criterion);
         }
@@ -415,7 +413,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param operation operacion de union logica entre componentes
      * @return un Criterion Junction
      */
-    private Junction setJunctionCriterion(Connector operation) {
+    private Junction setJunctionCriterion(final Connector operation) {
         if (operation instanceof AndConnector) {
             return Restrictions.conjunction();
         } else {
@@ -428,7 +426,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @return clase de objetos a buscar
      */
-    public Class getClazz() {
+    public final Class getClazz() {
         return clazz;
     }
 
@@ -437,7 +435,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @param aClazz clase de objetos a buscar
      */
-    public void setClazz(Class aClazz) {
+    public final void setClazz(final Class aClazz) {
         clazz = aClazz;
     }
 
@@ -459,16 +457,19 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 //    }
 
     /** @see FilterVisitor#visitInPropertyFilter(InPropertyFilter) */
-    public void visitInPropertyFilter(InPropertyFilter inPropertyFilter) {
+    public final void visitInPropertyFilter(
+            final InPropertyFilter inPropertyFilter) {
         String fieldName = getFieldName(inPropertyFilter.getProperty());
-        criterion = Restrictions.in(fieldName, CollectionUtils.collect(inPropertyFilter.getValues(), new BeanToPropertyValueTransformer("value")).toArray());
+        criterion = Restrictions.in(fieldName, 
+                CollectionUtils.collect(inPropertyFilter.getValues(), 
+                        new BeanToPropertyValueTransformer("value")).toArray());
         negateIfNeeded(inPropertyFilter);
     }
 
 
-    /** @see ar.com.zauber.commons.repository.query.visitor.FilterVisitor#visitBinaryPropertyFilter(ar.com.zauber.commons.repository.query.filters.BinaryPropertyFilter) */
-    public void visitBinaryPropertyFilter(
-            BinaryPropertyFilter binaryPropertyFilter) {
+    /** @see FilterVisitor#visitBinaryPropertyFilter(BinaryPropertyFilter) */
+    public final void visitBinaryPropertyFilter(
+            final BinaryPropertyFilter binaryPropertyFilter) {
         Object value = ((SimpleValue)binaryPropertyFilter.getValue()).getValue();
         criterion = createCriterion(binaryPropertyFilter, value);
         negateIfNeeded(binaryPropertyFilter);
@@ -481,7 +482,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @return
      */
     private Criterion createCriterion(
-            BinaryPropertyFilter binaryPropertyFilter, Object value) {
+            final BinaryPropertyFilter binaryPropertyFilter, final Object value) {
         String fieldName = getFieldName(
                 binaryPropertyFilter.getProperty());
         if (binaryPropertyFilter instanceof EqualsPropertyFilter) {
@@ -500,13 +501,16 @@ public class CriteriaFilterVisitor implements FilterVisitor {
                             return Restrictions.ge(fieldName, value);  
                         } else {
                             if(binaryPropertyFilter instanceof LikePropertyFilter) {
-                                if(((LikePropertyFilter)binaryPropertyFilter).getCaseInsensitive()) {
+                                if(((LikePropertyFilter)binaryPropertyFilter).
+                                         getCaseInsensitive()) {
                                     return Restrictions.like(fieldName, value);
                                 } else {
                                     return Restrictions.ilike(fieldName, value);
                                 }
                             } else {
-                                throw new IllegalStateException("Unable to process filter" + binaryPropertyFilter);
+                                throw new IllegalStateException(
+                                        "Unable to process filter" 
+                                        + binaryPropertyFilter);
                             }
                         }
                     }
@@ -518,8 +522,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 
 
 
-    /** @see ar.com.zauber.commons.repository.query.visitor.FilterVisitor#visitNullFilter(ar.com.zauber.commons.repository.query.filters.NullFilter) */
-    public void visitNullFilter(NullFilter nullFilter) {
+    /** @see FilterVisitor#visitNullFilter(NullFilter) */
+    public final void visitNullFilter(final NullFilter nullFilter) {
         // TODO: Segun parece no hay que hacer nada
     }
 }

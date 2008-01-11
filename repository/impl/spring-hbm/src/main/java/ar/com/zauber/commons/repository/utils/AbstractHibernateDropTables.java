@@ -33,8 +33,8 @@ public abstract class AbstractHibernateDropTables
     private String sentenceSeparator = "GO";
     Log logger = LogFactory.getLog(this.getClass());
 
-    public void setApplicationContext(ApplicationContext applicationContext)
-    {
+    public final void setApplicationContext(
+            final ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;        
     }
     
@@ -46,7 +46,7 @@ public abstract class AbstractHibernateDropTables
         super();
     }
 
-    public void testDrop() throws Exception {
+    public final void testDrop() throws Exception {
         dropDatabase();
     }
 
@@ -97,8 +97,8 @@ public abstract class AbstractHibernateDropTables
 
 
             } catch(Exception e) {
-                logger.warn("An exception ocurred and the database" +
-                    "schema didn't finish to execute");
+                logger.warn("An exception ocurred and the database"
+                    + "schema didn't finish to execute");
                 return;
             }
             
@@ -111,18 +111,18 @@ public abstract class AbstractHibernateDropTables
             } catch (Exception e) {
                 
                 // An exeption. Give some explanation just in case.
-                logger.warn("An exception was caught selecting from " + 
-                            testMarkerTableName +
-                            " for the connection url " +
-                            connection.getMetaData().getURL());
+                logger.warn("An exception was caught selecting from " 
+                            + testMarkerTableName
+                            + " for the connection url "
+                            + connection.getMetaData().getURL());
                 logger.warn("It is probable because the table does not exist."
                             + " Please create it with:");
-                logger.warn("\tcreate table " + 
-                            testMarkerTableName +
-                            "("+ columnName +" varchar (50));");
-                logger.warn("\tinsert into " + 
-                            testMarkerTableName +
-                            " values ('YES, DROP ME');");
+                logger.warn("\tcreate table "
+                            + testMarkerTableName 
+                            + "(" + columnName + " varchar (50));");
+                logger.warn("\tinsert into " 
+                            + testMarkerTableName
+                            + " values ('YES, DROP ME');");
                 throw e;
             }
 
@@ -140,8 +140,8 @@ public abstract class AbstractHibernateDropTables
                 try {
                     localSessionFactoryBean.updateDatabaseSchema();
                 } catch(Exception e) {
-                    logger.warn("An exception ocurred and the database" +
-                        "schema didn't finish to execute");
+                    logger.warn("An exception ocurred and the database"
+                       + "schema didn't finish to execute");
                     return;
                 }
                 return;
@@ -151,13 +151,13 @@ public abstract class AbstractHibernateDropTables
                         localSessionFactoryBean.dropDatabaseSchema();
                         localSessionFactoryBean.createDatabaseSchema();
                     } catch(Exception e) {
-                        logger.warn("An exception ocurred and the database" +
-                            "schema didn't finish to execute");
+                        logger.warn("An exception ocurred and the database" 
+                                + "schema didn't finish to execute");
                         return;
                     }
                 } else {
-                    logger.warn("An exception ocurred and the database" +
-                        "schema didn't finish to execute");
+                    logger.warn("An exception ocurred and the database" 
+                            + "schema didn't finish to execute");
                     return;
                 }
             }
