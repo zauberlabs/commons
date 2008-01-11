@@ -3,7 +3,6 @@
  */
 package ar.com.zauber.commons.repository;
 
-import java.util.Date;
 
 /**
  * Es la interfaz que debe implementar cualquier objeto que pueda ser
