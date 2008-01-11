@@ -9,8 +9,6 @@ import ar.com.zauber.commons.repository.Persistible;
 /**
  * Marker interface for queries
  * 
- * TODO Detail
- * 
  * @author Gabriel V. Baños
  * @since 19/06/2005
  */
