@@ -16,6 +16,9 @@ public class BaseTransactionalRollbackTest
 			"classpath:spring-hibernate.xml",
             "classpath:spring-repository.xml",
 			"classpath:spring-postprocessing.xml",
+			"classpath:spring-hibernate-drop.xml"
 		};
 	}
+	
+
 }

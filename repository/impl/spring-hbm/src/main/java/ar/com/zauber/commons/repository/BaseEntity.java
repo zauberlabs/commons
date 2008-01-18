@@ -3,6 +3,7 @@
  */
 package ar.com.zauber.commons.repository;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,23 +97,23 @@ public class BaseEntity implements Persistible {
     }
 
     private String[] getSignificantPropertyNames() {
-        String[] significantPropertyNames = this.getClass().getAnnotation(
-                UniqueConstraint.class).columnNames();
-        if (significantPropertyNames.length == 0) {
-            Field[] fields = this.getClass().getFields();
-            List<String> names = new ArrayList<String>();
-            for (int i = 0; i < fields.length; i++) {
-                Field field = this.getClass().getDeclaredFields()[i];
-                // TODO: Evitar fields transient, volatile, etc
-                if (field.getName() != "id") {
-                    names.add(field.getName());
+        if(this.getClass().getAnnotation(UniqueConstraint.class) != null) {
+            String[] significantPropertyNames = this.getClass()
+                .getAnnotation(UniqueConstraint.class).columnNames();
+            if (significantPropertyNames.length == 0) {
+                Field[] fields = this.getClass().getFields();
+                List<String> names = new ArrayList<String>();
+                for (int i = 0; i < fields.length; i++) {
+                    Field field = this.getClass().getDeclaredFields()[i];
+                    // TODO: Evitar fields transient, volatile, etc
+                    if (field.getName() != "id") {
+                        names.add(field.getName());
+                    }
                 }
-            }
-            return (String[]) names.toArray();
-        } else {
-            return significantPropertyNames;
+                return (String[]) names.toArray();
+            }            
         }
-
+        
+        return new String[0];
     }
-
 }

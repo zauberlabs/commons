@@ -79,6 +79,11 @@
 	  <scope>test</scope>      
     </dependency>        
     <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc14</artifactId>
+      <version>10.2.0.3.0</version>
+    </dependency>        
+    <dependency>
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>8.2-504.jdbc4</version>
@@ -104,6 +109,7 @@
         <configuration>
           <excludes>
             <exclude>**/BaseTransactionalRollbackTest.java</exclude>
+            <exclude>**/DropTablesTest.java</exclude>
           </excludes>
         </configuration>
       </plugin>

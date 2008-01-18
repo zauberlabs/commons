@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DropSessionFactoriesTablesDefinition {
 
-    private List localSessionFactoryBeanNames;
+    private List<String> localSessionFactoryBeanNames;
     private String testMarkerTableName;
 
     /**
