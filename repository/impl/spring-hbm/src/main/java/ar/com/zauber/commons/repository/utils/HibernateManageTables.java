@@ -1,5 +1,6 @@
 package ar.com.zauber.commons.repository.utils;
 
+import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 import ar.com.zauber.commons.repository.Repository;
 
 /**
- * This class can be used to drop the database Schema.
+ * This class can be used to drop/update the database Schema.
  *
  * @author Martin A. Marquez
  * @since May 1, 2007
@@ -31,8 +32,9 @@ public class HibernateManageTables
     private ApplicationContext applicationContext;
     private DropSessionFactoriesTablesDefinition
         dropSessionFactoriesTablesDefinition;
-    private Repository repository;
+    private String filePath;
     private String sentenceSeparator = "GO";
+    
     Log logger = LogFactory.getLog(this.getClass());
 
     public void setApplicationContext(ApplicationContext applicationContext)
@@ -45,11 +47,9 @@ public class HibernateManageTables
      *
      */
     public HibernateManageTables(
-            DropSessionFactoriesTablesDefinition definition,
-            Repository repository) {
+            DropSessionFactoriesTablesDefinition definition) {
         super();
         this.dropSessionFactoriesTablesDefinition = definition;
-        this.repository = repository;
     }
 
     
@@ -61,7 +61,15 @@ public class HibernateManageTables
      * @param dropOrUpdate indicates if the schema will suffer changes.
      */
     public void manage(boolean dropOrUpdate) {
-        dropDatabase(dropOrUpdate, System.out);
+        PrintStream printStream = System.out;
+        if(filePath!=null && filePath.length()>0) {
+            try {
+                printStream = new PrintStream(filePath);
+            } catch (Exception e) {
+                logger.info("Unable to open " + filePath);
+            }
+        }
+        dropDatabase(dropOrUpdate, printStream);
     }
     
     
@@ -89,12 +97,17 @@ public class HibernateManageTables
             try {
                 Configuration configuration = localSessionFactoryBean.getConfiguration();
                 final Dialect dialect = Dialect.getDialect(configuration.getProperties());
-                String[] sqlCreate = configuration.generateSchemaCreationScript(dialect);
-                printScript(printStream, sqlCreate);
                 
-                DatabaseMetadata metadata = new DatabaseMetadata(connection, dialect);
-                String[] sqlUpdate = configuration.generateSchemaUpdateScript(dialect, metadata);
-                printScript(printStream, sqlUpdate);
+                String[] sqlCreate =
+                    configuration.generateSchemaCreationScript(dialect);
+                printScript(printStream, sqlCreate, "CREATE");
+
+                DatabaseMetadata metadata =
+                    new DatabaseMetadata(connection, dialect);
+                String[] sqlUpdate =
+                    configuration.generateSchemaUpdateScript(dialect, metadata);
+                printScript(printStream, sqlUpdate, "UPDATE");
+
                 dropOrUpdate(localSessionFactoryBean, checkDrop(connection), dropOrUpdate);
                 connection.commit();
             } catch(Exception e) {
@@ -171,6 +184,10 @@ public class HibernateManageTables
                         + testMarkerTableName
                         + " values ('NO, DONT DROP ME');"
                         + "(if you want to update the schema)");
+            logger.warn("\tOR insert into "
+                        + testMarkerTableName
+                        + " values ('YES, DROP ME');"
+                        + "(if you want to recreate the schema)");
             throw e;
         }
         
@@ -181,10 +198,18 @@ public class HibernateManageTables
         }
     }
 
-    private void printScript(PrintStream printStream, String[] sqlCreate) {
+    private void printScript(
+            PrintStream printStream, String[] sqlCreate, String name) {
+        printStream.println();
+        printStream.println(
+            "--------------------"+ name +" SCRIPT-----------------------");
         for(int i = 0; i < sqlCreate.length; i++) {
             printStream.println(sqlCreate[i]);
             printStream.println(sentenceSeparator);
         }
+        printStream.println(
+                "--------------------------------------------------------");
+        printStream.println();
+
     }
 }

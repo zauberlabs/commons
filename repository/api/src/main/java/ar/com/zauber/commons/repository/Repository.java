@@ -97,7 +97,7 @@ public interface Repository {
     * 
     * @param anObject
     */
-   void saveOrUpdate(Object anObject);
+   void saveOrUpdate(Persistible anObject);
       
    /**
     * 
@@ -106,6 +106,6 @@ public interface Repository {
     * 
     * @param anObject
     */
-   void refresh(Object anObject);
+   void refresh(Persistible anObject);
         
 }

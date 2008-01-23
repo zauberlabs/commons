@@ -114,14 +114,14 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     /**
      * @see Repository#saveOrUpdate(Object)
      */
-    public void saveOrUpdate(Object anObject) {
+    public void saveOrUpdate(final Persistible anObject) {
         getHibernateTemplate().saveOrUpdate(anObject);
     }
     
     /**
      * @see Repository#refresh(java.lang.Object)
      */
-    public void refresh(Object anObject) {
+    public void refresh(final Persistible anObject) {
         getHibernateTemplate().refresh(anObject);
     }
 
