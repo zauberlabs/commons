@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
      <artifactId>bare</artifactId>
@@ -39,6 +39,7 @@
      <module>gis</module>
      <module>doxia</module>
      <module>jetty-launcher</module>
+     <module>exception</module>
   </modules>
   <dependencies>
     <dependency>
@@ -86,21 +87,6 @@
           </toAddresses>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
-          <docletArtifact>
-            <groupId>gr.spinellis</groupId>
-            <artifactId>UmlGraph</artifactId>
-            <version>4.4</version>
-          </docletArtifact>
-          <additionalparam> -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9 -nodefontpackagesize 7
-          </additionalparam>
-        </configuration>
-      </plugin>
- 
    </plugins>
   </build>
   <properties>
@@ -225,7 +211,23 @@
           </reportSet>
         </reportSets>
       </plugin>
-    </plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+          <docletArtifact>
+            <groupId>gr.spinellis</groupId>
+            <artifactId>UmlGraph</artifactId>
+            <version>5.0</version>
+          </docletArtifact>
+          <additionalparam>
+            -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9 -nodefontpackagesize 7
+          </additionalparam>
+        </configuration>
+      </plugin>
+</plugins>
   </reporting>
   <distributionManagement>
     <repository>
