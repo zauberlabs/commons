@@ -32,7 +32,6 @@
     <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons</artifactId>
-        <version>${pom.version}</version> 
     </dependency>
   </dependencies>
 </project>

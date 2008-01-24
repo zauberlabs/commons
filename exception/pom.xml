@@ -15,13 +15,11 @@
     <dependency>
       <groupId>ar.com.zauber.commons.repository</groupId>
       <artifactId>commons-repository-api</artifactId>
-      <version>${pom.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.message</groupId>
       <artifactId>commons-message-api</artifactId>
-      <version>${pom.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
