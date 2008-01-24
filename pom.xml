@@ -26,19 +26,19 @@
      </repository>
   </repositories>
   <modules>
+     <module>dao</module>
      <module>commons</module>
      <module>clustering</module>
      <module>spring</module>
      <module>auth</module>
      <module>message</module>
-     <module>dao</module>
      <module>image</module>
      <module>syndication</module>
      <module>fts</module>
-     <module>repository</module>
      <module>gis</module>
      <module>doxia</module>
      <module>jetty-launcher</module>
+     <module>repository</module>
      <module>exception</module>
   </modules>
   <dependencies>
