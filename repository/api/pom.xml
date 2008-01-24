@@ -9,6 +9,7 @@
   <name>Zauber::Commons::Repository::API</name>
   <artifactId>commons-repository-api</artifactId>
   <packaging>jar</packaging>
+  <version>2.10-SNAPSHOT</version>
   <dependencies>
     <dependency>
       <groupId>ar.com.zauber.commons</groupId>
