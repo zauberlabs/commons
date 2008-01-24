@@ -227,16 +227,19 @@
           </additionalparam>
         </configuration>
       </plugin>
-</plugins>
+    </plugins>
   </reporting>
   <distributionManagement>
     <repository>
-       <id>zauber-private-repo</id>
-	   <name>private zauber repository</name>
-	   <url>file:///tmp/1234</url>
-	   <layout>default</layout>
+      <id>zauber-site</id>
+      <name>intra.zauber.com.ar</name>
+      <url>sftp://intra.zauber.com.ar/home/zauber/infra/www/commons/</url>
+      <layout>default</layout>
     </repository>
     <site>
+       <id>zauber-site</id>
+       <name>intra.zauber.com.ar</name>
+       <url>sftp://intra.zauber.com.ar/home/zauber/infra/www/commons/</url>
     </site>
   </distributionManagement>
 </project>
