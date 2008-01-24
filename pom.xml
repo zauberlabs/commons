@@ -236,5 +236,7 @@
 	   <url>file:///tmp/1234</url>
 	   <layout>default</layout>
     </repository>
+    <site>
+    </site>
   </distributionManagement>
 </project>

@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
  * @since Nov 12, 2007
  */
 @MappedSuperclass
-public class BaseCreationAuditableEntity extends BaseEntity 
+public abstract class BaseCreationAuditableEntity extends BaseEntity 
                                       implements CreationAuditable {
     private Date createdAt;
     private String createdBy;

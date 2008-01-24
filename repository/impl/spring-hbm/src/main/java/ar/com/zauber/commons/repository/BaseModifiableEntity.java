@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
  * @since Nov 12, 2007
  */
 @MappedSuperclass
-public class BaseModifiableEntity extends BaseEntity implements Modifiable {
+public abstract class BaseModifiableEntity extends BaseEntity implements Modifiable {
 
     private Long version;
     

@@ -3,7 +3,6 @@
  */
 package ar.com.zauber.commons.repository;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,26 +18,21 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @MappedSuperclass
-public class BaseEntity implements Persistible {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    /** @see Persistible#getId() */
-    public final  Long getId() {
-        return id;
-    }
-
-    /** @see Persistible#getReference() */
-    public Reference generateReference() {
-        return new Reference(this.getClass(), getId());
-    }
-
+public abstract class BaseEntity implements Persistible {
+    
+    protected Long id;
+    
     /** @see Persistible#setId(Long)
      */
     public final void setId(final Long anId) {
         id = anId;
     }
+    
+    /** @see Persistible#getReference() */
+    public Reference generateReference() {
+        return new Reference(this.getClass(), getId());
+    }
+
 
     /** @see Object#equals(Object) */
     public boolean equals(final Object obj) {
@@ -56,7 +50,7 @@ public class BaseEntity implements Persistible {
         }
 
         EqualsBuilder equalsBuilder = new EqualsBuilder();
-        String[] significantPropertyNames = getSignificantPropertyNames();
+        String[] significantPropertyNames = findSignificantPropertyNames();
 
         for (int i = 0; i < significantPropertyNames.length; i++) {
             String name = significantPropertyNames[i];
@@ -80,7 +74,7 @@ public class BaseEntity implements Persistible {
         }
 
         HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
-        String[] significantPropertyNames = getSignificantPropertyNames();
+        String[] significantPropertyNames = findSignificantPropertyNames();
 
         for (int i = 0; i < significantPropertyNames.length; i++) {
             String name = significantPropertyNames[i];
@@ -96,7 +90,7 @@ public class BaseEntity implements Persistible {
 
     }
 
-    private String[] getSignificantPropertyNames() {
+    private String[] findSignificantPropertyNames() {
         if(this.getClass().getAnnotation(UniqueConstraint.class) != null) {
             String[] significantPropertyNames = this.getClass()
                 .getAnnotation(UniqueConstraint.class).columnNames();

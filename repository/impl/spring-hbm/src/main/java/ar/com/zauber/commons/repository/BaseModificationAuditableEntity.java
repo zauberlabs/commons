@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
  * @since Nov 12, 2007
  */
 @MappedSuperclass
-public class BaseModificationAuditableEntity extends BaseModifiableEntity implements ModificationAuditable {
+public abstract class BaseModificationAuditableEntity extends BaseModifiableEntity implements ModificationAuditable {
 
     
     private Date modifiedAt;
