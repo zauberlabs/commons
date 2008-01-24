@@ -9,13 +9,13 @@
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
-  <version>2.10-SNAPSHOT</version>
+  <version>2.10</version>
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</connection>
-     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</developerConnection>
-     <url>https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</url>
+     <connection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/releases/zauber-commons-parent-2.10</connection>
+     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/releases/zauber-commons-parent-2.10</developerConnection>
+     <url>https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/releases/zauber-commons-parent-2.10</url>
   </scm>
 
   <repositories>
@@ -104,37 +104,37 @@
       <dependency>
         <groupId>ar.com.zauber.commons.auth</groupId>
         <artifactId>commons-auth-api</artifactId>
-        <version>2.10-SNAPSHOT</version>
+        <version>2.10</version>
      </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.repository</groupId>
       <artifactId>commons-repository-api</artifactId>
-      <version>2.10-SNAPSHOT</version>
+      <version>2.10</version>
     </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.message</groupId>
       <artifactId>commons-message-api</artifactId>
-      <version>2.10-SNAPSHOT</version>
+      <version>2.10</version>
     </dependency>
      <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons</artifactId>
-        <version>2.10-SNAPSHOT</version>
+        <version>2.10</version>
      </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons-dao</artifactId>
-        <version>2.10-SNAPSHOT</version>
+        <version>2.10</version>
      </dependency>
      <dependency>
         <groupId>ar.com.zauber.commons.image</groupId>
         <artifactId>commons-image-api</artifactId>
-        <version>2.10-SNAPSHOT</version>
+        <version>2.10</version>
      </dependency>
      <dependency>
         <groupId>ar.com.zauber.commons.message</groupId>
         <artifactId>commons-message-api</artifactId>
-        <version>2.10-SNAPSHOT</version>
+        <version>2.10</version>
      </dependency>
  
      <!-- spring -->
