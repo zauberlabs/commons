@@ -13,7 +13,6 @@
     <dependency>
       <groupId>ar.com.zauber.commons</groupId>
       <artifactId>commons-dao</artifactId>
-      <version>${pom.version}</version>
     </dependency>
   </dependencies>
 </project>
