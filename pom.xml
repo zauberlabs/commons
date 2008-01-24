@@ -13,9 +13,9 @@
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://svn.zauber.com.ar/private/sandbox/zaubercommons/trunk/</connection>
-     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/sandbox/zaubercommons/trunk/</developerConnection>
-     <url>https://svn.zauber.com.ar/private/sandbox/zaubercommons/trunk/</url>
+     <connection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</connection>
+     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</developerConnection>
+     <url>https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</url>
   </scm>
 
   <repositories>
@@ -230,16 +230,16 @@
     </plugins>
   </reporting>
   <distributionManagement>
-    <repository>
-      <id>zauber-site</id>
-      <name>intra.zauber.com.ar</name>
-      <url>sftp://intra.zauber.com.ar/home/zauber/infra/www/commons/</url>
-      <layout>default</layout>
-    </repository>
     <site>
        <id>zauber-site</id>
        <name>intra.zauber.com.ar</name>
        <url>sftp://intra.zauber.com.ar/home/zauber/infra/www/commons/</url>
     </site>
+    <repository>
+           <id>zauber-private-repo</id>
+           <name>private zauber repository</name>
+           <url>sftp://iori.zauber.com.ar/home/zauber/infra/www/repo1/default</url>
+           <layout>default</layout>
+    </repository>
   </distributionManagement>
 </project>
