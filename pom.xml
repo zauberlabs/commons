@@ -104,37 +104,37 @@
       <dependency>
         <groupId>ar.com.zauber.commons.auth</groupId>
         <artifactId>commons-auth-api</artifactId>
-        <version>2.11-SNAPSHOT</version>
+        <version>${pom.version}</version>
      </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.repository</groupId>
       <artifactId>commons-repository-api</artifactId>
-      <version>2.11-SNAPSHOT</version>
+      <version>${pom.version}</version>
     </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.message</groupId>
       <artifactId>commons-message-api</artifactId>
-      <version>2.11-SNAPSHOT</version>
+      <version>${pom.version}</version>
     </dependency>
      <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons</artifactId>
-        <version>2.11-SNAPSHOT</version>
+        <version>${pom.version}</version>
      </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons-dao</artifactId>
-        <version>2.11-SNAPSHOT</version>
+        <version>${pom.version}</version>
      </dependency>
      <dependency>
         <groupId>ar.com.zauber.commons.image</groupId>
         <artifactId>commons-image-api</artifactId>
-        <version>2.11-SNAPSHOT</version>
+        <version>${pom.version}</version>
      </dependency>
      <dependency>
         <groupId>ar.com.zauber.commons.message</groupId>
         <artifactId>commons-message-api</artifactId>
-        <version>2.11-SNAPSHOT</version>
+        <version>${pom.version}</version>
      </dependency>
  
      <!-- spring -->
@@ -250,7 +250,7 @@
     <site>
        <id>zauber-site</id>
        <name>intra.zauber.com.ar</name>
-       <url>sftp://intra.zauber.com.ar/home/zauber/infra/www/commons/</url>
+       <url>sftp://iori.zauber.com.ar/home/zauber/infra/www/commons/</url>
     </site>
     <repository>
            <id>zauber-private-repo</id>
