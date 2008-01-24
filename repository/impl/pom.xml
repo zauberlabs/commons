@@ -17,7 +17,6 @@
     <dependency>
       <artifactId>commons-repository-api</artifactId>
       <groupId>ar.com.zauber.commons.repository</groupId>
-      <version>2.10-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
