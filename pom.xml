@@ -87,7 +87,14 @@
           </toAddresses>
         </configuration>
       </plugin>
-   </plugins>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <tagBase>https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/releases</tagBase>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
   <properties>
       <spring.version>2.0.6</spring.version>
