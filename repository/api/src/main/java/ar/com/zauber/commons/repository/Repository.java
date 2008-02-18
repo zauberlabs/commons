@@ -72,9 +72,11 @@ public interface Repository {
    <T> int count(Query<T> filterObject);
 
    /**
-    * 
+    * <p>
     * Este es el metodo que se utiliza para hacer todas las consultas al
     * <code>Repository</code>
+    * </p>
+    * <p>El paginado es parte de las implementaciones de {@link Query}
     * 
     * @param filterObject
     * @return
