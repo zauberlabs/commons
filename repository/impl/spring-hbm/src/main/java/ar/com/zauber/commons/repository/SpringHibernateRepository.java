@@ -138,6 +138,10 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
                 * simpleQuery.getPaging().getResultsPerPage();
             DetachedCriteria idsCriteria = (DetachedCriteria)criteria;
             idsCriteria.setProjection(Projections.id());
+            // Se hace primero el select de los IDs y luego el de los objetos en
+            // si ya que de otra manera en aquellos casos que haya objetos
+            // que tienen colecciones cuenta los mismos varias veces haciendo
+            // que se devuelvan menos resultados.
             List ids = getHibernateTemplate().findByCriteria(
                     idsCriteria,
                     firstResult,

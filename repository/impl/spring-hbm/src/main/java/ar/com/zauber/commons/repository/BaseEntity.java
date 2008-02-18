@@ -17,16 +17,23 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+
+/**
+ * Clase base que provee la generación de una referencia y el metodo de
+ * equals para comparar entidades persistentes.
+ * 
+ * En esta clase no se define el Id ya que el mismo es responsabilidad de las
+ * sub-clases para que tengan la versatilidad de mappearlo de la manera que
+ * sea mejor en cada caso.
+ * 
+ * @author Martin A. Marquez
+ * @since Feb 18, 2008
+ */
 @MappedSuperclass
 public abstract class BaseEntity implements Persistible {
     
-    protected Long id;
     
-    /** @see Persistible#setId(Long)
-     */
-    public final void setId(final Long anId) {
-        id = anId;
-    }
+    // \
     
     /** @see Persistible#getReference() */
     public Reference generateReference() {
