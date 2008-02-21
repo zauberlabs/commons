@@ -10,16 +10,17 @@ import org.hibernate.Interceptor;
 import org.hibernate.Transaction;
 import org.hibernate.type.Type;
 
+import ar.com.zauber.commons.auth.AuthenticationUserMapper;
 import ar.com.zauber.commons.repository.CreationAuditable;
 import ar.com.zauber.commons.repository.ModificationAuditable;
 
 
-public class HibernateAuditLogger implements Interceptor {
+public class HibernateAuditLoggerInterceptor implements Interceptor {
 
-    private UsernameProvider usernameProvider;
+    private AuthenticationUserMapper<String> authenticationUserMapper;
     
-    public void setUsernameProvider(UsernameProvider usernameProvider) {
-        this.usernameProvider = usernameProvider;
+    public void setAuthenticationUserMapper(AuthenticationUserMapper<String> authenticationUserMapper) {
+        this.authenticationUserMapper = authenticationUserMapper;
     }
 
 
@@ -42,7 +43,7 @@ public class HibernateAuditLogger implements Interceptor {
                     newValues[i] = new Date();
                 }
                 if(properties[i].equals("modifiedBy")) {
-                    newValues[i] = usernameProvider.getUsername();
+                    newValues[i] = authenticationUserMapper.getUser();
                 }
             }
         }
@@ -63,14 +64,14 @@ public class HibernateAuditLogger implements Interceptor {
                     newValues[i] = new Date();
                 }
                 if(properties[i].equals("createdBy")) {
-                    newValues[i] = usernameProvider.getUsername();
+                    newValues[i] = authenticationUserMapper.getUser();
                 }
                 if (obj instanceof ModificationAuditable) {
                     if(properties[i].equals("modifiedAt")) {
                         newValues[i] = new Date();
                     }
                     if(properties[i].equals("modifiedBy")) {
-                        newValues[i] = usernameProvider.getUsername();
+                        newValues[i] = authenticationUserMapper.getUser();
                     }
                 }
             }

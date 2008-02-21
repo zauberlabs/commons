@@ -10,6 +10,16 @@
   <groupId>ar.com.zauber.commons.repository.impl</groupId>
   <dependencies>
     <dependency>
+      <artifactId>commons-auth-api</artifactId>
+      <groupId>ar.com.zauber.commons.auth</groupId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <artifactId>commons-auth-impl</artifactId>
+      <groupId>ar.com.zauber.commons.auth</groupId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate</artifactId>
       <version>3.2.2.ga</version>
