@@ -15,10 +15,14 @@ import org.apache.commons.logging.LogFactory;
  * Es el interceptor encargado de manejar Exceptions. Tiene un handler que es
  * el encargado de tratar la excepciones.
  * 
+ * Se le puede setear un valor de retorno en caso de error de invocación al
+ * metodo y en dicho caso no arrojaría el Trowable nuevamente sinó que
+ * devovería dicho valor.
+ * 
  * @author Martin A. Marquez
  * @since Jul 24, 2007
  */
-public class ExceptionInterceptor implements MethodInterceptor {
+public class ExceptionInterceptor<T> implements MethodInterceptor {
 
     /** logger */
     private static Log log = LogFactory.getLog(ExceptionInterceptor.class);
@@ -26,6 +30,8 @@ public class ExceptionInterceptor implements MethodInterceptor {
     /** el handler de excepciones **/
     private MethodInvocationExceptionHandler handler;
         
+    private T exceptionReturnValue;
+    
     /**
 	 * @param handler El/La handler a setear.
 	 */
@@ -33,18 +39,27 @@ public class ExceptionInterceptor implements MethodInterceptor {
 		this.handler = handler;
 	}
 
+	
 	/**
-     * @see org.aopalliance.intercept.MethodInterceptor#invoke(
-     * org.aopalliance.intercept.MethodInvocation)
+	 * @param exceptionReturnValue El/La exceptionReturnValue a devolver.
+	 */
+	public void setExceptionReturnValue(T exceptionReturnValue) {
+        this.exceptionReturnValue = exceptionReturnValue;
+    }
+
+    /**
+     * @see MethodInterceptor#invoke(MethodInvocation)
      */
     public Object invoke(MethodInvocation aMethod) throws Throwable {
-        Object ret = null;
+        Object ret = exceptionReturnValue;
         
         try {
             ret = aMethod.proceed();
         } catch (Exception e) {
         	this.handler.handle(e, aMethod);
-            throw e;
+            if(ret == null) {
+                throw e;
+            }
         }
         
         return ret;
