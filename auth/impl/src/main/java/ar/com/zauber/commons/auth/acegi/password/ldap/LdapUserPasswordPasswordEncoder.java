@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Zauber  -- All rights reserved
+ * Copyright (c) 2005-2008 Zauber -- All rights reserved
  */
 package ar.com.zauber.commons.auth.acegi.password.ldap;
 import org.acegisecurity.providers.encoding.Md5PasswordEncoder;

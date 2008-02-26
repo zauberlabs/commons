@@ -1,7 +1,6 @@
 /*
- * Copyright (c) 2007 Zauber S.A.  -- Todos los derechos reservados
+ * Copyright (c) 2005-2008 Zauber -- All rights reserved
  */
-
 package ar.com.zauber.commons.repository.query.filters;
 
 import ar.com.zauber.commons.repository.query.values.Value;

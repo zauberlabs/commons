@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2005-2008 Zauber -- All rights reserved
+ */
 package ar.com.zauber.commons.clustering.kmeans;
 import java.util.Random;
 import java.util.Vector;
