@@ -25,6 +25,15 @@
       <url>https://repo1.zauber.com.ar/default</url>
      </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>mc-release</id>
+      <name>mc repository of releases</name>
+      <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+      <snapshots> <enabled>false</enabled> </snapshots>
+      <releases> <enabled>true</enabled> </releases>
+    </pluginRepository>
+  </pluginRepositories>
   <modules>
      <module>dao</module>
      <module>commons</module>
@@ -94,6 +103,50 @@
           <tagBase>https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/releases</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
+      </plugin>
+      <plugin>
+         <!-- mantiene a raya los headers de las licencias -->
+         <groupId>com.mathieucarbou.mojo</groupId>
+         <artifactId>maven-license-plugin</artifactId>
+         <configuration>
+             <quiet>false</quiet>
+             <failIfMissing>true</failIfMissing>
+             <includes>
+                 <include>**/src/**</include>
+                 <include>**/test/**</include>
+             </includes>
+             <excludes>
+                 <exclude>**/passwd/UnixCrypt.java</exclude>
+                 <exclude>**/words.spanish.latin1</exclude>
+                 <exclude>**/doxia/**</exclude>
+                 <exclude>**/target/**</exclude>
+                 <exclude>**/.clover/**</exclude>
+                 <exclude>**/README.txt</exclude>
+                 <exclude>**/.keep</exclude>
+                 <exclude>**/*.xml</exclude>
+                 <exclude>**/libmisc/**</exclude>
+                 <exclude>auth/password/src/main/c/**</exclude>
+             </excludes>
+             <useDefaultExcludes>true</useDefaultExcludes>
+             <!--mapping>
+                 <jwc>xml</jwc>
+                 <application>xml</application>
+                 <myFileExtension>java</myFileExtension>
+             </mapping -->
+             <useDefaultMapping>true</useDefaultMapping>
+             <properties>
+                 <!--email>my@email.com</email-->
+             </properties>
+             <header>/home/zauber/juan/proyectos/zauber/sandbox/components/commons/trunk/src/HEADER.txt</header>
+         </configuration>
+         <executions>
+             <execution>
+                 <phase>test</phase>
+                 <goals>
+                     <goal>check</goal>
+                 </goals>
+             </execution>
+         </executions>
       </plugin>
     </plugins>
   </build>
