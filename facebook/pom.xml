@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+ <parent>
+     <artifactId>zauber-commons-parent</artifactId>
+     <groupId>ar.com.zauber.commons</groupId>
+      <version>2.11-SNAPSHOT</version>
+ </parent>
+ <modelVersion>4.0.0</modelVersion>
+  <groupId>ar.com.zauber.commons</groupId>
+  <artifactId>commons-facebook</artifactId>
+  <packaging>jar</packaging>
+  <version>2.11-SNAPSHOT</version>
+  <name>Zauber::Commons::Facebook</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+      <dependency>
+          <groupId>com.facebook.api</groupId>
+          <artifactId>facebook-java-api</artifactId>
+          <version>1.7.1-rev141</version>
+      </dependency>
+      <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+  </dependencies>
+</project>

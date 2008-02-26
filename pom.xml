@@ -40,6 +40,7 @@
      <module>jetty-launcher</module>
      <module>repository</module>
      <module>exception</module>
+     <module>facebook</module>
   </modules>
   <dependencies>
     <dependency>
