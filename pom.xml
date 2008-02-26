@@ -104,8 +104,9 @@
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
-      <plugin>
-         <!-- mantiene a raya los headers de las licencias -->
+      
+      <!-- mantiene a raya los headers de las licencias -->
+      <!-- plugin>
          <groupId>com.mathieucarbou.mojo</groupId>
          <artifactId>maven-license-plugin</artifactId>
          <configuration>
@@ -128,16 +129,10 @@
                  <exclude>auth/password/src/main/c/**</exclude>
              </excludes>
              <useDefaultExcludes>true</useDefaultExcludes>
-             <!--mapping>
-                 <jwc>xml</jwc>
-                 <application>xml</application>
-                 <myFileExtension>java</myFileExtension>
-             </mapping -->
              <useDefaultMapping>true</useDefaultMapping>
              <properties>
-                 <!--email>my@email.com</email-->
              </properties>
-             <header>/home/zauber/juan/proyectos/zauber/sandbox/components/commons/trunk/src/HEADER.txt</header>
+             <header>src/HEADER.txt</header>
          </configuration>
          <executions>
              <execution>
@@ -147,7 +142,7 @@
                  </goals>
              </execution>
          </executions>
-      </plugin>
+      </plugin -->
     </plugins>
   </build>
   <properties>
