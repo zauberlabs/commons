@@ -13,9 +13,9 @@
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</connection>
-     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</developerConnection>
-     <url>https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/trunk/</url>
+     <connection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</connection>
+     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</developerConnection>
+     <url>https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</url>
   </scm>
 
   <repositories>
