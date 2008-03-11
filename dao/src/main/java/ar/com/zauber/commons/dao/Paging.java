@@ -153,4 +153,24 @@ public class Paging {
     public final boolean loadResultSize() {
         return loadResultSize;
     }
+
+    
+    public boolean hasResultSize() {
+        return resultSize != null;
+    }
+    /**
+     * Returns the resultSize.
+     * 
+     * @return <code>Long</code> with the resultSize.
+     */
+    public final long getResultSize() {
+        if(resultSize == null) {
+            throw new IllegalStateException("No se seteó el tamaño del " 
+                    + "resultado");
+        }
+
+        return resultSize;
+    }
+    
+    
 }
