@@ -26,7 +26,8 @@ import ar.com.zauber.commons.auth.AuthenticationUserMapper;
  * @author Juan F. Codagnone
  * @since Sep 29, 2005
  */
-public abstract class AbstractAcegiAuthenticationUserMapper<T> implements AuthenticationUserMapper<T> {
+public abstract class AbstractAcegiAuthenticationUserMapper<T> 
+       implements AuthenticationUserMapper<T> {
     /** the anonymous username */
     private final String anonymousString;
     
