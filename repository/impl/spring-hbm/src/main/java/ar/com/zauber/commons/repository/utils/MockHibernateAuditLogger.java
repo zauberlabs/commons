@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import org.hibernate.CallbackException;
+import org.hibernate.EmptyInterceptor;
 import org.hibernate.EntityMode;
 import org.hibernate.Interceptor;
 import org.hibernate.Transaction;
@@ -17,7 +18,7 @@ import org.hibernate.type.Type;
 /**
  * Mock implementation of the logger.
  *
- *
+ * @deprecated usar {@link EmptyInterceptor}.
  * @author Martin A. Marquez
  * @since Jan 30, 2008
  */
