@@ -3,10 +3,6 @@
  */
 package ar.com.zauber.commons.repository.utils;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.userdetails.UserDetails;
         
 
 /**
