@@ -18,14 +18,16 @@ import ar.com.zauber.commons.repository.query.Translator;
 import ar.com.zauber.commons.repository.query.visitor.CriteriaFilterVisitor;
 import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 
-
+/**
+ * 
+ */
 public class CriteriaTranslator implements Translator {
 
     private SessionFactory sessionFactory;
     private Class clazz;
     private DetachedCriteria criteria;
-    /** <code>logger</code>. */
     private Log logger = LogFactory.getLog(getClass());
+    private boolean debugging = logger.isDebugEnabled();
     
     /**
      * Crea el/la CriteriaTranslator. Como la Query ahora es la que tiene
@@ -40,17 +42,20 @@ public class CriteriaTranslator implements Translator {
         sessionFactory = aSessionFactory;
     }
 
+    /** constructor */
     public CriteriaTranslator(final SessionFactory aSessionFactory)  {
         sessionFactory = aSessionFactory;
     }
 
-    public void translate(final Query aQuery)  {
-    	if(clazz == null) {
-    		clazz = ((SimpleQuery)aQuery).getClazz();
-    	}
-        SimpleQuery simpleQuery = (SimpleQuery) aQuery;
+    /** @see Translator#translate(Query) */
+    public final void translate(final Query aQuery)  {
+        if(clazz == null) {
+            clazz = ((SimpleQuery)aQuery).getClazz();
+        }
+        final SimpleQuery simpleQuery = (SimpleQuery) aQuery;
         
-        FilterVisitor filterVisitor = new CriteriaFilterVisitor(clazz, sessionFactory);
+        final FilterVisitor filterVisitor = 
+            new CriteriaFilterVisitor(clazz, sessionFactory);
         ((SimpleQuery) aQuery).getFilter().accept(filterVisitor);
         criteria = ((CriteriaFilterVisitor)filterVisitor).getCriteria();
         
@@ -59,28 +64,33 @@ public class CriteriaTranslator implements Translator {
         criteria.setResultTransformer(
                 CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         
-        logger.info("Criteria: " + criteria);
+        if(debugging) {
+            logger.debug("Criteria: " + criteria);    
+        }
+        
     }
 
     
     
+    /** agrega un criterio de ordenamiento al criteria de hibernate */
     private void addOrder(final Ordering ordering) {
         if(ordering == null) {
             return;
         }
-        for (Order order : ordering.getOrders()) {
+        
+        for (final Order order : ordering.getOrders()) {
             if (order.getAscending()) {
-                criteria = criteria.addOrder(org.hibernate.criterion.Order.asc(order.getProperty()));
+                criteria = criteria.addOrder(
+                        org.hibernate.criterion.Order.asc(order.getProperty()));
             } else {
-                criteria = criteria.addOrder(org.hibernate.criterion.Order.desc(order.getProperty()));
+                criteria = criteria.addOrder(
+                        org.hibernate.criterion.Order.desc(order.getProperty()));
             }            
         }
     }
 
-    /**
-     * @return
-     */
-    public CriteriaSpecification getCriteria() {
+    /** @return */
+    public final CriteriaSpecification getCriteria() {
         if(criteria == null) {
             criteria = DetachedCriteria.forClass(clazz); 
         }
