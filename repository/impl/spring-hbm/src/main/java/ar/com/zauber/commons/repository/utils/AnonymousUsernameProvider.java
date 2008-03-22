@@ -15,7 +15,7 @@ package ar.com.zauber.commons.repository.utils;
 public class AnonymousUsernameProvider implements UsernameProvider {
 
     /** @see UsernameProvider#getUsername() */
-    public String getUsername() {
+    public final String getUsername() {
         return "anonymousUser";
     }
 
