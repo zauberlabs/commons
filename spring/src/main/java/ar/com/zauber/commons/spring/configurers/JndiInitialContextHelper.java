@@ -13,29 +13,38 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-public class JndiInitialContextHelper {
-	
-	public static Log logger = LogFactory.getLog(JndiInitialContextHelper.class);
-	
-	public static Resource[] getJndiLocations(String[] filePathJndiNames) {
+/**
+ * Clase de utilidad
+ * 
+ */
+public final class JndiInitialContextHelper {
+    /** constructor oculto */
+    private JndiInitialContextHelper() {
+        // clase de utilidad
+    }
+    /** logger */
+    public static final Log LOGGER = LogFactory
+            .getLog(JndiInitialContextHelper.class);
 
-	    ResourceLoader resourceLoader = new DefaultResourceLoader();
-	    
-		try {
-			InitialContext initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			Resource[] locations = new Resource[filePathJndiNames.length];
-			
-			for(int i = 0; i < filePathJndiNames.length; i++)
-			{
-			    locations[i] = resourceLoader.getResource(
-			            (String) envCtx.lookup(filePathJndiNames[i]));
-			}
-			return locations;
-		} catch (NamingException e) {
-            logger.error("Hubo un error en el lookup de JNDI: "
+    /** dado paths jndi retorna archivos de propiedades */
+    public static Resource[] getJndiLocations(final String[] filePathJndiNames) {
+
+        final ResourceLoader resourceLoader = new DefaultResourceLoader();
+
+        try {
+            final InitialContext initCtx = new InitialContext();
+            final Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            final Resource[] locations = new Resource[filePathJndiNames.length];
+
+            for (int i = 0; i < filePathJndiNames.length; i++) {
+                locations[i] = resourceLoader.getResource((String) envCtx
+                        .lookup(filePathJndiNames[i]));
+            }
+            return locations;
+        } catch (final NamingException e) {
+            LOGGER.error("Hubo un error en el lookup de JNDI: "
                     + e.getExplanation());
             return null;
-		}
-	}
+        }
+    }
 }
