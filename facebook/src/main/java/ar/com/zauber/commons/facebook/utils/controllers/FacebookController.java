@@ -3,6 +3,8 @@
  */
 package ar.com.zauber.commons.facebook.utils.controllers;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,11 +14,9 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import ar.com.zauber.commons.facebook.utils.impl.DefaultCallbackRequestValidator;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Controlador que sabe atender pedidos de facebook. Separa el pedido en
+ * request, response, y parametros de facebook
  * 
  * 
  * @author Marcelo Turrin
@@ -25,6 +25,11 @@ import java.util.Map.Entry;
 public abstract class FacebookController extends AbstractController {
     private final String view;
 
+    /**
+     * Creates the FacebookController.
+     *
+     * @param view nombre de la vista de success
+     */
     public FacebookController(final String view) {
         Validate.notEmpty(view);
         this.view = view;
@@ -46,6 +51,7 @@ public abstract class FacebookController extends AbstractController {
         return ret;
     }
 
+    /** maneja el request */
     protected abstract void handleFacebookRequest(HttpServletRequest request,
             HttpServletResponse response, Map<String, CharSequence> params,
             ModelAndView ret);

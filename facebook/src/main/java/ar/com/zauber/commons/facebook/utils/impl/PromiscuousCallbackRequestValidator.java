@@ -13,7 +13,8 @@ import ar.com.zauber.commons.facebook.utils.CallbackRequestValidator;
  * @author Juan F. Codagnone
  * @since Dec 24, 2007
  */
-public class PromiscuousCallbackRequestValidator implements CallbackRequestValidator {
+public class PromiscuousCallbackRequestValidator 
+       implements CallbackRequestValidator {
 
     /** @see CallbackRequestValidator#validate(HttpServletRequest) */
     public final boolean validate(final HttpServletRequest request) {
