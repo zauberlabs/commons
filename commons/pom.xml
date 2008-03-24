@@ -3,7 +3,7 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>2.11-SNAPSHOT</version>
+    <version>2.11</version>
   </parent>
   <name>Zauber::Commons::Lang Common</name>
   <artifactId>commons</artifactId>
