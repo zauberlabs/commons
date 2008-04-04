@@ -21,6 +21,7 @@ import ar.com.zauber.commons.gis.street.impl.SQLStreetsDAO;
  */
 public class GuessStreetTest extends TestCase {
 
+    /** test */
     public final void testFoo() throws Exception {
           final String [] alternativas = {
                   "24 DE NOVIEMBRE",
@@ -58,7 +59,8 @@ public class GuessStreetTest extends TestCase {
           
           SQLStreetsDAO streetsDAO = new SQLStreetsDAO(new JdbcTemplate());
           final List<GuessStreetResult>l = 
-              streetsDAO.guessStreetName(Arrays.asList(alternativas), "  GENERAL,   HORNOS   .");
+              streetsDAO.guessStreetName(Arrays.asList(alternativas), 
+                      "  GENERAL,   HORNOS   .");
           System.out.println(l);
           
     }
