@@ -12,15 +12,12 @@ import com.vividsolutions.jts.geom.Point;
  * @since Oct 3, 2007
  */
 public interface Result {
-    /**
-     * @return el punto geografico que representa el resultado
-     */
+    /** @return el punto geografico que representa el resultado */
     Point getPoint();
     
-    /**
-     * @return la descripcion del resultado
-     */
+    /** @return la descripcion del resultado */
     String getDescription();
     
+    /** el código de pais donde se encuentra el resultado */
     String getCountryCode();
 }

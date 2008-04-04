@@ -61,7 +61,6 @@ public interface StreetsDAO {
      * Sugiere direcciones posibles para el texto indicado
      * 
      * @param text texto que representa la direccion
-     * @param paging paginado
      */
     List<Result> suggestAddresses(String text);
     
@@ -88,12 +87,15 @@ public interface StreetsDAO {
      * Dado una lista de nombres  de calle y un nombre de calle, retorna una
      * lista ordenada por puntos
      */
-    List<GuessStreetResult> guessStreetName(List<String> streets, String unnomalizedStreetName);
+    List<GuessStreetResult> guessStreetName(List<String> streets, 
+            String unnomalizedStreetName);
     
+    /** resultado retornado por guessStreetName */
     class GuessStreetResult implements Comparable<GuessStreetResult> {
         private String streetName;
         private double points;
         
+        /** constructor */
         public GuessStreetResult(final String streetName, final double points) {
             Validate.notEmpty(streetName);
             this.streetName = streetName;

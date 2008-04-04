@@ -17,14 +17,16 @@ import ar.com.zauber.commons.gis.street.StreetsDAO;
  * @since Sep 28, 2007
  */
 public class InverseAlturaAddressPattern extends NormalAddressPattern {
-    public final static Pattern PATTERN = 
-        Pattern.compile("([aA][lL]\\s)?\\s*(\\d+)\\s+[dD][eE]\\s+(" + STREET_NAME_PATTERN + "+)");
+    /** expresion regular que detecta si un texto es "ALTURA de CALLE" */
+    public static final Pattern PATTERN = 
+        Pattern.compile("([aA][lL]\\s)?\\s*(\\d+)\\s+[dD][eE]\\s+(" 
+                + STREET_NAME_PATTERN + "+)");
     
     /** @see ar.com.zauber.commons.gis.street.impl.parser.AddressPattern#
      * getAddressResult(java.lang.String)
      */
     @SuppressWarnings("unchecked")
-    public Collection getAddressResult(final String text, 
+    public final Collection getAddressResult(final String text, 
             final StreetsDAO streetsDAO) {
         final String trimText = text.trim();
         final Matcher matcher = PATTERN.matcher(trimText);

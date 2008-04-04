@@ -17,16 +17,10 @@ public class StreetResult implements Result {
     private final Point point;
     private final String city;
     private final String countryCode;
-    /**
-     * Creates the StreetResult.
-     *
-     * @param name
-     * @param point
-     * @param city
-     * @param countryCode
-     */
-    public StreetResult(String name, Point point, String city,
-            String countryCode) {
+    
+    /** Creates the StreetResult. */
+    public StreetResult(final String name, final Point point, final String city,
+            final  String countryCode) {
         super();
         this.name = name;
         this.point = point;
@@ -57,10 +51,9 @@ public class StreetResult implements Result {
     public final String getCity() {
         return city;
     }
-    /* (non-Javadoc)
-     * @see ar.com.zauber.commons.gis.Result#getDescription()
-     */
-    public String getDescription() {
+    
+    /** @see Result#getDescription() */
+    public final String getDescription() {
         return "Calle " + name + " en " + city;
     }
     /**

@@ -28,7 +28,7 @@ public class NormalAddress {
      *
      * @param countryCode <code>String</code> with the countryCode.
      */
-    public final void setCountryCode(String countryCode) {
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
     /**

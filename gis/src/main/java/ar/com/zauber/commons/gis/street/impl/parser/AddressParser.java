@@ -20,7 +20,7 @@ import ar.com.zauber.commons.gis.street.model.address.NormalAddress;
  */
 public final class AddressParser {
      
-    final private Collection<AddressPattern> patterns;
+    private final Collection<AddressPattern> patterns;
     
     
     
@@ -48,7 +48,7 @@ public final class AddressParser {
         final List ret = new ArrayList();
         final String trimText = text.trim();
         
-        for (AddressPattern pattern : patterns){
+        for (AddressPattern pattern : patterns) {
             final Collection result = pattern.getAddressResult(trimText, streetsDAO);
             if (result != null) {
                 ret.addAll(result);

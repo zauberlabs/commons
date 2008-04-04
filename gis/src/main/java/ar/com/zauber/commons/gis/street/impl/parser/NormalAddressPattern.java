@@ -20,10 +20,10 @@ public class NormalAddressPattern implements AddressPattern {
     private static final Pattern PATTERN = 
         Pattern.compile("(" + STREET_NAME_PATTERN + "+)\\s+(\\d+)");
 
-    /** @see ar.com.zauber.commons.gis.street.impl.parser.AddressPattern#getAddressResult()
-     */
+    // CHECKSTYLE:DESIGN:OFF
+    /** @see AddressPattern#getAddressResult() */
     @SuppressWarnings("unchecked")
-    public Collection<Result> getAddressResult(final String text, final 
+    public  Collection<Result> getAddressResult(final String text, final 
             StreetsDAO streetsDAO) {
         final String trimText = text.trim();
         final Matcher matcher = PATTERN.matcher(trimText);
@@ -33,6 +33,7 @@ public class NormalAddressPattern implements AddressPattern {
         return Collections.EMPTY_LIST;
     }
 
+    
     /**
      * @param streetsDAO 
      * @param group
@@ -56,6 +57,6 @@ public class NormalAddressPattern implements AddressPattern {
         //Construyo el resultado
         return streetsDAO.geocode(calle, altura.intValue());
     }
-    
+  //CHECKSTYLE:DESIGN:ON
     
 }

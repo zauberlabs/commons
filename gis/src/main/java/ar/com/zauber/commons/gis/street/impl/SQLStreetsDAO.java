@@ -49,7 +49,7 @@ public class SQLStreetsDAO implements StreetsDAO {
     
     private final AddressParser parser;
     
-    static private final List<Options> DEFAULT_OPTIONS = new ArrayList<Options>();
+    private static final List<Options> DEFAULT_OPTIONS = new ArrayList<Options>();
     static {
         DEFAULT_OPTIONS.add(Options.IGNORE_COMMON_WORDS);
         DEFAULT_OPTIONS.add(Options.REMOVE_EXTRA_SPACES);
@@ -64,7 +64,7 @@ public class SQLStreetsDAO implements StreetsDAO {
      * @param template jdbc template
      */
     public SQLStreetsDAO(final JdbcTemplate template) {
-    	this(template, DEFAULT_OPTIONS, null);
+        this(template, DEFAULT_OPTIONS, null);
     }
     
     /**
@@ -78,17 +78,18 @@ public class SQLStreetsDAO implements StreetsDAO {
     
     /**
      * @param template jdbc template
-     * @param optionsList la lista de opciones. Notar que las opciones se aplican en el orden
+     * @param optionsList la lista de opciones.
+     *                    Notar que las opciones se aplican en el orden
      * en que se reciben.
      */
-    public SQLStreetsDAO(final JdbcTemplate template, List<Options> optionsList, 
-            final AddressParser parser) {
-    	Validate.notNull(template);
-    	Validate.notNull(optionsList);
-    	
-    	this.parser = parser;
-    	this.template = template;
-    	this.optionsList = Collections.unmodifiableList(optionsList);
+    public SQLStreetsDAO(final JdbcTemplate template, 
+            final List<Options> optionsList, final AddressParser parser) {
+        Validate.notNull(template);
+        Validate.notNull(optionsList);
+
+        this.parser = parser;
+        this.template = template;
+        this.optionsList = Collections.unmodifiableList(optionsList);
     }
     
     /** @see StreetsDAO#getIntersection(String, String) */
@@ -99,8 +100,8 @@ public class SQLStreetsDAO implements StreetsDAO {
              new ArrayList<IntersectionResult>();
 
         // Si busco calles con longitud <= 2 se muere la base.
-        if((street1Param != null && street1Param.length() <= 2) ||
-                (street2Param != null && street2Param.length() <= 2)) {
+        if((street1Param != null && street1Param.length() <= 2) 
+                || (street2Param != null && street2Param.length() <= 2)) {
             return ret;
         }
 
@@ -137,7 +138,7 @@ public class SQLStreetsDAO implements StreetsDAO {
                                      */
                                     ret.add(new IntersectionResult(
                                             rs.getString("nomoficial1"), 
-                                            rs.getString("nomoficial2"),"AR", 
+                                            rs.getString("nomoficial2"), "AR", 
                                             (Point)geom));
                                 }
                                 
@@ -185,7 +186,7 @@ public class SQLStreetsDAO implements StreetsDAO {
     
     /** @see StreetsDAO#geocode(String, int) */
     public final Collection<GeocodeResult> geocode_(final String streetParam, 
-            final int altura, Integer id) {
+            final int altura, final Integer id) {
         Validate.notEmpty(streetParam);
         
         String streetFiltered = executeFilters(streetParam);
@@ -198,8 +199,8 @@ public class SQLStreetsDAO implements StreetsDAO {
         }
         
         final Collection<GeocodeResult> ret = new ArrayList<GeocodeResult>();
-        final String q = "select * from geocode_ba(?, ?)" + 
-                        (id == null ? "" : " where id=?");
+        final String q = "select * from geocode_ba(?, ?)" 
+                        + (id == null ? "" : " where id=?");
         template.query(q, args.toArray(), new ResultSetExtractor() {
                     public final Object extractData(final ResultSet rs) 
                        throws SQLException, DataAccessException {
@@ -228,7 +229,7 @@ public class SQLStreetsDAO implements StreetsDAO {
     }
 
     /**  @see StreetsDAO#suggestStreets(String, Paging) */
-    public List<String> suggestStreets(final String beggining, 
+    public final List<String> suggestStreets(final String beggining, 
             final Paging paging) {
         final List<String> usernames = new ArrayList<String>();
         final String q = "%" + escapeForLike(beggining, '+') + "%";
@@ -263,19 +264,21 @@ public class SQLStreetsDAO implements StreetsDAO {
      * @return el texto filtrado
      */
     private String executeFilters(String street) {
-    	for (Iterator<Options> optionsIter = this.optionsList.iterator(); optionsIter.hasNext();) {
-			Options options = optionsIter.next();
-			street = options.filter(street);
-		}
-    	return street.trim();
+        for (final Iterator<Options> optionsIter = this.optionsList.iterator(); 
+             optionsIter.hasNext();) {
+            final Options options = optionsIter.next();
+            street = options.filter(street);
+        }
+        return street.trim();
     }
 
     /** @see StreetsDAO#getIntersectionsFor(String) */
-    public List<String> getIntersectionsFor(String fullStreetName) {
+    public final List<String> getIntersectionsFor(final String fullStreetName) {
         Validate.notNull(fullStreetName);
 
         final List<String> ret = new ArrayList<String>();
-        template.query("select distinct nomoficial from geocode_calles_que_cortan(?) order by nomoficial",
+        template.query("select distinct nomoficial from "
+                + "geocode_calles_que_cortan(?) order by nomoficial",
                 new Object[]{fullStreetName}, new ResultSetExtractor() {
                     public Object extractData(final ResultSet rs)
                             throws SQLException, DataAccessException {
@@ -292,9 +295,10 @@ public class SQLStreetsDAO implements StreetsDAO {
     }
 
     /** @see StreetsDAO#guessStreetName(java.util.List, java.lang.String) */
-    public final List<GuessStreetResult> guessStreetName(List<String> streets,
-            String unnomalizedStreetName) {
-        final List <String> unknownStreetTokens = tokenizeCalle(unnomalizedStreetName);
+    public final List<GuessStreetResult> guessStreetName(final List<String> streets,
+            final String unnomalizedStreetName) {
+        final List <String> unknownStreetTokens = 
+            tokenizeCalle(unnomalizedStreetName);
         final List<GuessStreetResult> ret = new ArrayList<GuessStreetResult>();
         
         for(final String street : streets) {
@@ -314,8 +318,8 @@ public class SQLStreetsDAO implements StreetsDAO {
         return ret;
     }
     
-    
-    private final List<String> tokenizeCalle(final String streets) {
+    /** obtiene tokens de calle (ej: "santiago del estero") */
+    private List<String> tokenizeCalle(final String streets) {
         final List<String> ret = new ArrayList<String>();
         
         final String s = streets.replace(',', ' ')
@@ -333,16 +337,18 @@ public class SQLStreetsDAO implements StreetsDAO {
         return ret;
     }
 
-    /** @see ar.com.zauber.commons.gis.street.StreetsDAO#fullNameStreetExist(java.lang.String) */
-    public boolean fullNameStreetExist(final String name) {
-        int i = template.queryForInt("select count(nomoficial) from streets where nomoficial =  upper(?)",
+    /** @see StreetsDAO#fullNameStreetExist(java.lang.String) */
+    public final boolean fullNameStreetExist(final String name) {
+        int i = template.queryForInt("select count(nomoficial) from streets "
+                + "where nomoficial =  upper(?)",
                 new Object[]{name});
         return i != 0;
     }
 
     /** @see StreetsDAO#getSinonimos(String) */
-    public List<String> getSinonimos(final String fullStreetName) {
-        final String s = "select distinct nomoficial from streets where nomanter ILIKE ?";
+    public final List<String> getSinonimos(final String fullStreetName) {
+        final String s = "select distinct nomoficial from streets where "
+            + "nomanter ILIKE ?";
         final List<String> ret = new ArrayList<String>();
         
         template.query(s, new Object[] {fullStreetName}, new ResultSetExtractor() {
@@ -362,12 +368,12 @@ public class SQLStreetsDAO implements StreetsDAO {
         return ret;
     }
 
-    /** @see ar.com.zauber.commons.gis.street.StreetsDAO#suggestAddresses(java.lang.String)
-     */
+    /** @see StreetsDAO#suggestAddresses(String) */
     public final List<Result> suggestAddresses(final String text) {
         return parser.parse(text, this);
     }
     
+    /** @see StreetsDAO#getStreets(String) */
     public final List<Result> getStreets(final String text) {
         final List<Result> results = new ArrayList<Result>();
         

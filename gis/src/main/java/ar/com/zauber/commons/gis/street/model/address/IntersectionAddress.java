@@ -28,7 +28,7 @@ public class IntersectionAddress {
      *
      * @param countryCode <code>String</code> with the countryCode.
      */
-    public final void setCountryCode(String countryCode) {
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
     /**
@@ -37,7 +37,8 @@ public class IntersectionAddress {
      * @param street1
      * @param street2
      */
-    public IntersectionAddress(String street1, String street2, String countryCode) {
+    public IntersectionAddress(final String street1, final String street2, 
+            final String countryCode) {
         super();
         this.street1 = street1;
         this.street2 = street2;
@@ -56,7 +57,7 @@ public class IntersectionAddress {
      *
      * @param street1 <code>String</code> with the street1.
      */
-    public final void setStreet1(String street1) {
+    public final void setStreet1(final String street1) {
         this.street1 = street1;
     }
     /**
@@ -72,7 +73,7 @@ public class IntersectionAddress {
      *
      * @param street2 <code>String</code> with the street2.
      */
-    public final void setStreet2(String street2) {
+    public final void setStreet2(final String street2) {
         this.street2 = street2;
     }
     

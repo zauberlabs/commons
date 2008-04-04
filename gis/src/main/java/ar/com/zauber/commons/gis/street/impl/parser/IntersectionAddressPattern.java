@@ -17,14 +17,16 @@ import ar.com.zauber.commons.gis.street.StreetsDAO;
  * @since Sep 28, 2007
  */
 public class IntersectionAddressPattern implements AddressPattern {
-    public final static Pattern PATTERN = 
+    /** expresion para detectar si un texto habla de intersección de
+     * calles */
+    public static final Pattern PATTERN = 
                         Pattern.compile("(" + STREET_NAME_PATTERN + "+)[yY]\\s+(" 
                             + STREET_NAME_PATTERN + "+)");
     /** @see ar.com.zauber.commons.gis.street.impl.parser.AddressPattern#
      * getAddressResult(java.lang.String)
      */
     @SuppressWarnings("unchecked")
-    public Collection getAddressResult(final String text, 
+    public final Collection getAddressResult(final String text, 
             final StreetsDAO streetsDAO) {
         final Matcher matcher = PATTERN.matcher(text);
         if (matcher.matches()) {
