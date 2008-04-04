@@ -54,7 +54,7 @@ public class SQLStreetsDAO implements StreetsDAO {
         DEFAULT_OPTIONS.add(Options.IGNORE_COMMON_WORDS);
         DEFAULT_OPTIONS.add(Options.REMOVE_EXTRA_SPACES);
         DEFAULT_OPTIONS.add(Options.REMOVE_U_DIERESIS);
-        DEFAULT_OPTIONS.add(Options.REMOVE_U_DIERESIS);
+        DEFAULT_OPTIONS.add(Options.REMOVE_ACCENTS);
         DEFAULT_OPTIONS.add(Options.AVENUE_WORD_MOVE);
     }
     

@@ -67,6 +67,31 @@ public enum Options {
             }
             return ret;
         }
+    }, REMOVE_ACCENTS() {
+        public final String filter(final String street) {
+            return street.replace('á', 'a')
+            .replace('à', 'a')
+            .replace('Á', 'A')
+            .replace('À', 'A')
+            .replace('é', 'e')
+            .replace('è', 'e')
+            .replace('É', 'E')
+            .replace('È', 'E')
+            .replace('í', 'i')
+            .replace('ì', 'i')
+            .replace('Í', 'I')
+            .replace('Ì', 'I')
+            .replace('ó', 'o')
+            .replace('ò', 'o')
+            .replace('Ó', 'o')
+            .replace('Ò', 'o')
+            .replace('ú', 'u')
+            .replace('ù', 'u')
+            .replace('Ú', 'U')
+            .replace('Ù', 'U')
+            .replace('ñ', 'n')
+            .replace('Ñ', 'N');
+        }
     };
     
     /**

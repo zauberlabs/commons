@@ -16,7 +16,7 @@ import ar.com.zauber.commons.gis.street.StreetsDAO;
  */
 public interface AddressPattern {
     /** expresión regular que tienen los nombres de las calles */
-    String STREET_NAME_PATTERN = "[[a-zA-Z0-9\\.]+\\s*]";
+    String STREET_NAME_PATTERN = "[[a-zA-Z0-9áéíóú\\.]+\\s*]";
     
     /** busca calles */
     Collection<Result> getAddressResult(String text, StreetsDAO streetsDAO);
