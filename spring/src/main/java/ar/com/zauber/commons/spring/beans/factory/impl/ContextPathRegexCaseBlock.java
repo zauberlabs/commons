@@ -57,7 +57,8 @@ public class ContextPathRegexCaseBlock implements CaseBlock,
     
     /** @see CaseBlock#evaluate() */
     public final boolean evaluate() {
-        return regex.matcher(ctx.getServletContext().getRealPath("/")).lookingAt();
+        return ctx == null ? false    
+            : regex.matcher(ctx.getServletContext().getRealPath("/")).lookingAt();
     }
 
     /** @see CaseBlock#getObject() */
@@ -68,7 +69,9 @@ public class ContextPathRegexCaseBlock implements CaseBlock,
     /** @see ApplicationContextAware#setApplicationContext(ApplicationContext) */
     public final void setApplicationContext(final ApplicationContext ctx)
             throws BeansException {
-        this.ctx = (WebApplicationContext)ctx;
+        if(ctx instanceof WebApplicationContext) {
+            this.ctx = (WebApplicationContext)ctx;
+        }
     }
 
 }
