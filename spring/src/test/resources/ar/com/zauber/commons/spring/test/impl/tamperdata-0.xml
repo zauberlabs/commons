@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+   <!-- Export of tamperdata transacions -->
+   <tdRequests>
+<tdRequest uri="http%3A//localhost%3A9090/bin/admin/person/add/"><tdStartTime>22:51:11.493</tdStartTime>
+<tdStartTimeMS>1208915471493</tdStartTimeMS>
+<tdElapsedTime>60073</tdElapsedTime>
+<tdTotalElapsedTime>60156</tdTotalElapsedTime>
+<tdStatus>200</tdStatus>
+<tdStatusText>OK</tdStatusText><tdRequestMethod>POST</tdRequestMethod>
+<tdContentSize>-1</tdContentSize>
+<tdMimeType>text/html</tdMimeType>
+<tdRequestHeaders>
+<tdRequestHeader name="Host">
+localhost%3A9090</tdRequestHeader>
+<tdRequestHeader name="User-Agent">
+Mozilla/5.0%20%28X11%3B%20U%3B%20Linux%20i686%20%28x86_64%29%3B%20en-US%3B%20rv%3A1.8.1.13%29%20Gecko/20080311%20Firefox/2.0.0.13</tdRequestHeader>
+<tdRequestHeader name="Accept">
+text/xml%2Capplication/xml%2Capplication/xhtml+xml%2Ctext/html%3Bq%3D0.9%2Ctext/plain%3Bq%3D0.8%2Cimage/png%2C*/*%3Bq%3D0.5</tdRequestHeader>
+<tdRequestHeader name="Accept-Language">
+en-us%2Cen%3Bq%3D0.5</tdRequestHeader>
+<tdRequestHeader name="Accept-Encoding">
+gzip%2Cdeflate</tdRequestHeader>
+<tdRequestHeader name="Accept-Charset">
+ISO-8859-1%2Cutf-8%3Bq%3D0.7%2C*%3Bq%3D0.7</tdRequestHeader>
+<tdRequestHeader name="Keep-Alive">
+300</tdRequestHeader>
+<tdRequestHeader name="Connection">
+keep-alive</tdRequestHeader>
+<tdRequestHeader name="Referer">
+http%3A//localhost%3A9090/bin/admin/person/add/</tdRequestHeader>
+<tdRequestHeader name="Cookie">
+JSESSIONID%3D2dudedolofnjg</tdRequestHeader>
+</tdRequestHeaders><tdPostHeaders><tdPostHeader name="Content-Type">
+application/x-www-form-urlencoded
+</tdPostHeader>
+<tdPostHeader name="Content-Length">
+284
+</tdPostHeader>
+</tdPostHeaders>
+<tdPostElements>
+<tdPostElement name="username">
+carlos
+</tdPostElement>
+<tdPostElement name="givenName">
+Carlos
+</tdPostElement>
+<tdPostElement name="surname">
+Sanchez
+</tdPostElement>
+<tdPostElement name="email">
+%253Casd%2540asdasd%253E
+</tdPostElement>
+<tdPostElement name="mobile">
+mobile
+</tdPostElement>
+<tdPostElement name="phone">
+office+phone
+</tdPostElement>
+<tdPostElement name="address">
+office+address
+</tdPostElement>
+<tdPostElement name="description">
+agente
+</tdPostElement>
+<tdPostElement name="password">
+abcdefg
+</tdPostElement>
+<tdPostElement name="confirmPassword">
+abcdefg
+</tdPostElement>
+<tdPostElement name="jabberd">
+true
+</tdPostElement>
+<tdPostElement name="_jabberd">
+on
+</tdPostElement>
+<tdPostElement name="_userGroups">
+1
+</tdPostElement>
+<tdPostElement name="ou">
+Clients
+</tdPostElement>
+<tdPostElement name="o">
+ACME
+</tdPostElement>
+<tdPostElement name="_finish">
+
+</tdPostElement>
+<tdPostElement name="newUser">
+true
+</tdPostElement>
+<tdPostElement name="_page">
+3
+</tdPostElement>
+</tdPostElements>
+<tdResponseHeaders><tdResponseHeader name="Pragma">
+No-cache
+</tdResponseHeader>
+<tdResponseHeader name="Expires">
+Thu%2C%2001%20Jan%201970%2000%3A00%3A00%20GMT
+</tdResponseHeader>
+<tdResponseHeader name="Cache-Control">
+no-store
+</tdResponseHeader>
+<tdResponseHeader name="Content-Language">
+en-US
+</tdResponseHeader>
+<tdResponseHeader name="Content-Type">
+text/html%3B%20charset%3DISO-8859-1
+</tdResponseHeader>
+<tdResponseHeader name="Transfer-Encoding">
+chunked
+</tdResponseHeader>
+<tdResponseHeader name="Connection">
+keep-alive
+</tdResponseHeader>
+<tdResponseHeader name="Server">
+Jetty%286.0.x%29
+</tdResponseHeader>
+</tdResponseHeaders>
+</tdRequest>
+</tdRequests>
