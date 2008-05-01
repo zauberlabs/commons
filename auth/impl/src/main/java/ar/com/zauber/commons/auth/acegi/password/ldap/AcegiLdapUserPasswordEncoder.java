@@ -40,7 +40,8 @@ public class AcegiLdapUserPasswordEncoder implements PasswordEncoder {
      *
      * @param encoders
      */
-    AcegiLdapUserPasswordEncoder(final Map<String, PasswordEncoder> encoders) {
+    public AcegiLdapUserPasswordEncoder(
+            final Map<String, PasswordEncoder> encoders) {
         Validate.notNull(encoders);
 
         this.encoders = encoders;
@@ -72,10 +73,6 @@ public class AcegiLdapUserPasswordEncoder implements PasswordEncoder {
         }
         
         return encoder;
-    }
-    
-    private String password(String s) {
-        return s;
     }
 }
 
