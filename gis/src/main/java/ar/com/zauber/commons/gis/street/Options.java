@@ -28,7 +28,7 @@ public enum Options {
                 Matcher matcher = pattern.matcher(ret);
                 ret = matcher.replaceAll("$1");
             }
-            return street;
+            return ret;
         }
         
     },
@@ -67,7 +67,10 @@ public enum Options {
             }
             return ret;
         }
-    }, REMOVE_ACCENTS() {
+    }, 
+    /** remueve acentos */
+    REMOVE_ACCENTS() {
+        /** filtrado de acentos */
         public final String filter(final String street) {
             return street.replace('á', 'a')
             .replace('à', 'a')
@@ -88,9 +91,7 @@ public enum Options {
             .replace('ú', 'u')
             .replace('ù', 'u')
             .replace('Ú', 'U')
-            .replace('Ù', 'U')
-            .replace('ñ', 'n')
-            .replace('Ñ', 'N');
+            .replace('Ù', 'U');
         }
     };
     
