@@ -21,7 +21,7 @@ import ar.com.zauber.commons.passwd.PasswordValidator;
  */
 public class AlreadyExistsPasswordValidator<T> implements PasswordValidator {
     /** encuentra contraseñas para un usuario*/
-    interface PasswordDAO<T> {
+    public static interface PasswordDAO<T> {
         /**
          * Busca los hash de las contraseñas historicas de un usuario. 
          * De estos hash no es posible obtener las contraseña pero si
