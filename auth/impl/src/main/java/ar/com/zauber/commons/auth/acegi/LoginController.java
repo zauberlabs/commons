@@ -10,8 +10,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.acegisecurity.ui.AbstractProcessingFilter;
-import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
+import org.springframework.security.ui.AbstractProcessingFilter;
+import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.util.WebUtils;
@@ -41,13 +41,13 @@ public final class LoginController extends AbstractController {
         final Map<String, Object> model = new HashMap<String, Object>();
 
         addToModel(request, model,
-                AbstractProcessingFilter.ACEGI_SECURITY_LAST_EXCEPTION_KEY,
+                AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY,
                 "acegiSecurityException");
         addToModel(request, model,
-                AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY,
+                AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
                 "username");
         addToModel(request, model,
-                AuthenticationProcessingFilter.ACEGI_SAVED_REQUEST_KEY,
+                AuthenticationProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY,
                 "url");
         
         String referer = request.getHeader("Referer");
@@ -62,7 +62,7 @@ public final class LoginController extends AbstractController {
         }
         
         WebUtils.setSessionAttribute(request, 
-                AbstractProcessingFilter.ACEGI_SECURITY_LAST_EXCEPTION_KEY, 
+                AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY, 
                 null);
         
         

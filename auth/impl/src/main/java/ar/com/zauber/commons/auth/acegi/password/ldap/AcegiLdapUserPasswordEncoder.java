@@ -5,11 +5,11 @@ package ar.com.zauber.commons.auth.acegi.password.ldap;
 
 import java.util.Map;
 
-import org.acegisecurity.providers.dao.DaoAuthenticationProvider;
-import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.Validate;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.providers.dao.DaoAuthenticationProvider;
+import org.springframework.security.providers.encoding.PasswordEncoder;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 

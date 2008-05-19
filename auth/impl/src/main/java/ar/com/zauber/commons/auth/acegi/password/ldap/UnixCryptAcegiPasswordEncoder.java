@@ -3,8 +3,8 @@
  */
 package ar.com.zauber.commons.auth.acegi.password.ldap;
 
-import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.providers.encoding.PasswordEncoder;
 
 import ar.com.zauber.commons.passwd.UnixCrypt;
 import ar.com.zauber.commons.passwd.UnixCryptPasswordEncoder;

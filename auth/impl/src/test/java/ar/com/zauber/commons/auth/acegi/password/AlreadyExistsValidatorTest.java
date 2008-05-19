@@ -8,10 +8,10 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
-import org.acegisecurity.providers.encoding.PasswordEncoder;
-import org.acegisecurity.providers.encoding.ShaPasswordEncoder;
 import org.apache.commons.lang.NotImplementedException;
+import org.springframework.security.providers.encoding.Md5PasswordEncoder;
+import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.providers.encoding.ShaPasswordEncoder;
 
 import ar.com.zauber.commons.auth.acegi.password.ldap.AcegiLdapUserPasswordEncoder;
 import ar.com.zauber.commons.auth.acegi.password.ldap.LdapUserPasswordPasswordEncoder;

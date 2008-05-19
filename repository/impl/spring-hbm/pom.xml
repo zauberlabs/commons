@@ -3,7 +3,7 @@
   <parent>
     <artifactId>impl-repository-parent</artifactId>
     <groupId>ar.com.zauber.commons.repository.impl</groupId>
-    <version>2.13-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::Spring HBM implementation</name>
   <artifactId>commons-repository-impl-springhbm</artifactId>
@@ -36,59 +36,25 @@
     </dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
-		<artifactId>spring-context</artifactId>
+		<artifactId>spring-context-support</artifactId>
 		<version>${spring.version}</version>
 	</dependency>    
 	<dependency>
 		<groupId>org.springframework</groupId>
-		<artifactId>spring-hibernate3</artifactId>
+		<artifactId>spring-orm</artifactId>
 		<version>${spring.version}</version>
 	</dependency>    
 
 	<dependency>
 		<groupId>org.springframework</groupId>
-		<artifactId>spring-mock</artifactId>
+		<artifactId>spring-test</artifactId>
 		<version>${spring.version}</version>
 	</dependency>
         <!-- Acegi -->
     <dependency>
-        <groupId>org.acegisecurity</groupId>
-        <artifactId>acegi-security-tiger</artifactId>
-        <version>1.0.5</version>
-        <exclusions>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-dao</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-aop</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-remoting</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-support</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-jdbc</artifactId>
-            </exclusion>
-        </exclusions>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core-tiger</artifactId>
+        <version>2.0.1</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

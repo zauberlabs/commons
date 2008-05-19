@@ -24,8 +24,8 @@ public class ZauberBeanNameBasedClassNameHandlerMappingTest extends TestCase {
     private ConfigurableWebApplicationContext wac;
     private HandlerMapping hm;
     
-    /**  @see junit.framework.TestCase#setUp() */
-    protected void setUp() throws Exception {
+    /** @throws Exception on error */
+    protected final void setUp() throws Exception {
             final MockServletContext sc = new MockServletContext("");
             wac = new XmlWebApplicationContext();
             wac.setServletContext(sc);
@@ -34,31 +34,39 @@ public class ZauberBeanNameBasedClassNameHandlerMappingTest extends TestCase {
             hm = (HandlerMapping) wac.getBean("handlerMapping");
     }
     
-    public void testSimpleName() throws Exception {
+    /** @throws Exception on error*/
+    public final void testSimpleName() throws Exception {
         MockHttpServletRequest req = new MockHttpServletRequest("GET", "/logout/");
         final HandlerExecutionChain hec = hm.getHandler(req);
         assertEquals(((DummyController)hec.getHandler()).getId(), "logout");
     }
     
-    public void test404() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest("GET", "/doesntexist/");
+    /** @throws Exception on error*/
+    public final void test404() throws Exception {
+        MockHttpServletRequest req = new MockHttpServletRequest("GET", 
+                "/doesntexist/");
         final HandlerExecutionChain hec = hm.getHandler(req);
         assertNull(hec);
     }
 
-    public void testCompound() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest("GET", "/password/change/");
+    /** @throws Exception on error*/
+    public final void testCompound() throws Exception {
+        MockHttpServletRequest req = new MockHttpServletRequest("GET", 
+                "/password/change/");
         final HandlerExecutionChain hec = hm.getHandler(req);
         assertEquals(((DummyController)hec.getHandler()).getId(), "changepassword");
     }
 
-    public void testFirstCapitalLetter() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest("GET", "/password/forgot/");
+    /** @throws Exception on error*/
+    public final void testFirstCapitalLetter() throws Exception {
+        MockHttpServletRequest req = new MockHttpServletRequest("GET", 
+                "/password/forgot/");
         final HandlerExecutionChain hec = hm.getHandler(req);
         assertEquals(((DummyController)hec.getHandler()).getId(), "forgotpassword");
     }
     
-    public void testControllerWithNoName() throws Exception {
+    /** @throws Exception on error*/
+    public final void testControllerWithNoName() throws Exception {
         MockHttpServletRequest req = new MockHttpServletRequest("GET", "/another/");
         final HandlerExecutionChain hec = hm.getHandler(req);
         assertEquals(((DummyController)hec.getHandler()).getId(), "another");

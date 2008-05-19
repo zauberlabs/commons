@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.tiles.TilesJstlView;
 
 

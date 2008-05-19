@@ -8,8 +8,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.providers.encoding.PasswordEncoder;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 

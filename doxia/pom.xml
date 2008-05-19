@@ -3,7 +3,7 @@
   <parent>
      <artifactId>zauber-commons-parent</artifactId>
      <groupId>ar.com.zauber.commons</groupId>
-     <version>2.13-SNAPSHOT</version>
+     <version>3.0-SNAPSHOT</version>
   </parent>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>commons-doxia</artifactId>

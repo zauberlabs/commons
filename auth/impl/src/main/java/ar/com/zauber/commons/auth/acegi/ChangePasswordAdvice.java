@@ -5,11 +5,11 @@ package ar.com.zauber.commons.auth.acegi;
 
 import java.lang.reflect.Method;
 
-import org.acegisecurity.userdetails.User;
-import org.acegisecurity.userdetails.UserDetails;
-import org.acegisecurity.userdetails.memory.InMemoryDaoImpl;
 import org.apache.commons.lang.Validate;
 import org.springframework.aop.AfterReturningAdvice;
+import org.springframework.security.userdetails.User;
+import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.userdetails.memory.InMemoryDaoImpl;
 
 
 /**

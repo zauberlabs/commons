@@ -5,13 +5,13 @@ package ar.com.zauber.commons.auth.acegi;
 
 import java.lang.reflect.Method;
 
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.userdetails.User;
-import org.acegisecurity.userdetails.memory.InMemoryDaoImpl;
-import org.acegisecurity.userdetails.memory.UserMap;
 import org.apache.commons.lang.Validate;
 import org.springframework.aop.AfterReturningAdvice;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.userdetails.User;
+import org.springframework.security.userdetails.memory.InMemoryDaoImpl;
+import org.springframework.security.userdetails.memory.UserMap;
 
 /**
  * Este advice está pensado para atrapar los llamados al método registerUser de 
