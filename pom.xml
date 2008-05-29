@@ -22,7 +22,7 @@
     <repository>
       <id>zauber-private-repo</id>
       <name>private zauber repository</name>
-      <url>https://repo1.zauber.com.ar/default</url>
+      <url>https://code.zauber.com.ar/repos/m2/</url>
      </repository>
   </repositories>
   <pluginRepositories>
