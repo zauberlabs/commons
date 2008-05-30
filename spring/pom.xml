@@ -45,5 +45,12 @@
       <groupId>ar.com.zauber.commons</groupId>
       <artifactId>commons</artifactId>
     </dependency>
+    <dependency>
+      <groupId>stax</groupId>
+      <artifactId>stax</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+
+
   </dependencies>
 </project>
