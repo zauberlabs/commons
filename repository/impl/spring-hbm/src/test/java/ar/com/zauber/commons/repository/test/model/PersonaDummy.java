@@ -33,26 +33,26 @@ import ar.com.zauber.commons.repository.Reference;
 
 
 /**
- * Entidad dummy para testear el repositorio de hibernate 
+ * Entidad dummy para testear el repositorio de hibernate
  *
  * @author Martin A. Marquez
  * @since Aug 10, 2006
  */
 @Entity
 public class PersonaDummy implements Persistible {
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private Integer numeroFiscal;
-    
+
     private String nombre;
-    
+
     private String descripcion;
-    
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="persona_id")    
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "persona_id")
     private Set<DireccionDummy> direcciones;
 
     /**
@@ -62,134 +62,137 @@ public class PersonaDummy implements Persistible {
     public PersonaDummy() {
 
     }
-
-    public PersonaDummy(int numeroFiscal, String nombre, String descripcion, Set<DireccionDummy> direcciones) {
+    /** constructor */
+    public PersonaDummy(final int numeroFiscal, final String nombre, 
+            final String descripcion, final Set<DireccionDummy> direcciones) {
         this.numeroFiscal = new Integer(numeroFiscal);
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.direcciones = direcciones;
     }
 
-    public PersonaDummy(String nombre) {
+    /** constructor */
+    public PersonaDummy(final String nombre) {
         this.nombre = nombre;
     }
-    
+
     /**
      * Devuelve el/la id.
      *
      * @return <code>Long</code> con el/la id.
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
     /**
      * Asigna el/la id.
      *
-     * @param id <code>Long</code> con el/la id.
+     * @param anId <code>Long</code> con el/la id.
      */
-    public void setId(Long anId) {
-        this.id = anId;
-    } 
-    
-    
+    public final void setId(final Long anId) {
+        id = anId;
+    }
+
+
     /**
      * Devuelve el/la descripcion.
      *
      * @return <code>String</code> con el/la descripcion.
      */
-    public String getDescripcion() {
+    public final String getDescripcion() {
         return descripcion;
     }
 
-    
+
     /**
      * Asigna el/la descripcion.
      *
      * @param descripcion <code>String</code> con el/la descripcion.
      */
-    public void setDescripcion(String descripcion) {
+    public final void setDescripcion(final String descripcion) {
         this.descripcion = descripcion;
     }
 
-    
+
     /**
      * Devuelve el/la direcciones.
      *
      * @return <code>Collection</code> con el/la direcciones.
      */
-    public Set<DireccionDummy> getDirecciones() {
+    public final Set<DireccionDummy> getDirecciones() {
         return direcciones;
     }
 
-    
+
     /**
      * Asigna el/la direcciones.
      *
      * @param direcciones <code>Collection</code> con el/la direcciones.
      */
-    public void setDirecciones(Set<DireccionDummy> direcciones) {
+    public final void setDirecciones(final Set<DireccionDummy> direcciones) {
         this.direcciones = direcciones;
     }
 
-    
+
     /**
      * Devuelve el/la nombre.
      *
      * @return <code>String</code> con el/la nombre.
      */
-    public String getNombre() {
+    public final String getNombre() {
         return nombre;
     }
 
-    
+
     /**
      * Asigna el/la nombre.
      *
      * @param nombre <code>String</code> con el/la nombre.
      */
-    public void setNombre(String nombre) {
+    public final void setNombre(final String nombre) {
         this.nombre = nombre;
     }
 
-    
+
     /**
      * Devuelve el/la numeroFiscal.
      *
      * @return <code>Integer</code> con el/la numeroFiscal.
      */
-    public Integer getNumeroFiscal() {
+    public final Integer getNumeroFiscal() {
         return numeroFiscal;
     }
 
-    
+
     /**
      * Asigna el/la numeroFiscal.
      *
      * @param numeroFiscal <code>Integer</code> con el/la numeroFiscal.
      */
-    public void setNumeroFiscal(Integer numeroFiscal) {
+    public final void setNumeroFiscal(final Integer numeroFiscal) {
         this.numeroFiscal = numeroFiscal;
     }
-    
+
     /**
      * Obtener una referencia al objeto.
-     * 
+     *
      * @return una <code>Reference</code> que representa al objeto
      *         correspondiente.
      */
-    public Reference<PersonaDummy> generateReference() {
+    public final Reference<PersonaDummy> generateReference() {
         return new Reference<PersonaDummy>(PersonaDummy.class, id);
     }
 
     /**
-         * @see java.lang.Object#toString()
-         */
-        public String toString() {
-            return new ToStringBuilder(this).append("numeroFiscal",
-                    this.numeroFiscal).append("id", this.id).append("nombre",
-                    this.nombre).append("direcciones", this.direcciones).append(
-                    "reference", this.generateReference()).append("descripcion",
-                    this.descripcion).toString();
-        }
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public final String toString() {
+        return new ToStringBuilder(this).append("numeroFiscal",
+                numeroFiscal).append("id", id).append("nombre",
+                nombre).append("direcciones", direcciones).append(
+                "reference", this.generateReference()).append("descripcion",
+                descripcion).toString();
+    }
 }
