@@ -1,17 +1,17 @@
 /*
  * Copyright (c) 2005-2008 Zauber S.A. <http://www.zauber.com.ar/>
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 package ar.com.zauber.commons.test;
 
@@ -40,7 +40,6 @@ import ar.com.zauber.commons.repository.query.filters.BaseFilter;
 import ar.com.zauber.commons.repository.query.filters.BeginsLikePropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.CompositeFilter;
 import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
-import ar.com.zauber.commons.repository.query.filters.Filter;
 import ar.com.zauber.commons.repository.query.filters.GreaterThanPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.NullFilter;
 import ar.com.zauber.commons.repository.query.values.SimpleValue;
@@ -54,11 +53,11 @@ import ar.com.zauber.commons.test.utils.BaseTransactionalRollbackTest;
  * @author Martin A. Marquez
  * @since Aug 10, 2006
  */
-public class SpringHibernateRepositoryTest
-    extends BaseTransactionalRollbackTest {
+public class SpringHibernateRepositoryTest extends
+        BaseTransactionalRollbackTest {
 
     /**
-     *  Un codigo postal.
+     * Un codigo postal.
      */
     private static final String CODIGO_POSTAL_1 = "1111";
 
@@ -82,155 +81,177 @@ public class SpringHibernateRepositoryTest
      *
      */
     public SpringHibernateRepositoryTest() {
-        //setDefaultRollback(false);
+        // setDefaultRollback(false);
     }
-    
-    public void testRetrieve() {
-    	Set<DireccionDummy> direcciones = crearGuardarDosDirecciones();
-    	
-    	DireccionDummy guardada = direcciones.iterator().next();
-    	
-    	DireccionDummy recuperada = repository.retrieve(
-    			new Reference<DireccionDummy>(DireccionDummy.class, guardada.getId()));
-        
-    	Assert.assertEquals(guardada.getDireccion(), recuperada.getDireccion());
-	}
-    
-    public void testABMColeccion() {
 
-        Query<DireccionDummy> nullQuery = new SimpleQuery<DireccionDummy>(
-        		DireccionDummy.class, new NullFilter(), null, null);
-        
-        List<DireccionDummy> direcciones = repository.find(nullQuery); 
-        
+    /** test */
+    public final void testRetrieve() {
+        final Set<DireccionDummy> direcciones = crearGuardarDosDirecciones();
+
+        final DireccionDummy guardada = direcciones.iterator().next();
+
+        final DireccionDummy recuperada = repository
+                .retrieve(new Reference<DireccionDummy>(DireccionDummy.class,
+                        guardada.getId()));
+
+        Assert.assertEquals(guardada.getDireccion(), recuperada.getDireccion());
+    }
+
+    /** test */
+    public final void testABMColeccion() {
+        final Query<DireccionDummy> nullQuery = new SimpleQuery<DireccionDummy>(
+                DireccionDummy.class, new NullFilter(), null, null);
+
+        List<DireccionDummy> direcciones = repository.find(nullQuery);
+
         Assert.assertEquals(0, direcciones.size());
-        
+
         // se guarda la coleccion
-        for(Persistible direccion : crearGuardarDosDirecciones()) {
-            repository.saveOrUpdate(direccion);	
+        for (final Persistible direccion : crearGuardarDosDirecciones()) {
+            repository.saveOrUpdate(direccion);
         }
-                
-        direcciones = repository.find(new SimpleQuery<DireccionDummy>(DireccionDummy.class, new NullFilter(), null, null));
+
+        direcciones = repository.find(new SimpleQuery<DireccionDummy>(
+                DireccionDummy.class, new NullFilter(), null, null));
         Assert.assertEquals(2, direcciones.size());
-        
-        for(DireccionDummy direccion : direcciones) {
-            repository.saveOrUpdate(direccion);	
+
+        for (final DireccionDummy direccion : direcciones) {
+            repository.saveOrUpdate(direccion);
         }
-        
-        Query<DireccionDummy> query = new SimpleQuery<DireccionDummy>(
-                DireccionDummy.class, new EqualsPropertyFilter("direccion", new SimpleValue("Santa Fe")), null, null);
-        
+
+        final Query<DireccionDummy> query = new SimpleQuery<DireccionDummy>(
+                DireccionDummy.class, new EqualsPropertyFilter("direccion",
+                        new SimpleValue("Santa Fe")), null, null);
+
         direcciones = repository.find(query);
-        
+
         Assert.assertEquals(1, direcciones.size());
     }
-        
-    
-    public void testGuardarObtenerEliminarPersonaDummy() {
-//  TODO: Esta teniendo unos problemas al hacer findAll porque trae varios
-//        resultados por cada uno que existe.
-        
-    	Query<PersonaDummy> allQuery = new SimpleQuery<PersonaDummy>(PersonaDummy.class, new NullFilter(), null, null); 
-    	
+
+    /** test */
+    public final void testGuardarObtenerEliminarPersonaDummy() {
+        // TODO: Esta teniendo unos problemas al hacer findAll porque trae
+        // varios
+        // resultados por cada uno que existe.
+
+        final Query<PersonaDummy> allQuery = new SimpleQuery<PersonaDummy>(
+                PersonaDummy.class, new NullFilter(), null, null);
+
         Assert.assertEquals(0, repository.find(allQuery).size());
-        
+
         PersonaDummy personaDummy = new PersonaDummy();
-                
+
         personaDummy.setNombre("Luis Fernandez");
         personaDummy.setNumeroFiscal(new Integer(11111));
         personaDummy.setDescripcion("Descripcion " + personaDummy.getNombre());
         personaDummy.setDirecciones(crearGuardarDosDirecciones());
-        
+
         repository.saveOrUpdate(personaDummy);
-        
-        Collection<PersonaDummy> auxiPersonas = repository.find(allQuery);
-        
+
+        final Collection<PersonaDummy> auxiPersonas = repository.find(allQuery);
+
         Assert.assertEquals(1, auxiPersonas.size());
-        
+
         personaDummy = new PersonaDummy();
         personaDummy.setNombre("Juan Perez");
         personaDummy.setNumeroFiscal(new Integer(22222));
         personaDummy.setDescripcion("Descripcion " + personaDummy.getNombre());
         personaDummy.setDirecciones(crearGuardarDosDirecciones());
-        
-        repository.saveOrUpdate(personaDummy);
-        
-        Collection<PersonaDummy> personas = repository.find(allQuery);
-        
-        Assert.assertEquals(2, personas.size());
-        
-        repository.delete(personaDummy);
-        
-        personas = repository.find(allQuery);
-       
-        Assert.assertEquals(1, personas.size());       
-    }    
 
-    public void testFiltersOrderingAndPaging() {
-        
-        //Algunas bases son case sensitive ojo con eso!!!
-        String[] nombres = {"Luis Fernandez", "Jose Leon", "Alberto Sifran", "Alejandro Diez", "Alfredo Alcon", "Juan Llamon"};
-        Integer[] nros = {new Integer(11111), new Integer(2000), new Integer(4000), new Integer(100), new Integer(34), new Integer(222)};
-        String[] descripciones = {"Un grande", "Un atleta", "Un ganzo", "Un famoso", "y este?", "otro mas"};
-        
+        repository.saveOrUpdate(personaDummy);
+
+        Collection<PersonaDummy> personas = repository.find(allQuery);
+
+        Assert.assertEquals(2, personas.size());
+
+        repository.delete(personaDummy);
+
+        personas = repository.find(allQuery);
+
+        Assert.assertEquals(1, personas.size());
+    }
+
+    /** test */
+    public final void testFiltersOrderingAndPaging() {
+
+        // Algunas bases son case sensitive ojo con eso!!!
+        final String[] nombres = {"Luis Fernandez", "Jose Leon", "Alberto Sifran",
+                "Alejandro Diez", "Alfredo Alcon", "Juan Llamon" };
+        final Integer[] nros = {
+                new Integer(11111), new Integer(2000),
+                new Integer(4000), new Integer(100), new Integer(34),
+                new Integer(222) };
+        final String[] descripciones = {"Un grande", "Un atleta", "Un ganzo",
+                "Un famoso", "y este?", "otro mas" };
+
         for (int i = 0; i < nombres.length; i++) {
-            createPersona(nombres[i], nros[i], descripciones[i], crearGuardarDosDirecciones());
+            createPersona(nombres[i], nros[i], descripciones[i],
+                    crearGuardarDosDirecciones());
         }
 
         List<PersonaDummy> personas;
 
-        personas = repository.find(new SimpleQuery<PersonaDummy>(PersonaDummy.class, new BeginsLikePropertyFilter("nombre", new SimpleValue("Al"), false), null, null));
+        personas = repository.find(new SimpleQuery<PersonaDummy>(
+                PersonaDummy.class, new BeginsLikePropertyFilter("nombre",
+                        new SimpleValue("Al"), false), null, null));
 
         Assert.assertEquals(3, personas.size());
-        
-        List<BaseFilter> filters = new ArrayList<BaseFilter>();
-        
-        BaseFilter beginsLikeFilter = new BeginsLikePropertyFilter("nombre", new SimpleValue("Al"), true);
-        
-        personas = repository.find(new SimpleQuery<PersonaDummy>(PersonaDummy.class, beginsLikeFilter, null, null));
+
+        final List<BaseFilter> filters = new ArrayList<BaseFilter>();
+
+        final BaseFilter beginsLikeFilter = new BeginsLikePropertyFilter("nombre",
+                new SimpleValue("Al"), true);
+
+        personas = repository.find(new SimpleQuery<PersonaDummy>(
+                PersonaDummy.class, beginsLikeFilter, null, null));
 
         Assert.assertEquals(3, personas.size());
-        
-        BaseFilter nullFilter = new NullFilter();
-        BaseFilter greaterThanFilter = new GreaterThanPropertyFilter("numeroFiscal", new SimpleValue(new Integer(1000)));
-        
+
+        final BaseFilter nullFilter = new NullFilter();
+        final BaseFilter greaterThanFilter = new GreaterThanPropertyFilter(
+                "numeroFiscal", new SimpleValue(new Integer(1000)));
+
         filters.clear();
         filters.add(beginsLikeFilter);
         filters.add(greaterThanFilter);
-        
+
         personas = repository.find(new SimpleQuery<PersonaDummy>(
-                PersonaDummy.class, new CompositeFilter(new AndConnector(), filters), null, null));
+                PersonaDummy.class, new CompositeFilter(new AndConnector(),
+                        filters), null, null));
 
         Assert.assertEquals(1, personas.size());
-        
+
         personas = repository.find(new SimpleQuery<PersonaDummy>(
-                PersonaDummy.class, new CompositeFilter(new OrConnector(), filters), null, null));
+                PersonaDummy.class, new CompositeFilter(new OrConnector(),
+                        filters), null, null));
 
         Assert.assertEquals(5, personas.size());
 
         // El null filter no agrega nada!!!:D
         filters.add(nullFilter);
         personas = repository.find(new SimpleQuery<PersonaDummy>(
-                PersonaDummy.class, new CompositeFilter(new OrConnector(), filters), null, null));
+                PersonaDummy.class, new CompositeFilter(new OrConnector(),
+                        filters), null, null));
 
         Assert.assertEquals(5, personas.size());
 
         filters.add(nullFilter);
         personas = repository.find(new SimpleQuery<PersonaDummy>(
-                PersonaDummy.class, new CompositeFilter(new AndConnector(), filters), null, null));
+                PersonaDummy.class, new CompositeFilter(new AndConnector(),
+                        filters), null, null));
 
         Assert.assertEquals(1, personas.size());
-        
-        List<Order> orderList = new ArrayList<Order>();
+
+        final List<Order> orderList = new ArrayList<Order>();
         orderList.add(new Order("nombre"));
         personas = repository.find(new SimpleQuery<PersonaDummy>(
-                PersonaDummy.class, new NullFilter(), null,
-                new Ordering(orderList)));
-        
+                PersonaDummy.class, new NullFilter(), null, new Ordering(
+                        orderList)));
+
         assertEquals("Alberto Sifran", personas.get(0).getNombre());
         assertEquals("Alfredo Alcon", personas.get(2).getNombre());
         assertEquals("Luis Fernandez", personas.get(5).getNombre());
-        
+
         personas = repository.find(new SimpleQuery<PersonaDummy>(
                 PersonaDummy.class, new NullFilter(), new Paging(1, 3),
                 new Ordering(orderList)));
@@ -242,94 +263,95 @@ public class SpringHibernateRepositoryTest
         assertEquals(3, personas.size());
         assertEquals("Jose Leon", personas.get(0).getNombre());
         assertEquals("Luis Fernandez", personas.get(2).getNombre());
-        
-        
+
     }
 
-    private void createPersona(String nombre, Integer nroFiscal,
-            String descripcion, Set<DireccionDummy> direcciones) {
-        PersonaDummy personaDummy = new PersonaDummy();
+    private void createPersona(final String nombre, final Integer nroFiscal,
+            final String descripcion, final Set<DireccionDummy> direcciones) {
+        final PersonaDummy personaDummy = new PersonaDummy();
         personaDummy.setNombre(nombre);
         personaDummy.setNumeroFiscal(nroFiscal);
         personaDummy.setDescripcion(descripcion);
-        personaDummy.setDirecciones(direcciones);        
+        personaDummy.setDirecciones(direcciones);
         repository.saveOrUpdate(personaDummy);
     }
-    
-    public void testActualizarEliminarColeccion() {        
-        Query<PersonaDummy> query = new SimpleQuery<PersonaDummy>(PersonaDummy.class,
-                new EqualsPropertyFilter("numeroFiscal", new SimpleValue(new Integer(55555))), null, null);
-        
-        
-        PersonaDummy personaDummy = new PersonaDummy(55555, 
-                "Martin Contini", 
-                "Descripcion Martin Contini", 
-                crearGuardarDosDirecciones());
-        
-        // prueba actualizacion
-        repository.saveOrUpdate(personaDummy);        
 
-        CollectionUtils.forAllDo(
-                personaDummy.getDirecciones(), new BeanPropertyValueChangeClosure("codpostal", CODIGO_POSTAL_3));
-        
+    /** test */
+    public final void testActualizarEliminarColeccion() {
+        final Query<PersonaDummy> query = new SimpleQuery<PersonaDummy>(
+                PersonaDummy.class, new EqualsPropertyFilter("numeroFiscal",
+                        new SimpleValue(new Integer(55555))), null, null);
+
+        final PersonaDummy personaDummy = new PersonaDummy(55555, "Martin Contini",
+                "Descripcion Martin Contini", crearGuardarDosDirecciones());
+
+        // prueba actualizacion
+        repository.saveOrUpdate(personaDummy);
+
+        CollectionUtils
+                .forAllDo(personaDummy.getDirecciones(),
+                        new BeanPropertyValueChangeClosure("codpostal",
+                                CODIGO_POSTAL_3));
 
         List<PersonaDummy> personas = repository.find(query);
-                
-        for (Persistible persistible : personas) {
-        	PersonaDummy persona = (PersonaDummy) persistible;
-            for (DireccionDummy direccion : persona.getDirecciones()) {
+
+        for (final Persistible persistible : personas) {
+            final PersonaDummy persona = (PersonaDummy) persistible;
+            for (final DireccionDummy direccion : persona.getDirecciones()) {
                 Assert.assertEquals(CODIGO_POSTAL_3, direccion.getCodpostal());
             }
         }
-        
+
         // prueba eliminacion
         personaDummy.getDirecciones().removeAll(personaDummy.getDirecciones());
         repository.saveOrUpdate(personaDummy);
-        
+
         personas = repository.find(query);
-        
-        Assert.assertEquals(0, ((PersonaDummy)personas.get(0)).getDirecciones().size());
+
+        Assert.assertEquals(0, (personas.get(0))
+                .getDirecciones().size());
     }
 
+    /** crea datos de prueba */
     private Set<DireccionDummy> crearGuardarDosDirecciones() {
-        Set<DireccionDummy> direcciones = new HashSet<DireccionDummy>();
-        
+        final Set<DireccionDummy> direcciones = new HashSet<DireccionDummy>();
+
         DireccionDummy direccionDummy = new DireccionDummy();
-        
+
         direccionDummy.setDireccion("Santa Fe");
         direccionDummy.setNumero("1234");
         direccionDummy.setCodpostal(CODIGO_POSTAL_1);
-        
+
         repository.saveOrUpdate(direccionDummy);
-        
+
         direcciones.add(direccionDummy);
 
         direccionDummy = new DireccionDummy();
-        
+
         direccionDummy.setDireccion("Cordoba");
         direccionDummy.setNumero("5678");
         direccionDummy.setCodpostal(CODIGO_POSTAL_2);
-        
+
         repository.saveOrUpdate(direccionDummy);
-        
+
         direcciones.add(direccionDummy);
-                
+
         return direcciones;
     }
-    
-    public void testActualizarExplicitamenteColeccion() {        
+
+    /** test */
+    public final void testActualizarExplicitamenteColeccion() {
         PersonaDummy personaDummyGuardada;
         PersonaDummy personaDummyRecuperada;
-        personaDummyGuardada = new PersonaDummy(55555, 
-                "Martin Contini", 
-                "Descripcion Martin Contini", 
-                crearGuardarDosDirecciones());
+        personaDummyGuardada = new PersonaDummy(55555, "Martin Contini",
+                "Descripcion Martin Contini", crearGuardarDosDirecciones());
 
         // prueba actualizacion
         repository.saveOrUpdate(personaDummyGuardada);
 
-        personaDummyRecuperada = (PersonaDummy)
-            repository.retrieve(new Reference<PersonaDummy>(PersonaDummy.class, personaDummyGuardada.getId()));
+        personaDummyRecuperada = repository
+                .retrieve(new Reference<PersonaDummy>(PersonaDummy.class,
+                        personaDummyGuardada.getId()));
 
         personaDummyRecuperada.setDescripcion("Descripcion modificada");
 
@@ -338,22 +360,23 @@ public class SpringHibernateRepositoryTest
     }
 
     public void testCreateNew() {
-        Reference<PersonaDummy> ref = new Reference<PersonaDummy>(PersonaDummy.class);
+        final Reference<PersonaDummy> ref = new Reference<PersonaDummy>(
+                PersonaDummy.class);
 
         PersonaDummy persona;
-        
+
         persona = repository.createNew(ref);
-        
+
         assertNotNull(persona);
 
         persona = null;
-        
-        persona = (PersonaDummy)repository.createNew(ref, new Object[] {"pepe"}, new Class[] {String.class} );
-        
+
+        persona = repository.createNew(ref,
+                new Object[] { "pepe" }, new Class[] { String.class });
+
         assertNotNull(persona);
-        
+
         assertEquals("pepe", persona.getNombre());
-        
 
     }
 }

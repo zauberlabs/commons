@@ -36,7 +36,7 @@ import ar.com.zauber.commons.repository.Reference;
 public class DireccionDummy implements Persistible {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String direccion;
