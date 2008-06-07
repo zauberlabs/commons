@@ -19,37 +19,38 @@ import java.util.List;
 
 import ar.com.zauber.commons.repository.query.connectors.Connector;
 import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
-        
+
 
 /**
  * Filtro que es la composición de otros filtros definiendo un conector.
- * 
- * 
+ *
+ *
  * @author Martin A. Marquez
  * @since Sep 21, 2007
  */
 public class CompositeFilter extends BaseFilter {
 
-    private Connector connector;
-    private List<BaseFilter> filters;
-    
-    public CompositeFilter(Connector connector, List<BaseFilter> filters) {
-		super();
-		this.connector = connector;
-		this.filters = filters;
-	}
+    private final Connector connector;
+    private final List<BaseFilter> filters;
 
-	/** @see ar.com.zauber.commons.repository.query.filters.Filter#accept(ar.com.zauber.commons.repository.query.visitor.FilterVisitor) */
-    public void accept(FilterVisitor visitor) {
+    /** constructor */
+    public CompositeFilter(final Connector connector, final List<BaseFilter> filters) {
+        super();
+        this.connector = connector;
+        this.filters = filters;
+        }
+
+    /** @see Filter#accept(FilterVisitor) */
+    public final void accept(final FilterVisitor visitor) {
         visitor.visitCompositeFilter(this);
     }
 
-    public Connector getConnector() {
+    public final Connector getConnector() {
         return connector;
     }
 
-    public List<BaseFilter> getFilters() {
+    public final List<BaseFilter> getFilters() {
         return filters;
     }
-    
+
 }

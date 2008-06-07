@@ -16,31 +16,29 @@
 package ar.com.zauber.commons.repository.query.filters;
 
 import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
-        
+
 
 /**
  * Filtro que busque que una propiedad sea null.
- * 
- * 
+ *
+ *
  * @author Martin A. Marquez
  * @since Sep 21, 2007
  */
 public class IsNullPropertyFilter extends PropertyFilter {
 
-    
+
     /**
      * Crea el/la IsNullPropertyFilter.
      *
      * @param property
      */
-    public IsNullPropertyFilter(String property) {
+    public IsNullPropertyFilter(final String property) {
         super(property);
     }
 
-    /** @see ar.com.zauber.commons.repository.query.filters.Filter#accept(ar.com.zauber.commons.repository.query.visitor.FilterVisitor) */
-    public void accept(FilterVisitor visitor) {
+    /** @see Filter#accept(FilterVisitor) */
+    public final void accept(final FilterVisitor visitor) {
         visitor.visitIsNullPropertyFilter(this);
     }
-
-    
 }

@@ -37,17 +37,18 @@ public abstract class LikePropertyFilter extends BinaryPropertyFilter {
      * @param value
      * @param caseInsensitive
      */
-    public LikePropertyFilter(String property, Value value, Boolean caseInsensitive) {
+    public LikePropertyFilter(final String property, final Value value, 
+            final Boolean caseInsensitive) {
         super(property, value);
         this.caseInsensitive = caseInsensitive;
     }
 
-    public Boolean getCaseInsensitive() {
+    public final Boolean getCaseInsensitive() {
         return caseInsensitive;
     }
     
-    /** @see ar.com.zauber.commons.repository.query.filters.Operator#getSymbol() */
-    public String getSymbol() {
+    /** @see Operator#getSymbol() */
+    public final String getSymbol() {
         return "LIKE";
     }
 
