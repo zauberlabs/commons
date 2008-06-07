@@ -15,7 +15,6 @@
  */
 package ar.com.zauber.commons.repository.query;
 
-import ar.com.zauber.commons.repository.Persistible;
 
 
 /**
