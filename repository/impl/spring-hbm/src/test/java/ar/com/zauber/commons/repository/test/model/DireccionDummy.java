@@ -41,7 +41,7 @@ public class DireccionDummy implements Persistible {
 
     private String direccion;
 
-    private String numero;
+    private int numero;
 
     private String codpostal;
 
@@ -110,7 +110,7 @@ public class DireccionDummy implements Persistible {
      *
      * @return <code>String</code> con el/la numero.
      */
-    public final String getNumero() {
+    public final int getNumero() {
         return numero;
     }
 
@@ -120,7 +120,7 @@ public class DireccionDummy implements Persistible {
      *
      * @param numero <code>String</code> con el/la numero.
      */
-    public final void setNumero(final String numero) {
+    public final void setNumero(final int numero) {
         this.numero = numero;
     }
 

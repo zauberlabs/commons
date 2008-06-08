@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.EntityMode;
@@ -35,8 +36,12 @@ import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import ar.com.zauber.commons.repository.aggregate.ProjectionAggregateFunctionVisitor;
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
+import ar.com.zauber.commons.repository.query.aggreate.AggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.AggregateFunctionVisitor;
+import ar.com.zauber.commons.repository.query.aggreate.RowCountAggregateFilter;
 
 
 /**
@@ -173,23 +178,36 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     }
 
 
-	/**
-     * @see Repository#count(Query)
-     */
-    public int count(final Query query) {
-        final DetachedCriteria criteria = (DetachedCriteria) getCriteriaSpecification(
-                null, query);
-        criteria.setProjection(Projections.rowCount());
-        return (Integer) getHibernateTemplate().execute(
-                new HibernateCallback() {
-                    public Object doInHibernate(Session session)
-                            throws HibernateException, SQLException {
-                        return criteria.getExecutableCriteria(session)
-                                .uniqueResult();
-                    }
-
-                });
+    /** @see Repository#count(Query) */
+    @Deprecated
+    public final int count(final Query query) {
+        return (Integer) aggregate(query, new RowCountAggregateFilter(), 
+                Integer.class);
     }    
+    
+    /** @see Repository#aggregate(Query, Class) */
+    public final <R, T> R aggregate(final Query<T> query, 
+            final AggregateFunction aggregateFunction,
+            final Class<R> retClazz) {
+        Validate.notNull(query);
+        Validate.notNull(aggregateFunction);
+        Validate.notNull(retClazz);
+        
+        final DetachedCriteria criteria = 
+            (DetachedCriteria) getCriteriaSpecification(null, query);
+        final ProjectionAggregateFunctionVisitor visitor = 
+            new ProjectionAggregateFunctionVisitor();
+        aggregateFunction.accept(visitor);
+        criteria.setProjection(visitor.getProjection());
+        return  (R) getHibernateTemplate().execute(
+            new HibernateCallback() {
+                public Object doInHibernate(final Session session)
+                        throws HibernateException, SQLException {
+                    return criteria.getExecutableCriteria(session)
+                            .uniqueResult();
+                }
+            });
+    }
     
     /**
      * @see Repository#getPersistibleClasses()

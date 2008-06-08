@@ -34,6 +34,9 @@ import ar.com.zauber.commons.repository.Reference;
 import ar.com.zauber.commons.repository.Repository;
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
+import ar.com.zauber.commons.repository.query.aggreate.MaxPropertyAggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.MinPropertyAggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.RowCountAggregateFilter;
 import ar.com.zauber.commons.repository.query.connectors.AndConnector;
 import ar.com.zauber.commons.repository.query.connectors.OrConnector;
 import ar.com.zauber.commons.repository.query.filters.BaseFilter;
@@ -319,7 +322,7 @@ public class SpringHibernateRepositoryTest extends
         DireccionDummy direccionDummy = new DireccionDummy();
 
         direccionDummy.setDireccion("Santa Fe");
-        direccionDummy.setNumero("1234");
+        direccionDummy.setNumero(1234);
         direccionDummy.setCodpostal(CODIGO_POSTAL_1);
 
         repository.saveOrUpdate(direccionDummy);
@@ -329,7 +332,7 @@ public class SpringHibernateRepositoryTest extends
         direccionDummy = new DireccionDummy();
 
         direccionDummy.setDireccion("Cordoba");
-        direccionDummy.setNumero("5678");
+        direccionDummy.setNumero(5678);
         direccionDummy.setCodpostal(CODIGO_POSTAL_2);
 
         repository.saveOrUpdate(direccionDummy);
@@ -359,7 +362,8 @@ public class SpringHibernateRepositoryTest extends
 
     }
 
-    public void testCreateNew() {
+    /** test */
+    public final void testCreateNew() {
         final Reference<PersonaDummy> ref = new Reference<PersonaDummy>(
                 PersonaDummy.class);
 
@@ -372,11 +376,33 @@ public class SpringHibernateRepositoryTest extends
         persona = null;
 
         persona = repository.createNew(ref,
-                new Object[] { "pepe" }, new Class[] { String.class });
+                new Object[] {"pepe" }, new Class[] {String.class });
 
         assertNotNull(persona);
 
         assertEquals("pepe", persona.getNombre());
 
     }
+    
+    /** test */
+    public final void testProjection() {
+        for (final Persistible direccion : crearGuardarDosDirecciones()) {
+            repository.saveOrUpdate(direccion);
+        }
+        
+        final Query<DireccionDummy> q =  
+            new SimpleQuery<DireccionDummy>(DireccionDummy.class, 
+                new NullFilter(), null, null);
+        
+        assertEquals(new Integer(2), repository.aggregate(q, 
+                new RowCountAggregateFilter(), Integer.class));
+        
+        assertEquals(new Integer(5678), repository.aggregate(q, 
+                new MaxPropertyAggregateFunction("numero"), Integer.class));
+        
+        
+        assertEquals(new Integer(1234), repository.aggregate(q, 
+                new MinPropertyAggregateFunction("numero"), Integer.class));
+    }
+    
 }
