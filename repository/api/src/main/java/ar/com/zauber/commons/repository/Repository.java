@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import ar.com.zauber.commons.repository.query.Query;
+import ar.com.zauber.commons.repository.query.aggreate.AggregateFunction;
 
 /**
  *
@@ -80,9 +81,17 @@ public interface Repository {
     * filtro.
     * @return un <code>Integer</code> con la cantidad de registros.
     * @throws PersistenceException
+    * @deprecated usar aggregate
     */
-   <T> int count(Query<T> filterObject);
+    @Deprecated()
+   <T> int count(Query<T> criteria);
 
+   /**
+    * Aplica funciones de agregación a una consulta
+    */
+   <R, T> R aggregate(Query<T> criteria, AggregateFunction aggregateFunction, 
+           final Class<R> retClazz);
+   
    /**
     * <p>
     * Este es el metodo que se utiliza para hacer todas las consultas al
