@@ -66,6 +66,6 @@ public abstract class FacebookController extends AbstractController {
     /** maneja el request */
     protected abstract void handleFacebookRequest(HttpServletRequest request,
             HttpServletResponse response, Map<String, CharSequence> params,
-            ModelAndView ret);
+            ModelAndView ret) throws Exception;
 
 }
