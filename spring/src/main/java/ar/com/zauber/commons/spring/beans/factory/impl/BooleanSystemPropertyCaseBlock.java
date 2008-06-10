@@ -15,31 +15,38 @@
  */
 package ar.com.zauber.commons.spring.beans.factory.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
+
 import ar.com.zauber.commons.spring.beans.factory.CaseBlock;
 
-
 /**
- * Default block, para poner al final del switch.
+ * devuelve un bean solo si una propiedad de sistema es true
  * 
  * @author Juan F. Codagnone
- * @since Aug 6, 2006
+ * @since Jun 10, 2008
  */
-public class DefaultCaseBlock implements CaseBlock {
-    /** objeto a retornar */
-    private Object object;
+public class BooleanSystemPropertyCaseBlock implements CaseBlock {
+    private final String propertyName;
+    private final Object object;
 
-    /** constructor */
-    public DefaultCaseBlock(final Object object) {
-        this.object = object;
+    /** @param propertyName propiedad a evaluar */
+    public BooleanSystemPropertyCaseBlock(final String propertyName, 
+            final Object object) {
+        Validate.isTrue(!StringUtils.isBlank(propertyName));
+        Validate.notNull(object);
         
+        this.propertyName = propertyName;
+        this.object = object;
     }
-    /** @see ar.com.zauber.commons.spring.beans.factory.CaseBlock#evaluate() */
+    /** @see CaseBlock#evaluate() */
     public final boolean evaluate() {
-        return true;
+        return Boolean.parseBoolean(System.getProperty(propertyName, "false"));
     }
 
     /** @see CaseBlock#getObject() */
     public final Object getObject() {
+        
         return object;
     }
 }
