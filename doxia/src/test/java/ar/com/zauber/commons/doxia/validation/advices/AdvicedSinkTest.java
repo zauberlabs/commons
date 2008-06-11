@@ -31,11 +31,11 @@ import org.apache.maven.doxia.sink.SinkAdapter;
 public class AdvicedSinkTest extends TestCase {
 
     /** unit test */
-    public void testException() {
+    public final void testException() {
         final Sink sink = new AdvicedSink(new MethodBeforeAdvice[] {},
                 new SinkAdapter() {
                     /** @see SinkAdapter#anchor(java.lang.String) */
-                    public void anchor(String arg0) {
+                    public void anchor(final String arg0) {
                         throw new IllegalArgumentException("foo");
                     }
                 });
