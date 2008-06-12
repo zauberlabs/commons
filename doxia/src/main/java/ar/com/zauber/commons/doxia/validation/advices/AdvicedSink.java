@@ -1152,7 +1152,7 @@ public class AdvicedSink implements Sink {
                 new Class[] {String.class, SinkEventAttributes.class});
         M_COMMENT = CLASS.getMethod("comment", 
                 new Class[] {String.class});
-        M_COMMENT = CLASS.getMethod("section", 
+        M_COMMENT_ATT = CLASS.getMethod("section", 
                 new Class[] {int.class, SinkEventAttributes.class});
         M_SECTION_TITLE = CLASS.getMethod("sectionTitle", 
                 new Class[] {int.class, SinkEventAttributes.class});
@@ -1598,6 +1598,7 @@ public class AdvicedSink implements Sink {
     private static Method M_TEXT_ATT;
     private static Method M_PARAGRAPH_ATT;
     private static Method M_COMMENT;
+    private static Method M_COMMENT_ATT;
     private static Method M_SECTION;
     private static Method M_SECTION_TITLE;
     private static Method M_SECTION_TITLE_;
