@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
   <name>Zauber::Commons::Doxia</name>
 
-  <repositories>
+  <!-- repositories>
      <repository>
       <id>apache.snapshots</id>
       <name>Apache Development Snapshot Repository</name>
@@ -19,18 +19,18 @@
         <enabled>false</enabled>
       </releases>
     </repository>
-  </repositories>
+  </repositories -->
 
   <dependencies>
     <dependency>
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-sink-api</artifactId>
-      <version>1.0-beta-1-SNAPSHOT</version>
+      <version>${doxia.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-core</artifactId>
-      <version>1.0-beta-1-SNAPSHOT</version>
+      <version>${doxia.version}</version>
       <scope>test</scope>
     </dependency>
 

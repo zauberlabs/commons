@@ -13,9 +13,9 @@
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</connection>
-     <developerConnection>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</developerConnection>
-     <url>https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</url>
+     <connection>scm:svn:scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</connection>
+     <developerConnection>scm:svn:scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</developerConnection>
+     <url>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</url>
   </scm>
 
   <repositories>
@@ -25,6 +25,7 @@
       <url>https://code.zauber.com.ar/repos/m2/</url>
      </repository>
   </repositories>
+
   <pluginRepositories>
     <pluginRepository>
       <id>mc-release</id>
@@ -34,6 +35,7 @@
       <releases> <enabled>true</enabled> </releases>
     </pluginRepository>
   </pluginRepositories>
+
   <modules>
      <module>dao</module>
      <module>commons</module>
@@ -53,20 +55,8 @@
   </modules>
   
   <build>
-   <plugins>
-     <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-           <execution>
-             <phase>package</phase>
-             <goals>
-                <goal>jar</goal>
-             </goals>
-           </execution>
-        </executions>
-     </plugin>
-     <plugin>
+     <plugins>
+       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
         <executions>
@@ -83,18 +73,11 @@
             <id>announcement-mail</id>
           </execution>
         </executions>
-        <configuration>
-          <smtpHost>localhost</smtpHost>
-          <smtpPort implementation="java.lang.Integer">2525</smtpPort>
-          <toAddresses>
-            <toAddress implementation="java.lang.String">broadcast@zauber.com.ar</toAddress>
-          </toAddresses>
-        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <tagBase>https://svn.zauber.com.ar/private/zauber/sandbox/zaubercommons/releases</tagBase>
+          <tagBase>https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
@@ -139,8 +122,17 @@
       </plugin -->
     </plugins>
   </build>
+
+  <dependencies>
+     <dependency>
+        <artifactId>junit</artifactId>
+        <groupId>junit</groupId>
+        <version>3.8.2</version>
+     </dependency>
+  </dependencies>
   <properties>
       <spring.version>2.5.4</spring.version>
+      <doxia.version>1.0-beta-1-zauber-r669205</doxia.version>
       <jetty.version>6.1.9</jetty.version>
   </properties>
   <dependencyManagement>
