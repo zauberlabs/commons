@@ -9,13 +9,13 @@
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
-  <version>3.0-SNAPSHOT</version>
+  <version>3.0</version>
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</connection>
-     <developerConnection>scm:svn:scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</developerConnection>
-     <url>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</url>
+     <connection>scm:svn:scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/3.0/</connection>
+     <developerConnection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/3.0/</developerConnection>
+     <url>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/3.0/</url>
   </scm>
 
   <repositories>
@@ -77,7 +77,7 @@
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <tagBase>https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</tagBase>
+          <tagBase>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
