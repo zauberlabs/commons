@@ -321,16 +321,11 @@
     </plugins>
   </reporting>
   <distributionManagement>
-    <site>
-       <id>zauber-site</id>
-       <name>intra.zauber.com.ar</name>
-       <url>sftp://iori.zauber.com.ar/home/zauber/infra/www/commons/</url>
-    </site>
     <repository>
-           <id>zauber-private-repo</id>
-           <name>private zauber repository</name>
-           <url>sftp://iori.zauber.com.ar/home/zauber/infra/www/repo1/default</url>
-           <layout>default</layout>
+       <id>zauber-private-repo</id>
+       <name>private zauber repository</name>
+       <url>file:///tmp/1234</url>
+       <layout>default</layout>
     </repository>
   </distributionManagement>
 </project>
