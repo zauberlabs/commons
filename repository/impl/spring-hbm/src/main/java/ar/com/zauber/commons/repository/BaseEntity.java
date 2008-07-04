@@ -17,7 +17,10 @@ package ar.com.zauber.commons.repository;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,89 +47,81 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @MappedSuperclass
 public abstract class BaseEntity implements Persistible {
     
-    
-    // \
-    
     /** @see Persistible#getReference() */
     public Reference generateReference() {
         return new Reference(this.getClass(), getId());
     }
-
-
-    /** @see Object#equals(Object) */
-    public boolean equals(final Object obj) {
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        BaseEntity anotherObject = (BaseEntity) obj;
-
-        if (getId() != null && anotherObject.getId() != null) {
-            return getId().equals(anotherObject.getId());
-        }
-
-        EqualsBuilder equalsBuilder = new EqualsBuilder();
-        String[] significantPropertyNames = findSignificantPropertyNames();
-
-        for (int i = 0; i < significantPropertyNames.length; i++) {
-            String name = significantPropertyNames[i];
-            try {
-                equalsBuilder.append(BeanUtils.getProperty(this, name),
-                        BeanUtils.getProperty(obj, name));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-
-        return equalsBuilder.isEquals();
-    }
-
-    /** @see Object#hashCode() */
-    public int hashCode() {
-
-        if (getId() != null) {
-            return getId().hashCode();
-        }
-
-        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
-        String[] significantPropertyNames = findSignificantPropertyNames();
-
-        for (int i = 0; i < significantPropertyNames.length; i++) {
-            String name = significantPropertyNames[i];
-            try {
-                hashCodeBuilder.append(BeanUtils.getProperty(this, name));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return 0;
-            }
-        }
-
-        return hashCodeBuilder.toHashCode();
-
-    }
-
-    private String[] findSignificantPropertyNames() {
-        if(this.getClass().getAnnotation(UniqueConstraint.class) != null) {
-            String[] significantPropertyNames = this.getClass()
-                .getAnnotation(UniqueConstraint.class).columnNames();
-            if (significantPropertyNames.length == 0) {
-                Field[] fields = this.getClass().getFields();
-                List<String> names = new ArrayList<String>();
-                for (int i = 0; i < fields.length; i++) {
-                    Field field = this.getClass().getDeclaredFields()[i];
-                    // TODO: Evitar fields transient, volatile, etc
-                    if (field.getName() != "id") {
-                        names.add(field.getName());
-                    }
+    
+    public boolean naturalEquals(Object obj) {
+        Set<Field> fields = this.getIdentityFields();
+        if(fields != null && fields.size() > 0) {
+            EqualsBuilder equalsBuilder = new EqualsBuilder();
+            for (Field field : fields) {
+                try {
+                    equalsBuilder.append(field.get(this), field.get(obj));
+                } catch (Exception e) {
+                    // Este código no deberia alcanzarse nunca.
+                    e.printStackTrace();
+                    return false;
                 }
-                return (String[]) names.toArray();
-            }            
+            }
+            return equalsBuilder.isEquals();
         }
-        
-        return new String[0];
+        return this.equals(obj); 
+    }
+
+    /**
+     * @param theClass
+     * @return
+     */
+    private Set<Field> getIdentityFields(Class theClass) {
+        Set<Field> fields = new HashSet<Field>();
+        if(theClass.getAnnotation(IdentityProperties.class) != null) {
+            String[] fieldNamesArray =
+                theClass.getClass().getAnnotation(IdentityProperties.class).fieldNames();
+            for (int i = 0; i < fieldNamesArray.length; i++) {
+                try {
+                    fields.add((theClass.getField(fieldNamesArray[i])));
+                } catch (Exception e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        } else {
+            Field[] fieldsArray = theClass.getFields();
+            for (int i = 0; i < fieldsArray.length; i++) {
+                if(fieldsArray[i].getAnnotation(IdentityProperty.class)!=null) {
+                    fields.add(fieldsArray[i]);
+                }
+            }
+            if(!theClass.getSuperclass().equals(Object.class)) {
+                fields.addAll(this.getIdentityFields(theClass.getSuperclass()));
+            }
+        }
+        return fields;
+    }
+    
+    /** @see Object#hashCode() */
+    public int naturalHashCode() {
+        Set<Field> fields = this.getIdentityFields();
+        if(fields != null && fields.size() > 0) {
+            HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+            for (Field field : fields) {
+                try {
+                    hashCodeBuilder.append(field.get(this));
+                } catch (Exception e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+            return hashCodeBuilder.hashCode();
+        }
+        return this.hashCode(); 
+
+    }
+
+    /**
+     * @return
+     */
+    private Set<Field> getIdentityFields() {
+        return this.getIdentityFields(this.getClass());
     }
 }
