@@ -404,5 +404,5 @@ public class SpringHibernateRepositoryTest extends
         assertEquals(new Integer(1234), repository.aggregate(q, 
                 new MinPropertyAggregateFunction("numero"), Integer.class));
     }
-    
+        
 }

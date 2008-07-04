@@ -28,6 +28,7 @@ import javax.persistence.OneToMany;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import ar.com.zauber.commons.repository.IdentityProperty;
 import ar.com.zauber.commons.repository.Persistible;
 import ar.com.zauber.commons.repository.Reference;
 
@@ -47,6 +48,7 @@ public class PersonaDummy implements Persistible {
 
     private Integer numeroFiscal;
 
+    @IdentityProperty
     private String nombre;
 
     private String descripcion;
