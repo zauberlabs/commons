@@ -13,20 +13,42 @@
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</connection>
-     <developerConnection>scm:svn:scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</developerConnection>
-     <url>scm:svn:https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</url>
+     <connection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/trunk/</connection>
+     <developerConnection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/trunk/</developerConnection>
+     <url>https://code.zauber.com.ar/repos/sandbox/components/commons/code/trunk/</url>
   </scm>
 
   <repositories>
     <repository>
-      <id>zauber-private-repo</id>
-      <name>private zauber repository</name>
-      <url>https://code.zauber.com.ar/repos/m2/</url>
-     </repository>
+      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled></snapshots>
+      <id>zauber-code-releases</id>
+      <name>Zauber Code Releases</name>
+      <url>https://repo1.zauber.com.ar/zauber/code/releases</url>
+    </repository>
+    <repository>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+      <id>zauber-code-snapshots</id>
+      <name>Zauber Code Snapshots</name>
+      <url>https://repo1.zauber.com.ar/zauber/code/snapshots</url>
+    </repository>
   </repositories>
 
-  <pluginRepositories>
+  <distributionManagement>
+    <repository>
+      <id>zauber-code-releases</id>
+      <name>Zauber Code Releases</name>
+      <url>https://repo1.zauber.com.ar/zauber/code/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>zauber-code-snapshots</id>
+      <name>Zauber Code Snapshots</name>
+      <url>https://repo1.zauber.com.ar/zauber/code/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <!-- pluginRepositories>
     <pluginRepository>
       <id>mc-release</id>
       <name>mc repository of releases</name>
@@ -34,7 +56,7 @@
       <snapshots> <enabled>false</enabled> </snapshots>
       <releases> <enabled>true</enabled> </releases>
     </pluginRepository>
-  </pluginRepositories>
+  </pluginRepositories -->
 
   <modules>
      <module>dao</module>
@@ -320,12 +342,4 @@
       </plugin>
     </plugins>
   </reporting>
-  <distributionManagement>
-    <repository>
-       <id>zauber-private-repo</id>
-       <name>private zauber repository</name>
-       <url>file:///tmp/1234</url>
-       <layout>default</layout>
-    </repository>
-  </distributionManagement>
 </project>
