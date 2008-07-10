@@ -17,7 +17,10 @@ package ar.com.zauber.commons.message.impl.mail;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+
+import org.hibernate.annotations.AccessType;
 
 import ar.com.zauber.commons.message.NotificationAddress;
 
@@ -27,14 +30,10 @@ import ar.com.zauber.commons.message.NotificationAddress;
  * @author Mariano A. Cortesi
  * @since 06-jun-2005
  */
-@Entity(access = AccessType.FIELD)
+@Entity
 public class JavaMailEmailAddress implements NotificationAddress {
-
-    /** <code>emailStr</code> */
     @Basic
     private String emailStr;
-    
-    /** <code>id</code> */
     @SuppressWarnings("unused")
     private Long id;
 

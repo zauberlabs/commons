@@ -154,6 +154,8 @@
   </dependencies>
   <properties>
       <spring.version>2.5.4</spring.version>
+      <hibernate.version>3.2.6.ga</hibernate.version>
+      <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
       <doxia.version>1.0-beta-1-zauber-r669205</doxia.version>
       <jetty.version>6.1.9</jetty.version>
   </properties>
@@ -204,7 +206,23 @@
         <artifactId>commons-message-api</artifactId>
         <version>${pom.version}</version>
      </dependency>
- 
+
+     <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+      <version>${hibernate.annotations.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-commons-annotations</artifactId>
+      <version>${hibernate.annotations.version}</version>
+    </dependency>
+
      <!-- spring -->
      <dependency>
         <groupId>org.springframework</groupId>
