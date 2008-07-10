@@ -103,6 +103,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
     public CriteriaFilterVisitor(final Class aClazz, 
             final SessionFactory aSessionFactory) {
         criteria = DetachedCriteria.forClass(aClazz);
+        criteriaForCount = DetachedCriteria.forClass(aClazz);
         criteria.setResultTransformer(
                 CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         clazz = aClazz;
