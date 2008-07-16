@@ -35,6 +35,7 @@ public class SimpleQuery<T> implements Query<T> {
     private Paging paging;
     private Ordering ordering;
     private Class<T> clazz;
+    private Boolean cacheable = Boolean.FALSE;
     
     /**
      * Crea el/la SimpleQuery.  
@@ -73,5 +74,12 @@ public class SimpleQuery<T> implements Query<T> {
         return clazz;
     }
     
+    public Boolean getCacheable() {
+        return cacheable;
+    }
+
+    public void getCacheable(Boolean cacheable) {
+        this.cacheable = cacheable;
+    }
 
 }

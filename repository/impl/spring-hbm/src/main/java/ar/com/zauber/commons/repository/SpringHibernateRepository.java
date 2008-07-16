@@ -25,6 +25,7 @@ import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -147,6 +148,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
     public <T> List<T> find(final Query<T> query) {
         CriteriaSpecification criteria = getCriteriaSpecification(null, query);
         SimpleQuery simpleQuery = (SimpleQuery) query;
+        Criteria aCriteria;
         // TODO: Esto deberí ir en el metodo que hace getCriteriaSpecification
         // pero como no tiene DetachedCriteria posibilidad de setearle valores
         // para paginación hubo que hacerlo así.
@@ -169,12 +171,13 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
                 return new ArrayList<T>();
             }
             theCriteria.add(Restrictions.in("id", ids));
-            return getHibernateTemplate()
-                .findByCriteria(theCriteria);
+            aCriteria = theCriteria.getExecutableCriteria(this.getSession());
+            
         } else {
-            return getHibernateTemplate()
-                .findByCriteria((DetachedCriteria)criteria);
+            aCriteria = ((DetachedCriteria)criteria).getExecutableCriteria(this.getSession());
         }
+        aCriteria.setCacheable(query.getCacheable());
+        return aCriteria.list();
     }
 
 

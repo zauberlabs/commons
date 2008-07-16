@@ -24,5 +24,6 @@ package ar.com.zauber.commons.repository.query;
  * @since 19/06/2005
  */
 public interface Query<T> extends Translatable {
-
+    Boolean getCacheable();
+    void getCacheable(Boolean cacheable);
 }
