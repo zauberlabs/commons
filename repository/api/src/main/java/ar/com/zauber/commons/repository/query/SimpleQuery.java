@@ -78,7 +78,7 @@ public class SimpleQuery<T> implements Query<T> {
         return cacheable;
     }
 
-    public void getCacheable(Boolean cacheable) {
+    public void setCacheable(Boolean cacheable) {
         this.cacheable = cacheable;
     }
 
