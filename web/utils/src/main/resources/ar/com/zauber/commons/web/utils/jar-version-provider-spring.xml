@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- estos son dependencias de version-prover-spring.xml que sirven
+         en entornos que no saben de servlets. en commons-spring está el archivo
+         similar pero que sabe Resource's de spring.
+     --> 
+   <bean id="manifestProvider" class="ar.com.zauber.commons.web.utils.impl.FailsafeInputStreamManifestProvider">
+       <constructor-arg index="0" value="${commons.web.version.manifest}" />
+   </bean>
+   
+   <!-- provee la version del artefacto si es que fue compilado con maven  -->
+    <bean id="pomCommonsWebUtilsVersionProvider"
+        class="ar.com.zauber.commons.web.utils.impl.PropertiesVersionProvider">
+        <constructor-arg index="0" value="${commons.web.version.pom}"/>
+        <constructor-arg index="1" value="version"/>
+    </bean>
+</beans>    

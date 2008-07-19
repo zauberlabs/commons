@@ -74,6 +74,7 @@
      <module>repository</module>
      <module>exception</module>
      <module>facebook</module>
+     <module>web</module>
   </modules>
   
   <build>
