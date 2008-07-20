@@ -340,6 +340,12 @@
           </exclusion>
         </exclusions>
      </dependency>
+     <dependency>
+        <groupId>javax.servlet</groupId>
+       <artifactId>servlet-api</artifactId>
+       <version>2.4</version>
+       <scope>provided</scope>
+     </dependency>
     </dependencies>
   </dependencyManagement>
   <reporting>
@@ -355,7 +361,7 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.2</version>
@@ -364,13 +370,13 @@
           <docletArtifact>
             <groupId>gr.spinellis</groupId>
             <artifactId>UmlGraph</artifactId>
-            <version>5.0</version>
+            <version>4.4</version>
           </docletArtifact>
           <additionalparam>
             -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9 -nodefontpackagesize 7
           </additionalparam>
         </configuration>
-      </plugin>
+      </plugin-->
     </plugins>
   </reporting>
 </project>
