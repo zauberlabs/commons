@@ -4,7 +4,7 @@
   <parent>
      <artifactId>bare</artifactId>
      <groupId>ar.com.zauber.maven.poms</groupId>
-     <version>1.0.3</version>
+     <version>1.0.5</version>
   </parent>
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
@@ -85,18 +85,6 @@
           <tagBase>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <inherited>true</inherited>
-        <executions>
-          <execution>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <!-- mantiene a raya los headers de las licencias -->
       <!-- plugin>
@@ -354,27 +342,6 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <plugin>
-         <groupId>org.codehaus.mojo</groupId>
-         <artifactId>findbugs-maven-plugin</artifactId>
-         <version>1.2</version>
-         <configuration>
-             <findbugsXmlOutput>true</findbugsXmlOutput>
-             <xmlOutput>true</xmlOutput>
-             <threshold>High</threshold>
-             <effort>Max</effort>
-             <relaxed>true</relaxed>
-         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <configuration>
-          <targetJdk>1.5</targetJdk>
-          <sourceEncoding>iso-8859-1</sourceEncoding>
-        </configuration>
-      </plugin>
-
       <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
