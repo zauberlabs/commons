@@ -3,7 +3,7 @@
   <parent>
     <artifactId>impl-repository-parent</artifactId>
     <groupId>ar.com.zauber.commons.repository.impl</groupId>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.2-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::Spring HBM implementation</name>
   <artifactId>commons-repository-impl-springhbm</artifactId>
@@ -40,6 +40,10 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-orm</artifactId>
 		<version>${spring.version}</version>
+	</dependency>    
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
 	</dependency>    
 
 	<dependency>

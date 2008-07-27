@@ -9,7 +9,7 @@
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
-  <version>3.1-SNAPSHOT</version>
+  <version>3.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <scm>
@@ -360,6 +360,18 @@
             </reports>
           </reportSet>
         </reportSets>
+      </plugin>
+      <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>findbugs-maven-plugin</artifactId>
+         <version>1.2</version>
+         <configuration>
+             <findbugsXmlOutput>true</findbugsXmlOutput>
+             <xmlOutput>true</xmlOutput>
+             <threshold>High</threshold>
+             <effort>Max</effort>
+             <relaxed>true</relaxed>
+         </configuration>
       </plugin>
       <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
