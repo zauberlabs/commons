@@ -79,32 +79,25 @@
   
   <build>
      <plugins>
-       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-changes-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>announcement-generate</goal>
-            </goals>
-            <id>announcement-generate</id>
-          </execution>
-          <execution>
-            <goals>
-              <goal>announcement-mail</goal>
-            </goals>
-            <id>announcement-mail</id>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <tagBase>https://svn.zauber.com.ar/private/zauber/sandbox/components/commons/trunk/</tagBase>
+          <tagBase>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
-      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <!-- mantiene a raya los headers de las licencias -->
       <!-- plugin>
          <groupId>com.mathieucarbou.mojo</groupId>
@@ -373,6 +366,15 @@
              <relaxed>true</relaxed>
          </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetJdk>1.5</targetJdk>
+          <sourceEncoding>iso-8859-1</sourceEncoding>
+        </configuration>
+      </plugin>
+
       <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
