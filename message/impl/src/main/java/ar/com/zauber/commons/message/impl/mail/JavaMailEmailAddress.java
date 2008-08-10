@@ -20,8 +20,6 @@ import javax.mail.internet.InternetAddress;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 
-import org.hibernate.annotations.AccessType;
-
 import ar.com.zauber.commons.message.NotificationAddress;
 
 /**
