@@ -23,6 +23,7 @@ import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 
 /**
@@ -32,7 +33,8 @@ import org.springframework.web.servlet.HandlerMapping;
  * @since Dec 25, 2006
  */
 public class ZauberBeanNameBasedClassNameHandlerMappingTest extends TestCase {
-    private static final String CONF = "/ar/com/zauber/commons/spring/servlet/mvc/support/map.xml";
+    private static final String CONF = 
+        "/ar/com/zauber/commons/spring/servlet/mvc/support/map.xml";
     private ConfigurableWebApplicationContext wac;
     private HandlerMapping hm;
     
@@ -83,5 +85,16 @@ public class ZauberBeanNameBasedClassNameHandlerMappingTest extends TestCase {
         final HandlerExecutionChain hec = hm.getHandler(req);
         assertEquals(((DummyController)hec.getHandler()).getId(), "another");
     }
+
+    /** @throws Exception on error*/
+    public final void testParametrizedView() throws Exception {
+        MockHttpServletRequest req = new MockHttpServletRequest("GET", "/oopsss/");
+        final HandlerExecutionChain hec = hm.getHandler(req);
+        assertNotNull(hec);
+        assertEquals(
+              ((ParameterizableViewController)hec.getHandler()).getViewName(), 
+              "exceptions/http");
+    }
+    
 
 }

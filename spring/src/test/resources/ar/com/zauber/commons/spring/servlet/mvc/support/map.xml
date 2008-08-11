@@ -6,7 +6,11 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean name="handlerMapping" class="ar.com.zauber.commons.spring.servlet.mvc.support.ZauberBeanNameBasedClassNameHandlerMapping"/>
+	<bean name="handlerMapping" class="ar.com.zauber.commons.spring.servlet.mvc.support.ZauberBeanNameBasedClassNameHandlerMapping">
+	   <property name="excludedPackages">
+	       <list/>
+	   </property>
+	</bean>
 
 	<bean name="logoutController"
 	    class="ar.com.zauber.commons.spring.servlet.mvc.support.DummyController">
@@ -27,4 +31,10 @@
 	<bean class="ar.com.zauber.commons.spring.servlet.mvc.support.AnotherController">
 		<constructor-arg index="0" value="another"/>	
 	</bean>
+	
+	
+    <bean name="oopsssController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName"  value="exceptions/http" />
+    </bean>
+	
 </beans>
