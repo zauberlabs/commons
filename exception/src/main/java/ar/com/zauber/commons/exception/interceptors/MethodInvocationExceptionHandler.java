@@ -27,17 +27,16 @@ import org.aopalliance.intercept.MethodInvocation;
  */
 public interface MethodInvocationExceptionHandler {
 
-	/**
-	 * @param ex la excepción a manejar
-	 * @param invocation la invocación que generó la excepción
-	 * @return el log generado por el manejador
-	 */
-	ErrorLog handle(Throwable ex, MethodInvocation invocation);
-	
-	/** 
-	 * @param ex ex la excepción a manejar
-	 * @param application el nombre de aplicación
-	 * @return el log generado por el manejador
-	 */
-	ErrorLog handle(Throwable ex);
+    /**
+     * @param ex la excepción a manejar
+     * @param invocation la invocación que generó la excepción
+     * @return el log generado por el manejador
+     */
+    ErrorLog handle(Throwable ex, MethodInvocation invocation);
+    
+    /** 
+     * @param ex ex la excepción a manejar
+     * @return el log generado por el manejador
+     */
+    ErrorLog handle(Throwable ex);
 }

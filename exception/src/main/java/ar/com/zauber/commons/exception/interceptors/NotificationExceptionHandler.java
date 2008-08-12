@@ -27,72 +27,76 @@ import ar.com.zauber.commons.message.NotificationStrategy;
 
 /**
  * TODO Brief description.
- * 
+ *
  * TODO Detail
- * 
+ *
  * @author Martin A. Marquez
  * @since Jul 24, 2007
  */
 public class NotificationExceptionHandler  extends
-	MethodInvocationExceptionChainedHandler {
-	
-	private MessageFactory messageFactory;
-	private NotificationStrategy notificationStrategy;
-	private NotificationAddress fromAddress;
-	private NotificationAddress[] receivers;
-	private String subjectKey;
-	
-	/** logger */
+    MethodInvocationExceptionChainedHandler {
+
+    private MessageFactory messageFactory;
+    private NotificationStrategy notificationStrategy;
+    private NotificationAddress fromAddress;
+    private NotificationAddress[] receivers;
+    private String subjectKey;
+
+    /** logger */
     private static Log log = LogFactory.getLog(NotificationExceptionHandler.class);
-	
-	/**
-	 * @see MethodInvocationExceptionChainedHandler#doHandle(Exception,
-	 *      MethodInvocation, MethodInvocationExceptionHandlerContext)
-	 */
-	public boolean doHandle(Throwable ex, MethodInvocation invocation,
-			MethodInvocationExceptionHandlerContext context) {
-		return doMail(ex, context);
-	}
+
+    /**
+     * @see MethodInvocationExceptionChainedHandler#doHandle(Exception,
+     *      MethodInvocation, MethodInvocationExceptionHandlerContext)
+     */
+    @Override
+    public final boolean doHandle(final Throwable ex, 
+            final MethodInvocation invocation,
+            final MethodInvocationExceptionHandlerContext context) {
+        return doMail(ex, context);
+    }
 
 
-	/**
-	 * @see MethodInvocationExceptionChainedHandler#doHandle(Exception, String,
-	 *      MethodInvocationExceptionHandlerContext)
-	 */
-	public boolean doHandle(Throwable ex, MethodInvocationExceptionHandlerContext context) {
-		return doMail(ex, context);
-	}
+    /**
+     * @see MethodInvocationExceptionChainedHandler#doHandle(Exception, String,
+     *      MethodInvocationExceptionHandlerContext)
+     */
+    @Override
+    public final boolean doHandle(final Throwable ex, 
+            final MethodInvocationExceptionHandlerContext context) {
+        return doMail(ex, context);
+    }
 
-	/**
-	 * @param ex la excepcion
-	 * @param app la aplicacion
-	 * @param context TODO
-	 * @return <code>true</code> si pudo tomar la acción
-	 * que le compete
-	 */
-	private boolean doMail(Throwable ex, MethodInvocationExceptionHandlerContext context) {
-	    
+    /**
+     * @param ex la excepcion
+     * @param context TODO
+     * @return <code>true</code> si pudo tomar la acción
+     * que le compete
+     */
+    private boolean doMail(final Throwable ex, 
+            final MethodInvocationExceptionHandlerContext context) {
+
         try {
-	    
-	    if (ex instanceof MessageKeyException) {
-            MessageKeyException messageKeyException = (MessageKeyException) ex;
-            notificationStrategy.execute(receivers,
-                    messageFactory.createMessage(
-                            messageKeyException.getMessageKey(), subjectKey,
-                            messageKeyException.getArgs(), fromAddress));
-            
+            if (ex instanceof MessageKeyException) {
+                final MessageKeyException messageKeyException = 
+                    (MessageKeyException) ex;
+                notificationStrategy.execute(receivers,
+                        messageFactory.createMessage(
+                                messageKeyException.getMessageKey(), subjectKey,
+                                messageKeyException.getArgs(), fromAddress));
+            }
+        } catch (final Exception e) {
+            log.error(e);
+            e.printStackTrace();
         }
-	    
-		} catch (Exception e) {
-			log.error(e);
-			e.printStackTrace();
-		}
-		
-		return true;
-	}
+        
+        return true;
+    }
 
 
-	public NotificationExceptionHandler(Message message, NotificationStrategy notificationStrategy) {
-		super();
-	}
+    /** constructor */
+    public NotificationExceptionHandler(final Message message, 
+           final NotificationStrategy notificationStrategy) {
+        super();
+    }
 }

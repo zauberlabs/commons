@@ -17,8 +17,6 @@ package ar.com.zauber.commons.exception.interceptors;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -32,43 +30,36 @@ import org.apache.commons.logging.LogFactory;
  * devovería dicho valor.
  * 
  * @author Martin A. Marquez
+ * @param <T> 
  * @since Jul 24, 2007
  */
 public class ExceptionInterceptor<T> implements MethodInterceptor {
-
-    /** logger */
-    private static Log log = LogFactory.getLog(ExceptionInterceptor.class);
-    
     /** el handler de excepciones **/
     private MethodInvocationExceptionHandler handler;
         
     private T exceptionReturnValue;
     
     /**
-	 * @param handler El/La handler a setear.
-	 */
-	public void setHandler(MethodInvocationExceptionHandler handler) {
-		this.handler = handler;
-	}
+     * @param handler El/La handler a setear.
+     */
+    public final void setHandler(final MethodInvocationExceptionHandler handler) {
+        this.handler = handler;
+    }
 
-	
-	/**
-	 * @param exceptionReturnValue El/La exceptionReturnValue a devolver.
-	 */
-	public void setExceptionReturnValue(T exceptionReturnValue) {
+
+    /** @param exceptionReturnValue El/La exceptionReturnValue a devolver. */
+    public final void setExceptionReturnValue(final T exceptionReturnValue) {
         this.exceptionReturnValue = exceptionReturnValue;
     }
 
-    /**
-     * @see MethodInterceptor#invoke(MethodInvocation)
-     */
-    public Object invoke(MethodInvocation aMethod) throws Throwable {
+    /** @see MethodInterceptor#invoke(MethodInvocation) */
+    public final Object invoke(final MethodInvocation aMethod) throws Throwable {
         Object ret = exceptionReturnValue;
         
         try {
             ret = aMethod.proceed();
         } catch (Exception e) {
-        	this.handler.handle(e, aMethod);
+            this.handler.handle(e, aMethod);
             if(ret == null) {
                 throw e;
             }
@@ -76,5 +67,4 @@ public class ExceptionInterceptor<T> implements MethodInterceptor {
         
         return ret;
     }
-	
 }

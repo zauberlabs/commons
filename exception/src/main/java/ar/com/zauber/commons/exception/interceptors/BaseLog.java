@@ -27,53 +27,27 @@ import java.util.Date;
  * @since Jul 24, 2007
  */
 public class BaseLog {
+    /** id **/
+    private Long id;
+    
+    /** id del usuario conectado **/
+    private String userLoginName;
 
-	/** id **/
-	private Long id;
-	
-	/** id del usuario conectado **/
-	private String userLoginName;
-	
-	/** fecha completa de generación del log **/
-	private Date date;
+    /** fecha completa de generación del log **/
+    private Date date = new Date();;
 
-	
-	/**
-	 * @param id
-	 * @param userLoginName
-	 * @param date
-	 */
-	public BaseLog() {
-//		ServiceContext ctx = ServiceContextHolder.getContext();
-//		if (ctx != null) {
-//			String userId = ServiceContextHolder.getContext().getUserName();
-//			if (userId != null) {
-//				this.userLoginName = userId.toUpperCase();
-//			}
-//		}
-		this.date = new Date();
-	}
-	
+    /** @return Retorna el/la date. */
+    public final Date getDate() {
+        return date;
+    }
 
-	/**
-	 * @return Retorna el/la date.
-	 */
-	public Date getDate() {
-		return date;
-	}
+    /** @return Retorna el/la userLoginName. */
+    public final String getUserLoginName() {
+        return userLoginName;
+    }
 
-	/**
-	 * @return Retorna el/la userLoginName.
-	 */
-	public String getUserLoginName() {
-		return userLoginName;
-	}
-
-	/**
-	 * @see ar.com.tgs.framework.repository.AbstractPersistentObject#getId()
-	 */
-	public Serializable getId() {
-		return this.id;
-	}
-	
+    /** @see AbstractPersistentObject#getId() */
+    public final Serializable getId() {
+        return this.id;
+    }
 }
