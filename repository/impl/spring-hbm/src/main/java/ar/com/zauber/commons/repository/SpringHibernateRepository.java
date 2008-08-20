@@ -93,7 +93,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
             persistible =
                 (T)ConstructorUtils
                     .invokeConstructor(
-                            Class.forName(aRef.getClassName()),args, types);
+                            Class.forName(aRef.getClassName()), args, types);
         } catch(Exception e) {
             e.printStackTrace();
             logger.error("Error, la clase" + aRef.getClass() +
@@ -152,8 +152,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         // TODO: Esto deberí ir en el metodo que hace getCriteriaSpecification
         // pero como no tiene DetachedCriteria posibilidad de setearle valores
         // para paginación hubo que hacerlo así.
-        if(simpleQuery.getPaging()!=null) {
-            int firstResult = (simpleQuery.getPaging().getPageNumber()-1)
+        if(simpleQuery.getPaging() != null) {
+            int firstResult = (simpleQuery.getPaging().getPageNumber() - 1)
                 * simpleQuery.getPaging().getResultsPerPage();
             DetachedCriteria idsCriteria = (DetachedCriteria)criteria;
             idsCriteria.setProjection(Projections.id());
@@ -174,7 +174,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
             aCriteria = theCriteria.getExecutableCriteria(this.getSession());
             
         } else {
-            aCriteria = ((DetachedCriteria)criteria).getExecutableCriteria(this.getSession());
+            aCriteria = ((DetachedCriteria)criteria).getExecutableCriteria(
+                    this.getSession());
         }
         aCriteria.setCacheable(query.getCacheable());
         return aCriteria.list();
