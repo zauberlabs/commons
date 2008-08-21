@@ -15,11 +15,9 @@
  */
 package ar.com.zauber.commons.repository.utils;
 
-import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
@@ -32,8 +30,6 @@ import org.hibernate.tool.hbm2ddl.DatabaseMetadata;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
-
-import ar.com.zauber.commons.repository.Repository;
 
 /**
  * This class can be used to drop/update the database Schema.
@@ -48,12 +44,28 @@ public class HibernateManageTables
     private DropSessionFactoriesTablesDefinition
         dropSessionFactoriesTablesDefinition;
     private String filePath;
+    
+    /**
+     * @param filePath
+     */
+    public final void setFilePath(final String filePath) {
+        this.filePath = filePath;
+    }
+
+    /**
+     * @param sentenceSeparator
+     */
+    public final void setSentenceSeparator(final String sentenceSeparator) {
+        this.sentenceSeparator = sentenceSeparator;
+    }
+
     private String sentenceSeparator = "GO";
     
-    Log logger = LogFactory.getLog(this.getClass());
+    private Log logger = LogFactory.getLog(this.getClass());
 
-    public void setApplicationContext(ApplicationContext applicationContext)
-    {
+    /** @see ApplicationContextAware#setApplicationContext(ApplicationContext) */
+    public final void setApplicationContext(
+            final ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;        
     }
     
@@ -62,7 +74,7 @@ public class HibernateManageTables
      *
      */
     public HibernateManageTables(
-            DropSessionFactoriesTablesDefinition definition) {
+            final DropSessionFactoriesTablesDefinition definition) {
         super();
         this.dropSessionFactoriesTablesDefinition = definition;
     }
@@ -75,9 +87,9 @@ public class HibernateManageTables
      * 
      * @param dropOrUpdate indicates if the schema will suffer changes.
      */
-    public void manage(boolean dropOrUpdate) {
+    public final void manage(final boolean dropOrUpdate) {
         PrintStream printStream = System.out;
-        if(filePath!=null && filePath.length()>0) {
+        if(filePath != null && filePath.length() > 0) {
             try {
                 printStream = new PrintStream(filePath);
             } catch (Exception e) {
@@ -91,15 +103,21 @@ public class HibernateManageTables
     /**
      * Print to the standard output the schema modifications
      */
-    public void print() {
+    public final void print() {
         manage(false);
     }
     
-    private void dropDatabase(boolean dropOrUpdate, PrintStream printStream) {
+    /**
+     * @param dropOrUpdate
+     * @param printStream
+     */
+    private void dropDatabase(
+            final boolean dropOrUpdate, final PrintStream printStream) {
 
         logger.trace("Entering runDbInstall");
         
-        for(Iterator iter = dropSessionFactoriesTablesDefinition.getLocalSessionFactoryBeanNames(); iter.hasNext();) {
+        for(Iterator iter = dropSessionFactoriesTablesDefinition
+                .getLocalSessionFactoryBeanNames(); iter.hasNext();) {
 
             LocalSessionFactoryBean localSessionFactoryBean =
                (LocalSessionFactoryBean)
@@ -110,8 +128,10 @@ public class HibernateManageTables
         
             
             try {
-                Configuration configuration = localSessionFactoryBean.getConfiguration();
-                final Dialect dialect = Dialect.getDialect(configuration.getProperties());
+                Configuration configuration =
+                    localSessionFactoryBean.getConfiguration();
+                final Dialect dialect =
+                    Dialect.getDialect(configuration.getProperties());
                 
                 String[] sqlCreate =
                     configuration.generateSchemaCreationScript(dialect);
@@ -123,19 +143,29 @@ public class HibernateManageTables
                     configuration.generateSchemaUpdateScript(dialect, metadata);
                 printScript(printStream, sqlUpdate, "UPDATE");
 
-                dropOrUpdate(localSessionFactoryBean, checkDrop(connection), dropOrUpdate);
+                dropOrUpdate(
+                        localSessionFactoryBean,
+                        checkDrop(connection),
+                        dropOrUpdate);
                 connection.commit();
             } catch(Exception e) {
-                logger.warn("An exception ocurred and the database" +
-                    "schema didn't finish to execute");
+                logger.warn("An exception ocurred and the database"
+                        + "schema didn't finish to execute");
                 return;
             }
             
         }
     }
 
-    private void dropOrUpdate(LocalSessionFactoryBean localSessionFactoryBean,
-            String message, boolean doSomething) {
+    /**
+     * @param localSessionFactoryBean
+     * @param message
+     * @param doSomething
+     */
+    private void dropOrUpdate(
+            final LocalSessionFactoryBean localSessionFactoryBean,
+            final String message,
+            final boolean doSomething) {
         
         if(!doSomething || message == null) {
             return;
@@ -145,8 +175,8 @@ public class HibernateManageTables
             try {
                 localSessionFactoryBean.updateDatabaseSchema();
             } catch(Exception e) {
-                logger.warn("An exception ocurred and the database" +
-                    "schema didn't finish to execute");
+                logger.warn("An exception ocurred and the database"
+                        + "schema didn't finish to execute");
                 return;
             }
             return;
@@ -156,24 +186,31 @@ public class HibernateManageTables
                     localSessionFactoryBean.dropDatabaseSchema();
                     localSessionFactoryBean.createDatabaseSchema();
                 } catch(Exception e) {
-                    logger.warn("An exception ocurred and the database" +
-                        "schema didn't finish to execute");
+                    logger.warn("An exception ocurred and the database"
+                            + "schema didn't finish to execute");
                     return;
                 }
             } else {
-                logger.warn("An exception ocurred and the database" +
-                    "schema didn't finish to execute");
+                logger.warn("An exception ocurred and the database"
+                        + "schema didn't finish to execute");
                 return;
             }
         }
     }
 
-    private String checkDrop(Connection connection)
-            throws SQLException, Exception {
+    /**
+     * @param connection
+     * @return a String with the message.
+     * 
+     * @throws Exception if a problem occurred.
+     */
+    private String checkDrop(final Connection connection)
+            throws Exception {
 
         String columnName = "message";
 
-        String testMarkerTableName = dropSessionFactoriesTablesDefinition.getTestMarkerTableName();
+        String testMarkerTableName =
+            dropSessionFactoriesTablesDefinition.getTestMarkerTableName();
 
         ResultSet resultSet;
         Statement statement;
@@ -193,7 +230,7 @@ public class HibernateManageTables
                         + " Please create it with:");
             logger.warn("\tcreate table "
                         + testMarkerTableName
-                        + "("+ columnName +" varchar (50));"
+                        + "(" + columnName + " varchar (50));"
                         + "(if you want to recreate the schema)");
             logger.warn("\tinsert into "
                         + testMarkerTableName
@@ -213,11 +250,18 @@ public class HibernateManageTables
         }
     }
 
+    /**
+     * @param printStream
+     * @param sqlCreate
+     * @param name
+     */
     private void printScript(
-            PrintStream printStream, String[] sqlCreate, String name) {
+            final PrintStream printStream,
+            final String[] sqlCreate,
+            final String name) {
         printStream.println();
         printStream.println(
-            "--------------------"+ name +" SCRIPT-----------------------");
+            "--------------------" + name + " SCRIPT-----------------------");
         for(int i = 0; i < sqlCreate.length; i++) {
             printStream.println(sqlCreate[i]);
             printStream.println(sentenceSeparator);
