@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -177,20 +178,7 @@ public class SpringHibernateRepositoryTest extends
     /** test */
     public final void testFiltersOrderingAndPaging() {
 
-        // Algunas bases son case sensitive ojo con eso!!!
-        final String[] nombres = {"Luis Fernandez", "Jose Leon", "Alberto Sifran",
-                "Alejandro Diez", "Alfredo Alcon", "Juan Llamon" };
-        final Integer[] nros = {
-                new Integer(11111), new Integer(2000),
-                new Integer(4000), new Integer(100), new Integer(34),
-                new Integer(222) };
-        final String[] descripciones = {"Un grande", "Un atleta", "Un ganzo",
-                "Un famoso", "y este?", "otro mas" };
-
-        for (int i = 0; i < nombres.length; i++) {
-            createPersona(nombres[i], nros[i], descripciones[i],
-                    crearGuardarDosDirecciones());
-        }
+        createSomeData();
 
         List<PersonaDummy> personas;
 
@@ -267,6 +255,26 @@ public class SpringHibernateRepositoryTest extends
         assertEquals("Jose Leon", personas.get(0).getNombre());
         assertEquals("Luis Fernandez", personas.get(2).getNombre());
 
+    }
+
+    /**
+     * populates the test database
+     */
+    private void createSomeData() {
+        // Algunas bases son case sensitive ojo con eso!!!
+        final String[] nombres = {"Luis Fernandez", "Jose Leon", "Alberto Sifran",
+                "Alejandro Diez", "Alfredo Alcon", "Juan Llamon" };
+        final Integer[] nros = {
+                new Integer(11111), new Integer(2000),
+                new Integer(4000), new Integer(100), new Integer(34),
+                new Integer(222) };
+        final String[] descripciones = {"Un grande", "Un atleta", "Un ganzo",
+                "Un famoso", "y este?", "otro mas" };
+
+        for (int i = 0; i < nombres.length; i++) {
+            createPersona(nombres[i], nros[i], descripciones[i],
+                    crearGuardarDosDirecciones());
+        }
     }
 
     private void createPersona(final String nombre, final Integer nroFiscal,
@@ -404,5 +412,50 @@ public class SpringHibernateRepositoryTest extends
         assertEquals(new Integer(1234), repository.aggregate(q, 
                 new MinPropertyAggregateFunction("numero"), Integer.class));
     }
-        
+
+    /**
+     * 
+     * https://tracker.zauber.com.ar/view.php?id=2803
+     * 
+     * When i want to paginate and order i write:
+     *  <verbatim>
+     *
+     *   final Query<PublicacionImpl> query =
+     *      new SimpleQuery<PublicacionImpl>(
+     *          PublicacionImpl.class, new NullFilter(), paging, ordering);
+     *
+     *   if (paging != null && !paging.hasResultSize()) {
+     *      paging.setResultSize((Integer)repository.aggregate(query,
+     *              new RowCountAggregateFilter(), Integer.class));
+     *  }
+     *
+     *  return repository.find(query);
+     * </verbatim>
+     * When  the query is executed with the RowCountAggregateFilter an exception
+     * occurs:
+     * "Not in aggregate function or group by clause: 
+     * org.hsqldb.Expression@3041876 in statement [select count(*) as y0_ 
+     *  from PUBLICACION this_ order by this_.DESCRIPCION desc]" 
+     */
+    public final void test2803() {
+        createSomeData();
+        final Paging paging = new Paging(1, 5);
+        final Ordering ordering = new Ordering(Arrays.asList(new Order[] {
+                new Order("numeroFiscal", true),
+        }));
+        final Query<PersonaDummy> query =
+            new SimpleQuery<PersonaDummy>(
+                    PersonaDummy.class, new NullFilter(), paging, ordering);
+
+        if (paging != null && !paging.hasResultSize()) {
+            paging.setResultSize((Integer)repository.aggregate(query,
+                    new RowCountAggregateFilter(), Integer.class));
+        }
+        final List<PersonaDummy> d = repository.find(query);
+        assertEquals(5, d.size());
+        assertTrue(d.get(0).getNumeroFiscal() < d.get(1).getNumeroFiscal());
+        assertTrue(d.get(1).getNumeroFiscal() < d.get(2).getNumeroFiscal());
+        assertTrue(d.get(2).getNumeroFiscal() < d.get(3).getNumeroFiscal());
+        assertTrue(d.get(3).getNumeroFiscal() < d.get(4).getNumeroFiscal());
+    }
 }

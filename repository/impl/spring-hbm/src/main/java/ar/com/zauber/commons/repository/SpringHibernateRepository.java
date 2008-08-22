@@ -41,7 +41,6 @@ import ar.com.zauber.commons.repository.aggregate.ProjectionAggregateFunctionVis
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
 import ar.com.zauber.commons.repository.query.aggreate.AggregateFunction;
-import ar.com.zauber.commons.repository.query.aggreate.AggregateFunctionVisitor;
 import ar.com.zauber.commons.repository.query.aggreate.RowCountAggregateFilter;
 
 
@@ -146,7 +145,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
 
     /** @see Repository#find(Query) */
     public <T> List<T> find(final Query<T> query) {
-        CriteriaSpecification criteria = getCriteriaSpecification(null, query);
+        CriteriaSpecification criteria = getCriteriaSpecification(null, query, 
+                false);
         SimpleQuery simpleQuery = (SimpleQuery) query;
         Criteria aCriteria;
         // TODO: Esto deberí ir en el metodo que hace getCriteriaSpecification
@@ -166,7 +166,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
                     firstResult,
                     simpleQuery.getPaging().getResultsPerPage());
             DetachedCriteria theCriteria =
-                (DetachedCriteria) getCriteriaSpecification(null, query);
+                (DetachedCriteria) getCriteriaSpecification(null, query, false);
             if(ids.isEmpty()) {
                 return new ArrayList<T>();
             }
@@ -198,7 +198,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         Validate.notNull(retClazz);
         
         final DetachedCriteria criteria = 
-            (DetachedCriteria) getCriteriaSpecification(null, query);
+            (DetachedCriteria) getCriteriaSpecification(null, query, true);
         final ProjectionAggregateFunctionVisitor visitor = 
             new ProjectionAggregateFunctionVisitor();
         aggregateFunction.accept(visitor);
@@ -238,12 +238,14 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
      * @param aClass
      *            (Now is always null as the query has it as a member)
      * @param query
+     * @param ignoreOrder <code>true</code> if order must be ignored 
+     *        (for example on aggregation funcions)
      * @return a <code>CriteriaSpecification</code>
      */
     private CriteriaSpecification getCriteriaSpecification(final Class aClass,
-            final Query query) {
+            final Query query, final boolean ignoreOrder) {
         CriteriaTranslator criteriaTranslator = new CriteriaTranslator(aClass,
-                getSessionFactory());
+                getSessionFactory(), ignoreOrder);
         if(query != null) {        	
             query.acceptTranslator(criteriaTranslator);
         }

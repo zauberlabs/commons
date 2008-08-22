@@ -40,6 +40,7 @@ public class CriteriaTranslator implements Translator {
     private DetachedCriteria criteria;
     private Log logger = LogFactory.getLog(getClass());
     private boolean debugging = logger.isDebugEnabled();
+    private final boolean ignoreOrder;
     
     /**
      * Crea el/la CriteriaTranslator. Como la Query ahora es la que tiene
@@ -49,14 +50,18 @@ public class CriteriaTranslator implements Translator {
      * @param aSessionFactory
      */
     public CriteriaTranslator(final Class aClass, 
-            final SessionFactory aSessionFactory) {
+            final SessionFactory aSessionFactory,
+            final boolean ignoreOrder) {
         clazz = aClass;
         sessionFactory = aSessionFactory;
+        this.ignoreOrder = ignoreOrder;
     }
 
     /** constructor */
-    public CriteriaTranslator(final SessionFactory aSessionFactory)  {
+    public CriteriaTranslator(final SessionFactory aSessionFactory,
+            final boolean ignoreOrder)  {
         sessionFactory = aSessionFactory;
+        this.ignoreOrder = ignoreOrder;
     }
 
     /** @see Translator#translate(Query) */
@@ -71,7 +76,9 @@ public class CriteriaTranslator implements Translator {
         ((SimpleQuery) aQuery).getFilter().accept(filterVisitor);
         criteria = ((CriteriaFilterVisitor)filterVisitor).getCriteria();
         
-        addOrder(simpleQuery.getOrdering());
+        if(!ignoreOrder) {
+            addOrder(simpleQuery.getOrdering());
+        }
 
         criteria.setResultTransformer(
                 CriteriaSpecification.DISTINCT_ROOT_ENTITY);
