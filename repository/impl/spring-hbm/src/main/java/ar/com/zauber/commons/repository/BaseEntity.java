@@ -66,11 +66,12 @@ public abstract class BaseEntity implements Persistible {
      * @param theClass
      * @return
      */
-    private Set<Field> getIdentityFields(Class theClass) {
+    private Set<Field> getIdentityFields(final Class theClass) {
         Set<Field> fields = new HashSet<Field>();
         if(theClass.getAnnotation(IdentityProperties.class) != null) {
             String[] fieldNamesArray =
-                theClass.getClass().getAnnotation(IdentityProperties.class).fieldNames();
+                theClass.getClass().getAnnotation(IdentityProperties.class)
+                    .fieldNames();
             for (int i = 0; i < fieldNamesArray.length; i++) {
                 try {
                     fields.add((theClass.getField(fieldNamesArray[i])));
@@ -81,7 +82,7 @@ public abstract class BaseEntity implements Persistible {
         } else {
             Field[] fieldsArray = theClass.getFields();
             for (int i = 0; i < fieldsArray.length; i++) {
-                if(fieldsArray[i].getAnnotation(IdentityProperty.class)!=null) {
+                if(fieldsArray[i].getAnnotation(IdentityProperty.class) != null) {
                     fields.add(fieldsArray[i]);
                 }
             }
