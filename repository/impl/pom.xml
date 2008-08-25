@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>spring-hbm</module>
+  	<module>entities</module>
   </modules>
   <dependencies>
     <dependency>

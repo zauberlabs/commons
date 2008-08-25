@@ -44,6 +44,9 @@ public abstract class BaseEntity implements Persistible {
         return new Reference(this.getClass(), getId());
     }
     
+    /**
+     * Natural equals: TODO documentar 
+     */
     public boolean naturalEquals(Object obj) {
         Set<Field> fields = this.getIdentityFields();
         if(fields != null && fields.size() > 0) {

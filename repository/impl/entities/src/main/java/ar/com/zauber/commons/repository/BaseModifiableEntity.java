@@ -33,6 +33,7 @@ public abstract class BaseModifiableEntity extends BaseEntity implements Modifia
         return version;
     }
     
+    /** @see Persistible#getReference() */
     public final Reference generateReference() {
         return new Reference(this.getClass(), getId(), getVersion());
     }

@@ -82,11 +82,11 @@
       <version>1.2.2</version>
 	  <scope>test</scope>      
     </dependency>         
-    <dependency>
+    <!-- dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>1.0</version>      
-    </dependency>
+    </dependency -->
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>

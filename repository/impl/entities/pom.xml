@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>impl-repository-parent</artifactId>
+    <groupId>ar.com.zauber.commons.repository.impl</groupId>
+    <version>3.2-SNAPSHOT</version>
+  </parent>
+  <name>Zauber::Commons::Repository::Entities </name>
+  <artifactId>commons-repository-impl-entities</artifactId>
+  <groupId>ar.com.zauber.commons.repository.impl</groupId>
+  <dependencies>
+    <dependency>
+  	<artifactId>commons-repository-api</artifactId>
+  	<groupId>ar.com.zauber.commons.repository</groupId>
+	<version>${pom.version}</version>
+    </dependency>        
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>      
+    </dependency>
+
+  </dependencies>
+</project>
