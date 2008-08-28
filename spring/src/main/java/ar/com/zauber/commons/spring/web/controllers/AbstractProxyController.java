@@ -35,7 +35,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  * Base class for controllers that are a proxy (they foward the request
- * to another http server
+ * to another http server. When posible use {@link ProxyController}.
+ * 
  * 
  * @author Juan F. Codagnone
  * @since Feb 24, 2006
