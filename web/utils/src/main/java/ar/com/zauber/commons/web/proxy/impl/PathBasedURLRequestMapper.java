@@ -47,10 +47,9 @@ import ar.com.zauber.commons.web.proxy.URLResult;
  * @author Juan F. Codagnone
  * @since Aug 28, 2008
  */
-public class PathBasedURLRequestMapper implements URLRequestMapper {
+public class PathBasedURLRequestMapper extends AbstractURLRequestMapper {
     private URLRequestMapper base;
-    private boolean stripContextPath = true;
-    private boolean stripServletPath = true;
+    
 
     /** constructor */
     public PathBasedURLRequestMapper(final URLRequestMapper base) {
@@ -62,48 +61,15 @@ public class PathBasedURLRequestMapper implements URLRequestMapper {
     /** @see URLRequestMapper#getProxiedURLFromRequest(HttpServletRequest) */
     public final URLResult getProxiedURLFromRequest(
             final HttpServletRequest request) {
-        String uri = request.getRequestURI();
-        if (stripContextPath) {
-            uri = uri.substring(request.getContextPath().length());
-
-        }
-        if (stripServletPath) {
-            uri = uri.substring(request.getServletPath().length());
-        }
-
-        URLResult r = base.getProxiedURLFromRequest(request);
+                URLResult r = base.getProxiedURLFromRequest(request);
         if(r.hasResult()) {
             try {
                 r = new InmutableURLResult(new URL(r.getURL().toExternalForm()
-                        + uri));
+                        + getRequestURI(request)));
             } catch (final MalformedURLException e) {
                 throw new UnhandledException(e);
             }
         }
         return r;
-    }
-
-    public final boolean isStripContextPath() {
-        return stripContextPath;
-    }
-
-    /**
-     * <code>true</code> to strip the context path from the context path (for
-     * example application-web-version/)
-     */
-    public final void setStripContextPath(final boolean stripContextPath) {
-        this.stripContextPath = stripContextPath;
-    }
-
-    public final boolean isStripServletPath() {
-        return stripServletPath;
-    }
-
-    /**
-     * <code>true</code> to strip the servlet path from the proxied url (for
-     * example /bin/)
-     */
-    public final void setStripServletPath(final boolean stripServletPath) {
-        this.stripServletPath = stripServletPath;
     }
 }
