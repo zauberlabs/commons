@@ -66,7 +66,15 @@ public class ChainedURLRequestMapper implements URLRequestMapper {
      * <pre>
      *  ^/public/(.*)$ = http://localhost:9095/nexus/content/repositories/public/$1
      *  ^/nexus/(.*)$ = http://localhost:9095/nexus/$1 [^] [^]
-     *  ^/([^/]+)/([^/]+)/([^/]+)/(.*)$ = http://localhost:9095/.../$1-$2-$3/$4 
+     *  ^/([^/]+)/([^/]+)/([^/]+)/(.*)$ = http://localhost:9095/.../$1-$2-$3/$4
+     *  
+     * It's VERY important that the type of map used preserves ordering - the 
+     * order in which the iteratorreturns the entries must be the same as the 
+     * order they were added to the map, otherwise you have no way
+     * of guaranteeing that the most specific patterns are returned before the 
+     * more general ones. So make sure
+     * the Map used is an instance of <tt>LinkedHashMap</tt> or an equivalent, 
+     * rather than a plain <tt>HashMap</tt>, for example.
      */
     private static List<URLRequestMapper> getChain(final Map<String, String> m) {
         final Map<String, String> map = new LinkedHashMap<String, String>(m);

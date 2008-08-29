@@ -23,13 +23,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
+import junit.framework.TestCase;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import junit.framework.TestCase;
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
-import ar.com.zauber.commons.web.proxy.URLResult;
 
 /**
  * Tests for {@link ChainedURLRequestMapper}
@@ -87,7 +85,11 @@ public class ChainedURLRequestMapperTest extends TestCase {
        assertEquals(new URL("http://localhost:9095/nexus/content/repositories/"
                + "zauber-code-releases/foo/bar"), 
                c.getProxiedURLFromRequest(new MockHttpServletRequest(
-               "GET", "/zauber/code/releases/foo/bar")).getURL()); 
+               "GET", "/zauber/code/releases/foo/bar")).getURL());
+       assertEquals(
+           new URL("http://localhost:9095/nexus/js/extensions/Ext.messagebox.js"), 
+           c.getProxiedURLFromRequest(new MockHttpServletRequest(
+           "GET", "/nexus/js/extensions/Ext.messagebox.js")).getURL());
     }
     
 
