@@ -19,16 +19,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
-import java.util.Properties;
+import java.util.Map;
 import java.util.regex.Pattern;
 
-import junit.framework.TestCase;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import junit.framework.TestCase;
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
+import ar.com.zauber.commons.web.proxy.URLResult;
 
 /**
  * Tests for {@link ChainedURLRequestMapper}
@@ -88,14 +89,15 @@ public class ChainedURLRequestMapperTest extends TestCase {
                c.getProxiedURLFromRequest(new MockHttpServletRequest(
                "GET", "/zauber/code/releases/foo/bar")).getURL()); 
     }
+    
 
     /**   @throws MalformedURLException on test */
-    public final void testProperties() throws MalformedURLException  {
-        final Properties properties = new Properties();
-        properties.put("^/nexus/(.*)$", "http://localhost:9095/nexus/$1");
-        properties.put("^/([^/]+)/([^/]+)/([^/]+)/(.*)$",
+    public final void testMap() throws MalformedURLException  {
+        final Map<String, String> m = new LinkedHashMap<String, String>();
+        m.put("^/nexus/(.*)$", "http://localhost:9095/nexus/$1");
+        m.put("^/([^/]+)/([^/]+)/([^/]+)/(.*)$",
               "http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4");
-       final URLRequestMapper c = new ChainedURLRequestMapper(properties);
+       final URLRequestMapper c = new ChainedURLRequestMapper(m);
        
        assertFalse(c.getProxiedURLFromRequest(new MockHttpServletRequest(
                "GET", "/foo")).hasResult());

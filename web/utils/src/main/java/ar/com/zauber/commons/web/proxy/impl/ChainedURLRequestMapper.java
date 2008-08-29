@@ -16,11 +16,9 @@
 package ar.com.zauber.commons.web.proxy.impl;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
@@ -59,10 +57,10 @@ public class ChainedURLRequestMapper implements URLRequestMapper {
     }
     
     /** @see #getChain(Map) */
-    public ChainedURLRequestMapper(final Properties map) {
+    public ChainedURLRequestMapper(final Map<String, String> map) {
         this(getChain(map));
     }
-    
+
     /**
      * given a map of strings, builds a chain of {@link RegexURLRequestMapper}.
      * <pre>
@@ -70,13 +68,11 @@ public class ChainedURLRequestMapper implements URLRequestMapper {
      *  ^/nexus/(.*)$ = http://localhost:9095/nexus/$1 [^] [^]
      *  ^/([^/]+)/([^/]+)/([^/]+)/(.*)$ = http://localhost:9095/.../$1-$2-$3/$4 
      */
-    private static List<URLRequestMapper> getChain(
-            final Hashtable map) {
-        Validate.notNull(map);
-        
+    private static List<URLRequestMapper> getChain(final Map<String, String> m) {
+        final Map<String, String> map = new LinkedHashMap<String, String>(m);
         final List<URLRequestMapper> l = new ArrayList<URLRequestMapper>();
-        for(final Entry<String, String> entry 
-            : ((Set< Entry<String, String>>)map.entrySet())) {
+        Validate.notNull(map);
+        for(final Entry<String, String> entry : map.entrySet()) {
             l.add(new RegexURLRequestMapper(Pattern.compile(entry.getKey()), 
                     entry.getValue()));
         }
