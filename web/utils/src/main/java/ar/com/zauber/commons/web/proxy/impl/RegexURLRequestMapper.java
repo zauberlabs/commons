@@ -68,28 +68,49 @@ public class RegexURLRequestMapper extends AbstractURLRequestMapper {
         this.replacePattern = replacePattern;
     }
     
+    /** 
+     * Creates the RegexURLRequestMapper.
+     *
+     * @param regex  Regular expresion to match. Use groups.
+     * @param replacePattern  the result must be an URL
+     */
+    public RegexURLRequestMapper(final Pattern regex,
+            final String replacePattern) {
+        Validate.notNull(regex);
+        Validate.notNull(replacePattern);
+        
+        this.base = null;
+        this.regex = regex;
+        this.replacePattern = replacePattern;
+    }
     /** @see URLRequestMapper#getProxiedURLFromRequest(HttpServletRequest) */
     public final URLResult  getProxiedURLFromRequest(
             final HttpServletRequest request) {
         final Matcher m = regex.matcher(getRequestURI(request));
         final URLResult ret;
         
-        final URLResult r = base.getProxiedURLFromRequest(request);
-        if(r.hasResult()) {
-            if(m.matches()) {
-                try {
-                    ret = new InmutableURLResult(new URL(
-                            r.getURL().toExternalForm()
-                            + m.replaceAll(replacePattern)));    
-                } catch(final MalformedURLException e) {
-                    throw new UnhandledException(e);
+        
+        if(m.matches()) {
+            final String uri = m.replaceAll(replacePattern);
+            try {
+                if(base == null) {
+                    ret = new InmutableURLResult(new URL(uri));
+                } else {
+                    final URLResult r = base.getProxiedURLFromRequest(request);
+                    if(r.hasResult()) {
+                        ret = new InmutableURLResult(
+                              new URL(r.getURL().toExternalForm() + uri));
+                    } else {
+                        ret = r;
+                    }
                 }
-            } else {
-                ret = new InmutableURLResult();
+            } catch(final MalformedURLException e) {
+                throw new UnhandledException(e);
             }
         } else {
-            ret = r;
+            ret = new InmutableURLResult();
         }
+        
         
         return ret;
     }

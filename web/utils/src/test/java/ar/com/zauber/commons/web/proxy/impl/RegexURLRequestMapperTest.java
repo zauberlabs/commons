@@ -52,6 +52,22 @@ public class RegexURLRequestMapperTest extends TestCase {
     }
     
     /**  @throws MalformedURLException */
+    public final void testDirString() throws MalformedURLException {
+        final URLRequestMapper r =  new RegexURLRequestMapper(
+               Pattern.compile("^/([^/]+)/([^/]+)/([^/]+)/(.*)$"),
+              "http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4");
+
+        
+        final MockHttpServletRequest request = new MockHttpServletRequest(
+                "GET", "/zauber/code/releases/foo/hola");
+        assertEquals(
+                new URL("http://localhost:9095/nexus/content/repositories/" 
+                        + "zauber-code-releases/"
+                        + "foo/hola"),
+                r.getProxiedURLFromRequest(request).getURL());
+    }
+    
+    /**  @throws MalformedURLException */
     public final void testEmpty() throws MalformedURLException {
         final URLRequestMapper r =  new RegexURLRequestMapper(
                 new InmutableURLRequestMapper(
