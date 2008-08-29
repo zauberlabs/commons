@@ -34,12 +34,12 @@ public class ContainsLikePropertyFilter extends LikePropertyFilter {
      *
      * @param property
      * @param value
-     * @param caseInsensitive
+     * @param caseSensitive
      */
     public ContainsLikePropertyFilter(final String property, final Value value, 
-            final Boolean caseInsensitive) {
+            final Boolean caseSensitive) {
         super(property, new SimpleValue("%" 
                 + ((String)((SimpleValue)value).getValue()) + "%"), 
-                caseInsensitive);
+                caseSensitive);
     }
 }

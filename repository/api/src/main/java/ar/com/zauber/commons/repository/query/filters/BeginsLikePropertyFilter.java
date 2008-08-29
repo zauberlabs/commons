@@ -30,16 +30,16 @@ import ar.com.zauber.commons.repository.query.values.Value;
 public class BeginsLikePropertyFilter extends LikePropertyFilter {
 
     /**
-     * Crea el/la LessThanPropertyOperator.
+     * Crea el/la BeginsLikePropertyFilter.
      *
      * @param property
      * @param value
-     * @param caseInsensitive
+     * @param caseSensitive
      */
     public BeginsLikePropertyFilter(final String property, final Value value, 
-            final Boolean caseInsensitive) {
+            final Boolean caseSensitive) {
         super(property, 
                 new SimpleValue(((String)((SimpleValue)value).getValue()) 
-                        + "%"), caseInsensitive);
+                        + "%"), caseSensitive);
     }
 }

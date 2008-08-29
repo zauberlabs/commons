@@ -32,11 +32,11 @@ public class ExactLikePropertyFilter extends LikePropertyFilter {
      *
      * @param property
      * @param value
-     * @param caseInsensitive
+     * @param caseSensitive
      */
     public ExactLikePropertyFilter(final String property, final Value value, 
-            final Boolean caseInsensitive) {
-        super(property, value, caseInsensitive);
+            final Boolean caseSensitive) {
+        super(property, value, caseSensitive);
     }
 
 

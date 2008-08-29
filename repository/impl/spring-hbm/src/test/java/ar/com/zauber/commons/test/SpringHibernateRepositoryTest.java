@@ -43,7 +43,9 @@ import ar.com.zauber.commons.repository.query.connectors.OrConnector;
 import ar.com.zauber.commons.repository.query.filters.BaseFilter;
 import ar.com.zauber.commons.repository.query.filters.BeginsLikePropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.CompositeFilter;
+import ar.com.zauber.commons.repository.query.filters.ContainsLikePropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
+import ar.com.zauber.commons.repository.query.filters.Filter;
 import ar.com.zauber.commons.repository.query.filters.GreaterThanPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.NullFilter;
 import ar.com.zauber.commons.repository.query.values.SimpleValue;
@@ -78,7 +80,9 @@ public class SpringHibernateRepositoryTest extends
     /**
      * Repositorio para pruebas persistencia.
      */
+    // CHECKSTYLE:ALL:OFF
     protected Repository repository;
+    // CHECKSTYLE:ALL:ON
 
     /**
      * Crea el SpringHibernateRepositoryTest.
@@ -134,7 +138,7 @@ public class SpringHibernateRepositoryTest extends
 
     /** test */
     public final void testGuardarObtenerEliminarPersonaDummy() {
-        // TODO: Esta teniendo unos problemas al hacer findAll porque trae
+        // TODO Esta teniendo unos problemas al hacer findAll porque trae
         // varios
         // resultados por cada uno que existe.
 
@@ -255,6 +259,21 @@ public class SpringHibernateRepositoryTest extends
         assertEquals("Jose Leon", personas.get(0).getNombre());
         assertEquals("Luis Fernandez", personas.get(2).getNombre());
 
+        // like case sensitive
+        Filter filter = new ContainsLikePropertyFilter("nombre",
+                new SimpleValue("ALCON"), false);
+        personas = repository.find(new SimpleQuery<PersonaDummy>(
+                PersonaDummy.class, filter, null, null));
+        assertNotNull(personas);
+        assertEquals(1, personas.size());
+        
+        // like case sensitive
+        filter = new ContainsLikePropertyFilter("nombre",
+                new SimpleValue("ALCON"), true);
+        personas = repository.find(new SimpleQuery<PersonaDummy>(
+                PersonaDummy.class, filter, null, null));
+        assertNotNull(personas);
+        assertEquals(0, personas.size());
     }
 
     /**

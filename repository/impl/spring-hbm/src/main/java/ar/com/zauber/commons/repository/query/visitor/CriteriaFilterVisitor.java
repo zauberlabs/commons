@@ -39,7 +39,8 @@ import ar.com.zauber.commons.repository.query.filters.BaseFilter;
 import ar.com.zauber.commons.repository.query.filters.BinaryPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.CompositeFilter;
 import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
-import ar.com.zauber.commons.repository.query.filters.GreaterThanEqualsPropertyFilter;
+import ar.com.zauber.commons.repository.query.filters
+    .GreaterThanEqualsPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.GreaterThanPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.InPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.IsNullPropertyFilter;
@@ -154,7 +155,8 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 
 //    /*
 //     * (non-Javadoc)
-//     * @see FilterObjectVisitor#visitCollectionSizeEqFilterObject(CollectionSizeEqFilterObject)
+//     * @see FilterObjectVisitor#visitCollectionSizeEqFilterObject(
+//     *  CollectionSizeEqFilterObject)
 //     */
 //    public void visitCollectionSizeEqFilterObject(
 //            CollectionSizeEqFilterObject collectionSizeEqFilterObject) {
@@ -510,12 +512,13 @@ public class CriteriaFilterVisitor implements FilterVisitor {
                     if(binaryPropertyFilter instanceof GreaterThanPropertyFilter) {
                         return Restrictions.gt(fieldName, value);    
                     } else {
-                        if(binaryPropertyFilter instanceof GreaterThanEqualsPropertyFilter) {
+                        if(binaryPropertyFilter 
+                                instanceof GreaterThanEqualsPropertyFilter) {
                             return Restrictions.ge(fieldName, value);  
                         } else {
                             if(binaryPropertyFilter instanceof LikePropertyFilter) {
                                 if(((LikePropertyFilter)binaryPropertyFilter).
-                                         getCaseInsensitive()) {
+                                         getCaseSensitive()) {
                                     return Restrictions.like(fieldName, value);
                                 } else {
                                     return Restrictions.ilike(fieldName, value);
@@ -537,7 +540,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
 
     /** @see FilterVisitor#visitNullFilter(NullFilter) */
     public final void visitNullFilter(final NullFilter nullFilter) {
-        // TODO: Segun parece no hay que hacer nada
+        // TODO Segun parece no hay que hacer nada
     }
 }
 
