@@ -61,7 +61,7 @@ public class PathBasedURLRequestMapper extends AbstractURLRequestMapper {
     /** @see URLRequestMapper#getProxiedURLFromRequest(HttpServletRequest) */
     public final URLResult getProxiedURLFromRequest(
             final HttpServletRequest request) {
-                URLResult r = base.getProxiedURLFromRequest(request);
+        URLResult r = base.getProxiedURLFromRequest(request);
         if(r.hasResult()) {
             try {
                 r = new InmutableURLResult(new URL(r.getURL().toExternalForm()
