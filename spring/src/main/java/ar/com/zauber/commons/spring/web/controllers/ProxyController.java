@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
+import ar.com.zauber.commons.web.proxy.URLResult;
 
 /**
  * AbstractProxyController that uses an {@link URLRequestMapper} to get
@@ -39,6 +40,8 @@ public class ProxyController extends AbstractProxyController {
     @Override
     public final URL getURL(final HttpServletRequest request,
             final HttpServletResponse response) throws Exception {
-        return urlRequestMapper.getProxiedURLFromRequest(request);
+        final URLResult r = urlRequestMapper.getProxiedURLFromRequest(request);
+        
+        return r.hasResult() ? r.getURL() : null;
     }
 }
