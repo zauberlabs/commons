@@ -15,8 +15,6 @@
  */
 package ar.com.zauber.commons.web.proxy;
 
-import java.net.URL;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -36,8 +34,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface URLRequestMapper {
 
+    
     /**
-     * Gets the URL that can fullfill the request.  Never returns null.
+     * @return the {@link URLResult} that may fullfill the request.  
+     * Never returns null.
      */
-    URL getProxiedURLFromRequest(final HttpServletRequest request);
+    URLResult getProxiedURLFromRequest(final HttpServletRequest request);
 }

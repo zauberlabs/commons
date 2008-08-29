@@ -44,7 +44,8 @@ public class InmutableURLRequestMapperTest extends TestCase {
     /** @throws Exception on error */
     public final void testAny() throws Exception {
         final URL url = new URL("http://127.0.0.1/foo/bar");
-        final URLRequestMapper mapper =  new InmutableURLRequestMapper(url);
+        final URLRequestMapper mapper =  new InmutableURLRequestMapper(
+                new InmutableURLResult(url));
         final String ctxPath = "/nexusaaa-0.0";
         final String servletContext = "/bin";
         
@@ -53,6 +54,6 @@ public class InmutableURLRequestMapperTest extends TestCase {
         request.setContextPath(ctxPath);
         request.setServletPath(servletContext);
         
-        assertEquals(url, mapper.getProxiedURLFromRequest(request));
+        assertEquals(url, mapper.getProxiedURLFromRequest(request).getURL());
     }
 }

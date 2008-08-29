@@ -15,13 +15,12 @@
  */
 package ar.com.zauber.commons.web.proxy.impl;
 
-import java.net.URL;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
+import ar.com.zauber.commons.web.proxy.URLResult;
 
 /**
  * {@link URLRequestMapper} implementation that validate that others 
@@ -41,10 +40,11 @@ public class ValidateURLRequestMapper implements URLRequestMapper {
     }
     
     /** @see URLRequestMapper#getProxiedURLFromRequest(HttpServletRequest) */
-    public final URL getProxiedURLFromRequest(final HttpServletRequest request) {
+    public final URLResult getProxiedURLFromRequest(
+            final HttpServletRequest request) {
         Validate.notNull(request, "request can't be null");
 
-        final URL ret = target.getProxiedURLFromRequest(request);
+        final URLResult ret = target.getProxiedURLFromRequest(request);
         Validate.notNull(ret, "a retured URL from URLRequestMapper can't be null");
         return ret;
     }

@@ -24,6 +24,7 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
+import ar.com.zauber.commons.web.proxy.URLResult;
 
 /**
  * <p>
@@ -59,7 +60,8 @@ public class PathBasedURLRequestMapper implements URLRequestMapper {
     }
 
     /** @see URLRequestMapper#getProxiedURLFromRequest(HttpServletRequest) */
-    public final URL getProxiedURLFromRequest(final HttpServletRequest request) {
+    public final URLResult getProxiedURLFromRequest(
+            final HttpServletRequest request) {
         String uri = request.getRequestURI();
         if (stripContextPath) {
             uri = uri.substring(request.getContextPath().length());
@@ -69,13 +71,16 @@ public class PathBasedURLRequestMapper implements URLRequestMapper {
             uri = uri.substring(request.getServletPath().length());
         }
 
-        try {
-            return new URL(base.getProxiedURLFromRequest(request)
-                    .toExternalForm()
-                    + uri);
-        } catch (final MalformedURLException e) {
-            throw new UnhandledException(e);
+        URLResult r = base.getProxiedURLFromRequest(request);
+        if(r.hasResult()) {
+            try {
+                r = new InmutableURLResult(new URL(r.getURL().toExternalForm()
+                        + uri));
+            } catch (final MalformedURLException e) {
+                throw new UnhandledException(e);
+            }
         }
+        return r;
     }
 
     public final boolean isStripContextPath() {

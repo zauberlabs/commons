@@ -25,6 +25,7 @@ import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
+import ar.com.zauber.commons.web.proxy.URLResult;
 
 /**
  * Test for {@link ValidateURLRequestMapper}.
@@ -49,7 +50,8 @@ public class ValidateURLRequestMapperTest extends TestCase {
     /** @throws Exception on error */
     public final void testNullArgument() throws Exception {
         final URLRequestMapper v = new ValidateURLRequestMapper(
-                new InmutableURLRequestMapper(new URL("http://localhost")));
+                new InmutableURLRequestMapper(new InmutableURLResult(
+                        new URL("http://localhost"))));
         try {
             v.getProxiedURLFromRequest(null);
             fail();
@@ -64,7 +66,7 @@ public class ValidateURLRequestMapperTest extends TestCase {
     public final void testNullReturn() throws Exception {
         final URLRequestMapper v = new ValidateURLRequestMapper(
                 new URLRequestMapper() {
-                    public URL getProxiedURLFromRequest(
+                    public URLResult getProxiedURLFromRequest(
                             final HttpServletRequest request) {
                         return null;
                     }

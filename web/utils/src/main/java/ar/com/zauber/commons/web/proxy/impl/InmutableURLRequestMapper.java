@@ -15,13 +15,12 @@
  */
 package ar.com.zauber.commons.web.proxy.impl;
 
-import java.net.URL;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
+import ar.com.zauber.commons.web.proxy.URLResult;
 
 /**
  * {@link URLRequestMapper} that always return the same url independely 
@@ -31,15 +30,17 @@ import ar.com.zauber.commons.web.proxy.URLRequestMapper;
  * @since Aug 28, 2008
  */
 public class InmutableURLRequestMapper implements URLRequestMapper {
-    private final URL url;
-    /** @param url the url to return on service*/
-    public InmutableURLRequestMapper(final URL url) {
-        Validate.notNull(url);
+    private URLResult result;
+    
+    /** constructor */
+    public InmutableURLRequestMapper(final URLResult result) {
+        Validate.notNull(result);
         
-        this.url = url;
+        this.result = result;
     }
     /** @see URLRequestMapper#getProxiedURLFromRequest(HttpServletRequest) */
-    public final URL getProxiedURLFromRequest(final HttpServletRequest request) {
-        return url;
+    public final URLResult getProxiedURLFromRequest(
+            final HttpServletRequest request) {
+        return result;
     }
 }

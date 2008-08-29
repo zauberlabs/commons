@@ -15,6 +15,7 @@
  */
 package ar.com.zauber.commons.web.proxy.impl;
 
+
 import java.net.URL;
 
 import junit.framework.TestCase;
@@ -38,7 +39,8 @@ public class PathBasedURLRequestMapperTest extends TestCase {
         final String servletContext = "/bin";
 
         final PathBasedURLRequestMapper mapper =  new PathBasedURLRequestMapper(
-                new InmutableURLRequestMapper(new URL(base)));
+                new InmutableURLRequestMapper(new InmutableURLResult(
+                        new URL(base))));
         mapper.setStripContextPath(true);
         mapper.setStripServletPath(true);
         
@@ -49,7 +51,7 @@ public class PathBasedURLRequestMapperTest extends TestCase {
         request.setContextPath(ctxPath);
         request.setServletPath(servletContext);
         assertEquals(new URL(base + "/"), 
-                mapper.getProxiedURLFromRequest(request));
+                mapper.getProxiedURLFromRequest(request).getURL());
     }
     
     /** @throws Exception on error */
@@ -58,7 +60,8 @@ public class PathBasedURLRequestMapperTest extends TestCase {
         final String servletContext = "/bin";
 
         final PathBasedURLRequestMapper mapper =  new PathBasedURLRequestMapper(
-                new InmutableURLRequestMapper(new URL(base)));
+                new InmutableURLRequestMapper(new InmutableURLResult(
+                        new URL(base))));
         mapper.setStripContextPath(false);
         mapper.setStripServletPath(false);
         
@@ -69,6 +72,23 @@ public class PathBasedURLRequestMapperTest extends TestCase {
         request.setContextPath(ctxPath);
         request.setServletPath(servletContext);
         assertEquals(new URL(base + ctxPath + servletContext + "/"), 
-                mapper.getProxiedURLFromRequest(request));
+                mapper.getProxiedURLFromRequest(request).getURL());
+    }
+    
+    /** @throws Exception on error */
+    public final void testResultDelegate() throws Exception {
+        final PathBasedURLRequestMapper mapper =  new PathBasedURLRequestMapper(
+                new InmutableURLRequestMapper(new InmutableURLResult()));
+        final MockServletContext ctx = new MockServletContext();
+
+        final String ctxPath = "/nexusaaa-0.0";
+        final String servletContext = "/bin";
+
+        final MockHttpServletRequest request = new MockHttpServletRequest(ctx,
+                "GET", ctxPath + servletContext + "/");
+        request.setContextPath(ctxPath);
+        request.setServletPath(servletContext);
+        
+        assertFalse(mapper.getProxiedURLFromRequest(request).hasResult());
     }
 }
