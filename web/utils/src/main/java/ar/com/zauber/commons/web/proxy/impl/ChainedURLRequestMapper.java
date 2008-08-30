@@ -100,4 +100,9 @@ public class ChainedURLRequestMapper implements URLRequestMapper {
         
         return ret;
     }
+    
+    /** returns the chain */
+    public final URLRequestMapper [] getChain() {
+        return chain.toArray(new URLRequestMapper[] {});
+    }
 }

@@ -93,4 +93,14 @@ public class RegexURLRequestMapperTest extends TestCase {
                 "GET", "/zauber");
         assertFalse(r.getProxiedURLFromRequest(request).hasResult());
     }
+    /**  @throws MalformedURLException */
+    public final void testToString() throws MalformedURLException {
+        final URLRequestMapper r =  new RegexURLRequestMapper(
+                Pattern.compile("^/([^/]+)/([^/]+)/([^/]+)/(.*)$"),
+               "http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4");
+        
+        assertEquals("^/([^/]+)/([^/]+)/([^/]+)/(.*)$="
+                + "http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4",
+                r.toString());
+    }
 }

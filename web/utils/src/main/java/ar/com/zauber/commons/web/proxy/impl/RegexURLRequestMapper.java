@@ -114,4 +114,16 @@ public class RegexURLRequestMapper extends AbstractURLRequestMapper {
         
         return ret;
     }
+    
+    /** @see java.lang.Object#toString() */
+    @Override
+    public final String toString() {
+        final String ret;
+        if(base == null) {
+            ret = regex.toString() + "=" + replacePattern; 
+        } else {
+            ret = super.toString();
+        }
+        return ret;
+    }
 }
