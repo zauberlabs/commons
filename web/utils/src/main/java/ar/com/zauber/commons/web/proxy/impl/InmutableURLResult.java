@@ -56,4 +56,25 @@ public class InmutableURLResult implements URLResult {
         return result;
     }
 
+    /** @see Object#equals(Object) */
+    @Override
+    public final boolean equals(final Object obj) {
+        boolean ret = false;
+        
+        if(obj == this) {
+            ret = true;
+        } else if(obj instanceof InmutableURLResult) {
+            final InmutableURLResult r = (InmutableURLResult) obj;
+            ret = r.result == this.result 
+                && (this.url == null ? true : this.url.equals(r.url)); 
+        }
+        return ret;
+    }
+    
+    /** @see java.lang.Object#hashCode() */
+    @Override
+    public final int hashCode() {
+        return 19 + 37 * (result ? 0 : 1) + (url == null ? 0 : 37 * url.hashCode());
+    }
+    
 }

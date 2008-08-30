@@ -48,4 +48,26 @@ public class InmutableURLResultTest extends TestCase {
         assertEquals(true, r.hasResult());
         assertEquals(new URL("http://localhost"), r.getURL());
     }
+    
+    /** @throws MalformedURLException on error */
+    public final void testEquals() throws MalformedURLException {
+        assertEquals(new InmutableURLResult(), new InmutableURLResult());
+        final URLResult r = new InmutableURLResult();
+        assertEquals(r, r);
+        
+        assertEquals(new InmutableURLResult(new URL("http://localhost")), 
+                     new InmutableURLResult(new URL("http://localhost")));
+        
+        InmutableURLResult a = new InmutableURLResult(new URL("http://localhost"));
+        assertEquals(a, a);
+        
+        assertFalse(!new InmutableURLResult(new URL("http://localhost")).equals(
+                new InmutableURLResult(new URL("http://localhost"))));
+    }
+    
+    /** @throws MalformedURLException on error */
+    public final void testHash() throws MalformedURLException {
+        new InmutableURLResult().hashCode();
+        new InmutableURLResult(new URL("http://localhost")).hashCode();
+    }
 }
