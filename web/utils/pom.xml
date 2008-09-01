@@ -14,26 +14,6 @@
         <groupId>commons-lang</groupId>
      </dependency>
      <dependency>
-        <artifactId>spring-beans</artifactId>
-        <groupId>org.springframework</groupId>
-        <scope>test</scope>
-     </dependency>
-     <dependency>
-        <artifactId>spring-test</artifactId>
-        <groupId>org.springframework</groupId>
-        <scope>test</scope>
-     </dependency>
-     <dependency>
-        <artifactId>spring-context-support</artifactId>
-        <groupId>org.springframework</groupId>
-        <scope>test</scope>
-     </dependency>
-     <dependency>
-        <artifactId>log4j</artifactId>
-        <groupId>log4j</groupId>
-        <scope>test</scope>
-     </dependency>
-     <dependency>
         <groupId>javax.servlet</groupId>
        <artifactId>servlet-api</artifactId>
        <scope>provided</scope>
