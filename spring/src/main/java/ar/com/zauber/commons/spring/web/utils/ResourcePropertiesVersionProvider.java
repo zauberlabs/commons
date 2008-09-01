@@ -18,7 +18,7 @@ package ar.com.zauber.commons.spring.web.utils;
 
 import org.springframework.core.io.Resource;
 
-import ar.com.zauber.commons.web.utils.impl.PropertiesVersionProvider;
+import ar.com.zauber.commons.web.version.impl.PropertiesVersionProvider;
 
 /**
  * PropertiesVersionProvider  que se carga con {@link Resource} de spring.

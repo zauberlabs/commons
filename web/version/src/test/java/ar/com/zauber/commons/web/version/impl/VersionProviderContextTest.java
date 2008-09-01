@@ -37,11 +37,11 @@ public class VersionProviderContextTest
     
     protected final String[] getConfigLocations() {
         return new String [] {
-                "classpath:ar/com/zauber/commons/web/utils/"
+                "classpath:ar/com/zauber/commons/web/version/"
                     + "version-provider-spring.xml",
-                    "classpath:ar/com/zauber/commons/web/utils/"
+                    "classpath:ar/com/zauber/commons/web/version/"
                     + "jar-version-provider-spring.xml",
-                "classpath:ar/com/zauber/commons/web/utils/impl/test-post-1.xml",
+                "classpath:ar/com/zauber/commons/web/version/impl/test-post-1.xml",
         };
     };
     

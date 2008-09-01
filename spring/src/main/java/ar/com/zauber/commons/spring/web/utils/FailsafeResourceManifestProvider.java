@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 import org.springframework.core.io.Resource;
 
-import ar.com.zauber.commons.web.utils.impl.FailsafeInputStreamManifestProvider;
+import ar.com.zauber.commons.web.version.impl.FailsafeInputStreamManifestProvider;
 
 /**
  * Knows about spring resource.

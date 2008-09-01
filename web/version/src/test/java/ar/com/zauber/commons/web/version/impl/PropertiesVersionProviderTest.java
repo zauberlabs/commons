@@ -53,7 +53,7 @@ public class PropertiesVersionProviderTest extends TestCase {
     public final void testResource() {
         assertEquals("0.0-SNAPSHOT", 
          new PropertiesVersionProvider(
-           "classpath:ar/com/zauber/commons/web/utils/impl/test-pom.properties", 
+           "classpath:ar/com/zauber/commons/web/version/impl/test-pom.properties", 
            "version").getVersion());
     }
 }

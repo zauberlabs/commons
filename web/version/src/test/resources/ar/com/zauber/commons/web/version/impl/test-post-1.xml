@@ -7,7 +7,7 @@
         <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="locations">
                 <list>
-                      <value>classpath:ar/com/zauber/commons/web/utils/impl/1.properties</value>
+                      <value>classpath:ar/com/zauber/commons/web/version/impl/1.properties</value>
                 </list>
             </property>
         </bean>

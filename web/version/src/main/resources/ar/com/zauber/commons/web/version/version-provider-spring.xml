@@ -29,7 +29,7 @@
     <bean  name="commonsWebUtilsVersionProvider" 
           class="ar.com.zauber.commons.web.version.impl.ValidatorVersionProvider">
         <constructor-arg index="0">
-            <bean class="ar.com.zauber.commons.web.utils.impl.MultipleVersionProvider">
+            <bean class="ar.com.zauber.commons.web.version.impl.MultipleVersionProvider">
                 <constructor-arg>
                     <list>
                         <ref bean="pomAndBuildCommonsWebUtilsVersionProvider"/>
@@ -81,7 +81,7 @@
          codificada
        -->
     <bean name="dateCommonsWebUtilsVersionProvider"
-         class="ar.com.zauber.commons.web.utils.impl.InmutableVersionProvider">
+         class="ar.com.zauber.commons.web.version.impl.InmutableVersionProvider">
         <constructor-arg index="0">
             <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
                 <property name="targetObject">
