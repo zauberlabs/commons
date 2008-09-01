@@ -12,5 +12,6 @@
   <modules>
     <module>utils</module>
     <module>proxy</module>
+    <module>version</module>
   </modules>
 </project>

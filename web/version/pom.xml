@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>commons-web-parent</artifactId>
+    <groupId>ar.com.zauber.commons.web</groupId>
+    <version>3.2-SNAPSHOT</version>
+  </parent>
+  <name>Zauber::Commons::Web::Version</name>
+  <artifactId>commons-web-version</artifactId>
+
+  <dependencies>
+     <dependency>
+        <artifactId>commons-lang</artifactId>
+        <groupId>commons-lang</groupId>
+     </dependency>
+     <dependency>
+        <artifactId>spring-beans</artifactId>
+        <groupId>org.springframework</groupId>
+        <scope>test</scope>
+     </dependency>
+     <dependency>
+        <artifactId>spring-test</artifactId>
+        <groupId>org.springframework</groupId>
+        <scope>test</scope>
+     </dependency>
+     <dependency>
+        <artifactId>spring-context-support</artifactId>
+        <groupId>org.springframework</groupId>
+        <scope>test</scope>
+     </dependency>
+     <dependency>
+        <artifactId>log4j</artifactId>
+        <groupId>log4j</groupId>
+        <scope>test</scope>
+     </dependency>
+     <dependency>
+        <groupId>javax.servlet</groupId>
+       <artifactId>servlet-api</artifactId>
+       <scope>provided</scope>
+     </dependency>
+
+
+  </dependencies>
+</project>

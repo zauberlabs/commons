@@ -14,7 +14,7 @@
     </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.web</groupId>
-      <artifactId>commons-web-utils</artifactId>
+      <artifactId>commons-web-version</artifactId>
       <version>${pom.version}</version>
       <scope>provided</scope>
     </dependency>
