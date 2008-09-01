@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.web.utils.utils.impl;
+package ar.com.zauber.commons.web.version.impl;
 
 import java.util.Arrays;
 
 import junit.framework.TestCase;
 import ar.com.zauber.commons.web.version.VersionProvider;
-import ar.com.zauber.commons.web.version.impl.AppenderMultipleVersionProvider;
-import ar.com.zauber.commons.web.version.impl.EmptyVersionProvider;
-import ar.com.zauber.commons.web.version.impl.InmutableVersionProvider;
-import ar.com.zauber.commons.web.version.impl.ValidatorVersionProvider;
 
 /**
  * Tests for {@link AppenderMultipleVersionProvider}.

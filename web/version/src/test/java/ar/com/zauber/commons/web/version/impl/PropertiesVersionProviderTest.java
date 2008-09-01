@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.web.utils.utils.impl;
+package ar.com.zauber.commons.web.version.impl;
 
 import java.util.Properties;
 

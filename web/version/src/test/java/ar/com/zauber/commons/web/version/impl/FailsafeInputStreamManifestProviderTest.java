@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.web.utils.utils.impl;
+package ar.com.zauber.commons.web.version.impl;
 
 import java.io.InputStream;
 import java.util.jar.Manifest;
 
 import junit.framework.TestCase;
-import ar.com.zauber.commons.web.version.impl.FailsafeInputStreamManifestProvider;
 
 /**
  * Tests form {@link FailsafeInputStreamManifestProvider}.
