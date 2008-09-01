@@ -97,4 +97,25 @@ public class ZauberBeanNameBasedClassNameHandlerMappingTest extends TestCase {
     }
     
 
+     /** @throws Exception on error*/
+     public final void testActions() throws Exception {
+        MockHttpServletRequest req = new MockHttpServletRequest("GET",
+        "/actions/123/delete");
+        final HandlerExecutionChain hec = hm.getHandler(req);
+        assertEquals("actions", 
+                ((DummyController)hec.getHandler()).getId());
+        
+        
+        req = new MockHttpServletRequest("GET",
+        "/actions/123");
+        final HandlerExecutionChain hec1 = hm.getHandler(req);
+        assertEquals("actions", 
+                ((DummyController)hec1.getHandler()).getId());
+        
+        req = new MockHttpServletRequest("GET",
+        "/actions/123/cat/321");
+        final HandlerExecutionChain hec2 = hm.getHandler(req);
+        assertEquals("actions", 
+                ((DummyController)hec2.getHandler()).getId());
+    }
 }

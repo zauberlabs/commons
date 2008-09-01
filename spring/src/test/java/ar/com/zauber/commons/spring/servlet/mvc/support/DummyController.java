@@ -45,7 +45,7 @@ public class DummyController implements Controller {
     
     /**  @see Controller#handleRequest(HttpServletRequest, 
      * HttpServletResponse) */
-    public ModelAndView handleRequest(final HttpServletRequest request, 
+    public final ModelAndView handleRequest(final HttpServletRequest request, 
             final HttpServletResponse response) throws Exception {
         // nothing to do
         

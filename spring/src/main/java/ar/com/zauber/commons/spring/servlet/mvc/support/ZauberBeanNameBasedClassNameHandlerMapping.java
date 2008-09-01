@@ -15,7 +15,11 @@
  */
 package ar.com.zauber.commons.spring.servlet.mvc.support;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.util.ClassUtils;
 import org.springframework.web.servlet.handler.AbstractUrlHandlerMapping;
@@ -54,13 +58,23 @@ public class ZauberBeanNameBasedClassNameHandlerMapping extends
         if (Controller.class.isAssignableFrom(controllerClass)
                 && beanName.endsWith(CONTROLLER_SUFFIX)
                 && !beanName.equals(controllerClass.getName())) {
-            final StringBuffer pathMapping = new StringBuffer("/");
+            final List<String> maps = new ArrayList<String>();
+            
             final String path = getCompoundPath(beanName.substring(0, beanName
                     .length()
                     - CONTROLLER_SUFFIX.length()));
-            pathMapping.append(path);
-            pathMapping.append("*");
-            ret = new String[] { pathMapping.toString() };
+            final Pattern p = Pattern.compile("^(.*)([/][*][*][/])$");
+            final Matcher matcher = p.matcher(path);
+            if(matcher.matches()) {
+                maps.add("/" + matcher.group(1) + "/*");
+                maps.add("/" + matcher.group(1) + "/**");
+            } else {
+                final StringBuffer pathMapping = new StringBuffer("/");
+                pathMapping.append(path);
+                pathMapping.append("*");
+                maps.add(pathMapping.toString());
+            }
+            ret = maps.toArray(new String[]{});
         } else {
             ret = super.buildUrlsForHandler(beanName, beanClass);
         }
@@ -75,7 +89,7 @@ public class ZauberBeanNameBasedClassNameHandlerMapping extends
      * </ul>
      * 
      */
-    protected String getCompoundPath(final String s) {
+    protected final String getCompoundPath(final String s) {
         final Stack<String> stack = new Stack<String>();
         final int n = s.length();
         StringBuilder sb = new StringBuilder();

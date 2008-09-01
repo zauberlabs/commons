@@ -23,10 +23,15 @@
 	</bean>
 
 
-	<bean name="ForgotPasswordController"
+	<bean name="forgotPasswordController"
 	    class="ar.com.zauber.commons.spring.servlet.mvc.support.DummyController">
 		<constructor-arg index="0" value="forgotpassword"/>
 	</bean>
+	
+	 <bean name="**ActionsController"
+        class="ar.com.zauber.commons.spring.servlet.mvc.support.DummyController">
+        <constructor-arg index="0" value="actions"/>
+    </bean>
 	
 	<bean class="ar.com.zauber.commons.spring.servlet.mvc.support.AnotherController">
 		<constructor-arg index="0" value="another"/>	
