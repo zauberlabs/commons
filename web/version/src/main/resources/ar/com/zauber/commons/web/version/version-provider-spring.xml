@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+      El siguiente archivo provee varias estrategias para obtener
+      la versión del artefacto. Esto es util para versionar los 
+      archivos css y js para facilitar el cacheo.
+      
+      Se deben completar algunas propiedades. y dos beans 
+     (ver version-provider-spring.xml) 
+      -->
+    <!-- ~~~~~~~~~~~~~~~~~~ PROVIDERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!--
+       Provee una version intentando conseguir la mayor informacion.
+         * Si hay informacion de version de pom y de build the hudson
+         * Si está la version del pom y no el build va la version del pom
+         * Si está la informacion del build pero no del pom va el build
+         * sino usa de version la fecha en la que inicio la aplicación
+         
+        Siguiendo la linea anterios, estos son posibles ejemplos: 
+         * 0.0-SNAPSHOT-build-25
+         * 0.0-SNAPSHOT
+         * build-25
+         * 11B3D01DFE8
+      -->
+    <bean  name="commonsWebUtilsVersionProvider" 
+          class="ar.com.zauber.commons.web.version.impl.ValidatorVersionProvider">
+        <constructor-arg index="0">
+            <bean class="ar.com.zauber.commons.web.utils.impl.MultipleVersionProvider">
+                <constructor-arg>
+                    <list>
+                        <ref bean="pomAndBuildCommonsWebUtilsVersionProvider"/>
+                        <ref bean="pomCommonsWebUtilsVersionProvider"/>
+                        <ref bean="buildCommonsWebUtilsVersionProvider"/>
+                        <ref bean="dateCommonsWebUtilsVersionProvider"/>
+                    </list>
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
+    </bean>
+    
+    
+    
+    <!-- provee el numero de build si es que lo compiló hudson -->
+    <bean name="buildCommonsWebUtilsVersionProvider" 
+         class="ar.com.zauber.commons.web.version.impl.AppenderDecoratorVersionProvider">
+        <constructor-arg index="0">
+            <bean class="ar.com.zauber.commons.web.version.impl.ManifestVersionProvider" >
+                <constructor-arg index="0">
+                    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                        <property name="targetObject" ref="manifestProvider"/>
+                        <property name="targetMethod" value="getManifest"/>
+                   </bean>
+                </constructor-arg>
+                <constructor-arg index="1" value="${commons.web.version.manifest.atribute}"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg index="1" value="build-"/>
+        <constructor-arg index="2" value="true"/>
+    </bean>
+
+    <!-- provee la version del artefacto de maven y el build de hudson si ambos estan disponibles -->
+    <bean name="pomAndBuildCommonsWebUtilsVersionProvider"
+         class="ar.com.zauber.commons.web.version.impl.AppenderMultipleVersionProvider">
+        <constructor-arg index="0">
+            <list>
+                <ref bean="pomCommonsWebUtilsVersionProvider"/>
+                <bean class="ar.com.zauber.commons.web.version.impl.InmutableVersionProvider">
+                    <constructor-arg index="0" value="-"/>
+                </bean>
+                <ref bean="buildCommonsWebUtilsVersionProvider"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+
+    <!-- provee siempre una version: la fecha en la que se inicio la aplicación
+         codificada
+       -->
+    <bean name="dateCommonsWebUtilsVersionProvider"
+         class="ar.com.zauber.commons.web.utils.impl.InmutableVersionProvider">
+        <constructor-arg index="0">
+            <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                <property name="targetObject">
+                    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                        <property name="staticMethod" value="java.lang.Long.toHexString"/>
+                        <property name="arguments">
+                            <list>
+                                <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                                    <property name="targetObject"><bean class="java.util.Date"/></property>
+                                    <property name="targetMethod" value="getTime"/>
+                                </bean>
+                            </list>
+                        </property>
+                    </bean>
+                </property>
+                <property name="targetMethod" value="toUpperCase"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+</beans>
