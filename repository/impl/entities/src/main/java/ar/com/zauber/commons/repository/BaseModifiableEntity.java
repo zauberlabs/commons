@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.repository;
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 /**
  * Clase base para entidades que pueden ser modificadas.
@@ -27,6 +28,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BaseModifiableEntity extends BaseEntity implements Modifiable {
 
+    @Version
     private Long version;
     
     public final Long getVersion() {
