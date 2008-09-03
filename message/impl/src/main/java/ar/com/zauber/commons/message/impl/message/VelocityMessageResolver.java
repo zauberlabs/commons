@@ -20,7 +20,7 @@ import java.io.StringWriter;
 import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 
 import ar.com.zauber.commons.message.MessageFactory;
@@ -33,8 +33,7 @@ import ar.com.zauber.commons.message.MessageFactory;
  * @since Oct 6, 2005
  */
 public class VelocityMessageResolver extends AbstractMessageFactory {
-    /** velocity engine */
-    private final VelocityEngine ve = new VelocityEngine();
+    
     
     /** 
      * Creates the VelocityMessageResolver.
@@ -42,17 +41,17 @@ public class VelocityMessageResolver extends AbstractMessageFactory {
      * @throws Exception on error
      */
     public VelocityMessageResolver() throws Exception {
-        ve.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM, this);
-        ve.init();
+        Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM, this);
+        Velocity.init();
     }
     
-    /** @see MessageFactory#renderString(java.lang.String, java.util.Map) */
+    /** @see MessageFactory#renderString(String, Map) */
     public final String renderString(final String message,
             final Map<String, Object> model) {
         final StringWriter writer = new StringWriter();
         final VelocityContext context = new VelocityContext(model);
         try {
-            ve.evaluate(context, writer, "message", new StringReader(message));
+            Velocity.evaluate(context, writer, "message", new StringReader(message));
         } catch(final Exception e) {
             throw new RuntimeException(e);
         }
@@ -60,8 +59,8 @@ public class VelocityMessageResolver extends AbstractMessageFactory {
         return writer.toString();
     }
 
-    public String renderString(String message, Object[] params) {
-        // TODO Try to do something.
+    /** @see MessageFactory#renderString(String, Object) */
+    public final String renderString(final String message, final Object[] params) {
         return message;
     }
 }
