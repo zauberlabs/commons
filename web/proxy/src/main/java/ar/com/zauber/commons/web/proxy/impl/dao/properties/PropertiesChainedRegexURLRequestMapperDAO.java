@@ -86,7 +86,7 @@ public class PropertiesChainedRegexURLRequestMapperDAO
                 urlRequestMapper;
             final URLRequestMapper []mappers = c.getChain();
             for(final URLRequestMapper mapper : mappers) {
-                result.put(i++, mapper.toString());
+                result.put(Long.toString(i++), mapper.toString());
             }
         } else {
             throw new IllegalArgumentException("URLRequestMapper not supported "
