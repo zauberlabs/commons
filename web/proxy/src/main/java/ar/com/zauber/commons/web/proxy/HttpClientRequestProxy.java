@@ -15,6 +15,7 @@
  */
 package ar.com.zauber.commons.web.proxy;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.util.Arrays;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.NotImplementedException;
@@ -106,8 +108,7 @@ public class HttpClientRequestProxy {
             final GetMethod method = buildRequest(request, r);
             InputStream is = null;
             try {
-                final int code = httpClient.executeMethod(method);
-                response.setStatus(code);
+                updateResponseCode(response, method);
                 proxyHeaders(response, method);
                 addOtherHeaders(response, method);
                 is = method.getResponseBodyAsStream(); 
@@ -134,6 +135,18 @@ public class HttpClientRequestProxy {
             response.sendError(404, "no mapping for this url");
         }
     }
+
+    /**
+     * @param response target response
+     * @param method   source response
+     */
+    // CHECKSTYLE:DESIGN:OFF
+    protected void updateResponseCode(final HttpServletResponse response,
+            final GetMethod method) throws IOException, HttpException {
+        final int code = httpClient.executeMethod(method);
+        response.setStatus(code);
+    }
+    // CHECKSTYLE:DESIGN::ON
 
     /**
      * @param request
