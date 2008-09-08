@@ -108,7 +108,8 @@ public class HttpClientRequestProxy {
             final GetMethod method = buildRequest(request, r);
             InputStream is = null;
             try {
-                updateResponseCode(response, method);
+                httpClient.executeMethod(method);
+                updateResponseCode(request, response, method);
                 proxyHeaders(response, method);
                 addOtherHeaders(response, method);
                 is = method.getResponseBodyAsStream(); 
@@ -141,10 +142,11 @@ public class HttpClientRequestProxy {
      * @param method   source response
      */
     // CHECKSTYLE:DESIGN:OFF
-    protected void updateResponseCode(final HttpServletResponse response,
+    protected void updateResponseCode(final HttpServletRequest request,
+            final HttpServletResponse response,
             final GetMethod method) throws IOException, HttpException {
-        final int code = httpClient.executeMethod(method);
-        response.setStatus(code);
+
+        response.setStatus(method.getStatusCode());
     }
     // CHECKSTYLE:DESIGN::ON
 
