@@ -17,6 +17,9 @@ package ar.com.zauber.commons.web.proxy.impl.dao.behaviour;
 
 import java.util.List;
 
+import ar.com.zauber.commons.dao.exception.DuplicatedEntityException;
+import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
+
 /**
  * DAO for {@link URLRequestMapperAssertion}.
  * 
@@ -28,4 +31,22 @@ public interface URLRequestMapperAssertionsDAO {
     /** @return the assertions */
     List<URLRequestMapperAssertion> getAssertions();
     
+    /**
+     * saves the assertion. 
+     * @throws DuplicatedEntityException if the entity does no exists
+     * @return the assertion id.  
+     */
+    long create(URLRequestMapperAssertion e) throws DuplicatedEntityException;
+    
+    /** 
+     * @returns an assertion by id 
+     * @throws NoSuchEntityException if the entity does no exists
+     */
+    URLRequestMapperAssertion get(long id) throws NoSuchEntityException;
+    
+    /** 
+     * deletes an assertion by id 
+     * @throws NoSuchEntityException if the entity does no exists
+     */
+    void delete(long id) throws NoSuchEntityException;
 }

@@ -34,15 +34,18 @@ public class InmutableURLRequestMapperAssertion
   implements URLRequestMapperAssertion {
     private final URLResult expectedResult;
     private final HttpServletRequest testRequest;
+    private final long id;
     
     /** constructor */
-    public InmutableURLRequestMapperAssertion(final URLResult expectedResult,
+    public InmutableURLRequestMapperAssertion(final long id, 
+            final URLResult expectedResult,
             final HttpServletRequest testRequest) {
         Validate.notNull(expectedResult);
         Validate.notNull(testRequest);
         
         this.expectedResult = expectedResult;
         this.testRequest = testRequest;
+        this.id = id;
     }
     
     /** @see URLRequestMapperAssertion#assertRequest(URLRequestMapper) */
@@ -61,5 +64,10 @@ public class InmutableURLRequestMapperAssertion
     /** @see URLRequestMapperAssertion#getTestRequest() */
     public final HttpServletRequest getTestRequest() {
         return testRequest;
+    }
+
+    /** @see URLRequestMapperAssertion#getId() */
+    public final long getId() {
+        return id;
     }
 }

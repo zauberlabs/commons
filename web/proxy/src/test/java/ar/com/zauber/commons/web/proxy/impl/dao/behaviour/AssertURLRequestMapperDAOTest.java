@@ -31,7 +31,7 @@ import ar.com.zauber.commons.web.proxy.impl.InmutableURLResult;
 import ar.com.zauber.commons.web.proxy.impl.dao.URLRequestMapperDAO;
 import ar.com.zauber.commons.web.proxy.impl.dao.behaviour.impl.FalseURLRequestMapperAssertion;
 import ar.com.zauber.commons.web.proxy.impl.dao.behaviour.impl.InmutableURLRequestMapperAssertion;
-import ar.com.zauber.commons.web.proxy.impl.dao.behaviour.impl.InmutableURLRequestMapperAssertionsDAO;
+import ar.com.zauber.commons.web.proxy.impl.dao.behaviour.impl.MapURLRequestMapperAssertionsDAO;
 
 /**
  * Tests {@link AssertURLRequestMapperDAO}.
@@ -54,9 +54,9 @@ public class AssertURLRequestMapperDAOTest extends TestCase {
                 public void save(final URLRequestMapper urlRequestMapper) {
                     fail();
                 }
-            }, new InmutableURLRequestMapperAssertionsDAO(
+            }, new MapURLRequestMapperAssertionsDAO(
                 Arrays.asList(new URLRequestMapperAssertion[] {
-                    new InmutableURLRequestMapperAssertion(
+                    new InmutableURLRequestMapperAssertion(0L,
                         new InmutableURLResult(new URL("http://localhost")),
                         new MockHttpServletRequest()),
                     new FalseURLRequestMapperAssertion(),
@@ -78,9 +78,9 @@ public class AssertURLRequestMapperDAOTest extends TestCase {
             public void save(final URLRequestMapper urlRequestMapper) {
                 l.add(1);
             }
-        }, new InmutableURLRequestMapperAssertionsDAO(
+        }, new MapURLRequestMapperAssertionsDAO(
             Arrays.asList(new URLRequestMapperAssertion[] {
-                new InmutableURLRequestMapperAssertion(
+                new InmutableURLRequestMapperAssertion(0L,
                     new InmutableURLResult(),
                     new MockHttpServletRequest()),
             }))).save(new InmutableURLRequestMapper(new InmutableURLResult()));

@@ -81,10 +81,10 @@ public class PropertiesChainedRegexURLRequestMapperDAOTest extends TestCase {
                 public void save(final Properties properties) {
                     assertEquals(2, properties.size());
                     assertEquals("^/nexus/(.*)$=http://localhost:9095/nexus/$1",
-                            properties.get(0L));
+                            properties.get("0"));
                     assertEquals("^/([^/]+)/([^/]+)/([^/]+)/(.*)$=http://"
                       + "localhost:9095/nexus/content/repositories/$1-$2-$3/$4",
-                      properties.get(1L));
+                      properties.get("1"));
                 }
             }).save(c);
     }

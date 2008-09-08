@@ -9,6 +9,10 @@
   <artifactId>commons-web-proxy</artifactId>
 
   <dependencies>
+    <dependency>
+        <artifactId>commons-dao</artifactId>
+        <groupId>ar.com.zauber.commons</groupId>
+     </dependency>
      <dependency>
         <artifactId>commons-lang</artifactId>
         <groupId>commons-lang</groupId>

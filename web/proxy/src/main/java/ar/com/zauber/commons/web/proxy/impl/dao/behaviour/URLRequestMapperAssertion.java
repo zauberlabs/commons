@@ -29,6 +29,9 @@ import ar.com.zauber.commons.web.proxy.URLResult;
  */
 public interface URLRequestMapperAssertion {
 
+    /** identify */
+    long getId();
+    
     /** @return the request used to test */
     HttpServletRequest getTestRequest();
     

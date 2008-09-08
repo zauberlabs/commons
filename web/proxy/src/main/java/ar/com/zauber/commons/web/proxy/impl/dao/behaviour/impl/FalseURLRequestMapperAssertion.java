@@ -47,4 +47,9 @@ public class FalseURLRequestMapperAssertion implements URLRequestMapperAssertion
     public final HttpServletRequest getTestRequest() {
         throw new NotImplementedException("won't be implemented");
     }
+
+    /** @see URLRequestMapperAssertion#getId() */
+    public final long getId() {
+        return 0;
+    }
 }

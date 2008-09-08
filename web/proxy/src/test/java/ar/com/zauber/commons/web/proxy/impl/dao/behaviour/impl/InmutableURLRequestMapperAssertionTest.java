@@ -36,7 +36,7 @@ public class InmutableURLRequestMapperAssertionTest extends TestCase {
 
     /** test */
     public final void testAssertion() {
-        new InmutableURLRequestMapperAssertion(
+        new InmutableURLRequestMapperAssertion(0L,
                 new InmutableURLResult(), 
                 new MockHttpServletRequest()).assertRequest(
                     new InmutableURLRequestMapper(new InmutableURLResult()));
@@ -46,7 +46,7 @@ public class InmutableURLRequestMapperAssertionTest extends TestCase {
     /**  @throws MalformedURLException on error */
     public final void testAssertionFalse() throws MalformedURLException {
         try {
-            new InmutableURLRequestMapperAssertion(
+            new InmutableURLRequestMapperAssertion(0L,
                     new InmutableURLResult(new URL("http://localhost")), 
                     new MockHttpServletRequest()).assertRequest(
                         new InmutableURLRequestMapper(new InmutableURLResult()));
