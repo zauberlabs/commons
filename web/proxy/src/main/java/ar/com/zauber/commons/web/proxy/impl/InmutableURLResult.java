@@ -56,6 +56,11 @@ public class InmutableURLResult implements URLResult {
         return result;
     }
 
+    /** convenience: for jsps */
+    public final boolean isResult() {
+        return hasResult();
+    }
+    
     /** @see Object#equals(Object) */
     @Override
     public final boolean equals(final Object obj) {
