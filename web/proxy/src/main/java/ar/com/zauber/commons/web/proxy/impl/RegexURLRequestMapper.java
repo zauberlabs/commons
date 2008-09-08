@@ -126,4 +126,12 @@ public class RegexURLRequestMapper extends AbstractURLRequestMapper {
         }
         return ret;
     }
+
+    public final String getReplacePattern() {
+        return replacePattern;
+    }
+
+    public final Pattern getRegex() {
+        return regex;
+    }
 }

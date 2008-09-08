@@ -15,6 +15,7 @@
  */
 package ar.com.zauber.commons.web.proxy;
 
+import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 
 import ar.com.zauber.commons.web.proxy.impl.ChainedURLRequestMapper;
+import ar.com.zauber.commons.web.proxy.impl.RegexURLRequestMapper;
 
 /**
  * {@link PropertyEditor} for {@link URLRequestMapper}.
@@ -65,5 +67,21 @@ public class URLRequestMapperEditor extends PropertyEditorSupport {
             }
         }
         setValue(r);
+    }
+    
+    
+    /** @see PropertyEditorSupport#getAsText() */
+    @Override
+    public final String getAsText() {
+        final ChainedURLRequestMapper mapper = (ChainedURLRequestMapper) getValue();
+        final StringBuilder sb = new StringBuilder();
+        for(final URLRequestMapper m : mapper.getChain()) {
+            final RegexURLRequestMapper r = (RegexURLRequestMapper) m;
+            sb.append(r.getRegex().toString());
+            sb.append('=');
+            sb.append(r.getReplacePattern());
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 }
