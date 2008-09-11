@@ -18,7 +18,9 @@ package ar.com.zauber.commons.web.proxy;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +28,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.proxy.transformers.NullContentTransformer;
@@ -44,7 +48,7 @@ public class HttpClientRequestProxy {
     private final URLRequestMapper urlRequestMapper;
     private final HttpClient httpClient;
     private final ContentTransformer contentTransformer;
-    private final List<String> forbiddenHeader;
+    private final List<String> forbiddenHeader = new ArrayList<String>();
     private static List<String> defaultForbiddenHeader = 
         Arrays.asList(new String[] {
                 "Set-Cookie", 
@@ -93,19 +97,22 @@ public class HttpClientRequestProxy {
         if(contentTransformer.getContentType() != null) {
             forbiddenHeader.add("Content-Type");
         }
-        this.forbiddenHeader = forbiddenHeader;
+        for(final String f : forbiddenHeader) {
+            this.forbiddenHeader.add(f.toLowerCase());
+        }
     }
 
     /**
      * @see AbstractController#handleRequestInternal(HttpServletRequest,
      *      HttpServletResponse)
+     *      @throws Exception .
      */
     public final void handleRequestInternal(final HttpServletRequest request,
             final HttpServletResponse response) throws Exception {
 
         final URLResult r = urlRequestMapper.getProxiedURLFromRequest(request);
         if (r.hasResult()) {
-            final GetMethod method = buildRequest(request, r);
+            final HttpMethod method = buildRequest(request, r);
             InputStream is = null;
             try {
                 httpClient.executeMethod(method);
@@ -137,14 +144,17 @@ public class HttpClientRequestProxy {
         }
     }
 
+
     /**
-     * @param response target response
-     * @param method   source response
+     * @param request
+     * @param response
+     * @param method
+     * @throws IOException .
      */
     // CHECKSTYLE:DESIGN:OFF
     protected void updateResponseCode(final HttpServletRequest request,
             final HttpServletResponse response,
-            final GetMethod method) throws IOException, HttpException {
+            final HttpMethod method) throws IOException {
 
         response.setStatus(method.getStatusCode());
     }
@@ -154,13 +164,24 @@ public class HttpClientRequestProxy {
      * @param request
      * @return
      */
-    private GetMethod buildRequest(final HttpServletRequest request,
+    private HttpMethod buildRequest(final HttpServletRequest request,
             final URLResult urlResult) {
         final String method = request.getMethod().toUpperCase();
-        final GetMethod ret;
+        final HttpMethod ret;
 
         if ("GET".equals(method)) {
             ret = new GetMethod(urlResult.getURL().toExternalForm());
+        } else if("POST".equals(method)) {
+            PostMethod pm = new PostMethod(urlResult.getURL().toExternalForm());
+            proxyHeaders(request, pm);            
+            try {
+                pm.setRequestEntity(new InputStreamRequestEntity(
+                        request.getInputStream()));
+            } catch (IOException e) {
+                throw new UnhandledException("No pudo abrirse el InputStream"
+                        + "del request.", e);
+            }
+            ret = pm;
         } else {
             throw new NotImplementedException("i accept patches :)");
         }
@@ -189,7 +210,7 @@ public class HttpClientRequestProxy {
         for(final Header header : headers) {
             boolean skip = false;
             for (final String forbidden : forbiddenHeader) {
-                skip = header.getName().equals(forbidden);
+                skip = header.getName().toLowerCase().equals(forbidden);
                 if (skip) {
                     break;
                 }
@@ -197,6 +218,27 @@ public class HttpClientRequestProxy {
 
             if (!skip) {
                 response.setHeader(header.getName(), header.getValue());
+            }
+        }
+    }
+    
+    /**
+     * Pasa los headers de un request a otro. Copia todos salvo algunos
+     * prohibidos que no tienen sentido.
+     */
+    private void proxyHeaders(final HttpServletRequest request,
+            final PostMethod method) {
+
+        Enumeration<String> names = request.getHeaderNames(); 
+
+        while(names.hasMoreElements()) {
+            String name = names.nextElement().toLowerCase();
+            Enumeration<String> headers = request.getHeaders(name);
+            if(!forbiddenHeader.contains(name)) {
+                while(headers.hasMoreElements()) {
+                    method.addRequestHeader(name, headers.nextElement());
+                    
+                }    
             }
         }
     }
