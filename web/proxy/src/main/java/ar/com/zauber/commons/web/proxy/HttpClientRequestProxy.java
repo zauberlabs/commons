@@ -131,8 +131,7 @@ public class HttpClientRequestProxy {
                    is.close();
                 }
             } catch(final ConnectException e) {
-                response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE,
-                        e.getMessage());
+                onConnectionException(request, response, method, e);
             } finally {
                 if(is != null) {
                     is.close();
@@ -140,12 +139,48 @@ public class HttpClientRequestProxy {
                 method.releaseConnection();
             }
         } else {
-            response.sendError(404, "no mapping for this url");
+            onNoMapping(request, response);
         }
     }
 
-
+    // CHECKSTYLE:DESIGN:OFF
     /**
+     * Método que se puede overridear en el caso de necesitar otro comportamiento al
+     * no encontrarse un mapeo apropiado para la url recibida.
+     * 
+     * @param request
+     * @param response
+     * @throws Exception .
+     */
+    protected void onNoMapping(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
+        response.sendError(404, "no mapping for this url");
+    }
+    // CHECKSTYLE:DESIGN::ON
+    
+    // CHECKSTYLE:DESIGN:OFF
+    /**
+     * Método que se puede overridear en el caso de necesitar otro comportamiento al
+     * producirse un error de conexión.
+     * 
+     * @param request
+     * @param response
+     * @param method
+     * @param e
+     * @throws Exception .
+     */
+    protected void onConnectionException(final HttpServletRequest request,
+            final HttpServletResponse response, final HttpMethod method,
+            final ConnectException e) throws Exception {
+        response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE,
+                e.getMessage());
+    }
+    // CHECKSTYLE:DESIGN::ON
+    
+    /**
+     * Método ideado para overriding en caso de necesitar realizar logs, o modificar
+     * el response code. Para transformaciones del body, agregar un transformer. 
+     * 
      * @param request
      * @param response
      * @param method
