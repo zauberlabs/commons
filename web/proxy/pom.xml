@@ -32,8 +32,17 @@
        <artifactId>servlet-api</artifactId>
        <scope>provided</scope>
      </dependency>
-          <dependency>
+     <dependency>
         <artifactId>spring-test</artifactId>
+        <groupId>org.springframework</groupId>
+        <scope>test</scope>
+     </dependency>
+     <dependency>
+        <artifactId>spring-core</artifactId>
+        <groupId>org.springframework</groupId>
+     </dependency>
+     <dependency>
+        <artifactId>spring-context</artifactId>
         <groupId>org.springframework</groupId>
         <scope>test</scope>
      </dependency>
