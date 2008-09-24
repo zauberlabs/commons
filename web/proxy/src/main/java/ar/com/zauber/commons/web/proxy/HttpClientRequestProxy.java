@@ -206,6 +206,7 @@ public class HttpClientRequestProxy {
 
         if ("GET".equals(method)) {
             ret = new GetMethod(urlResult.getURL().toExternalForm());
+            proxyHeaders(request, ret);
         } else if("POST".equals(method)) {
             PostMethod pm = new PostMethod(urlResult.getURL().toExternalForm());
             proxyHeaders(request, pm);            
@@ -261,9 +262,10 @@ public class HttpClientRequestProxy {
      * Pasa los headers de un request a otro. Copia todos salvo algunos
      * prohibidos que no tienen sentido.
      */
-    private void proxyHeaders(final HttpServletRequest request,
-            final PostMethod method) {
-
+    // CHECKSTYLE:DESIGN:OFF
+    protected void proxyHeaders(final HttpServletRequest request,
+            final HttpMethod method) {
+                
         Enumeration<String> names = request.getHeaderNames(); 
 
         while(names.hasMoreElements()) {
@@ -277,4 +279,5 @@ public class HttpClientRequestProxy {
             }
         }
     }
+    //CHECKSTYLE:DESIGN::ON
 }
