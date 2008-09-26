@@ -18,6 +18,8 @@ package ar.com.zauber.commons.repository;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
+import org.springframework.dao.ConcurrencyFailureException;
+
 /**
  * Clase base para entidades que pueden ser modificadas.
  * 
@@ -31,8 +33,22 @@ public abstract class BaseModifiableEntity extends BaseEntity implements Modifia
     @Version
     private Long version;
     
+    /** @see ar.com.zauber.commons.repository.Modifiable#getVersion() */
     public final Long getVersion() {
         return version;
+    }
+    
+    /** @see ar.com.zauber.commons.repository.Modifiable#setVersion(
+     *      java.lang.Long) */
+    public final void setVersion(final Long version) {
+        // The application must not alter the version number set up 
+        // by Hibernate in any way.
+        
+        // Permite implementar Optimistic Offline Lock pattern
+        if(this.version != null && !this.version.equals(version)) {
+            throw new ConcurrencyFailureException(
+                    "Optimistic locking exception: versions differs");
+        }
     }
     
     /** @see Persistible#getReference() */

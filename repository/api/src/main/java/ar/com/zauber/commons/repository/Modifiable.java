@@ -30,5 +30,9 @@ public interface Modifiable extends Persistible {
      */
     Long getVersion();
     
+    /**
+     * @param version la versión del objeto
+     */
+    void setVersion(Long version);
     
 }
