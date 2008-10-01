@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>commons-web-parent</artifactId>
+    <groupId>ar.com.zauber.commons.web</groupId>
+    <version>3.4</version>
+  </parent>
+  <name>Zauber::Commons::Web::Utils</name>
+  <artifactId>commons-web-utils</artifactId>
+
+  <dependencies>
+     <dependency>
+        <artifactId>commons-lang</artifactId>
+        <groupId>commons-lang</groupId>
+     </dependency>
+     <dependency>
+        <groupId>javax.servlet</groupId>
+       <artifactId>servlet-api</artifactId>
+       <scope>provided</scope>
+     </dependency>
+
+
+  </dependencies>
+</project>

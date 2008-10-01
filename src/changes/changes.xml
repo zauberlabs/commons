@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+  <properties>
+    <title>Zauber Commons Changes</title>
+  </properties>
+  <body>
+    <release version="2.8-SNAPSHOT" date="who knows">
+      <action dev="eduardo" type="add" issue="1062">
+       common.gis: SQLStreetsDAO:
+       Se agregan las Options para configurar las busquedas de calles.
+Por ahora hay dos options: 
+   Una que filtra palabras comunes de los nombres de calles (por ahora solo quita la palabra Avenida, case-insensitive).
+   La otra limpia espacios de más. O sea, cada vez que haya muchos espacios juntos seguidos los reemplaza por un solo espacio (en la rev 
+930 se agregó el parche que limpia la base de las pocas calles que tenian más de un espacio seguido en su nombre). 
+
+      </action>
+    </release>
+    <release version="2.6" date="2007-08-23"
+             description="Trigereada por tiles/officenet">
+      <action dev="juan" type="update" issue="1006">
+       commons-spring: AbstractProxyController: 
+       Ahora se puede aplicar transformaciones al contenido que viaja por el proxy. Por ejemplo, (en el CU que hizo necesario esta funcionalidad) el destino devolvía una imagen y el proxy le pegaba un watermark.
+      </action>
+      <action dev="juan" type="update" issue="1006">
+       commons-spring: AbstractProxyController: Soporte genérico de URLs (antes solo podia hacerse proxy a urls de esquema https:// o http://) Esto es útil por ejemplo para que en casos de errores (poder dumpear un archivo de file://). Se cambió la firma de los métodos, por lo que se debe adaptar las implementaciones.
+      </action>
+
+      <action dev="juan" type="add">
+       Nuevo proyecto commons-gis que junta las clases relacionadas con gis (proveniente en general desde goetag). Por ahora contiene StreetsDAO (geocoding) y su implementación utilizando jdbctemplate.
+      </action>
+      <action dev="juan" type="fix">
+       commons-auth: El AbstractAcegiAuthenticationUserMapper (para los amigos el UserMapper) funcionaba contra un repositorio de usurios jdbc y inmemory, pero suponía algo que no lo dejaba funcionar contra ldap.
+      </action>
+      <action dev="juan" type="update">
+       commons-auth: Ahora los controladores pueden consultarle al AuthenticationUserMapper  los roles del usuario logueado  UserMapper.
+      </action>
+    </release>
+  </body>
+</document>

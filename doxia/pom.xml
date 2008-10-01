@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+     <artifactId>zauber-commons-parent</artifactId>
+     <groupId>ar.com.zauber.commons</groupId>
+     <version>3.4</version>
+  </parent>
+  <groupId>ar.com.zauber.commons</groupId>
+  <artifactId>commons-doxia</artifactId>
+  <packaging>jar</packaging>
+  <name>Zauber::Commons::Doxia</name>
+
+  <!-- repositories>
+     <repository>
+      <id>apache.snapshots</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories -->
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.doxia</groupId>
+      <artifactId>doxia-sink-api</artifactId>
+      <version>${doxia.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.doxia</groupId>
+      <artifactId>doxia-core</artifactId>
+      <version>${doxia.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+</project>

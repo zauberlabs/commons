@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  <bean id="annotatedClasses" class="java.util.ArrayList">
+    <constructor-arg>
+      <list>
+        <value>
+          ar.com.zauber.commons.repository.test.model.DireccionDummy
+        </value>
+        <value>
+          ar.com.zauber.commons.repository.test.model.PersonaDummy
+        </value>
+      </list>
+    </constructor-arg>
+  </bean>	
+</beans>

@@ -1,0 +1,20 @@
+.PHONY = all statclib clean co
+
+CFLAGS = -fPIC -I. -I.. -g -Wall -pedantic --pedantic-errors -I.
+
+OBJS =  daemon.o
+
+LIBOUT=libdaemon.a
+
+all:	staticlib 
+
+staticlib: $(OBJS)
+	$(AR) cr $(LIBOUT) $(OBJS)
+
+clean:
+	- $(RM) -f $(OBJS) $(LIBOUT) 
+
+co:
+	$(CO) RCS/*
+
+daemon.o:	daemon.h

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean name="test1" class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean">
+		<property name="caseBlocks">
+		    <list>
+		       <bean class="ar.com.zauber.commons.spring.beans.factory.impl.BooleanSystemPropertyCaseBlock">
+		          <constructor-arg index="0" value="babla.activar" />
+		          <constructor-arg index="1">
+		              <bean class="java.lang.String">
+		                  <constructor-arg index="0" type="java.lang.String" value="hola"/>
+		              </bean>
+		          </constructor-arg>
+		       </bean>
+		       <bean class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock">
+                  <constructor-arg index="0">
+                      <bean class="java.lang.String">
+                          <constructor-arg index="0" type="java.lang.String" value="mundo"/>
+                      </bean>
+                  </constructor-arg>
+               </bean>
+		    </list>
+		</property>
+	</bean>
+</beans>

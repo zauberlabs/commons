@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- PropertyOverrideConfigurer es para los properties que tienen default -->
+	<bean id="propertyOverrideConfigurer"
+		class="org.springframework.beans.factory.config.PropertyOverrideConfigurer"> 
+		<property name="locations">
+		  <list>
+			<value>classpath:repository-impl-springhbm.properties</value>
+		  </list>
+		</property> 
+		<property name="ignoreInvalidKeys" value="true"/>
+	</bean>
+	
+	<!-- El PlaceHolder es para aquellos que no deberian tener default: Seria bueno que alcance con el anterior -->
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+		  <list>
+			<value>classpath:repository-impl-springhbm.properties</value>
+		  </list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>true</value>
+		</property>
+	</bean>
+</beans>

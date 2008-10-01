@@ -1,0 +1,27 @@
+.PHONY = all statclib clean co
+
+CFLAGS = -fPIC -I. -I.. -g -Wall -pedantic  -I.
+
+OBJS =  strdup.o newopt.o trace.o itoa.o basename.o mkrdir.o rm.o \
+	getline.o dirname.o
+LIBOUT=libmisc.a
+
+all:	staticlib 
+
+staticlib: $(OBJS)
+	$(AR) cr $(LIBOUT) $(OBJS)
+
+clean:
+	- $(RM) -f $(OBJS) $(LIBOUT) 
+
+co:
+	$(CO) RCS/*
+
+getline.o:	getline_.h
+rm.o:		rm.h
+mkrdir.o:	mkrdir.h
+strdup.o:	strdup.h
+newopt.o:	newopt.h
+trace.o:	trace.h ../config.h
+itoa.o:		itoa.h ../config.h
+basename.o:	basename.h

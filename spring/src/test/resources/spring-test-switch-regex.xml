@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+    <bean name="test1" class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean">
+          <property name="caseBlocks">
+              <list>
+              	 <bean class="ar.com.zauber.commons.spring.beans.factory.impl.ContextPathRegexCaseBlock" >
+              	 	<constructor-arg index="0"  value="^.*home$"/>
+              	 	<constructor-arg index="1" value="home"/>
+              	 </bean>
+              	 <bean class="ar.com.zauber.commons.spring.beans.factory.impl.ContextPathRegexCaseBlock" >
+                    <constructor-arg index="0"  value="^.*house$"/>
+                    <constructor-arg index="1" value="house"/>
+                 </bean>
+              	 <bean class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock" >
+              	 	<constructor-arg index="0" value="default"/>
+              	 </bean>
+              </list>
+          </property>
+     </bean>
+
+</beans>
