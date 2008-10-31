@@ -30,6 +30,13 @@ public interface ContentTransformer {
      *   if it doesn't know */
     String getContentType();
     
-    /** transform some content */
-    void transform(InputStream is, OutputStream os);
+    /** 
+     *  transform some content
+     * @param is  Contenido a transformar
+     * @param os  Contenido transformado
+     * @param uri la uri a la que está asociado is. no puede ser nulo.
+     * @param encoding puede ser <code>null</code> si no pudo ser determinado. 
+     *     Sino es el content type en formato MIME.  
+     */
+    void transform(InputStream is, OutputStream os, String uri, String encoding);
 }

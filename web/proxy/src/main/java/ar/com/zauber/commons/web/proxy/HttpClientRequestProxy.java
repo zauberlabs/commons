@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +34,7 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
@@ -61,7 +64,7 @@ public class HttpClientRequestProxy {
     public HttpClientRequestProxy(final URLRequestMapper urlRequestMapper,
             final HttpClient httpClient) {
         this(urlRequestMapper, httpClient, new NullContentTransformer(),
-                defaultForbiddenHeader);
+                new ArrayList<String>(defaultForbiddenHeader));
     }
     
     /** Creates the RequestProxy. */
@@ -69,14 +72,14 @@ public class HttpClientRequestProxy {
             final HttpClient httpClient, 
             final ContentTransformer contentTransformer) {
         this(urlRequestMapper, httpClient, contentTransformer,
-                defaultForbiddenHeader);
+                new ArrayList<String>(defaultForbiddenHeader));
     }
     
     /** Creates the RequestProxy. */
     public HttpClientRequestProxy(final URLRequestMapper urlRequestMapper,
             final HttpClient httpClient, final List<String> forbiddenHeader) {
         this(urlRequestMapper, httpClient, new NullContentTransformer(),
-                forbiddenHeader);
+                new ArrayList<String>(forbiddenHeader));
     }
     
     /** Creates the RequestProxy. */
@@ -119,14 +122,17 @@ public class HttpClientRequestProxy {
                 updateResponseCode(request, response, method);
                 proxyHeaders(response, method);
                 addOtherHeaders(response, method);
-                is = method.getResponseBodyAsStream(); 
-                
+                is = method.getResponseBodyAsStream();
+
                 if(contentTransformer.getContentType() != null) {
                     response.setContentType(contentTransformer.getContentType()); 
                 }
                 
                 try {
-                    contentTransformer.transform(is, response.getOutputStream());
+                    
+                    contentTransformer.transform(is, response.getOutputStream(), 
+                            request.getRequestURI(), 
+                            getContentType(method));
                 } finally {
                    is.close();
                 }
@@ -141,6 +147,28 @@ public class HttpClientRequestProxy {
         } else {
             onNoMapping(request, response);
         }
+    }
+
+    private Pattern charsetPattern = Pattern.compile("^charset\\s*=\\s*(.*)\\s*$");
+    /**
+     * @param method
+     * @return
+     */
+    public final String getContentType(final HttpMethod method) {
+        final Header contenType = method.getResponseHeader("Content-Type");
+        String ret = null;
+        
+        if(contenType != null) {
+            final String value = contenType.getValue();
+            for(String v : value.split(";")) {
+                final Matcher m = charsetPattern.matcher(v.trim());
+                if(m.lookingAt()) {
+                    ret = m.group(1);
+                    break;
+                }
+            }
+        }
+        return ret;
     }
 
     // CHECKSTYLE:DESIGN:OFF
