@@ -58,7 +58,8 @@ public class HttpClientRequestProxy {
                 "Server",
                 "X-Cache", 
                 "X-Cache-Lookup", 
-                "Transfer-Encoding", 
+                "Transfer-Encoding",
+                "Accept-Encoding", 
              });
     /** Creates the RequestProxy. */
     public HttpClientRequestProxy(final URLRequestMapper urlRequestMapper,
