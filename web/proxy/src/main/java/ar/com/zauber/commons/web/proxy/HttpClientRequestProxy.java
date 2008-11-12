@@ -39,6 +39,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
+import ar.com.zauber.commons.web.proxy.impl.InmutableContentMetadata;
 import ar.com.zauber.commons.web.proxy.transformers.NullContentTransformer;
 
 /**
@@ -132,8 +133,8 @@ public class HttpClientRequestProxy {
                 try {
                     
                     contentTransformer.transform(is, response.getOutputStream(), 
-                            request.getRequestURI(), 
-                            getContentType(method));
+                            new InmutableContentMetadata(request.getPathInfo(), 
+                                                         getContentType(method)));
                 } finally {
                    is.close();
                 }
@@ -151,23 +152,14 @@ public class HttpClientRequestProxy {
     }
 
     private Pattern charsetPattern = Pattern.compile("^charset\\s*=\\s*(.*)\\s*$");
-    /**
-     * @param method
-     * @return
-     */
+    
+    /** @return el contentType */
     public final String getContentType(final HttpMethod method) {
         final Header contenType = method.getResponseHeader("Content-Type");
         String ret = null;
         
         if(contenType != null) {
-            final String value = contenType.getValue();
-            for(String v : value.split(";")) {
-                final Matcher m = charsetPattern.matcher(v.trim());
-                if(m.lookingAt()) {
-                    ret = m.group(1);
-                    break;
-                }
-            }
+            ret = contenType.getValue();
         }
         return ret;
     }

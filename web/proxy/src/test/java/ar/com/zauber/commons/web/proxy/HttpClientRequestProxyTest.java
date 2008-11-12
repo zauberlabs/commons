@@ -41,25 +41,6 @@ public class HttpClientRequestProxyTest extends TestCase {
         assertNull(p.getContentType(m));
     }
     
-    /** test */
-    public final void testContentTypeNoCharset() {
-        HttpClientRequestProxy p = new HttpClientRequestProxy(
-                new URLRequestMapper()  {
-            public final URLResult getProxiedURLFromRequest(
-                    final HttpServletRequest request) {
-                return null;
-            }
-        }, new HttpClient());
-        
-        HttpMethod m = new GetMethod() {
-            /** @see HttpMethodBase#getResponseHeader(String) */
-            @Override
-            public Header getResponseHeader(final String headerName) {
-                return new Header(headerName, "text/html");
-            }
-        };
-        assertNull(p.getContentType(m));
-    }
     
     /** test */
     public final void testContentTypeCharset() {
@@ -78,6 +59,6 @@ public class HttpClientRequestProxyTest extends TestCase {
                 return new Header(headerName, "text/html ; charset =  utf-8");
             }
         };
-        assertEquals("utf-8", p.getContentType(m));
+        assertEquals("text/html ; charset =  utf-8", p.getContentType(m));
     }
 }

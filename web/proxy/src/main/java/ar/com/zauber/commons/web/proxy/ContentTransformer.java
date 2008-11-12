@@ -34,9 +34,16 @@ public interface ContentTransformer {
      *  transform some content
      * @param is  Contenido a transformar
      * @param os  Contenido transformado
-     * @param uri la uri a la que está asociado is. no puede ser nulo.
-     * @param encoding puede ser <code>null</code> si no pudo ser determinado. 
-     *     Sino es el content type en formato MIME.  
+     * 
+     *   
      */
-    void transform(InputStream is, OutputStream os, String uri, String encoding);
+    void transform(InputStream is, OutputStream os, ContentMetadata metadata);
+    
+    interface ContentMetadata {
+        /** @return la uri a la que está asociado is. no puede ser nulo.*/
+        String getUri();
+        
+        /** @return el content-type o <code>null</code> si no exite */
+        String getContentType();
+    }
 }

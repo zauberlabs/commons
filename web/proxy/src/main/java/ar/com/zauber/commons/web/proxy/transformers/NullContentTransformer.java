@@ -42,7 +42,7 @@ public class NullContentTransformer  implements ContentTransformer {
 
     /** @see OutputTransformer#transform(InputStream, OutputStream) */
     public void transform(final InputStream is, final OutputStream os,
-                          final String uri, final String encoding) {
+                          final ContentMetadata metadata) {
         try {
             IOUtils.copy(is, os);
         } catch (final IOException e) {
