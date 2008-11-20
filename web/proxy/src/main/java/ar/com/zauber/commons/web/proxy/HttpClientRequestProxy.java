@@ -125,18 +125,20 @@ public class HttpClientRequestProxy {
                 proxyHeaders(response, method);
                 addOtherHeaders(response, method);
                 is = method.getResponseBodyAsStream();
-
-                if(contentTransformer.getContentType() != null) {
-                    response.setContentType(contentTransformer.getContentType()); 
-                }
                 
-                try {
+                if(is != null) {
+                    if(contentTransformer.getContentType() != null) {
+                        response.setContentType(contentTransformer.getContentType()); 
+                    }
                     
-                    contentTransformer.transform(is, response.getOutputStream(), 
-                            new InmutableContentMetadata(request.getPathInfo(), 
-                                                         getContentType(method)));
-                } finally {
-                   is.close();
+                    try {
+                        
+                        contentTransformer.transform(is, response.getOutputStream(), 
+                                new InmutableContentMetadata(request.getPathInfo(), 
+                                        getContentType(method)));
+                    } finally {
+                        is.close();
+                    }
                 }
             } catch(final ConnectException e) {
                 onConnectionException(request, response, method, e);
