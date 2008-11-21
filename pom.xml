@@ -18,6 +18,15 @@
      <url>https://code.zauber.com.ar/repos/sandbox/components/commons/code/trunk/</url>
   </scm>
 
+  <licenses>
+     <license>
+       <name>The Apache Software License, Version 2.0</name>
+       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+       <distribution>repo</distribution>
+     </license>
+  </licenses>
+
+
   <repositories>
     <repository>
       <releases><enabled>true</enabled></releases>
