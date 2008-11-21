@@ -15,7 +15,7 @@
  */
 package ar.com.zauber.commons.dao;
 
-import java.util.List;
+import org.apache.commons.lang.Validate;
         
 
 /**
@@ -26,48 +26,49 @@ import java.util.List;
  * @since Sep 24, 2007
  */
 public class Order {
-
-    
-    /** <code>property</code> */
-    private String property;
-    
-    /** <code>direction</code> */
-    private Boolean ascending = ASCENDING;
-    
+    private final String property;
+    private final boolean ascending;
+    private final boolean ignoreCase;
     public static final Boolean ASCENDING = Boolean.TRUE;
     public static final Boolean DESCENDING = Boolean.FALSE;
     
     /**
-     * Crea el/la Order.
-     *
-     * @param properties
+     * @param properties name of the sorting property
      */
-    public Order(String property) {
-        super();
-        this.property = property;
+    public Order(final String property) {
+        this(property, ASCENDING);
     }
-
     
     /**
-     * Crea el/la Order.
-     *
-     * @param properties
-     * @param ascending
+     * @param properties name of the sorting property
+     * @param ascending <code>true</code> if sorting is ascending
      */
-    public Order(String property, Boolean ascending) {
-        super();
-        this.property = property;
-        this.ascending = ascending;
+    public Order(final String property, final boolean ascending) {
+        this(property, ASCENDING, false);
     }
 
+    /**
+     * @param properties name of the sorting property
+     * @param ascending <code>true</code> if sorting is ascending
+     * @param ignoreCase  <code>true</code> if the case is ignored when sorting
+     */
+    public Order(final String property, final boolean ascending, 
+            final boolean ignoreCase) {
+        Validate.notNull(property);
+        this.property = property;
+        this.ascending = ascending;
+        this.ignoreCase = ignoreCase;
+    }
 
     public String getProperty() {
         return property;
     }
 
-
     public Boolean getAscending() {
         return ascending;
     }
-    
+
+    public final boolean isIgnoreCase() {
+        return ignoreCase;
+    }
 }
