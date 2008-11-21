@@ -18,6 +18,7 @@ package ar.com.zauber.commons.repository.test.model;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -51,6 +52,7 @@ public class PersonaDummy implements Persistible {
     @IdentityProperty
     private String nombre;
 
+    @Column
     private String descripcion;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

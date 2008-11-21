@@ -67,7 +67,7 @@ public class SpringHibernateRepositoryTest extends
      */
     private static final String CODIGO_POSTAL_1 = "1111";
 
-    /**
+    /**ignoreCase
      * Un codigo postal.
      */
     private static final String CODIGO_POSTAL_2 = "2222";
@@ -288,7 +288,7 @@ public class SpringHibernateRepositoryTest extends
                 new Integer(4000), new Integer(100), new Integer(34),
                 new Integer(222) };
         final String[] descripciones = {"Un grande", "Un atleta", "Un ganzo",
-                "Un famoso", "y este?", "otro mas" };
+                "mamuth", "otro mas", "OTRO MAS" };
 
         for (int i = 0; i < nombres.length; i++) {
             createPersona(nombres[i], nros[i], descripciones[i],
@@ -476,5 +476,31 @@ public class SpringHibernateRepositoryTest extends
         assertTrue(d.get(1).getNumeroFiscal() < d.get(2).getNumeroFiscal());
         assertTrue(d.get(2).getNumeroFiscal() < d.get(3).getNumeroFiscal());
         assertTrue(d.get(3).getNumeroFiscal() < d.get(4).getNumeroFiscal());
+    }
+    
+    
+    /** test */
+    public final void testOrder() {
+        createSomeData();
+        final Ordering ordering = new Ordering(Arrays.asList(new Order[] {
+                new Order("descripcion", true, true),
+        }));
+        
+        final Filter f = new CompositeFilter(new OrConnector(), 
+                Arrays.asList(new BaseFilter[]{
+                new BeginsLikePropertyFilter("descripcion",
+                        new SimpleValue("otro"), false),
+                new BeginsLikePropertyFilter("descripcion",
+                        new SimpleValue("m"), false),
+        }));
+        
+        final Query<PersonaDummy> query =
+            new SimpleQuery<PersonaDummy>(PersonaDummy.class, f, null, ordering);
+
+        final List<PersonaDummy> d = repository.find(query);
+        assertEquals(3, d.size());
+        assertTrue(d.get(0).getDescripcion().toLowerCase().startsWith("m"));
+        assertTrue(d.get(1).getDescripcion().toLowerCase().startsWith("o"));
+        assertTrue(d.get(1).getDescripcion().toLowerCase().startsWith("o"));
     }
 }

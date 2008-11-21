@@ -98,13 +98,16 @@ public class CriteriaTranslator implements Translator {
         }
         
         for (final Order order : ordering.getOrders()) {
+            final org.hibernate.criterion.Order hOrder;
             if (order.getAscending()) {
-                criteria = criteria.addOrder(
-                        org.hibernate.criterion.Order.asc(order.getProperty()));
+                hOrder = org.hibernate.criterion.Order.asc(order.getProperty());
             } else {
-                criteria = criteria.addOrder(
-                        org.hibernate.criterion.Order.desc(order.getProperty()));
-            }            
+                hOrder = org.hibernate.criterion.Order.desc(order.getProperty());
+            }
+            if(order.isIgnoreCase()) {
+                hOrder.ignoreCase();
+            }
+            criteria = criteria.addOrder(hOrder);
         }
     }
 
