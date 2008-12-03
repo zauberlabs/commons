@@ -41,7 +41,6 @@ public class VelocityMessageResolver extends AbstractMessageFactory {
      * @throws Exception on error
      */
     public VelocityMessageResolver() throws Exception {
-        Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM, this);
         Velocity.init();
     }
     
