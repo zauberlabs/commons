@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2005-2008 Zauber S.A. <http://www.zauber.com.ar/>
+/**
+ * Copyright (c) 2005-2009 Zauber S.A. <http://www.zauber.com.ar/>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ar.com.zauber.commons.spring.web.utils;
 
 import org.springframework.core.io.Resource;

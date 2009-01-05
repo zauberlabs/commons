@@ -44,6 +44,16 @@
     </repository>
   </repositories>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>mc-release</id>
+      <name>Local Maven repository of releases</name>
+      <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+      <snapshots><enabled>false</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
+    </pluginRepository>
+  </pluginRepositories>
+
   <distributionManagement>
     <repository>
       <id>zauber-code-releases</id>
@@ -96,12 +106,14 @@
         </configuration>
       </plugin>
       <!-- mantiene a raya los headers de las licencias -->
-      <!-- plugin>
-         <groupId>com.mathieucarbou.mojo</groupId>
+      <plugin>
+         <groupId>com.google.code.maven-license-plugin</groupId>
          <artifactId>maven-license-plugin</artifactId>
          <configuration>
              <quiet>false</quiet>
+             <header>src/HEADER.txt</header>
              <failIfMissing>true</failIfMissing>
+             <aggregate>false</aggregate>
              <includes>
                  <include>**/src/**</include>
                  <include>**/test/**</include>
@@ -115,14 +127,19 @@
                  <exclude>**/README.txt</exclude>
                  <exclude>**/.keep</exclude>
                  <exclude>**/*.xml</exclude>
+                 <exclude>**/*.properties</exclude>
                  <exclude>**/libmisc/**</exclude>
                  <exclude>auth/password/src/main/c/**</exclude>
+                 <exclude>**/*.c</exclude>
+                 <exclude>**/*.h</exclude>
+                 <exclude>**/Makefile*</exclude>
              </excludes>
              <useDefaultExcludes>true</useDefaultExcludes>
              <useDefaultMapping>true</useDefaultMapping>
              <properties>
+                <email>http://www.zauber.com.ar/</email>
              </properties>
-             <header>src/HEADER.txt</header>
+             <encoding>iso-8859-1</encoding>
          </configuration>
          <executions>
              <execution>
@@ -132,7 +149,7 @@
                  </goals>
              </execution>
          </executions>
-      </plugin -->
+      </plugin>
     </plugins>
   </build>
 
