@@ -109,6 +109,7 @@
       <plugin>
          <groupId>com.google.code.maven-license-plugin</groupId>
          <artifactId>maven-license-plugin</artifactId>
+         <inherited>false</inherited>
          <configuration>
              <quiet>false</quiet>
              <header>src/HEADER.txt</header>
