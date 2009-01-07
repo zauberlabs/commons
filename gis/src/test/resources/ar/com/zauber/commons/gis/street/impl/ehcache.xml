@@ -1,0 +1,33 @@
+<ehcache>
+
+    <!-- Sets the path to the directory where cache .data files are created.
+
+         If the path is a Java System Property it is replaced by
+         its value in the running VM.
+
+         The following properties are translated:
+         user.home - User's home directory
+         user.dir - User's current working directory
+         java.io.tmpdir - Default temp file path -->
+    <diskStore  path="java.io.tmpdir"/>
+
+    <cache name="streetsdao.test"
+        diskPersistent="true"
+        maxElementsInMemory="5000"
+        eternal="true"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="0"
+        overflowToDisk="true"
+        />
+        
+        <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"
+        diskPersistent="false"
+        diskExpiryThreadIntervalSeconds="120"
+        />
+        
+</ehcache>

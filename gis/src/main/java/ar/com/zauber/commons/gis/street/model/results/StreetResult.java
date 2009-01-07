@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.gis.street.model.results;
 
+import java.io.Serializable;
+
 import ar.com.zauber.commons.gis.Result;
 
 import com.vividsolutions.jts.geom.Point;
@@ -24,7 +26,7 @@ import com.vividsolutions.jts.geom.Point;
  * @author Christian Nardi
  * @since Oct 10, 2007
  */
-public class StreetResult implements Result {
+public class StreetResult implements Result, Serializable {
     private final String name;
     private final Point point;
     private final String city;
