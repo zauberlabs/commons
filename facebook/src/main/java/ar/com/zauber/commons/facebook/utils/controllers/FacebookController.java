@@ -55,7 +55,7 @@ public abstract class FacebookController extends AbstractController {
     protected final ModelAndView handleRequestInternal(
             final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
-        final Map<String, CharSequence> params = DefaultCallbackRequestValidator
+        final Map<String, String> params = DefaultCallbackRequestValidator
                 .extractFacebookParams(request);
         final ModelAndView ret = new ModelAndView(view);
         this.handleFacebookRequest(request, response, params, ret);
@@ -65,7 +65,7 @@ public abstract class FacebookController extends AbstractController {
 
     /** maneja el request */
     protected abstract void handleFacebookRequest(HttpServletRequest request,
-            HttpServletResponse response, Map<String, CharSequence> params,
+            HttpServletResponse response, Map<String, String> params,
             ModelAndView ret) throws Exception;
 
 }

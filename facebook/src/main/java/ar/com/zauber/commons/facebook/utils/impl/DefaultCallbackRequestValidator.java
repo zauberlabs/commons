@@ -27,7 +27,7 @@ import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.facebook.utils.CallbackRequestValidator;
 
-import com.facebook.api.FacebookSignatureUtil;
+import com.google.code.facebookapi.FacebookSignatureUtil;
 
 /**
  * Facebook en los requests manda una serie de parametros. Uno de esos
@@ -71,9 +71,9 @@ public class DefaultCallbackRequestValidator implements CallbackRequestValidator
      * @param request
      * @return
      */
-    public static Map<String, CharSequence> extractFacebookParams(
+    public static Map<String, String> extractFacebookParams(
             final HttpServletRequest request) {
-        final Map<String, CharSequence> params = new HashMap<String, CharSequence>();
+        final Map<String, String> params = new HashMap<String, String>();
         final Map tmp = FacebookSignatureUtil.extractFacebookNamespaceParams(
                 request.getParameterMap()
                 );
