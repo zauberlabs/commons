@@ -44,7 +44,7 @@ public class Order {
      * @param ascending <code>true</code> if sorting is ascending
      */
     public Order(final String property, final boolean ascending) {
-        this(property, ASCENDING, false);
+        this(property, ascending, false);
     }
 
     /**
