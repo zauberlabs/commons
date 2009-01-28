@@ -33,13 +33,12 @@ public abstract class BaseModifiableEntity extends BaseEntity implements Modifia
     @Version
     private Long version;
     
-    /** @see ar.com.zauber.commons.repository.Modifiable#getVersion() */
+    /** @see Modifiable#getVersion() */
     public final Long getVersion() {
         return version;
     }
     
-    /** @see ar.com.zauber.commons.repository.Modifiable#setVersion(
-     *      java.lang.Long) */
+    /** @see Modifiable#setVersion(Long) */
     public final void setVersion(final Long version) {
         // The application must not alter the version number set up 
         // by Hibernate in any way.
@@ -55,5 +54,4 @@ public abstract class BaseModifiableEntity extends BaseEntity implements Modifia
     public final Reference generateReference() {
         return new Reference(this.getClass(), getId(), getVersion());
     }
-
 }
