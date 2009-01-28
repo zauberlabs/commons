@@ -47,7 +47,7 @@ public abstract class BaseEntity implements Persistible {
     /**
      * Natural equals: TODO documentar 
      */
-    public boolean naturalEquals(Object obj) {
+    public final boolean naturalEquals(final Object obj) {
         Set<Field> fields = this.getIdentityFields();
         if(fields != null && fields.size() > 0) {
             EqualsBuilder equalsBuilder = new EqualsBuilder();
@@ -97,7 +97,7 @@ public abstract class BaseEntity implements Persistible {
     }
     
     /** @see Object#hashCode() */
-    public int naturalHashCode() {
+    public final int naturalHashCode() {
         Set<Field> fields = this.getIdentityFields();
         if(fields != null && fields.size() > 0) {
             HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
