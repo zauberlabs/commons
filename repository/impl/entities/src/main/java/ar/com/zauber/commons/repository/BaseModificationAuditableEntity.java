@@ -29,17 +29,26 @@ import javax.persistence.MappedSuperclass;
 public abstract class BaseModificationAuditableEntity 
     extends BaseModifiableEntity implements ModificationAuditable {
 
-    
     private Date modifiedAt;
     private String modifiedBy;
+
+    /** Creates the BaseModificationAuditableEntity. */
+    public BaseModificationAuditableEntity() {
+        // void
+    }
     
-    public Date getModifiedAt() {
+    /** Creates the BaseModificationAuditableEntity. */
+    public BaseModificationAuditableEntity(final Date modifiedAt, 
+            final String modifiedBy) {
+        this.modifiedAt = modifiedAt;
+        this.modifiedBy = modifiedBy;
+    }
+    
+    public final Date getModifiedAt() {
         return modifiedAt;
     }
 
-    public String getModifiedBy() {
+    public final String getModifiedBy() {
         return modifiedBy;
     }
-
-
 }

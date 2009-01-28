@@ -19,6 +19,8 @@ import java.util.Date;
 
 import javax.persistence.MappedSuperclass;
 
+import org.apache.commons.lang.Validate;
+
 /**
  * Clase base para entidades que necesiten auditoria de creación.
  * 
@@ -30,6 +32,24 @@ public abstract class BaseCreationAuditableEntity extends BaseEntity
                                       implements CreationAuditable {
     private Date createdAt;
     private String createdBy;
+    
+    /** default constructor */
+    public BaseCreationAuditableEntity() {
+        // void!
+    }
+    
+    /**
+     * Creates the BaseCreationAuditableEntity.
+     *
+     * @param createdAt creation date
+     * @param createdBy creation username
+     */
+    public BaseCreationAuditableEntity(final Date createdAt,
+            final String createdBy) {
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+        
+    }
     
     public final Date getCreatedAt() {
         return createdAt;

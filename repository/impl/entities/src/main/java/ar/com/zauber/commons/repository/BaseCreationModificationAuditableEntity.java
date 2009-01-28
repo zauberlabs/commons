@@ -30,14 +30,33 @@ public abstract class BaseCreationModificationAuditableEntity
                            extends BaseModifiableEntity 
                            implements CreationAuditable, ModificationAuditable {
 
-    /** <code>createdAt</code> */
     private Date createdAt;
-    /** <code>createdBy</code> */
     private String createdBy;
-    /** <code>modifiedAt</code> */
     private Date modifiedAt;
-    /** <code>modifiedBy</code> */
     private String modifiedBy;
+
+    /** Creates the BaseCreationModificationAuditableEntity. */
+    public BaseCreationModificationAuditableEntity() {
+        // void
+    }
+    
+    /**
+     * 
+     * Creates the BaseCreationModificationAuditableEntity.
+     *
+     * @param createdAt  creation date
+     * @param createdBy  creation username
+     * @param modifiedAt modification date
+     * @param modifiedBy modification username
+     */
+    public BaseCreationModificationAuditableEntity(
+            final Date createdAt, final String createdBy, 
+            final Date modifiedAt, final String modifiedBy) {
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+        this.modifiedAt = modifiedAt;
+        this.modifiedBy = modifiedBy;
+    }
     
     public final Date getCreatedAt() {
         return createdAt;
