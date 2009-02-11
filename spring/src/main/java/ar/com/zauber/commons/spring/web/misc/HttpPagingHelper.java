@@ -37,6 +37,8 @@ public final class HttpPagingHelper {
     private final int resultsPerPage;
     /** ver constructor */
     private final int maxResultsPerPage;
+    /** El campo del cual el paginador sacara el numero de pagina **/
+    private String pageField = "page";
 
     /**
      * Creates the HttpPagingHelper.
@@ -67,7 +69,7 @@ public final class HttpPagingHelper {
     public Paging getPaging(final HttpServletRequest request, 
             final int overrideResultsPerPage) {
         int page = ServletRequestUtils.getIntParameter(
-                request, "page", 1);
+                request, pageField, 1);
         if(page <= 0) {
             page = 1;
         }
@@ -87,4 +89,9 @@ public final class HttpPagingHelper {
     public Paging getPaging(final HttpServletRequest request) {
         return getPaging(request, -1);
     }
+    
+    public void setPageField(String pageField) {
+        this.pageField = pageField;
+    }
+
 }
