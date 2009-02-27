@@ -24,7 +24,11 @@ import org.apache.commons.lang.Validate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.spring.web.SpringWebUtil;
+import ar.com.zauber.commons.web.utils.SEOIdStrategy;
+import ar.com.zauber.commons.web.utils.impl.IdNameSEOIdStrategy;
+import ar.com.zauber.commons.web.utils.impl.IdSEOIdStrategy;
 
 /**
  * Restish Spring controller.
@@ -37,12 +41,20 @@ import ar.com.zauber.commons.spring.web.SpringWebUtil;
  */
 public abstract class AbstractRestishController extends AbstractController {
     private final SpringWebUtil springWebUtil;
+    private final SEOIdStrategy seoStrategy;
 
     /** controller */
     public AbstractRestishController(final SpringWebUtil springWebUtil) {
+        this(springWebUtil, new IdSEOIdStrategy());
+    }
+
+    /** controller */
+    public AbstractRestishController(final SpringWebUtil springWebUtil,
+            final SEOIdStrategy seoStrategy) {
         Validate.notNull(springWebUtil);
         
         this.springWebUtil = springWebUtil;
+        this.seoStrategy = seoStrategy;
     }
 
     
@@ -61,9 +73,17 @@ public abstract class AbstractRestishController extends AbstractController {
         } else if(patharray.length == 3) {
             ret = list(request, response);
         } else if(patharray.length == 4) {
-            ret = entity(Long.parseLong(patharray[3]), request, response);
+            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[3]);
+            if(id == null) {
+                throw new NoSuchEntityException(patharray[3]);
+            }
+            ret = entity(id, request, response);
         } else if(patharray.length == 5) {
-            final long id = Long.parseLong(patharray[3]);
+            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[3]);
+            if(id == null) {
+                throw new NoSuchEntityException(patharray[3]);
+            }
+            ret = entity(id, request, response);
             final String action = patharray[4];
             try {
                 final Method m = getClass().getMethod(action, long.class, 
