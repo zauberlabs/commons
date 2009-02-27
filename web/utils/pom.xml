@@ -18,6 +18,10 @@
        <artifactId>servlet-api</artifactId>
        <scope>provided</scope>
      </dependency>
+     <dependency>
+       <artifactId>commons-repository-api</artifactId>
+       <groupId>ar.com.zauber.commons.repository</groupId>
+     </dependency>
 
 
   </dependencies>
