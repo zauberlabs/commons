@@ -22,7 +22,15 @@
        <artifactId>commons-repository-api</artifactId>
        <groupId>ar.com.zauber.commons.repository</groupId>
      </dependency>
-
-
+    <dependency>
+       <artifactId>spring-test</artifactId>
+       <groupId>org.springframework</groupId>
+       <scope>test</scope>
+    </dependency>
+    <dependency>
+       <artifactId>spring-core</artifactId>
+       <groupId>org.springframework</groupId>
+       <scope>test</scope>
+     </dependency>
   </dependencies>
 </project>
