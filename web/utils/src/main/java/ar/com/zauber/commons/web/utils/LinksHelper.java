@@ -89,7 +89,11 @@ public class LinksHelper {
                         sb.append('/');
                     }
                 }
-                ret = sb.toString();
+                if(sb.toString().length() == 0) {
+                    ret = ".";
+                } else {
+                    ret = sb.toString();
+                }
             } catch(UnsupportedEncodingException e) {
                 throw new UnhandledException(e);
             }
