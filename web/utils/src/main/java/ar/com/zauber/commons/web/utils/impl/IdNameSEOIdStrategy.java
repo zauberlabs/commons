@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.web.utils.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.repository.misc.Nameable;
@@ -29,8 +30,8 @@ import ar.com.zauber.commons.web.utils.SEOIdStrategy;
  * @since Feb 27, 2009
  */
 public class IdNameSEOIdStrategy  implements SEOIdStrategy {
-    private final String allMark = "all";
-    private final String separator  = "-";
+    private String allMark = "all";
+    private String separator  = "-";
     
     /** @see SEOIdStrategy#getIdFromSEOFriendly(String) */
     public final Long getIdFromSEOFriendly(final String l) {
@@ -41,7 +42,7 @@ public class IdNameSEOIdStrategy  implements SEOIdStrategy {
         } else if(l.equals(allMark)) {
             ret = null;
         } else {
-            String [] fields = l.split("[-]");
+            String [] fields = l.split("[" + separator + "]");
             if(fields.length > 0) {
                 try {
                     ret = Long.parseLong(fields[0]);
@@ -70,10 +71,37 @@ public class IdNameSEOIdStrategy  implements SEOIdStrategy {
             while(s.contains("--")) {
                 s = s.replace("--", "-");
             }
+            s = s.replace('á', 'a').replace('Á', 'A')
+             .replace('é', 'e').replace('É', 'E')
+             .replace('í', 'i').replace('Í', 'I')
+             .replace('ó', 'o').replace('Ó', 'O')
+             .replace('ú', 'u').replace('Ú', 'U')
+             .replace('ñ', 'n').replace('Ñ', 'N')
+             .replace('ü', 'u').replace('Ü', 'U');
+            
             ret = s.toLowerCase();
         }
         return ret; 
                       
     }
-    
+
+    public final String getAllMark() {
+        return allMark;
+    }
+
+    /** @see #getAllMark() */
+    public final void setAllMark(final String allMark) {
+        Validate.isTrue(!StringUtils.isBlank(allMark));
+        this.allMark = allMark;
+    }
+
+    public final String getSeparator() {
+        return separator;
+    }
+
+    /** @see #getSeparator() */
+    public final void setSeparator(final String separator) {
+        Validate.isTrue(!StringUtils.isBlank(separator));
+        this.separator = separator;
+    }
 }
