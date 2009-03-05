@@ -27,7 +27,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.spring.web.SpringWebUtil;
 import ar.com.zauber.commons.web.utils.SEOIdStrategy;
-import ar.com.zauber.commons.web.utils.impl.IdNameSEOIdStrategy;
 import ar.com.zauber.commons.web.utils.impl.IdSEOIdStrategy;
 
 /**
@@ -42,6 +41,7 @@ import ar.com.zauber.commons.web.utils.impl.IdSEOIdStrategy;
 public abstract class AbstractRestishController extends AbstractController {
     private final SpringWebUtil springWebUtil;
     private final SEOIdStrategy seoStrategy;
+    private int firstIndex = 3;
 
     /** controller */
     public AbstractRestishController(final SpringWebUtil springWebUtil) {
@@ -70,21 +70,21 @@ public abstract class AbstractRestishController extends AbstractController {
         ModelAndView ret;
         if(!uri.endsWith("/")) {
             ret = new ModelAndView(springWebUtil.createRedirect(uri + "/"));
-        } else if(patharray.length == 3) {
+        } else if(patharray.length == firstIndex) {
             ret = list(request, response);
-        } else if(patharray.length == 4) {
-            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[3]);
+        } else if(patharray.length == firstIndex + 1) {
+            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[firstIndex]);
             if(id == null) {
-                throw new NoSuchEntityException(patharray[3]);
+                throw new NoSuchEntityException(patharray[firstIndex]);
             }
             ret = entity(id, request, response);
-        } else if(patharray.length == 5) {
-            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[3]);
+        } else if(patharray.length == firstIndex + 2) {
+            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[firstIndex]);
             if(id == null) {
-                throw new NoSuchEntityException(patharray[3]);
+                throw new NoSuchEntityException(patharray[firstIndex]);
             }
             ret = entity(id, request, response);
-            final String action = patharray[4];
+            final String action = patharray[firstIndex + 1];
             try {
                 final Method m = getClass().getMethod(action, long.class, 
                                 HttpServletRequest.class, HttpServletResponse.class);
@@ -100,6 +100,26 @@ public abstract class AbstractRestishController extends AbstractController {
         return ret;
     }
 
+    
+
+    /**
+     * Returns the firstIndex.
+     * 
+     * @return <code>int</code> with the firstIndex.
+     */
+    public final int getFirstIndex() {
+        return firstIndex;
+    }
+
+    /**
+     * Sets the firstIndex. 
+     *
+     * @param firstIndex <code>int</code> with the firstIndex.
+     */
+    public final void setFirstIndex(final int firstIndex) {
+        Validate.isTrue(firstIndex >= 0);
+        this.firstIndex = firstIndex;
+    }
 
     /**
      * shows an entity
