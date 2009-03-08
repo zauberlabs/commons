@@ -166,7 +166,7 @@
       <spring.security.version>2.0.4</spring.security.version>
       <hibernate.version>3.2.6.ga</hibernate.version>
       <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
-      <doxia.version>1.0-beta-1-zauber-r669205</doxia.version>
+      <doxia.version>1.1</doxia.version>
       <jetty.version>6.1.9</jetty.version>
   </properties>
   <dependencyManagement>
