@@ -13,5 +13,6 @@
     <module>utils</module>
     <module>proxy</module>
     <module>version</module>
+    <module>transformation</module>
   </modules>
 </project>

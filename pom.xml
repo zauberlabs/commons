@@ -184,6 +184,12 @@
       </dependency>
 
       <dependency>
+        <artifactId>jtidy</artifactId>
+        <groupId>jtidy</groupId>
+        <version>4aug2000r7-dev</version>
+      </dependency>
+
+      <dependency>
         <groupId>ar.com.zauber.commons.auth</groupId>
         <artifactId>commons-auth-api</artifactId>
         <version>${pom.version}</version>
