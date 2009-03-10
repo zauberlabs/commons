@@ -207,8 +207,8 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
             new HibernateCallback() {
                 public Object doInHibernate(final Session session)
                         throws HibernateException, SQLException {
-                    return criteria.getExecutableCriteria(session)
-                            .uniqueResult();
+                    final List l = criteria.getExecutableCriteria(session).list();
+                    return l.size() == 0 ? null : l.size() == 1 ? l.get(0) : l;
                 }
             });
     }

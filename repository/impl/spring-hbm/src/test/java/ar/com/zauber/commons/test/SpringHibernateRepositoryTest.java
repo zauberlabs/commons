@@ -15,6 +15,7 @@
  */
 package ar.com.zauber.commons.test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,6 +27,8 @@ import junit.framework.Assert;
 
 import org.apache.commons.beanutils.BeanPropertyValueChangeClosure;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.NotImplementedException;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import ar.com.zauber.commons.dao.Order;
 import ar.com.zauber.commons.dao.Ordering;
@@ -35,6 +38,10 @@ import ar.com.zauber.commons.repository.Reference;
 import ar.com.zauber.commons.repository.Repository;
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
+import ar.com.zauber.commons.repository.query.aggreate.AggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.CompositeAggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.CountPropertyAggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.GroupPropertyAggregateFilter;
 import ar.com.zauber.commons.repository.query.aggreate.MaxPropertyAggregateFunction;
 import ar.com.zauber.commons.repository.query.aggreate.MinPropertyAggregateFunction;
 import ar.com.zauber.commons.repository.query.aggreate.RowCountAggregateFilter;
@@ -52,6 +59,7 @@ import ar.com.zauber.commons.repository.query.values.SimpleValue;
 import ar.com.zauber.commons.repository.test.model.DireccionDummy;
 import ar.com.zauber.commons.repository.test.model.PersonaDummy;
 import ar.com.zauber.commons.test.utils.BaseTransactionalRollbackTest;
+import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Test <code>SpringHibernateRepository<code>.
@@ -502,5 +510,27 @@ public class SpringHibernateRepositoryTest extends
         assertTrue(d.get(0).getDescripcion().toLowerCase().startsWith("m"));
         assertTrue(d.get(1).getDescripcion().toLowerCase().startsWith("o"));
         assertTrue(d.get(1).getDescripcion().toLowerCase().startsWith("o"));
+    }
+ 
+    protected HibernateTemplate hibernateTemplate;
+    /** test */
+    public final void testCountGroupBy() {
+        createSomeData();
+        final Query<DireccionDummy> query = 
+            new SimpleQuery<DireccionDummy>(DireccionDummy.class, 
+                new NullFilter(), null, 
+                new Ordering(Collections.emptyList()));
+        AggregateFunction function = new CompositeAggregateFunction(
+                Arrays.asList(new AggregateFunction[]{
+                        new CountPropertyAggregateFunction("numero"),
+                        new GroupPropertyAggregateFilter("direccion"),
+                        new GroupPropertyAggregateFilter("numero"),
+                }));
+        
+         for(Object row: repository.aggregate(query, function, List.class)) {
+             final Object [] fields = (Object[]) row;
+             System.out.println(fields[0] + " | " + fields[1] + "  " + fields[2]);
+         }
+         throw new NotImplementedException("terminar el test!");
     }
 }

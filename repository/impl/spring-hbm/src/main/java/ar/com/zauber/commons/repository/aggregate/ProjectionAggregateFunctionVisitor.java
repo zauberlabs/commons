@@ -25,6 +25,7 @@ import ar.com.zauber.commons.repository.query.aggreate.AveragePropertyAggregateF
 import ar.com.zauber.commons.repository.query.aggreate.CompositeAggregateFunction;
 import ar.com.zauber.commons.repository.query.aggreate.CountDistinctPropertyAggregateFunction;
 import ar.com.zauber.commons.repository.query.aggreate.CountPropertyAggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.GroupPropertyAggregateFilter;
 import ar.com.zauber.commons.repository.query.aggreate.MaxPropertyAggregateFunction;
 import ar.com.zauber.commons.repository.query.aggreate.MinPropertyAggregateFunction;
 import ar.com.zauber.commons.repository.query.aggreate.ParameterlessAggregateFunction;
@@ -118,6 +119,8 @@ public class ProjectionAggregateFunctionVisitor implements AggregateFunctionVisi
             projection = Projections.min(propertyName);
         } else if(paf instanceof SumPropertyAggregateFunction) {
             projection = Projections.sum(propertyName);
+        } else if(paf instanceof GroupPropertyAggregateFilter) {
+            projection = Projections.groupProperty(propertyName);
         } else {
             throw new IllegalArgumentException("don't know how to process "
                     + paf.getClass());
