@@ -59,7 +59,6 @@ import ar.com.zauber.commons.repository.query.values.SimpleValue;
 import ar.com.zauber.commons.repository.test.model.DireccionDummy;
 import ar.com.zauber.commons.repository.test.model.PersonaDummy;
 import ar.com.zauber.commons.test.utils.BaseTransactionalRollbackTest;
-import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Test <code>SpringHibernateRepository<code>.
@@ -516,21 +515,32 @@ public class SpringHibernateRepositoryTest extends
     /** test */
     public final void testCountGroupBy() {
         createSomeData();
+        
         final Query<DireccionDummy> query = 
             new SimpleQuery<DireccionDummy>(DireccionDummy.class, 
                 new NullFilter(), null, 
-                new Ordering(Collections.emptyList()));
+                new Ordering(
+                        Arrays.asList(new Order[] { new Order("numero", true, true) }))
+                );
+        
         AggregateFunction function = new CompositeAggregateFunction(
                 Arrays.asList(new AggregateFunction[]{
                         new CountPropertyAggregateFunction("numero"),
                         new GroupPropertyAggregateFilter("direccion"),
                         new GroupPropertyAggregateFilter("numero"),
                 }));
-        
-         for(Object row: repository.aggregate(query, function, List.class)) {
-             final Object [] fields = (Object[]) row;
-             System.out.println(fields[0] + " | " + fields[1] + "  " + fields[2]);
-         }
-         throw new NotImplementedException("terminar el test!");
+         List<Object> rows = repository.aggregate(query, function, List.class);
+         
+         assertEquals(rows.size(), 2);
+         
+         Object[] row = (Object []) rows.get(0);
+         assertEquals(6, row[0]);
+         assertEquals("Santa Fe", row[1]);
+         assertEquals(1234, row[2]);
+         
+         row = (Object []) rows.get(1);
+         assertEquals(6, row[0]);
+         assertEquals("Cordoba", row[1]);
+         assertEquals(5678, row[2]);
     }
 }
