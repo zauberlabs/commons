@@ -25,22 +25,15 @@ package ar.com.zauber.commons.repository.query.values;
  * @since Sep 24, 2007
  */
 public class SimpleValue implements Value {
+    private final Object value;
 
-    /** <code>value</code> */
-    private Object value;
-
-    /**
-     * Crea el/la ObjectValue.
-     *
-     */
-    public SimpleValue(Object value) {
+    /** @param value actual value*/
+    public SimpleValue(final Object value) {
         this.value = value;
     }
 
-    /**
-     * @return el value
-     */
-    public Object getValue() {
+    /** @return the value*/
+    public final Object getValue() {
         return value;
     }
     
