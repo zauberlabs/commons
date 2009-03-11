@@ -491,49 +491,35 @@ public class CriteriaFilterVisitor implements FilterVisitor {
     }
 
     
-    /**
-     * @param binaryPropertyFilter
-     * @param value
-     * @return
-     */
+    /** calculate a criterion */
     private Criterion createCriterion(
             final BinaryPropertyFilter binaryPropertyFilter, final Object value) {
-        String fieldName = getFieldName(
-                binaryPropertyFilter.getProperty());
+        final String fieldName = getFieldName(binaryPropertyFilter.getProperty());
+        final Criterion ret;
+        
         if (binaryPropertyFilter instanceof EqualsPropertyFilter) {
-            return Restrictions.eq(fieldName, value);    
-        } else {
-            if (binaryPropertyFilter instanceof LessThanPropertyFilter) {
-                return Restrictions.lt(fieldName, value);
+            ret = Restrictions.eq(fieldName, value);    
+        } else  if (binaryPropertyFilter instanceof LessThanPropertyFilter) {
+            ret = Restrictions.lt(fieldName, value);
+        } else if(binaryPropertyFilter instanceof LessThanEqualsPropertyFilter) {
+            ret = Restrictions.le(fieldName, value);
+        } else if(binaryPropertyFilter instanceof GreaterThanPropertyFilter) {
+            ret = Restrictions.gt(fieldName, value);    
+        } else if(binaryPropertyFilter instanceof GreaterThanEqualsPropertyFilter) {
+            ret = Restrictions.ge(fieldName, value);  
+        } else if (binaryPropertyFilter instanceof LikePropertyFilter) {
+            if (((LikePropertyFilter) binaryPropertyFilter)
+                    .getCaseSensitive()) {
+                ret = Restrictions.like(fieldName, value);
             } else {
-                if(binaryPropertyFilter instanceof LessThanEqualsPropertyFilter) {
-                    return Restrictions.le(fieldName, value);
-                } else {
-                    if(binaryPropertyFilter instanceof GreaterThanPropertyFilter) {
-                        return Restrictions.gt(fieldName, value);    
-                    } else {
-                        if(binaryPropertyFilter 
-                                instanceof GreaterThanEqualsPropertyFilter) {
-                            return Restrictions.ge(fieldName, value);  
-                        } else {
-                            if(binaryPropertyFilter instanceof LikePropertyFilter) {
-                                if(((LikePropertyFilter)binaryPropertyFilter).
-                                         getCaseSensitive()) {
-                                    return Restrictions.like(fieldName, value);
-                                } else {
-                                    return Restrictions.ilike(fieldName, value);
-                                }
-                            } else {
-                                throw new IllegalStateException(
-                                        "Unable to process filter" 
-                                        + binaryPropertyFilter);
-                            }
-                        }
-                    }
-                }
+                ret = Restrictions.ilike(fieldName, value);
             }
+        } else {
+            throw new IllegalStateException("Unable to process filter"
+                            + binaryPropertyFilter);
         }
-
+        
+        return ret;
     }
 
 
