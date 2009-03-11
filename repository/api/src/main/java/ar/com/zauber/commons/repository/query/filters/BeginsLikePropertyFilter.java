@@ -29,12 +29,10 @@ import ar.com.zauber.commons.repository.query.values.Value;
  */
 public class BeginsLikePropertyFilter extends LikePropertyFilter {
 
+
     /**
-     * Crea el/la BeginsLikePropertyFilter.
-     *
-     * @param property
-     * @param value
-     * @param caseSensitive
+     * @param property property to query
+     * @param value    literal value to match
      */
     public BeginsLikePropertyFilter(final String property, final Value value, 
             final Boolean caseSensitive) {

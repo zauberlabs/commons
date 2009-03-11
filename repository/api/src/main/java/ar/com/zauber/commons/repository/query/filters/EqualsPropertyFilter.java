@@ -28,10 +28,8 @@ import ar.com.zauber.commons.repository.query.values.Value;
 public class EqualsPropertyFilter extends BinaryPropertyFilter {
 
     /**
-     * Crea el/la EqualsPropertyFilter.
-     *
-     * @param property
-     * @param value
+     * @param property property to query
+     * @param value    literal value to match
      */
     public EqualsPropertyFilter(final String property, final Value value) {
         super(property, value);

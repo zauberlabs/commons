@@ -31,12 +31,10 @@ public abstract class LikePropertyFilter extends BinaryPropertyFilter {
     /** <code>caseSensitive</code> */
     private Boolean caseSensitive;
     
+
     /**
-     * Crea el/la LessThanPropertyOperator.
-     *
-     * @param property
-     * @param value
-     * @param caseSensitive
+     * @param property property to query
+     * @param value    literal value to match
      */
     public LikePropertyFilter(final String property, final Value value, 
             final Boolean caseSensitive) {

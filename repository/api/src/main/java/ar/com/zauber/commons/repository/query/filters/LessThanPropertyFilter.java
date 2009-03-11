@@ -28,11 +28,10 @@ import ar.com.zauber.commons.repository.query.values.Value;
  */
 public class LessThanPropertyFilter extends BinaryPropertyFilter {
 
+
     /**
-     * Crea el/la LessThanPropertyFilter.
-     *
-     * @param property
-     * @param value
+     * @param property property to query
+     * @param value    literal value to match
      */
     public LessThanPropertyFilter(final String property, final Value value) {
         super(property, value);
