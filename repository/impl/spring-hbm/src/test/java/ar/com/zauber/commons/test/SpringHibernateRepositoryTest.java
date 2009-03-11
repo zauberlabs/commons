@@ -15,7 +15,6 @@
  */
 package ar.com.zauber.commons.test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,7 +26,6 @@ import junit.framework.Assert;
 
 import org.apache.commons.beanutils.BeanPropertyValueChangeClosure;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.NotImplementedException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import ar.com.zauber.commons.dao.Order;
@@ -54,7 +52,9 @@ import ar.com.zauber.commons.repository.query.filters.ContainsLikePropertyFilter
 import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.Filter;
 import ar.com.zauber.commons.repository.query.filters.GreaterThanPropertyFilter;
+import ar.com.zauber.commons.repository.query.filters.LessThanEqualsPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.NullFilter;
+import ar.com.zauber.commons.repository.query.values.PropertyValue;
 import ar.com.zauber.commons.repository.query.values.SimpleValue;
 import ar.com.zauber.commons.repository.test.model.DireccionDummy;
 import ar.com.zauber.commons.repository.test.model.PersonaDummy;
@@ -510,8 +510,7 @@ public class SpringHibernateRepositoryTest extends
         assertTrue(d.get(1).getDescripcion().toLowerCase().startsWith("o"));
         assertTrue(d.get(1).getDescripcion().toLowerCase().startsWith("o"));
     }
- 
-    protected HibernateTemplate hibernateTemplate;
+    
     /** test */
     public final void testCountGroupBy() {
         createSomeData();
@@ -542,5 +541,19 @@ public class SpringHibernateRepositoryTest extends
          assertEquals(6, row[0]);
          assertEquals("Cordoba", row[1]);
          assertEquals(5678, row[2]);
+    }
+    
+    
+    /** test */
+    public final void testPropertyValue() {
+        createSomeData();
+        final Query<PersonaDummy> q1 =
+            new SimpleQuery<PersonaDummy>(
+                    PersonaDummy.class, new EqualsPropertyFilter("id", 
+                            new PropertyValue("id")), null, null);
+
+
+        assertEquals(Integer.valueOf(6), 
+                repository.aggregate(q1, new RowCountAggregateFilter(), Integer.class));
     }
 }

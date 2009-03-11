@@ -48,7 +48,9 @@ import ar.com.zauber.commons.repository.query.filters.LessThanEqualsPropertyFilt
 import ar.com.zauber.commons.repository.query.filters.LessThanPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.LikePropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.NullFilter;
+import ar.com.zauber.commons.repository.query.values.PropertyValue;
 import ar.com.zauber.commons.repository.query.values.SimpleValue;
+import ar.com.zauber.commons.repository.query.values.Value;
 
 /**
  * Visitor concreto para construir un <code>Criteria</code> de Hibernate
@@ -485,8 +487,18 @@ public class CriteriaFilterVisitor implements FilterVisitor {
     /** @see FilterVisitor#visitBinaryPropertyFilter(BinaryPropertyFilter) */
     public final void visitBinaryPropertyFilter(
             final BinaryPropertyFilter binaryPropertyFilter) {
-        Object value = ((SimpleValue)binaryPropertyFilter.getValue()).getValue();
-        criterion = createCriterion(binaryPropertyFilter, value);
+        final Value value = binaryPropertyFilter.getValue();
+        
+        if(value instanceof SimpleValue) {
+            criterion = createCriterion(binaryPropertyFilter, 
+                    ((SimpleValue)value).getValue());
+        } else if(value instanceof PropertyValue) {
+            criterion = createPropertyCriterion(binaryPropertyFilter, 
+                    ((PropertyValue) value).getOtherProperty());            
+        } else {
+            throw new IllegalArgumentException("don't know how to handle "
+                    + value.getClass());
+        }
         negateIfNeeded(binaryPropertyFilter);
     }
 
@@ -521,8 +533,34 @@ public class CriteriaFilterVisitor implements FilterVisitor {
         
         return ret;
     }
+    
+    /** calculate a criterion */
+    private Criterion createPropertyCriterion(
+            final BinaryPropertyFilter binaryPropertyFilter, 
+            final String otherProperty) {
+        final String fieldName = getFieldName(binaryPropertyFilter.getProperty());
+        final Criterion ret;
+        
+        if (binaryPropertyFilter instanceof EqualsPropertyFilter) {
+            ret = Restrictions.eqProperty(fieldName, otherProperty);    
+        } else  if (binaryPropertyFilter instanceof LessThanPropertyFilter) {
+            ret = Restrictions.ltProperty(fieldName, otherProperty);
+        } else if(binaryPropertyFilter instanceof LessThanEqualsPropertyFilter) {
+            ret = Restrictions.leProperty(fieldName, otherProperty);
+        } else if(binaryPropertyFilter instanceof GreaterThanPropertyFilter) {
+            ret = Restrictions.gtProperty(fieldName, otherProperty);    
+        } else if(binaryPropertyFilter instanceof GreaterThanEqualsPropertyFilter) {
+            ret = Restrictions.geProperty(fieldName, otherProperty);  
+        } else {
+            throw new IllegalStateException("Unable to process filter"
+                            + binaryPropertyFilter);
+        }
+        
+        return ret;
+    }
 
 
+    
 
     /** @see FilterVisitor#visitNullFilter(NullFilter) */
     public final void visitNullFilter(final NullFilter nullFilter) {
