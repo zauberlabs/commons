@@ -15,9 +15,6 @@
  */
 package ar.com.zauber.commons.repository.query.filters;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
-
 import ar.com.zauber.commons.repository.query.values.Value;
 import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 
@@ -31,32 +28,17 @@ import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
  * @since Sep 21, 2007
  */
 public abstract class BinaryPropertyFilter extends PropertyFilter {
+
     private final Value value;
-    private final String otherProperty;
-    
+
     /** constructor */
     public BinaryPropertyFilter(final String property, final Value value) {
         super(property);
         this.value = value;
-        this.otherProperty = null;
     }
 
-    /** constructor */
-    public BinaryPropertyFilter(final String property, final String otherProperty) {
-        super(property);
-        Validate.isTrue(!StringUtils.isBlank(otherProperty));
-        this.value = null;
-        this.otherProperty = otherProperty;
-    }
-
-    
     public final Value getValue() {
         return value;
-    }
-
-    
-    public final String getOtherProperty() {
-        return otherProperty;
     }
 
     /** @see Filter#accept(FilterVisitor) */
