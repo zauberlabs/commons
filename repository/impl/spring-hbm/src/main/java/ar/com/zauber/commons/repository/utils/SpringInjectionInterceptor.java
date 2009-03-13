@@ -12,11 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
@@ -30,11 +25,6 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-
-import ar.com.zauber.commons.repository.Persistible;
-import ar.com.zauber.commons.repository.Reference;
-import ar.com.zauber.commons.repository.test.model.DomainEntityExample;
-import ar.com.zauber.commons.repository.test.model.SomeService;
 
 /**
  * <p>
@@ -125,7 +115,8 @@ public class SpringInjectionInterceptor extends EmptyInterceptor
             }
             
             if(fields.size() > 0) {
-                dependencyCache.put(clazz, new DependencyInjection(fields));
+                dependencyCache.put(clazz, new DependencyInjection(fields,
+                        InitializingBean.class.isAssignableFrom(clazz)));
             }
         }
     }
@@ -161,12 +152,19 @@ public class SpringInjectionInterceptor extends EmptyInterceptor
     /** injection */
     class DependencyInjection {
         private final List<Entry<Field, String>> fields;
+        private final boolean initializingBean;
 
-        /**  @param fields list of fields and bean name to inject */
-        public DependencyInjection(final List<Entry<Field, String>> fields) {
+        /**  
+         * @param fields list of fields and bean name to inject 
+         * @param initializingBean <code>true</code> if the class implements
+         *   {@link InitializingBean}. 
+         */
+        public DependencyInjection(final List<Entry<Field, String>> fields, 
+                final boolean initializingBean) {
             Validate.noNullElements(fields);
             
             this.fields = fields;
+            this.initializingBean = initializingBean;
         }
         
         /** inject the dependency */
@@ -191,6 +189,14 @@ public class SpringInjectionInterceptor extends EmptyInterceptor
                 } catch(final NoSuchBeanDefinitionException e) {
                     log.error("unable to inject bean named `" + beanName  
                             + "' to class " + o.getClass().getName(), e);
+                }
+            }
+            
+            if(initializingBean) {
+                try {
+                    ((InitializingBean)o).afterPropertiesSet();
+                } catch (final Exception e) {
+                    throw new UnhandledException(e);
                 }
             }
         }

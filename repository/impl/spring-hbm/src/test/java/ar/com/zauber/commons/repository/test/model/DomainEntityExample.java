@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -22,7 +23,7 @@ import ar.com.zauber.commons.repository.Reference;
  */
 @Entity
 @Configurable
-public class DomainEntityExample implements Persistible {
+public class DomainEntityExample implements Persistible, InitializingBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -30,6 +31,7 @@ public class DomainEntityExample implements Persistible {
     private transient SomeService service;
     @Qualifier
     private transient SomeService someService;
+    private transient boolean initialized = false;
     
     /** @see Persistible#generateReference() */
     public final <T> Reference<? extends Persistible> generateReference() {
@@ -54,5 +56,15 @@ public class DomainEntityExample implements Persistible {
    
     public final SomeService getSomeService() {
         return someService;
+    }
+
+    /** @see InitializingBean#afterPropertiesSet() */
+    public final void afterPropertiesSet() throws Exception {
+        initialized = true;
+    }
+
+    
+    public final boolean isInitialized() {
+        return initialized;
     }
 }

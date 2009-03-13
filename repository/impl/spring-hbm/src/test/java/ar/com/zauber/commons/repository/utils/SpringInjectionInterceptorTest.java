@@ -59,6 +59,7 @@ public class SpringInjectionInterceptorTest extends
               DomainEntityExample.class, 1L));
         assertSame(someService, e2.getService());
         assertSame(someService, e2.getSomeService());
+        assertTrue(e2.isInitialized());
     }
     
 }
