@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- Hibernate Properties -->
+	<bean id="hibernateProperties" 
+	 class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	 <property name="properties">
+	  <props>
+	    <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+	    <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+	    <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+        <prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+	  </props>
+	 </property>
+	</bean>
+	
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="hibernateProperties">
+			<ref bean="hibernateProperties" />
+		</property>
+		<!--  OR mapping files. -->
+		<property name="annotatedClasses">
+			<ref bean="annotatedClasses" />
+		</property>
+		<property name="dataSource">
+			<ref bean="ds" />
+		</property>
+		<property name="entityInterceptor">
+			<bean class="ar.com.zauber.commons.repository.utils.SpringInjectionInterceptor">
+			    <constructor-arg index="0" ref="annotatedClasses"/>
+			</bean>
+		</property>
+	</bean>
+		
+	<bean id="hibernateTemplate" 
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+		<property name="flushMode"><value>4</value></property>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+</beans>
