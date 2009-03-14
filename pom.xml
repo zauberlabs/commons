@@ -99,6 +99,28 @@
   <build>
      <plugins>
       <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.3</version>
+        <configuration>
+            <includes>
+               <include>**/*Test.java</include>
+            </includes>
+         </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <executions>
+             <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+             </execution>
+          </executions>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <tagBase>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/</tagBase>
@@ -158,19 +180,24 @@
      <dependency>
         <artifactId>junit</artifactId>
         <groupId>junit</groupId>
-        <version>3.8.2</version>
      </dependency>
   </dependencies>
   <properties>
       <spring.version>2.5.6</spring.version>
       <spring.security.version>2.0.4</spring.security.version>
-      <hibernate.version>3.2.6.ga</hibernate.version>
-      <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+      <hibernate.version>3.3.1.GA</hibernate.version>
+      <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
       <doxia.version>1.1</doxia.version>
       <jetty.version>6.1.9</jetty.version>
   </properties>
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <artifactId>junit</artifactId>
+        <groupId>junit</groupId>
+        <version>4.5</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
@@ -179,7 +206,26 @@
       <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
-        <version>1.2.8</version>
+        <version>1.2.15</version>
+        <exclusions>
+           <exclusion>
+             <groupId>javax.mail</groupId>
+             <artifactId>mail</artifactId>
+           </exclusion>
+           <exclusion>
+             <groupId>javax.jms</groupId>
+             <artifactId>jms</artifactId>
+           </exclusion>
+           <exclusion>
+             <groupId>com.sun.jmx</groupId>
+             <artifactId>jmxri</artifactId>
+           </exclusion>
+           <exclusion>
+             <groupId>com.sun.jdmk</groupId>
+             <artifactId>jmxtools</artifactId>
+           </exclusion>
+
+        </exclusions>
         <scope>test</scope>
       </dependency>
 
@@ -232,20 +278,21 @@
 
      <dependency>
       <groupId>org.hibernate</groupId>
-      <artifactId>hibernate</artifactId>
+      <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-annotations</artifactId>
       <version>${hibernate.annotations.version}</version>
+      <exclusions>
+        <exclusion>
+           <groupId>org.hibernate</groupId>
+           <artifactId>hibernate-commons-annotations</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-commons-annotations</artifactId>
-      <version>${hibernate.annotations.version}</version>
-    </dependency>
-
+    
      <!-- spring -->
      <dependency>
         <groupId>org.springframework</groupId>
@@ -261,6 +308,11 @@
      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
         <version>${spring.version}</version>
      </dependency>
      <dependency>
