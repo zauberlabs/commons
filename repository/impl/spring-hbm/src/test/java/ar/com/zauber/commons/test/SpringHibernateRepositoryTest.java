@@ -533,7 +533,7 @@ public class SpringHibernateRepositoryTest extends
          assertEquals(rows.size(), 2);
          
          Object[] row = (Object []) rows.get(0);
-         assertEquals(6, row[0]);
+
          assertEquals("Santa Fe", row[1]);
          assertEquals(1234, row[2]);
          
