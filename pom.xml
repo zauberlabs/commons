@@ -94,6 +94,7 @@
      <module>exception</module>
      <module>facebook</module>
      <module>web</module>
+     <module>wicket</module>
   </modules>
   
   <build>
