@@ -3,7 +3,7 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>3.10-SNAPSHOT</version>
+    <version>3.11-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Gis</name>
   <artifactId>commons-gis</artifactId>
