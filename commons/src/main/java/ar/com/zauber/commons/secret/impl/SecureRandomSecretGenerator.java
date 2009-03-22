@@ -17,8 +17,7 @@ package ar.com.zauber.commons.secret.impl;
 
 import java.security.SecureRandom;
 
-import org.codehaus.plexus.util.Base64;
-
+import sun.misc.BASE64Encoder;
 import ar.com.zauber.commons.secret.SecretGenerator;
 
 /**
@@ -47,8 +46,9 @@ public class SecureRandomSecretGenerator implements SecretGenerator {
     public final synchronized String getSecret() {
         final byte [] bytes = new byte [BYTES_TO_READ];
         secureRandom.nextBytes(bytes);
+        
         //return String.copyValueOf(Hex.encodeHex(bytes));
-        return new String(Base64.encodeBase64(bytes)).replace('+', 'A')
+        return new String(new BASE64Encoder().encode(bytes)).replace('+', 'A')
                                                      .replace('/', 'B')
                                                      .replace('=', 'C');
     }
