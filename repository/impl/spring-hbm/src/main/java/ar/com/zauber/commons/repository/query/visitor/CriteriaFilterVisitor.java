@@ -176,6 +176,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
         String fieldName = getFieldName(
                 isNullPropertyFilter.getProperty());
         criterion = Restrictions.isNull(fieldName);
+        negateIfNeeded(isNullPropertyFilter);
     }
 
     /////////////////////////////////////////////
@@ -187,6 +188,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
     public final void visitCompositeFilter(final CompositeFilter compositeFilter) {
         // se itera sobre los hijos a aplicar operaciones
         visitCompositeChildren(compositeFilter);
+        negateIfNeeded(compositeFilter);
     }
 
     /////////////////////////////////////////////
@@ -558,9 +560,6 @@ public class CriteriaFilterVisitor implements FilterVisitor {
         
         return ret;
     }
-
-
-    
 
     /** @see FilterVisitor#visitNullFilter(NullFilter) */
     public final void visitNullFilter(final NullFilter nullFilter) {
