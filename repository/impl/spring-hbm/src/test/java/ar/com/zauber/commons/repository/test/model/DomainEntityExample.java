@@ -35,7 +35,8 @@ import ar.com.zauber.commons.repository.Reference;
  */
 @Entity
 @Configurable
-public class DomainEntityExample implements Persistible, InitializingBean {
+public class DomainEntityExample extends AbstractDomainEntityExample 
+                              implements Persistible, InitializingBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
