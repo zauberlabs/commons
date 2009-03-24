@@ -18,6 +18,8 @@ package ar.com.zauber.commons.repository.utils;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,14 +94,20 @@ public class SpringInjectionInterceptor extends EmptyInterceptor
     public SpringInjectionInterceptor(final List<Class> persistibleClasses) {
         Validate.noNullElements(persistibleClasses);
         
-        // calculate injecteable beans
         for(final Class clazz : persistibleClasses) {
             final List<Entry<Field, String>> fields = 
                 new LinkedList<Entry<Field, String>>();
-            
             for(final Annotation annotation : clazz.getAnnotations()) {
                 if(annotation instanceof Configurable) {
-                    for(final Field field : clazz.getDeclaredFields()) {
+                    final List<Field> clazzFields = new LinkedList<Field>();
+                    Class c = clazz;
+                    while(c != null) {
+                        clazzFields.addAll(Arrays.asList(c.getDeclaredFields()));
+                        c = c.getSuperclass();
+                    }
+                    
+                    
+                    for(final Field field : clazzFields) {
                         for(final Annotation a : field.getAnnotations()) {
                             if(a instanceof Qualifier) {
                                 String n = ((Qualifier) a).value();
