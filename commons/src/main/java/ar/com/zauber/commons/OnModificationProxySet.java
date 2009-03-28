@@ -126,6 +126,12 @@ public abstract class OnModificationProxySet<T> implements Set<T>  {
         return target.remove(o);
     }
 
+    /** @see java.lang.Object#toString() */
+    @Override
+    public String toString() {
+        return getTargetSet().toString();
+    }
+    
     /** called on remove */
     protected  abstract void onRemove(T o);
     
