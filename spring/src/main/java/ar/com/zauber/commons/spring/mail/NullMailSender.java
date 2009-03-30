@@ -15,40 +15,42 @@
  */
 package ar.com.zauber.commons.spring.mail;
 
-/**
- * MailSender que no hace nada
- * 
- * 
- * @author Matías Arciprete
- * @since 06/01/2009
- */
 import java.util.Arrays;
-
-import javax.swing.JTextArea;
 
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
+/**
+ * MailSender que no hace nada
+ *
+ *
+ * @author Matías Arciprete
+ * @since 06/01/2009
+ */
 public class NullMailSender implements MailSender {
 
-    public void send(SimpleMailMessage simpleMessage) throws MailException {
+    /** @see MailSender#send(SimpleMailMessage) */
+    public final void send(final SimpleMailMessage simpleMessage) 
+        throws MailException {
 
         send(new SimpleMailMessage[] {simpleMessage});
-        
+
     }
 
-    public void send(SimpleMailMessage[] simpleMessages) throws MailException {
+    /** @see MailSender#send(SimpleMailMessage[]) */
+    public final void send(final SimpleMailMessage[] simpleMessages) 
+        throws MailException {
 
         final StringBuilder sb = new StringBuilder();
         sb.append("This window show that the system tried to send an email.\n");
         sb.append("\n");
         sb.append("The email wasnt sent. To do change the AppContext.\n");
-        
+
         for(final SimpleMailMessage message : simpleMessages) {
-            
+
             sb.append(" --------------8<--------------\n");
-            
+
             if(message.getFrom() != null) {
                 sb.append("From: ");
                 sb.append(message.getFrom());
@@ -77,11 +79,11 @@ public class NullMailSender implements MailSender {
                     sb.append("\nSubject: ");
                     sb.append(message.getSubject());
             }
-            
+
             sb.append("\n\n");
             sb.append(message.getText());
         }
-        
+
         /*
          * Muestra el mensaje en la consola
          */
