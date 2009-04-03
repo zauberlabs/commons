@@ -68,6 +68,18 @@
       <artifactId>junit</artifactId>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>ar.com.zauber.commons.repository.impl</groupId>
+      <artifactId>commons-repository-impl-springhbm</artifactId>
+      <optional>true</optional>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ar.com.zauber.commons.repository.impl</groupId>
+      <artifactId>commons-repository-impl-entities</artifactId>
+      <optional>true</optional>
+      <version>${pom.version}</version>
+    </dependency>
 
   </dependencies>
 </project>

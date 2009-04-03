@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="hibernateProperties">
+            <bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		     <property name="properties">
+		      <props>
+		        <prop key="hibernate.hbm2ddl.auto">update</prop>
+		        <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+		        <prop key="hibernate.show_sql">false</prop>
+		        <prop key="hibernate.default_schema">public</prop>
+		      </props>
+		     </property>
+		    </bean>
+        </property>
+        <!--  OR mapping files. -->
+        <property name="annotatedClasses">
+              <bean id="annotatedClasses" class="java.util.ArrayList">
+			    <constructor-arg>
+			      <list>
+			        <value>ar.com.zauber.commons.spring.mail.RepositoryMailMessage</value>
+			      </list>
+			    </constructor-arg>
+			  </bean>
+        </property>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+        
+   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+         <property name="url" value="jdbc:hsqldb:mem:foo"/>
+         <property name="username" value="SA"/>      
+         <property name="password" value=""/>
+    </bean> 
+    <bean id="hibernateTemplate" 
+        class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+        <property name="flushMode"><value>4</value></property>
+    </bean>
+    
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+</beans>
