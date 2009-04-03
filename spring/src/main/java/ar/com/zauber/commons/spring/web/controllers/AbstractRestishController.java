@@ -42,7 +42,8 @@ public abstract class AbstractRestishController extends AbstractController {
     private final SpringWebUtil springWebUtil;
     private final SEOIdStrategy seoStrategy;
     private int firstIndex = 3;
-
+    private boolean callEntityOnRelationship = true;
+    
     /** controller */
     public AbstractRestishController(final SpringWebUtil springWebUtil) {
         this(springWebUtil, new IdSEOIdStrategy());
@@ -83,7 +84,9 @@ public abstract class AbstractRestishController extends AbstractController {
             if(id == null) {
                 throw new NoSuchEntityException(patharray[firstIndex]);
             }
-            ret = entity(id, request, response);
+            if(callEntityOnRelationship) {
+                ret = entity(id, request, response);
+            }
             final String action = patharray[firstIndex + 1];
             try {
                 final Method m = getClass().getMethod(action, long.class, 
@@ -119,6 +122,25 @@ public abstract class AbstractRestishController extends AbstractController {
     public final void setFirstIndex(final int firstIndex) {
         Validate.isTrue(firstIndex >= 0);
         this.firstIndex = firstIndex;
+    }
+
+    
+    /**
+     * Returns the callEntityOnRelationship.
+     * 
+     * @return <code>boolean</code> with the callEntityOnRelationship.
+     */
+    public final boolean isCallEntityOnRelationship() {
+        return callEntityOnRelationship;
+    }
+
+    /**
+     * Sets the callEntityOnRelationship. 
+     *
+     * @param callEntityOnRelationship <code>boolean</code> with the callEntityOnRelationship.
+     */
+    public final void setCallEntityOnRelationship(boolean callEntityOnRelationship) {
+        this.callEntityOnRelationship = callEntityOnRelationship;
     }
 
     /**
