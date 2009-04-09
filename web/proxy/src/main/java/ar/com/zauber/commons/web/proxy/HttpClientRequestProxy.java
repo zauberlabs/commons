@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,10 +30,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.DeleteMethod;
+import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
@@ -227,11 +228,13 @@ public class HttpClientRequestProxy {
         final String method = request.getMethod().toUpperCase();
         final HttpMethod ret;
 
+        final String uri = urlResult.getURL().toExternalForm();
         if ("GET".equals(method)) {
-            ret = new GetMethod(urlResult.getURL().toExternalForm());
+            ret = new GetMethod(uri);
             proxyHeaders(request, ret);
-        } else if("POST".equals(method)) {
-            PostMethod pm = new PostMethod(urlResult.getURL().toExternalForm());
+        } else if("POST".equals(method) || "PUT".equals(method)) {
+            final EntityEnclosingMethod pm = 
+                "POST".equals(method) ? new PostMethod(uri) : new PutMethod(uri);
             proxyHeaders(request, pm);            
             try {
                 pm.setRequestEntity(new InputStreamRequestEntity(
@@ -241,6 +244,11 @@ public class HttpClientRequestProxy {
                         + "del request.", e);
             }
             ret = pm;
+            
+        } else if("DELETE".equals(method)) {
+            final DeleteMethod dm = new DeleteMethod(uri);
+            proxyHeaders(request, dm);
+            ret = dm;
         } else {
             throw new NotImplementedException("i accept patches :)");
         }
