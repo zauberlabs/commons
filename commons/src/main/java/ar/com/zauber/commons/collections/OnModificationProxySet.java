@@ -1,4 +1,4 @@
-package ar.com.zauber.commons;
+package ar.com.zauber.commons.collections;
 
 import java.util.Collection;
 import java.util.HashSet;
