@@ -152,8 +152,12 @@ public class DynamicSortedCollection<T> implements List<T> {
         }
     }
     /** @see java.util.List#subList(int, int) */
-    public final List<T> subList(final int fromIndex, final int toIndex) {
-        return list.subList(fromIndex, toIndex);
+    public final DynamicSortedCollection<T> subList(
+            final int fromIndex, final int toIndex) {
+        final DynamicSortedCollection<T> subList = 
+            new DynamicSortedCollection<T>(comparator);
+        subList.addAll(list.subList(fromIndex, toIndex));
+        return subList;
     }
     /** @see java.lang.Object#equals(java.lang.Object) */
     public final boolean equals(final Object obj) {
