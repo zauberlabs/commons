@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.commons.lang.Validate;
 
@@ -17,11 +18,11 @@ import org.apache.commons.lang.Validate;
  * at any moment and its elements are re-sorted
  * after that.
  *
- * @param <T> The kind of objects that you'll save within the collection  
+ * @param <T> The kind of objects that you'll save within the collection
  * @author Christian Nardi
  * @since May 15, 2009
  */
-public class DynamicSortedCollection<T> implements Collection<T> {
+public class DynamicSortedCollection<T> implements List<T> {
     private final List<T> list = new ArrayList<T>();
     private Comparator<? super T> comparator;
 
@@ -35,7 +36,8 @@ public class DynamicSortedCollection<T> implements Collection<T> {
         Validate.notNull(comparator);
         this.comparator = comparator;
     }
-    /** @see java.util.List#add(java.lang.Object) 
+
+    /** @see java.util.List#add(java.lang.Object)
      * This operation is expensive, so unnecessary calls should be avoided
      * */
     public final boolean add(final T e) {
@@ -43,7 +45,7 @@ public class DynamicSortedCollection<T> implements Collection<T> {
         Collections.sort(list, comparator);
         return ret;
     }
-    /** @see java.util.Collection#addAll(java.util.Collection) 
+    /** @see java.util.Collection#addAll(java.util.Collection)
      * This operation is expensive, so unnecessary calls should be avoided
      * */
     public final boolean addAll(final Collection<? extends T> c) {
@@ -100,10 +102,66 @@ public class DynamicSortedCollection<T> implements Collection<T> {
 
     /**
      * @param comparator the comparator used to re sorting the collection.
-     * This operation is expensive, so unnecessary calls should be avoided 
+     * This operation is expensive, so unnecessary calls should be avoided
      */
     public final void setComparator(final Comparator<? super T> comparator) {
         this.comparator = comparator;
         Collections.sort(list, comparator);
+    }
+    
+    /** @see java.util.List#add(int, java.lang.Object) */
+    public final void add(final int index, final T element) {
+        add(element);
+    }
+    /** @see java.util.List#addAll(int, java.util.Collection) */
+    public final boolean addAll(final int index, final Collection<? extends T> c) {
+        return addAll(c);
+    }
+    /** @see java.util.List#get(int) */
+    public final T get(final int index) {
+        return list.get(index);
+    }
+    /** @see java.util.List#indexOf(java.lang.Object) */
+    public final int indexOf(final Object o) {
+        return list.indexOf(o);
+    }
+    /** @see java.util.List#lastIndexOf(java.lang.Object) */
+    public final int lastIndexOf(final Object o) {
+        return list.lastIndexOf(o);
+    }
+    /** @see java.util.List#listIterator() */
+    public final ListIterator<T> listIterator() {
+        return list.listIterator();
+    }
+    /** @see java.util.List#listIterator(int) */
+    public final ListIterator<T> listIterator(final int index) {
+        return list.listIterator(index);
+    }
+    /** @see java.util.List#remove(int) */
+    public final T remove(final int index) {
+        return list.remove(index);
+    }
+    /** @see java.util.List#set(int, java.lang.Object) */
+    public final T set(final int index, final T element) {
+        list.add(element);
+        int i = list.indexOf(element);
+        if (i > 0) {
+            return list.get(i - 1);
+        } else {
+            return null;
+        }
+    }
+    /** @see java.util.List#subList(int, int) */
+    public final List<T> subList(final int fromIndex, final int toIndex) {
+        return list.subList(fromIndex, toIndex);
+    }
+    /** @see java.lang.Object#equals(java.lang.Object) */
+    public final boolean equals(final Object obj) {
+        return list.equals(obj);
+    }
+    
+    /** @see java.lang.Object#hashCode() */
+    public final int hashCode() {
+        return list.hashCode();
     }
 }
