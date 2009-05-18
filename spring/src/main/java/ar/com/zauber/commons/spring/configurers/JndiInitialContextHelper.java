@@ -54,8 +54,8 @@ public final class JndiInitialContextHelper {
             }
             return locations;
         } catch (final NamingException e) {
-            LOGGER.error("Hubo un error en el lookup de JNDI: "
-                    + e.getExplanation());
+            LOGGER.warn("Hubo un error en el lookup de JNDI. Se usarán "
+                      + "properties del classpath: " + e.getExplanation());
             return null;
         }
     }
