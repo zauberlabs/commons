@@ -93,8 +93,7 @@ public abstract class AbstractRestishController extends AbstractController {
                                 HttpServletRequest.class, HttpServletResponse.class);
                 ret = (ModelAndView) m.invoke(this, id, request, response);
             } catch(NoSuchMethodException e) {
-                response.sendError(404);
-                ret = null;
+                ret = onMethodFound(request, response);
             }
         } else {
             throw new IllegalArgumentException();
@@ -103,7 +102,12 @@ public abstract class AbstractRestishController extends AbstractController {
         return ret;
     }
 
-    
+    /** called when no method is found. desing for  override */
+    protected ModelAndView onMethodFound(final HttpServletRequest request, 
+            final HttpServletResponse response) throws Exception {
+        response.sendError(404);
+        return null;
+    }
 
     /**
      * Returns the firstIndex.
@@ -134,12 +138,8 @@ public abstract class AbstractRestishController extends AbstractController {
         return callEntityOnRelationship;
     }
 
-    /**
-     * Sets the callEntityOnRelationship. 
-     *
-     * @param callEntityOnRelationship <code>boolean</code> with the callEntityOnRelationship.
-     */
-    public final void setCallEntityOnRelationship(boolean callEntityOnRelationship) {
+    public final void setCallEntityOnRelationship(
+            final boolean callEntityOnRelationship) {
         this.callEntityOnRelationship = callEntityOnRelationship;
     }
 
