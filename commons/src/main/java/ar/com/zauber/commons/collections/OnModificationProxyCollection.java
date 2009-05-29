@@ -1,11 +1,10 @@
 package ar.com.zauber.commons.collections;
 
 import java.util.Collection;
-import java.util.HashSet;
+
 import java.util.Iterator;
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
 
 /**
  * Base implementation for {@link Set} fowards all the messages to a target 
@@ -16,15 +15,14 @@ import org.apache.commons.lang.Validate;
  * @since Jan 29, 2009
  * @param <T> entity type
  */
-public abstract class OnModificationProxySet<T> implements Set<T>  {
+public abstract class OnModificationProxyCollection<T> implements Collection<T>  {
     
 
     /** @see Set#addAll(Collection) */
     public final boolean addAll(final Collection<? extends T> c) {
         boolean ret = false;
-        final Set<T> target = getTargetSet();
         for(final T t : c) {
-            ret |= target.add(t);
+            ret |= this.add(t);
         }
         return ret;
     }
@@ -32,40 +30,40 @@ public abstract class OnModificationProxySet<T> implements Set<T>  {
 
     /** @see Set#contains(Object) */
     public final boolean contains(final Object o) {
-        return getTargetSet().contains(o);
+        return getTarget().contains(o);
     }
 
     /** @see Set#containsAll(Collection) */
     public final  boolean containsAll(final Collection<?> c) {
-        return getTargetSet().containsAll(c);
+        return getTarget().containsAll(c);
     }
 
     /** @see Set#equals(java.lang.Object) */
     @Override
     public final boolean equals(final Object o) {
-        return getTargetSet().equals(o);
+        return getTarget().equals(o);
     }
 
     /** @see Set#hashCode() */
     @Override
     public final int hashCode() {
-        return getTargetSet().hashCode();
+        return getTarget().hashCode();
     }
 
     /** @see Set#isEmpty() */
     public final boolean isEmpty() {
-        return getTargetSet().isEmpty();
+        return getTarget().isEmpty();
     }
 
     /** @see Set#iterator() */
     public final Iterator<T> iterator() {
-        return getTargetSet().iterator();
+        return getTarget().iterator();
     }
 
     /** @see Set#removeAll(java.util.Collection) */
     public final boolean removeAll(final Collection<?> c) {
         boolean ret = false;
-        final Set<T> target = getTargetSet();
+        final Collection<T> target = getTarget();
         for(final Object t : c) {
             ret |= target.remove(t);
         }
@@ -74,32 +72,34 @@ public abstract class OnModificationProxySet<T> implements Set<T>  {
 
     /** @see Set#size() */
     public final int size() {
-        return getTargetSet().size();
+        return getTarget().size();
     }
 
     /** @see Set#toArray() */
     public final Object[] toArray() {
-        return getTargetSet().toArray();
+        return getTarget().toArray();
     }
 
     /** @see Set#toArray(T[]) */
     public final <T> T[] toArray(final T[] a) {
-        return getTargetSet().toArray(a);
+        return getTarget().toArray(a);
     }
     
     /** @see Set#add(Object) */
     public final boolean add(final T e) {
-        final Set<T> target = getTargetSet();
+        final Collection<T> target = getTarget();
         if(!target.contains(e)) {
-            onAdd(e);
+            onAddPre(e);
         }
-        return target.add(e);
+        boolean ret=target.add(e);
+        onAddPost(e);
+        return ret;
     }
     
 
     /** @see Set#clear() */
     public final void clear() {
-        final Set<T> target = getTargetSet();
+        final Collection<T> target = getTarget();
         for(final T e : target) {
             remove(e);
         }
@@ -107,10 +107,9 @@ public abstract class OnModificationProxySet<T> implements Set<T>  {
     
     /** @see Set#retainAll(Collection) */
     public final boolean retainAll(final Collection<?> c) {
-        final Set c1 = new HashSet(c);
-        final Set<T> target = getTargetSet();
+        final Collection<T> target = getTarget();
         for(final T e : target) {
-            if(!c1.contains(e)) {
+            if(!c.contains(e)) {
                 remove(e);
             }
         }
@@ -119,27 +118,35 @@ public abstract class OnModificationProxySet<T> implements Set<T>  {
 
     /** @see Set#remove(Object) */
     public final boolean remove(final Object o) {
-        final Set<T> target = getTargetSet();
+        final Collection<T> target = getTarget();
         if(target.contains(o)) {
-            onRemove((T)o);
+            onRemovePre((T)o);
         }
-        return target.remove(o);
+        boolean ret=target.remove(o);
+        onRemovePost((T)o);
+        return ret;
     }
 
     /** @see java.lang.Object#toString() */
     @Override
     public String toString() {
-        return getTargetSet().toString();
+        return getTarget().toString();
     }
     
-    /** called on remove */
-    protected  abstract void onRemove(T o);
+    /** called on remove before*/
+    protected  abstract void onRemovePre(T o);
     
-    /** called on add */
-    protected abstract void onAdd(T e);
+    /** called on remove after*/
+    protected  abstract void onRemovePost(T o);
+    
+    /** called on add before*/
+    protected abstract void onAddPre(T e);
+    
+    /** called on add after*/
+    protected abstract void onAddPost(T e);
 
     /** gets target set */
-    protected abstract Set<T> getTargetSet();
+    protected abstract Collection<T> getTarget();
     
     
 }
