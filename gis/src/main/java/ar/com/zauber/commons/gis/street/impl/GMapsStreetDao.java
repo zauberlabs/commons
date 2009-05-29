@@ -58,8 +58,8 @@ public class GMapsStreetDao implements StreetsDAO {
     /**
      * Creates the GMapsStreetDao.
      * 
-     * @param apiKey
-     * @param streetsDAO
+     * @param apiKey api key
+     * @param streetsDAO streets dao
      */
     public GMapsStreetDao(final String apiKey, final StreetsDAO streetsDAO) {
         Validate.isTrue(!StringUtils.isEmpty(apiKey));
@@ -69,6 +69,21 @@ public class GMapsStreetDao implements StreetsDAO {
         this.streetsDAO = streetsDAO;
     }
 
+    /**
+     * Creates the GMapsStreetDao.
+     * 
+     * @param apiKey api key
+     * @param streetsDAO streets dao
+     */
+    public GMapsStreetDao(final String apiKey, final StreetsDAO streetsDAO,
+            final String countryCodeBias) {
+        Validate.isTrue(!StringUtils.isEmpty(apiKey));
+        Validate.notNull(streetsDAO);
+
+        this.apiKey = apiKey;
+        this.streetsDAO = streetsDAO;
+    }
+    
     /** @see StreetsDAO#getStreets(String) */
     public final List<Result> getStreets(final String query) {
         Validate.isTrue(!StringUtils.isEmpty(query));

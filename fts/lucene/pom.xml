@@ -2,7 +2,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.fts</groupId>
-    <version>3.12-SNAPSHOT</version>
+    <version>3.13-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-fts-lucene</artifactId>
