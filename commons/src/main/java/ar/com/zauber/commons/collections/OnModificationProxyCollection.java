@@ -91,7 +91,7 @@ public abstract class OnModificationProxyCollection<T> implements Collection<T> 
         if(!target.contains(e)) {
             onAddPre(e);
         }
-        boolean ret=target.add(e);
+        boolean ret = target.add(e);
         onAddPost(e);
         return ret;
     }
@@ -122,31 +122,39 @@ public abstract class OnModificationProxyCollection<T> implements Collection<T> 
         if(target.contains(o)) {
             onRemovePre((T)o);
         }
-        boolean ret=target.remove(o);
+        boolean ret = target.remove(o);
         onRemovePost((T)o);
         return ret;
     }
 
     /** @see java.lang.Object#toString() */
     @Override
-    public String toString() {
+    public final String toString() {
         return getTarget().toString();
     }
     
+    // template methods
+    
     /** called on remove before*/
-    protected  abstract void onRemovePre(T o);
+    protected void onRemovePre(final T o) {
+        // override
+    }
     
     /** called on remove after*/
-    protected  abstract void onRemovePost(T o);
+    protected  void onRemovePost(final T o) {
+        // override
+    }
     
     /** called on add before*/
-    protected abstract void onAddPre(T e);
+    protected void onAddPre(final T e) {
+        // override
+    }
     
     /** called on add after*/
-    protected abstract void onAddPost(T e);
+    protected void onAddPost(final T e) {
+        // override
+    }
 
     /** gets target set */
     protected abstract Collection<T> getTarget();
-    
-    
 }
