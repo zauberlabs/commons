@@ -1,14 +1,15 @@
 /**
  *  Copyright (c) 2008-2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.web.transformation.model.processors;
+package ar.com.zauber.commons.web.transformation.processors.impl;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.w3c.dom.Document;
 
-import ar.com.zauber.commons.web.transformation.model.DOMProcessor;
+import ar.com.zauber.commons.web.transformation.processors.DOMProcessor;
+
 
 /**
  * Clase base para {@link DOMProcessor} que necesitan de una

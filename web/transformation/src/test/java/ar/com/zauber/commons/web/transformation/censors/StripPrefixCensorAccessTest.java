@@ -1,14 +1,14 @@
 /**
  *  Copyright (c) 2008-2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.web.transformation.model.censors;
+package ar.com.zauber.commons.web.transformation.censors;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ar.com.zauber.commons.web.transformation.model.CensorAccess;
-import ar.com.zauber.commons.web.transformation.model.censors.StripPrefixCensorAccess;
+import ar.com.zauber.commons.web.transformation.censors.CensorAccess;
+import ar.com.zauber.commons.web.transformation.censors.impl.StripPrefixCensorAccess;
 import junit.framework.TestCase;
 
 /**

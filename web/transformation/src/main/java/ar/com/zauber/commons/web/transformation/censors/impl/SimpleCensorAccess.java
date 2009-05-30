@@ -1,13 +1,13 @@
 /**
  *  Copyright (c) 2008-2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.web.transformation.model.censors;
+package ar.com.zauber.commons.web.transformation.censors.impl;
 
 import java.util.List;
 
 import org.apache.commons.lang.Validate;
 
-import ar.com.zauber.commons.web.transformation.model.CensorAccess;
+import ar.com.zauber.commons.web.transformation.censors.CensorAccess;
 
 /**
  * Implementación tonta de {@link CensorAccess} que recibe un listado

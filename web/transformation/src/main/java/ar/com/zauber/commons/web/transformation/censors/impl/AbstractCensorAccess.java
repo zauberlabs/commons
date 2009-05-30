@@ -1,14 +1,14 @@
 /**
  *  Copyright (c) 2008-2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.web.transformation.model.censors;
+package ar.com.zauber.commons.web.transformation.censors.impl;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.commons.lang.Validate;
 
-import ar.com.zauber.commons.web.transformation.model.CensorAccess;
+import ar.com.zauber.commons.web.transformation.censors.CensorAccess;
 
 /**
  * Clase base para implementaciones de {@link CensorAccess}.

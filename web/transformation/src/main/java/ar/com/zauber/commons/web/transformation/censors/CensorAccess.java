@@ -1,7 +1,7 @@
 /**
  *  Copyright (c) 2008-2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.web.transformation.model;
+package ar.com.zauber.commons.web.transformation.censors;
 
 /**
  * Clase que sabe que persona puede acceder a que.
