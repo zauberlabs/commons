@@ -97,7 +97,8 @@ public class XmlSanitizerTest extends TestCase {
 
         final Tidy tidy = new Tidy(); // obtain a new Tidy instance
         tidy.setXHTML(false);
-        tidy.setShowWarnings(false);        
+        tidy.setShowWarnings(false);
+        tidy.setQuiet(true);
 
         /* Tidy adds:
          * <html>
