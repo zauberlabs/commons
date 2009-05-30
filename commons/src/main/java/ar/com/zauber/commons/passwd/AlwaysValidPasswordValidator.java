@@ -15,8 +15,6 @@
  */
 package ar.com.zauber.commons.passwd;
 
-import ar.com.zauber.commons.dao.exception.InvalidPassword;
-
 
 /**
  * Implementation that always returns <code>true</code> of
@@ -27,9 +25,9 @@ import ar.com.zauber.commons.dao.exception.InvalidPassword;
  */
 public class AlwaysValidPasswordValidator implements PasswordValidator {
 
-    /** @see PasswordValidator#validate(java.lang.String)
+    /** @see PasswordValidator#validate(String)
      */
-    public void validate(final String password) throws InvalidPassword {
+    public void validate(final String password) {
         // nothing to do
     }
 }

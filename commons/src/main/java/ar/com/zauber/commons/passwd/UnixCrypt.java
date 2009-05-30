@@ -33,7 +33,6 @@ public class UnixCrypt
 {
 
     private static final char saltChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./".toCharArray();
-    private static final int ITERATIONS = 16;
     private static final int con_salt[] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
