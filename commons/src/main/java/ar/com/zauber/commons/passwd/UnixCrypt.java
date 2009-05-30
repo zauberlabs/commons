@@ -18,6 +18,7 @@ package ar.com.zauber.commons.passwd;
 
 import java.util.Random;
 
+// CHECKSTYLE:ALL:OFF
 /**
  * Unix crypt algorithm implementation.
  *
