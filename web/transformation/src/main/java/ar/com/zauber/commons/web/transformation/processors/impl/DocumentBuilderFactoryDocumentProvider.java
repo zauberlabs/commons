@@ -33,12 +33,12 @@ import ar.com.zauber.commons.web.transformation.processors.DocumentProvider;
 public class DocumentBuilderFactoryDocumentProvider implements DocumentProvider {
 
     /** @see DocumentProvider#getInputStream(InputStream) */
-    public final Document getInputStream(final InputStream inputStream) {
+    public final Document parse(final InputStream inputStream) {
         final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         // Using factory get an instance of document builder
         
         try {
-            DocumentBuilder db = dbf.newDocumentBuilder();
+            final DocumentBuilder db = dbf.newDocumentBuilder();
             // parse using builder to get DOM representation of the XML file
             return db.parse(inputStream);
         } catch (ParserConfigurationException e) {

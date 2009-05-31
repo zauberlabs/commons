@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 public interface DocumentProvider {
 
     /** crea un document en base a un inputstream */
-    Document getInputStream(InputStream inputStream);
+    Document parse(InputStream inputStream);
     
     /** escribe un document a un output stream*/
     void serialize(Document document, OutputStream outputStream);

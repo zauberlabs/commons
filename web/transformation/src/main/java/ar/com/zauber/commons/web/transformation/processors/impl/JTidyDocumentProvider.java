@@ -29,7 +29,7 @@ public class JTidyDocumentProvider implements DocumentProvider {
     }
     
     /** @see DocumentProvider#getInputStream(InputStream) */
-    public final Document getInputStream(final InputStream inputStream) {
+    public final Document parse(final InputStream inputStream) {
         return tidy.parseDOM(inputStream, null);
     }
 
