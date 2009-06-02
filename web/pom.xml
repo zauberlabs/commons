@@ -14,5 +14,6 @@
     <module>proxy</module>
     <module>version</module>
     <module>transformation</module>
+    <module>rest</module>
   </modules>
 </project>
