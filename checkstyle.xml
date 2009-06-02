@@ -3,7 +3,7 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Zauber
+    Checkstyle-Configuration: Zauber Checks
     Description: none
 -->
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
@@ -51,10 +51,10 @@
         <module name="VisibilityModifier"/>
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
         <module name="JavadocMethod">
             <property name="allowUndeclaredRTE" value="true"/>
             <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingThrowsTags" value="true"/>
             <property name="allowMissingReturnTag" value="true"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
         </module>
@@ -73,10 +73,13 @@
         <module name="TypeName"/>
         <module name="FileLength"/>
         <module name="LineLength">
+            <property name="ignorePattern" value="^(|import .*)$"/>
             <property name="max" value="85"/>
         </module>
         <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <module name="ParameterNumber">
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
         <module name="EmptyForIteratorPad"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore"/>
@@ -92,11 +95,11 @@
     </module>
     <module name="SuppressionCommentFilter">
         <property name="offCommentFormat" value="CHECKSTYLE\:DESIGN\:OFF"/>
-        <property name="onCommentFormat" value="CHECKSTYLE\:DESIGN\:\:ON"/>
+        <property name="onCommentFormat" value="CHECKSTYLE\:DESIGN\:(\:|)ON"/>
         <property name="checkFormat" value="DesignForExtension"/>
     </module>
     <module name="SuppressionCommentFilter">
         <property name="offCommentFormat" value="CHECKSTYLE\:ALL\:OFF"/>
-        <property name="onCommentFormat" value="CHECKSTYLE\:ALL\:\:ON"/>
+        <property name="onCommentFormat" value="CHECKSTYLE\:ALL\:(\:|)ON"/>
     </module>
 </module>
