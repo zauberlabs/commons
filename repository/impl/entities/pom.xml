@@ -3,7 +3,7 @@
   <parent>
     <artifactId>impl-repository-parent</artifactId>
     <groupId>ar.com.zauber.commons.repository.impl</groupId>
-    <version>3.13-SNAPSHOT</version>
+    <version>3.14-SNAPHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::Entities </name>
   <artifactId>commons-repository-impl-entities</artifactId>

@@ -13,3 +13,4 @@
   
   <bean id="someService" class="ar.com.zauber.commons.repository.test.model.SomeService"/>   
 </beans>
+
