@@ -3,7 +3,7 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>3.13-SNAPSHOT</version>
+    <version>3.13</version>
   </parent>
   <name>Zauber::Commons::Auth</name>
   <artifactId>parent</artifactId>
