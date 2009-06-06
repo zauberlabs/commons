@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.Validate;
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -99,7 +99,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
         }
        
         ModelAndView ret = null;
-        final String secret = RequestUtils.getStringParameter(request,
+        final String secret = ServletRequestUtils.getStringParameter(request,
                "secret", null);
         
         if(secret == null) {
@@ -133,7 +133,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
     */
    public final ModelAndView confirm(final HttpServletRequest request, 
            final HttpServletResponse response) {
-       final String secret = RequestUtils.getStringParameter(request,
+       final String secret = ServletRequestUtils.getStringParameter(request,
                "secret", null);
        ModelAndView ret;
        
@@ -164,7 +164,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
    public final ModelAndView reject(final HttpServletRequest request, 
            final HttpServletResponse response) {
        ModelAndView ret = null;
-       final String secret = RequestUtils.getStringParameter(request,
+       final String secret = ServletRequestUtils.getStringParameter(request,
               "secret", null);
        
        if(secret == null) {
@@ -193,7 +193,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
    public final ModelAndView postreject(final HttpServletRequest request, 
            final HttpServletResponse response) {
        ModelAndView ret = null;
-       final String secret = RequestUtils.getStringParameter(request,
+       final String secret = ServletRequestUtils.getStringParameter(request,
               "secret", null);
 
        if(!request.getMethod().toLowerCase().equals("post")) {
