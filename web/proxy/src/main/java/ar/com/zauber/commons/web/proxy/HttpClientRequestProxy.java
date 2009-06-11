@@ -246,8 +246,17 @@ public class HttpClientRequestProxy {
             ret = pm;
             
         } else if("DELETE".equals(method)) {
+            /*
+            rfc2616
+            The Content-Length field of a request or response is added or deleted
+            according to the rules in section 4.4. A transparent proxy MUST
+            preserve the entity-length (section 7.2.2) of the entity-body,
+            although it MAY change the transfer-length (section 4.4).
+            */
             final DeleteMethod dm = new DeleteMethod(uri);
             proxyHeaders(request, dm);
+            //No body => No Header
+            dm.removeRequestHeader("Content-Length");
             ret = dm;
         } else {
             throw new NotImplementedException("i accept patches :)");
