@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Tue Jun 16 11:27:16 ART 2009</comment>
+	<entry key="3">^/hudson/(.*)$=http://localhost:8080/hudson/$1</entry>
+	<entry key="2">^/nexus/([^/]+)/([^/]+)/([^/]+)/(.*)$=http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4</entry>
+	<entry key="1">^/nexus/nexus/(.*)$=http://localhost:9095/nexus/$1</entry>
+	<entry key="0">^/nexus/public/(.*)$=http://localhost:9095/nexus/content/repositories/public/$1</entry>
+</properties>
