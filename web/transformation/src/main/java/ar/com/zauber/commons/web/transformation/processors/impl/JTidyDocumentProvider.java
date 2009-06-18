@@ -28,6 +28,12 @@ public class JTidyDocumentProvider implements DocumentProvider {
         tidy.setXHTML(false);
     }
     
+    /** Creates the JTidyDocumentProvider. */
+    public JTidyDocumentProvider(int encoding) {
+        this();
+        tidy.setCharEncoding(encoding);
+    }
+    
     /** @see DocumentProvider#getInputStream(InputStream) */
     public final Document parse(final InputStream inputStream) {
         return tidy.parseDOM(inputStream, null);
