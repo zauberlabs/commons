@@ -93,6 +93,7 @@
      <module>repository</module>
      <module>exception</module>
      <module>facebook</module>
+     <module>xmpp</module>
      <module>web</module>
      <module>wicket</module>
   </modules>
