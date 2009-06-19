@@ -17,16 +17,15 @@
         </constructor-arg>
     </bean>
     
-   <bean class="ar.com.zauber.commons.xmpp.auth.impl.LoginXmppRunnable"
-    init-method="run">
+   <bean name="commonsZauberCredentialsProvider" class="ar.com.zauber.commons.xmpp.auth.impl.InmutableXmppCredentialsProvider">
+       <constructor-arg index="0" value="${commons.xmpp.zauber.production.username}" />
+       <constructor-arg index="1" value="${commons.xmpp.zauber.production.password}" />
+       <constructor-arg index="2" value="${commons.xmpp.zauber.production.resource}" />
+       <constructor-arg index="3" value="${commons.xmpp.zauber.production.priority}" />
+   </bean>
+           
+   <bean class="ar.com.zauber.commons.xmpp.auth.impl.LoginXmppRunnable" init-method="run">
         <constructor-arg index="0" ref="commonsZauberXMPPConnection"/>
-        <constructor-arg index="1">
-            <bean class="ar.com.zauber.commons.xmpp.auth.impl.InmutableXmppCredentialsProvider">
-		       <constructor-arg index="0" value="${commons.xmpp.zauber.production.username}" />
-		       <constructor-arg index="1" value="${commons.xmpp.zauber.production.password}" />
-		       <constructor-arg index="2" value="${commons.xmpp.zauber.production.resource}" />
-		       <constructor-arg index="3" value="${commons.xmpp.zauber.production.priority}" />
-		   </bean>
-        </constructor-arg>
+        <constructor-arg index="1" ref="commonsZauberCredentialsProvider"/>
    </bean>
 </beans>
