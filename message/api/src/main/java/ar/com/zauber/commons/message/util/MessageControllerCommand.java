@@ -17,8 +17,6 @@ package ar.com.zauber.commons.message.util;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import ar.com.zauber.commons.message.MessageFactory;
 import ar.com.zauber.commons.message.NotificationAddress;
 import ar.com.zauber.commons.message.NotificationStrategy;
@@ -63,12 +61,12 @@ public class MessageControllerCommand  {
             final String messageSubject,
             final NotificationAddress messageFrom,
             final MessageFactory messageFactory) {        
-        Validate.notNull(notificationStrategy, "notificationStrategy");
-        Validate.notNull(messageText, "messageText");
-        Validate.notNull(messageSubject,
+        validateNotNull(notificationStrategy, "notificationStrategy");
+        validateNotNull(messageText, "messageText");
+        validateNotNull(messageSubject,
                                                   "changeEmailMessageSubject");
-        Validate.notNull(messageFrom, "changeEmailMessageFrom");
-        Validate.notNull(messageFactory, "messageFactory");
+        validateNotNull(messageFrom, "changeEmailMessageFrom");
+        validateNotNull(messageFactory, "messageFactory");
         
         this.notificationStrategy = notificationStrategy;
         this.messageText = messageText;
@@ -76,6 +74,16 @@ public class MessageControllerCommand  {
         this.messageFrom = messageFrom;
         this.messageFactory = messageFactory;
         
+    }
+    
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument is <code>null</code>.</p>
+     */
+    public static void validateNotNull(final Object object, final String message) {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
     
     /**
