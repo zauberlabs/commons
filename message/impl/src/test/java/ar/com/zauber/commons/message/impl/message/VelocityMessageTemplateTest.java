@@ -20,6 +20,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import ar.com.zauber.commons.message.Message;
+import ar.com.zauber.commons.message.MessageTemplate;
+import ar.com.zauber.commons.message.NotificationAddress;
 import ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress;
 
 
@@ -29,21 +31,17 @@ import ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress;
  * @author Juan F. Codagnone
  * @since Apr 19, 2006
  */
-public class VelocityMessageResolverTest extends TestCase {
-    /** resolver to test */
-    public final VelocityMessageResolver resolver;
-    
-    /** @throws on error */
-    public VelocityMessageResolverTest() throws Exception {
-        resolver = new VelocityMessageResolver();    
-    }
+public class VelocityMessageTemplateTest extends TestCase {
+    private final NotificationAddress address = new JavaMailEmailAddress("foo@bar");
     
     /** unit test */
     public final void testRenderSubjectWithModel() {
+        final MessageTemplate template = new VelocityMessageTemplate(
+                "body", "hola ${user}", address);
+        
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", "juan");
-        final Message msg = resolver.createMessage("body", "hola ${user}",
-                model, new JavaMailEmailAddress("foo@bar"));
+        final Message msg = template.render(model);
         
         assertEquals("body", msg.getContent());
         assertEquals("hola juan", msg.getSubject());
@@ -52,8 +50,9 @@ public class VelocityMessageResolverTest extends TestCase {
     /** unit test */
     public final void testRenderSubjectWithOutModel() {
         final Map<String, Object> model = new HashMap<String, Object>();
-        final Message msg = resolver.createMessage("body", "hola ${user}",
-                model, new JavaMailEmailAddress("foo@bar"));
+        final MessageTemplate template = new VelocityMessageTemplate(
+                "body", "hola ${user}", address);
+        final Message msg = template.render(model);
         
         assertEquals("body", msg.getContent());
         assertEquals("hola ${user}", msg.getSubject());
@@ -62,8 +61,9 @@ public class VelocityMessageResolverTest extends TestCase {
     /** unit test */
     public final void testRenderBodyWithOutModel() {
         final Map<String, Object> model = new HashMap<String, Object>();
-        final Message msg = resolver.createMessage("hola ${user}", "subject",
-                model, new JavaMailEmailAddress("foo@bar"));
+        final MessageTemplate template = new VelocityMessageTemplate(
+                "hola ${user}", "subject", address);
+        final Message msg = template.render(model);
         
         assertEquals("hola ${user}", msg.getContent());
         assertEquals("subject", msg.getSubject());
@@ -73,9 +73,9 @@ public class VelocityMessageResolverTest extends TestCase {
     public final void testRenderBodyWithModel() {
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", "juan");
-        final Message msg = resolver.createMessage("hola ${user}", "subject",
-                model, new JavaMailEmailAddress("foo@bar"));
-        
+        final MessageTemplate template = new VelocityMessageTemplate(
+                "hola ${user}", "subject", address);
+        final Message msg = template.render(model);
         assertEquals("hola juan", msg.getContent());
         assertEquals("subject", msg.getSubject());
     }

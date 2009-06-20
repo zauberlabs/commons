@@ -242,7 +242,11 @@
         <groupId>jtidy</groupId>
         <version>4aug2000r7-dev</version>
       </dependency>
-
+      <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity</artifactId>
+        <version>1.6</version>
+       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.auth</groupId>
         <artifactId>commons-auth-api</artifactId>

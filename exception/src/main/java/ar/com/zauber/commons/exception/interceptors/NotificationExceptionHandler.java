@@ -15,36 +15,48 @@
  */
 package ar.com.zauber.commons.exception.interceptors;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import ar.com.zauber.commons.exception.MessageKeyException;
-import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageFactory;
 import ar.com.zauber.commons.message.NotificationAddress;
 import ar.com.zauber.commons.message.NotificationStrategy;
 
 /**
- * TODO Brief description.
- *
- * TODO Detail
+ * Aspecto que envia mails con la exception
  *
  * @author Martin A. Marquez
  * @since Jul 24, 2007
  */
-public class NotificationExceptionHandler  extends
-    MethodInvocationExceptionChainedHandler {
+public class NotificationExceptionHandler  
+     extends MethodInvocationExceptionChainedHandler {
+    private final NotificationStrategy notificationStrategy;
+    private final MessageFactory messageFactory;
+    private final NotificationAddress[] receivers;
 
-    private MessageFactory messageFactory;
-    private NotificationStrategy notificationStrategy;
-    private NotificationAddress fromAddress;
-    private NotificationAddress[] receivers;
-    private String subjectKey;
-
-    /** logger */
     private static Log log = LogFactory.getLog(NotificationExceptionHandler.class);
 
+
+    /** constructor */
+    public NotificationExceptionHandler(
+            final NotificationStrategy notificationStrategy,
+            final MessageFactory messageFactory,
+            final NotificationAddress[] receivers) {
+        Validate.notNull(notificationStrategy);
+        Validate.notNull(messageFactory);
+        Validate.noNullElements(receivers);
+        
+        this.notificationStrategy = notificationStrategy;
+        this.messageFactory = messageFactory;
+        this.receivers = receivers;
+    }
+    
     /**
      * @see MethodInvocationExceptionChainedHandler#doHandle(Exception,
      *      MethodInvocation, MethodInvocationExceptionHandlerContext)
@@ -69,9 +81,7 @@ public class NotificationExceptionHandler  extends
 
     /**
      * @param ex la excepcion
-     * @param context TODO
-     * @return <code>true</code> si pudo tomar la acción
-     * que le compete
+     * @return <code>true</code> si pudo tomar la acción que le compete
      */
     private boolean doMail(final Throwable ex, 
             final MethodInvocationExceptionHandlerContext context) {
@@ -80,10 +90,14 @@ public class NotificationExceptionHandler  extends
             if (ex instanceof MessageKeyException) {
                 final MessageKeyException messageKeyException = 
                     (MessageKeyException) ex;
+                final Map<String, Object> model = new HashMap<String, Object>();
+                model.put("exception", ex);
+                model.put("ctx", context);
+                
                 notificationStrategy.execute(receivers,
                         messageFactory.createMessage(
-                                messageKeyException.getMessageKey(), subjectKey,
-                                messageKeyException.getArgs(), fromAddress));
+                                messageKeyException.getMessageKey(),
+                                model));
             }
         } catch (final Exception e) {
             log.error(e);
@@ -91,12 +105,5 @@ public class NotificationExceptionHandler  extends
         }
         
         return true;
-    }
-
-
-    /** constructor */
-    public NotificationExceptionHandler(final Message message, 
-           final NotificationStrategy notificationStrategy) {
-        super();
     }
 }

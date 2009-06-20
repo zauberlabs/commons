@@ -28,6 +28,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import ar.com.zauber.commons.message.MessageFactory;
+import ar.com.zauber.commons.message.NotificationAddress;
+import ar.com.zauber.commons.message.message.templates.AbstractMessageTemplate;
 
 
 /**
@@ -36,42 +38,42 @@ import ar.com.zauber.commons.message.MessageFactory;
  * @author Martín Andrés Márquez
  * @since Dic 12, 2007
  */
-public class ResourceBundleMessageFactory extends AbstractMessageFactory {
-    
-    ResourceBundleMessageSource resourceBundleMessageSource;
+public class ResourceBundleMessageTemplate extends AbstractMessageTemplate {
+    private final ResourceBundleMessageSource resourceBundleMessageSource;
     
     /** 
-     * Creates the MessageBundleMessageResolver.
-     *  
-     * @throws Exception on error
+     * @see AbstractMessageTemplate#AbstractMessageTemplate(String, String, 
+     * NotificationAddress)
      */
-    public ResourceBundleMessageFactory(
-            ResourceBundleMessageSource resourceBundleMessageSource)
-            throws Exception {
+    public ResourceBundleMessageTemplate(final String content, final String subject,
+            final NotificationAddress address,
+            final ResourceBundleMessageSource resourceBundleMessageSource) {
+        super(content, subject, address);
         this.resourceBundleMessageSource = resourceBundleMessageSource;
     }
-    
-    /** @see MessageFactory#renderString(java.lang.String, java.util.Map)
+
+    /** 
+     * @see MessageFactory#renderString(java.lang.String, java.util.Map)
      * 
      * Try not to use this one.
      * 
      * */
+    @SuppressWarnings("unchecked")
     public final String renderString(final String message,
             final Map<String, Object> model) {
         
         List<Map.Entry<String, Object>> entries =
             new ArrayList<Map.Entry<String, Object>>(model.entrySet()); 
         Collections.sort(entries,
-                new Comparator<Map.Entry<String, Object>>(){
-
-                    public int compare(Map.Entry<String, Object> o1,
-                            Map.Entry<String, Object> o2) {
-                        
-                        return o1.getKey().compareTo(o2.getKey());
-                    }
+            new Comparator<Map.Entry<String, Object>>() {
+                public int compare(
+                        final Map.Entry<String, Object> o1,
+                        final Map.Entry<String, Object> o2) {
+                    
+                    return o1.getKey().compareTo(o2.getKey());
+                }
         });
         
-    
         Collection<Object> parameters = CollectionUtils.collect(
                 entries, new BeanToPropertyValueTransformer("value"));
         
@@ -80,7 +82,7 @@ public class ResourceBundleMessageFactory extends AbstractMessageFactory {
     }
 
     /** @see MessageFactory#renderString(String, Object[]) */
-    public String renderString(String message, Object[] params) {
+    public final String renderString(final String message, final Object[] params) {
         return resourceBundleMessageSource
         .getMessage(message, params, Locale.getDefault());
     }

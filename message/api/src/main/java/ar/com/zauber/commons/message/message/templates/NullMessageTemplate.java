@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.message.impl.message;
+package ar.com.zauber.commons.message.message.templates;
 
 import java.util.Map;
 
-import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageFactory;
 import ar.com.zauber.commons.message.NotificationAddress;
 
@@ -28,7 +27,16 @@ import ar.com.zauber.commons.message.NotificationAddress;
  * @author Juan F. Codagnone
  * @since Mar 15, 2006
  */
-public class NullMessageFactory extends AbstractMessageFactory {
+public class NullMessageTemplate extends AbstractMessageTemplate {
+
+    /** 
+     * @see AbstractMessageTemplate#AbstractMessageTemplate(String, String, 
+     *        NotificationAddress) 
+     */
+    public NullMessageTemplate(final String content, final String subject,
+            final NotificationAddress address) {
+        super(content, subject, address);
+    }
 
     /** @see MessageFactory#renderString(String, Map) */
     public final String renderString(final String message, 
@@ -36,9 +44,4 @@ public class NullMessageFactory extends AbstractMessageFactory {
         
         return message;
     }
-
-    public String renderString(String message, Object[] params) {
-        return message;
-    }
-
 }

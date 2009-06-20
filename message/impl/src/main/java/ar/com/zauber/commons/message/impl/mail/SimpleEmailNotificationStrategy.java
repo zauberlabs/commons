@@ -43,20 +43,22 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     private String account;
 
     /**
-     * @deprecated
-     * Creates the SimpleEmailNotificationStrategy.
-     * 
-     * @param mailSender
-     *            the class that actually know how to send an email
-     * @param senderDomain
-     *            domain address that apperas in the from address
-     * 
+     * @deprecated Use 
+     * {@link #SimpleEmailNotificationStrategy(MailSender, String, String)}
      */
     public SimpleEmailNotificationStrategy(final MailSender mailSender, 
             final String senderDomain) {
         this(mailSender, senderDomain, "bounce");
     }
 
+    /**
+     * @param mailSender
+     *            the class that actually know how to send an email
+     * @param senderDomain
+     *            domain address that appears in the from address 
+     * @param account
+     *            account that appears in the from address
+     */
     public SimpleEmailNotificationStrategy(final MailSender mailSender, 
             final String senderDomain, final String account) {
         this.mailSender = mailSender;

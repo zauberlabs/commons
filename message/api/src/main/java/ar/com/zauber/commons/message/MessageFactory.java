@@ -17,54 +17,24 @@ package ar.com.zauber.commons.message;
 
 import java.util.Map;
 
+import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
+
 
 /**
- * Creates Messages
+ * Renders Messages
  *
  * @author Juan F. Codagnone
  * @since Oct 6, 2005
  */
 public interface MessageFactory {
-
     /**
-     * @param stringMessage the message of the message
-     * @param subject the subject of the message
-     * @param model the data model
-     * @param address the from address
+     * Create a {@link Message} refering to the content "by name".
      * 
-     * @return a Message resolving stringMessage and the model
+     * @param viewName name that is used to create the message
+     * @param model    model for the message
+     * @return        a new message.
+     * @throws NoSuchEntityException if the viewname can't be resolved.
      */
-    Message createMessage(String stringMessage, String subject,
-            Map<String, Object> model, NotificationAddress address);
-
-    /**
-     * @param stringMessage the message of the message
-     * @param subject the subject of the message
-     * @param model the data model
-     * @param address the from address
-     * 
-     * @return a Message using params as positional arguments replacing the
-     * apearence of ${0} with them.
-     */
-    Message createMessage(String stringMessage, String subject,
-            Object[] params, NotificationAddress address);
-    
-    /**
-     * Utility
-     * 
-     * @param message the message of the message
-     * @param model the data model
-     * @return a renderer message using model
-     */
-    String renderString(String message, Map<String, Object> model);
-    
-    /**
-     * Utility, the message has to use ${0} and params are relative to the
-     * order they appear.
-     * 
-     * @param message the message of the message
-     * @param params the data model
-     * @return a renderer message using params
-     */
-    String renderString(String message, Object[] params);
+    Message createMessage(String viewName, Map<String, Object> model)
+            throws NoSuchEntityException;
 }

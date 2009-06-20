@@ -23,6 +23,7 @@ package ar.com.zauber.commons.message.impl.mail;
  * @author Mariano A. Cortesi
  * @since 06-jun-2005
  */
+@SuppressWarnings("serial")
 public class InvalidEmailAddressFormatException extends RuntimeException {
 
     /**

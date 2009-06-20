@@ -7,4 +7,11 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-message-api</artifactId>
   <name>Zauber::Commons::Message::API</name>
+  
+  <dependencies>
+    <dependency>
+      <groupId>ar.com.zauber.commons</groupId>
+      <artifactId>commons-dao</artifactId>
+    </dependency>
+  </dependencies>
 </project>
