@@ -20,7 +20,6 @@
      <dependency>
         <artifactId>commons-io</artifactId>
         <groupId>commons-io</groupId>
-        <version>1.4</version>
      </dependency>
      <dependency>
         <artifactId>commons-httpclient</artifactId>
