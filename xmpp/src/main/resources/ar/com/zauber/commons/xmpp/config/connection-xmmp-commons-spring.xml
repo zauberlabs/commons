@@ -34,4 +34,6 @@
    <bean name="commonsZauberXMPPNotificationStrategy" class="ar.com.zauber.commons.xmpp.message.XMPPNotificationStrategy">
         <constructor-arg ref="commonsZauberXMPPConnection"/>
    </bean>
+   
+   <bean name="commonsZauberXMPPNotificationAddressFactory" class="ar.com.zauber.commons.xmpp.message.XMPPNotificationAddressFactory"/>
 </beans>
