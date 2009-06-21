@@ -15,7 +15,9 @@
  */
 package ar.com.zauber.commons.message.message.templates;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.Validate;
 
@@ -35,7 +37,10 @@ public abstract class AbstractMessageTemplate implements MessageTemplate {
     private final String content;
     private final String subject;
     private final NotificationAddress address;
-
+    
+    /** modelo independiente de la vista / controlador. */
+    private Map<String, Object> extraModel =  new HashMap<String, Object>();
+    
     /**
      * Creates the AbstractMessageTemplate.
      *
@@ -53,6 +58,10 @@ public abstract class AbstractMessageTemplate implements MessageTemplate {
     
     /** @see MessageTemplate#render(Map) */
     public final Message render(final Map<String, Object> model) {
+        for(final Entry<String, Object> entry : getExtraModel().entrySet()) {
+            model.put(entry.getKey(), entry.getValue());
+        }
+        
         return new StringMessage(renderString(content, model), 
                 renderString(subject, model),
                 address);
@@ -61,4 +70,17 @@ public abstract class AbstractMessageTemplate implements MessageTemplate {
     /** rendera un template y un modelo */
     protected abstract String renderString(final String template, 
             final Map<String, Object> model);
+
+    public final Map<String, Object> getExtraModel() {
+        return extraModel;
+    }
+
+    /** @see #extraModel */
+    public final void setExtraModel(final Map<String, Object> extraModel) {
+        Validate.notNull(extraModel);
+        Validate.noNullElements(extraModel.keySet());
+        Validate.noNullElements(extraModel.values());
+        
+        this.extraModel = extraModel;
+    }
 }
