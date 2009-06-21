@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
+   
+   <bean name="messageFactory" class="ar.com.zauber.commons.message.message.templates.MessageTemplateMessageFactory">
+       <constructor-arg index="0">
+           <map>
+               <entry key="msgPrueba">
+                   <bean class="ar.com.zauber.commons.xmpp.message.XMPPMessageTemplate">
+                       <constructor-arg index="0">
+                           <value><![CDATA[
+Probando ${date} - ${key}
+
+1, 2, 3
+]]></value>
+                       </constructor-arg>
+                       <constructor-arg index="1" value="titulo"/>
+                   </bean>
+               </entry>
+               <entry key="htmlPrueba">
+                   <bean class="ar.com.zauber.commons.xmpp.message.XMPPMessageTemplate">
+                       <constructor-arg index="0" value=""/>
+                       <constructor-arg index="1" value="titulo"/>
+                       <property name="htmlMessage">
+                            <value><![CDATA[
+<body xmlns='http://www.w3.org/1999/xhtml'>
+  <ul>
+    <li><strong>date</strong>: ${date}</li>
+    <li><strong>key</strong>: ${key}</li>
+  </ul>
+</body>
+]]></value>
+                        </property>
+                   </bean>
+               </entry>
+               <entry key="formMsg">
+                   <bean class="ar.com.zauber.commons.xmpp.message.XMPPMessageTemplate">
+                       <constructor-arg index="0" value=""/>
+                       <constructor-arg index="1" value="titulo"/>
+                       <property name="packetExtensionTemplates">
+                           <list>
+                                <bean class="ar.com.zauber.commons.xmpp.message.FooXMPPMessagePacketExtensionTemplate"/>
+                           </list>
+                       </property>
+                   </bean>
+               </entry>
+           </map>
+       </constructor-arg>
+   </bean>
+</beans>

@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     
-    
     <bean name="commonsZauberXMPPConnection" class="org.jivesoftware.smack.XMPPConnection">
+        <description>connexión al servidor de xmpp </description>
         <constructor-arg index="0">
             <bean class="org.jivesoftware.smack.ConnectionConfiguration">
               <constructor-arg index="0" value="${commons.xmpp.zauber.production.host}"
@@ -18,14 +18,20 @@
     </bean>
     
    <bean name="commonsZauberCredentialsProvider" class="ar.com.zauber.commons.xmpp.auth.impl.InmutableXmppCredentialsProvider">
+       <description>provee las credenciales con las cual se debe loguear </description>
        <constructor-arg index="0" value="${commons.xmpp.zauber.production.username}" />
        <constructor-arg index="1" value="${commons.xmpp.zauber.production.password}" />
        <constructor-arg index="2" value="${commons.xmpp.zauber.production.resource}" />
        <constructor-arg index="3" value="${commons.xmpp.zauber.production.priority}" />
    </bean>
-           
+   
    <bean class="ar.com.zauber.commons.xmpp.auth.impl.LoginXmppRunnable" init-method="run">
+        <description>se conecta a jabber</description>
         <constructor-arg index="0" ref="commonsZauberXMPPConnection"/>
         <constructor-arg index="1" ref="commonsZauberCredentialsProvider"/>
+   </bean>
+   
+   <bean name="commonsZauberXMPPNotificationStrategy" class="ar.com.zauber.commons.xmpp.message.XMPPNotificationStrategy">
+        <constructor-arg ref="commonsZauberXMPPConnection"/>
    </bean>
 </beans>

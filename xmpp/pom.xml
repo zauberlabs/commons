@@ -31,11 +31,16 @@
         <version>${smack.version}</version>
         <scope>test</scope>
     </dependency -->
+
+    <dependency>
+      <groupId>ar.com.zauber.commons.message</groupId>
+      <artifactId>commons-message-api</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
     
     <dependency>
-      <groupId>ar.com.zauber.commons</groupId>
-      <artifactId>commons-dao</artifactId>
-      <version>${pom.version}</version>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
     </dependency>
     
     <dependency>
@@ -47,6 +52,13 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <scope>test</scope>
     </dependency>
     
   </dependencies>

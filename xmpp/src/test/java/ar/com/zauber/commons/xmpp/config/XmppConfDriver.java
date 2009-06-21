@@ -15,12 +15,18 @@
  */
 package ar.com.zauber.commons.xmpp.config;
 
-import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jivesoftware.smack.XMPPConnection;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import ar.com.zauber.commons.message.NotificationAddress;
+import ar.com.zauber.commons.message.util.MessageControllerCommand;
+import ar.com.zauber.commons.xmpp.message.XMPPNotificationAddress;
 
 /**
  * Prueba la configuracion de spring que trae este módulo
@@ -30,14 +36,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class XmppConfDriver {
 
+    /** test */
     @Test
-    public void foo() {
+    public final void foo() {
+        final String base = "classpath:ar/com/zauber/commons/xmpp/config/";
         ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{
-           "classpath:ar/com/zauber/commons/xmpp/config/connection-xmmp-commons-spring.xml",
-           "classpath:ar/com/zauber/commons/xmpp/config/properties-test-xmpp-commons-spring.xml",
+           base + "connection-xmmp-commons-spring.xml",
+           base + "properties-test-xmpp-commons-spring.xml",
         });
-        XMPPConnection connection = (XMPPConnection) ctx.getBean("commonsZauberXMPPConnection");
-        System.out.println(connection);
+        final XMPPConnection connection = 
+            (XMPPConnection) ctx.getBean("commonsZauberXMPPConnection");
         System.out.println(connection.getRoster().getEntries());
+        final Map<String, Object> model = new HashMap<String, Object>();
+        model.put("key", new String("asdad"));
+        model.put("date", new GregorianCalendar(2009, 05, 20).getTime());
     }
 }

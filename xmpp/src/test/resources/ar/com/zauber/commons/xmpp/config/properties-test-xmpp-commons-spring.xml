@@ -9,5 +9,6 @@
                 <value>classpath:/ar/com/zauber/commons/xmpp/config/properties/xmpp-connection.properties</value>
             </list> 
         </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
 </beans>
