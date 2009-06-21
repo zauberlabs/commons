@@ -17,9 +17,11 @@ package ar.com.zauber.commons.xmpp.message;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
@@ -48,6 +50,21 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
             throw new UnhandledException(e);
         }
     }
+    /** modelo independiente de la vista / controlador. */
+    private Map<String, Object> extraModel =  new HashMap<String, Object>();
+    public final Map<String, Object> getExtraModel() {
+        return extraModel;
+    }
+
+    /** @see #extraModel */
+    public final void setExtraModel(final Map<String, Object> extraModel) {
+        Validate.notNull(extraModel);
+        Validate.noNullElements(extraModel.keySet());
+        Validate.noNullElements(extraModel.values());
+        
+        this.extraModel = extraModel;
+    }
+
     
     /** @see XMPPMessage#XMPPMessage(String, String) */
     public XMPPMessageTemplate(final String defaultContent,
@@ -88,6 +105,10 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
     public final XMPPMessage render(final Map<String, Object> model) {
         final XMPPMessage ret = new XMPPMessage(renderString(defaultContent, model),
                 renderString(defaultSubject, model));
+        for(final Entry<String, Object> entry : getExtraModel().entrySet()) {
+            model.put(entry.getKey(), entry.getValue());
+        }
+        
         copyTo(ret, model);
         return ret;
     }
