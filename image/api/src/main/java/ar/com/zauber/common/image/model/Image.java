@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.common.image.model;
 
+import ar.com.zauber.commons.dao.Resource;
+
 
 
 /**

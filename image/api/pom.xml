@@ -8,4 +8,11 @@
   <name>Zauber::Commons::Image::API</name>
   <artifactId>commons-image-api</artifactId>
   <packaging>jar</packaging>
+  
+  <dependencies>
+    <dependency>
+      <groupId>ar.com.zauber.commons</groupId>
+      <artifactId>commons-dao</artifactId>
+    </dependency>
+  </dependencies>
 </project>

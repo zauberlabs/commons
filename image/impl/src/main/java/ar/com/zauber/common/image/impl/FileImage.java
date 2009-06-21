@@ -33,8 +33,7 @@ public class FileImage extends AbstractImage {
     /**
      * Creates the FileFlyer.
      *
-     * @param factory factory
-     * @param directory eg: "a214s132d41asd
+     * @param directory eg: "a214s132d41asd"
      * @param name my_nice_flyer.jpg"
      * @throws IOException on io error 
      * @throws IllegalArgumentException if the params are wrong 
@@ -48,7 +47,7 @@ public class FileImage extends AbstractImage {
         this.directory = directory;
     }
     
-    /** @see ar.com.zauber.eventz.domain.event.Flyer#getInputStream() */
+    /** @see Flyer#getInputStream() */
     public final InputStream getInputStream() throws IOException {
         return new FileInputStream(getFile());
     }

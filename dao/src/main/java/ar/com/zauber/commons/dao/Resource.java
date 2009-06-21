@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.common.image.model;
+package ar.com.zauber.commons.dao;
 
 import java.io.IOException;
 import java.io.InputStream;

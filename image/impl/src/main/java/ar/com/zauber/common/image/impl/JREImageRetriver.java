@@ -50,6 +50,7 @@ public class JREImageRetriver implements ImageRetriver {
     }
 
 
+    /** @see ImageRetriver#retrive(URL) */
     public final InputStream retrive(final URL url) 
         throws IOException {
         Validate.notNull(url);
@@ -60,8 +61,8 @@ public class JREImageRetriver implements ImageRetriver {
             prepare(uc);
             huc.connect();
             final String contentType = huc.getContentType().trim();
-            if(contentType != null && contentType.length() > 0 && 
-                    !huc.getContentType().startsWith("image/")) {
+            if(contentType != null && contentType.length() > 0  
+                    && !huc.getContentType().startsWith("image/")) {
                 throw new RuntimeException(
                         "la URL no parece apuntar a una imagen ");
             }
@@ -108,22 +109,11 @@ public class JREImageRetriver implements ImageRetriver {
         this.userAgent = userAgent;
     }
 
-    
-    /**
-     * Returns the timeout.
-     * 
-     * @return <code>int</code> with the timeout.
-     */
     public final int getTimeout() {
         return timeout;
     }
 
-    
-    /**
-     * Sets the timeout. 
-     *
-     * @param timeout <code>int</code> with the timeout.
-     */
+    /** Sets the timeout. */
     public final void setTimeout(final int timeout) {
         Validate.isTrue(timeout > 0);
         this.timeout = timeout;

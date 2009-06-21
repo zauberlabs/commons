@@ -36,20 +36,14 @@ import ar.com.zauber.common.image.services.ImageFactory;
  */
 public class NotImplementedImageFactory implements ImageFactory {
 
-    /**
-     * @see ar.com.zauber.common.image.services.ImageFactory#createImage(
-     * java.io.InputStream, java.lang.String)
-     */
-    public Image createImage(final InputStream is, final String name)
+    /** @see ImageFactory#createImage(InputStream, String) */
+    public final Image createImage(final InputStream is, final String name)
          throws IOException {
         throw new NotImplementedException("Won't implement in this class.");
     }
 
-    /**
-     * @see ar.com.zauber.common.image.services.ImageFactory#retrieveImage(
-     * java.io.Serializable)
-     */
-    public Image retrieveImage(final Serializable id) throws IOException {
+    /** @see ImageFactory#retrieveImage(Serializable) */
+    public final Image retrieveImage(final Serializable id) throws IOException {
         throw new NotImplementedException("Won't implement in this class.");
     }
 

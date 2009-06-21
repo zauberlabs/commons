@@ -23,14 +23,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Iterator;
 
-import javax.imageio.*;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.common.image.model.Image;
-import ar.com.zauber.common.image.model.Resource;
+import ar.com.zauber.commons.dao.Resource;
 
 
 /**
@@ -60,7 +64,7 @@ public abstract class AbstractImage implements Image {
         return thumb;
     }
 
-    /** @see ar.com.zauber.eventz.domain.event.Resource#getName() */
+    /** @see ar.com.zauber.commons.dao.eventz.domain.event.Resource#getName() */
     public final String getName() {
         return name;
     }
@@ -132,7 +136,8 @@ public abstract class AbstractImage implements Image {
         
         try {
             final BufferedImage bi = ImageIO.read(is);
-            final Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("JPG");
+            final Iterator<ImageWriter> iter = 
+                ImageIO.getImageWritersByFormatName("JPG");
             if(!iter.hasNext()) {
                 throw new IllegalStateException("can't find JPG subsystem");
             }

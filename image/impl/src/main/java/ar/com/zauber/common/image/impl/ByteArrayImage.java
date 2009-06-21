@@ -22,7 +22,7 @@ import java.io.IOException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.common.image.model.Image;
-import ar.com.zauber.common.image.model.Resource;
+import ar.com.zauber.commons.dao.Resource;
 
 
 /**
