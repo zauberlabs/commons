@@ -2,7 +2,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.wicket</groupId>
-    <version>3.14-SNAPSHOT</version>
+    <version>3.14</version>
   </parent>
   <name>Zauber::Commons::Wicket::Implementation</name>
   <modelVersion>4.0.0</modelVersion>
