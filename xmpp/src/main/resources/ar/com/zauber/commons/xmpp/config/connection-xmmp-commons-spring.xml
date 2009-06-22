@@ -25,7 +25,7 @@
        <constructor-arg index="3" value="${commons.xmpp.zauber.production.priority}" />
    </bean>
    
-   <bean class="ar.com.zauber.commons.xmpp.auth.impl.LoginXmppRunnable">
+   <bean name="loginXmppRunnable" class="ar.com.zauber.commons.xmpp.auth.impl.LoginXmppRunnable">
         <description>se conecta a jabber</description>
         <constructor-arg index="0" ref="commonsZauberXMPPConnection"/>
         <constructor-arg index="1" ref="commonsZauberCredentialsProvider"/>
