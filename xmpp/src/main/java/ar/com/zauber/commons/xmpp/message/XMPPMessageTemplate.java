@@ -18,6 +18,8 @@ package ar.com.zauber.commons.xmpp.message;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -78,16 +80,27 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
         this(new StringResource(defaultContent), defaultSubject);
         
     }
+    
     /** @see XMPPMessage#XMPPMessage(String, String) */
     public XMPPMessageTemplate(final Resource defaultContent,
             final String defaultSubject) {
+        this(defaultContent, defaultSubject, null);
+        
+    }
+    /** @see XMPPMessage#XMPPMessage(String, String) */
+    public XMPPMessageTemplate(final Resource defaultContent,
+            final String defaultSubject, final String charset) {
         Validate.notNull(defaultContent); // "" es valido
         Validate.notNull(defaultSubject); // "" es valido
+        // charset can be null
         
-        final InputStream is = defaultContent.getInputStream();
+        final InputStream is = defaultContent.getInputStream(); 
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
+         
         try {
-            IOUtils.copy(is, os);
+            final Reader reader = (charset == null) ? new InputStreamReader(is)
+                             : new InputStreamReader(is, charset);
+            IOUtils.copy(reader, os);
         } catch (final IOException e) {
             throw new UnhandledException(e);
         } finally {
