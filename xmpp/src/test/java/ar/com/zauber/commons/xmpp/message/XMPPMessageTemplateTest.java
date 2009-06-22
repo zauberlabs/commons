@@ -56,7 +56,8 @@ public class XMPPMessageTemplateTest {
                 "msgPrueba", MODEL);
         final Message m = message.getXMPPMessage("foo@bar");
         m.setPacketID("0");
-        Assert.assertEquals(XMPPMessageTest.getResult("mf-msgPrueba.xml"), m.toXML());
+        Assert.assertEquals(XMPPMessageTest.getResult("mf-msgPrueba.xml"), 
+                m.toXML());
     }
     
     /**  prueba enviar mensaje simple */

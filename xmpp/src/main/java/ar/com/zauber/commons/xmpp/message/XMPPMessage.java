@@ -89,7 +89,7 @@ public class XMPPMessage extends XMPPMessageAttributes implements Message {
             msg.addBody(entry.getKey().getLanguage(), entry.getValue());
         }
 
-        final String htmlMessage = getHtmlMessage();
+        final String htmlMessage = getHtmlStringMessage();
         final XMPPConnection connection = getConnection();
         
         if(htmlMessage != null) {

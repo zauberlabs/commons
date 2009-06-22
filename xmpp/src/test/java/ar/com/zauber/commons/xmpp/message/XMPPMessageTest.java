@@ -33,6 +33,9 @@ import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.FormField;
 import org.junit.Test;
 
+import ar.com.zauber.commons.dao.Resource;
+import ar.com.zauber.commons.dao.resources.StringResource;
+
 
 /**
  * Tests {@link XMPPMessage}.
@@ -65,9 +68,9 @@ public class XMPPMessageTest {
     @Test
     public final void testMultiLang() throws Exception {
         final XMPPMessage c = new XMPPMessage("body", "title");
-        final Map<Locale, String> msgs = new HashMap<Locale, String>();
-        msgs.put(new Locale("es"), "hola!");
-        msgs.put(Locale.ITALIAN, "pronto!");
+        final Map<Locale, Resource> msgs = new HashMap<Locale, Resource>();
+        msgs.put(new Locale("es"), new StringResource("hola!"));
+        msgs.put(Locale.ITALIAN, new StringResource("pronto!"));
         c.setLangBodies(msgs);
         org.jivesoftware.smack.packet.Message m = c.getXMPPMessage("juan");
         m.setPacketID("0");
@@ -78,11 +81,11 @@ public class XMPPMessageTest {
     @Test
     public final void testXHTML() throws Exception {
         final XMPPMessage c = new XMPPMessage("body", "title");
-        final Map<Locale, String> msgs = new HashMap<Locale, String>();
-        msgs.put(new Locale("es"), "hola!");
-        msgs.put(Locale.ITALIAN, "pronto!");
+        final Map<Locale, Resource> msgs = new HashMap<Locale, Resource>();
+        msgs.put(new Locale("es"), new StringResource("hola!"));
+        msgs.put(Locale.ITALIAN, new StringResource("pronto!"));
         c.setLangBodies(msgs);
-        c.setHtmlMessage("<body><strong>html!</strong></body>");
+        c.setHtmlMessage(new StringResource("<body><strong>html!</strong></body>"));
         org.jivesoftware.smack.packet.Message m = c.getXMPPMessage("juan");
         m.setPacketID("0");
         
@@ -94,9 +97,9 @@ public class XMPPMessageTest {
     @Test
     public final void testFormExtension() throws Exception {
         final XMPPMessage c = new XMPPMessage("body", "title");
-        final Map<Locale, String> msgs = new HashMap<Locale, String>();
-        msgs.put(new Locale("es"), "hola!");
-        msgs.put(Locale.ITALIAN, "pronto!");
+        final Map<Locale, Resource> msgs = new HashMap<Locale, Resource>();
+        msgs.put(new Locale("es"), new StringResource("hola!"));
+        msgs.put(Locale.ITALIAN, new StringResource("pronto!"));
         c.setLangBodies(msgs);
         final Form form = new Form(Form.TYPE_FORM);
         form.setInstructions("instructions");

@@ -15,20 +15,27 @@
  */
 package ar.com.zauber.commons.xmpp.message;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.jivesoftware.smack.packet.PacketExtension;
 
+import ar.com.zauber.commons.dao.Resource;
+import ar.com.zauber.commons.dao.resources.StringResource;
 import ar.com.zauber.commons.message.MessageFactory;
 import ar.com.zauber.commons.message.MessageTemplate;
 
@@ -65,14 +72,28 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
         this.extraModel = extraModel;
     }
 
-    
     /** @see XMPPMessage#XMPPMessage(String, String) */
     public XMPPMessageTemplate(final String defaultContent,
+            final String defaultSubject) {
+        this(new StringResource(defaultContent), defaultSubject);
+        
+    }
+    /** @see XMPPMessage#XMPPMessage(String, String) */
+    public XMPPMessageTemplate(final Resource defaultContent,
             final String defaultSubject) {
         Validate.notNull(defaultContent); // "" es valido
         Validate.notNull(defaultSubject); // "" es valido
         
-        this.defaultContent = defaultContent;
+        final InputStream is = defaultContent.getInputStream();
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+            IOUtils.copy(is, os);
+        } catch (final IOException e) {
+            throw new UnhandledException(e);
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+        this.defaultContent = os.toString();
         this.defaultSubject = defaultSubject;
     }
     
@@ -132,9 +153,11 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
     protected final void copyTo(final XMPPMessageAttributes other, 
             final Map<String, Object> model) {
         other.setMessageType(getMessageType());
-        other.setLangBodies(getLangBodies());
-        other.setHtmlMessage(getHtmlMessage() == null ? null 
-                : renderString(getHtmlMessage(), model));
+        other.setLangBodies(translateLangBodies());
+        if(getHtmlStringMessage() != null) {
+            other.setHtmlMessage(new StringResource(renderString(
+                    getHtmlStringMessage(), model)));
+        }
         final List<PacketExtension> packetExtensions = 
             new LinkedList<PacketExtension>(getExtensions());
         for(final XMPPMessagePacketExtensionTemplate template 
@@ -143,5 +166,15 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
         }
         other.setExtensions(packetExtensions);
         other.setConnection(getConnection());
+    }
+    
+    /** traduce el langBodies de String a Resource*/
+    public final Map<Locale, Resource> translateLangBodies() {
+        final Map<Locale, Resource> ret = new HashMap<Locale, Resource>();
+        
+        for(final Entry<Locale, String> entry : getLangBodies().entrySet()) {
+            ret.put(entry.getKey(), new StringResource(entry.getValue()));
+        }
+        return ret;
     }
 }

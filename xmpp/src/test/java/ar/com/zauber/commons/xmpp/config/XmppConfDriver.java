@@ -24,10 +24,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import ar.com.zauber.commons.message.NotificationAddress;
-import ar.com.zauber.commons.message.util.MessageControllerCommand;
-import ar.com.zauber.commons.xmpp.message.XMPPNotificationAddress;
-
 /**
  * Prueba la configuracion de spring que trae este módulo
  * 

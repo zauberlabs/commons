@@ -15,7 +15,11 @@
  */
 package ar.com.zauber.commons.xmpp.message;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -23,10 +27,15 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.packet.PacketExtension;
 import org.jivesoftware.smack.packet.Message.Type;
+
+import ar.com.zauber.commons.dao.Resource;
+import ar.com.zauber.commons.dao.resources.StringResource;
 
 /**
  * Cosas configurables en un {@link XMPPMessage}.
@@ -63,15 +72,18 @@ public class XMPPMessageAttributes {
     /** 
      * @see #langBodies
      */
-    public final void setLangBodies(final Map<Locale, String> langBodies) {
+    public final void setLangBodies(final Map<Locale, Resource> langBodies) {
         Validate.notNull(langBodies);
-        for(final Entry<Locale, String> entry : langBodies.entrySet()) {
+        this.langBodies = new HashMap<Locale, String>();
+        
+        for(final Entry<Locale, Resource> entry : langBodies.entrySet()) {
             Validate.notNull(entry);
             Validate.notNull(entry.getKey());
             Validate.notNull(entry.getValue());
+            
+            
+            this.langBodies.put(entry.getKey(), read(entry.getValue()));
         }
-        
-        this.langBodies = langBodies;
     }
     
     /** 
@@ -98,12 +110,34 @@ public class XMPPMessageAttributes {
      */
     private String htmlMessage;
 
-    public final String getHtmlMessage() {
+    public final String getHtmlStringMessage() {
         return htmlMessage;
     }
 
-    public final void setHtmlMessage(final String htmlMessage) {
-        this.htmlMessage = htmlMessage;
+    public final Resource getHtmlMessage() {
+        return new StringResource(htmlMessage);
+    }
+
+    
+    /** @see #htmlMessage */
+    public final void setHtmlMessage(final Resource htmlMessage) {
+        this.htmlMessage = read(htmlMessage);
+    }
+    
+    /** lee un resource en un string */
+    private static String read(final Resource resource) {
+        Validate.notNull(resource);
+        final InputStream is = resource.getInputStream();
+        final ByteArrayOutputStream os =  new ByteArrayOutputStream();
+        
+        try {
+            IOUtils.copy(is, os);
+            return os.toString();
+        } catch (IOException e) {
+            throw new UnhandledException(e);
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
     }
     
     /** 
