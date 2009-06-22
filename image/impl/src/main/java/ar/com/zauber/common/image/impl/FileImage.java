@@ -17,6 +17,7 @@ package ar.com.zauber.common.image.impl;
 
 import java.io.*;
 
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -48,8 +49,12 @@ public class FileImage extends AbstractImage {
     }
     
     /** @see Flyer#getInputStream() */
-    public final InputStream getInputStream() throws IOException {
-        return new FileInputStream(getFile());
+    public final InputStream getInputStream() {
+        try {
+            return new FileInputStream(getFile());
+        } catch (final FileNotFoundException e) {
+            throw new UnhandledException(e);
+        }
     }
 
     /** @return the file where the flyer is stored */

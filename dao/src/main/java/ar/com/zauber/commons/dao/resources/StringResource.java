@@ -13,28 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.dao;
+package ar.com.zauber.commons.dao.resources;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.lang.Validate;
+
+import ar.com.zauber.commons.dao.Resource;
 
 /**
- * Interface for a resource descriptor that abstracts from the actual
- * type of underlying resource, such as a file or class path resource.
- *
- * <p>An InputStream can be opened for every resource if it exists in
- * physical form, but a URL or File handle can just be returned for
- * certain resources. The actual behavior is implementation-specific.
- * </p>
+ * In-Memory {@link Resource}.
+ * 
  * @author Juan F. Codagnone
- * @since Nov 19, 2005
+ * @since Jun 21, 2009
  */
-public interface Resource {
+public class StringResource implements Resource {
+    private final String content;
 
-    /** @return the resource. can be null */
-    String getName();
+    /** @param content resource content */
+    public StringResource(final String content) {
+        Validate.notNull(content);
+        this.content = content;
+    }
     
-    /** @return a stream for the resource */
-    InputStream getInputStream();
+    /** @see Resource#getInputStream() */
+    public final InputStream getInputStream() {
+        return new ByteArrayInputStream(content.getBytes());
+    }
+
+    /** @see Resource#getName() */
+    public final String getName() {
+        return null;
+    }
+
 }

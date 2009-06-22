@@ -55,17 +55,17 @@ public class StringMessage implements Message {
         this.fromAddress = fromAddress;
     }
     
-    /** @see ar.com.zauber.eventz.domain.notify.Message#getContent() */
+    /** @see Message#getContent() */
     public final String getContent() {
         return message;
     }
     
-    /** @see ar.com.zauber.eventz.domain.notify.Message#getReplyToAddress() */
+    /** @see Message#getReplyToAddress() */
     public final NotificationAddress getReplyToAddress() {
         return fromAddress;
     }
     
-    /** @see ar.com.zauber.eventz.domain.notify.Message#getSubject() */
+    /** @see Message#getSubject() */
     public final String getSubject() {
         return subject;
     }

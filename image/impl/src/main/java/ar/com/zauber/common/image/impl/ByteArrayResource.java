@@ -16,7 +16,6 @@
 package ar.com.zauber.common.image.impl;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.lang.Validate;
@@ -56,13 +55,13 @@ public class ByteArrayResource implements Resource {
         // void - used by the persistence
     }
     
-    /** @see ar.com.zauber.commons.dao.eventz.domain.event.Resource#getName() */
+    /** @see Resource#getName() */
     public final String getName() {
         return name;
     }
 
-    /** @see ar.com.zauber.commons.dao.eventz.domain.event.Resource#getInputStream() */
-    public final InputStream getInputStream() throws IOException {
+    /** @see Resource#getInputStream() */
+    public final InputStream getInputStream() {
         return new ByteArrayInputStream(data);
     }
 

@@ -68,8 +68,8 @@ public class ResourceImage extends AbstractImage {
         return FileUtils.basename(resource) + FileUtils.extension(resource);
     }
 
-    /** @see ar.com.zauber.eventz.domain.event.Flyer#getOutputStream() */
-    public final InputStream getInputStream() throws IOException {
+    /** @see Resource#getInputStream() */
+    public final InputStream getInputStream() {
         final InputStream is = getClass().getClassLoader()
                 .getResourceAsStream(resource);
         if(is == null) {
