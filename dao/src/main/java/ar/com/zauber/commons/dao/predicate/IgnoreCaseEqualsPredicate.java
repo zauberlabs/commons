@@ -13,21 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.dao.impl;
+package ar.com.zauber.commons.dao.predicate;
+
+import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.Predicate;
 
 /**
- * Predicate that always return true.
+ * Equals that ignore case predicate 
+ * 
  * 
  * @author Juan F. Codagnone
- * @since Jun 16, 2009
+ * @since Jul 12, 2008
  */
-public class TruePredicate<T> implements Predicate<T> {
+public class IgnoreCaseEqualsPredicate implements Predicate<String> {
+    private final String target;
 
-    /** @see Predicate#evaluate(Object) */
-    public final boolean evaluate(final T value) {
-        return true;
+    /** Creates the EqualsPredicate. */
+    public IgnoreCaseEqualsPredicate(final String target) {
+        Validate.notNull(target);
+        this.target = target;
     }
-
+    
+    /** @see Predicate#evaluate(java.lang.Object) */
+    public final boolean evaluate(final String value) {
+        return target.equalsIgnoreCase(value);
+    }
 }

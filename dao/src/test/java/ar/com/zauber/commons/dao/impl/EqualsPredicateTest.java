@@ -16,7 +16,7 @@
 package ar.com.zauber.commons.dao.impl;
 
 import junit.framework.TestCase;
-import ar.com.zauber.commons.dao.impl.EqualsPredicate;
+import ar.com.zauber.commons.dao.predicate.EqualsPredicate;
 
 /**
  * Test

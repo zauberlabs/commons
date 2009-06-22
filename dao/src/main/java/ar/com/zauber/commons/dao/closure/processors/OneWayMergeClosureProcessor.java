@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.dao.impl;
+package ar.com.zauber.commons.dao.closure.processors;
 
 import java.util.Iterator;
 
@@ -21,7 +21,7 @@ import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.Closure;
 import ar.com.zauber.commons.dao.ClosureProcessor;
-import ar.com.zauber.commons.dao.impl.MergeResult.Operation;
+import ar.com.zauber.commons.dao.closure.processors.MergeResult.Operation;
 
 /**
  * One-way merge de dos iteratadores. En un iterador tiene lo que deberia ser el

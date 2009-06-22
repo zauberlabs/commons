@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.dao.impl;
+package ar.com.zauber.commons.dao.closure;
 
-import ar.com.zauber.commons.dao.Predicate;
+import ar.com.zauber.commons.dao.Closure;
+
 
 /**
- * Predicate that always returns false.
+ * Null implementation for {@link Closure}.
  * 
  * @author Juan F. Codagnone
- * @since Jun 16, 2009
+ * @since Jan 24, 2007
  */
-public class FalsePredicate<T> implements Predicate<T> {
-
-    /** @see Predicate#evaluate(java.lang.Object) */
-    public boolean evaluate(final T value) {
-        return false;
+public class NullClosure<T> implements Closure<T> {
+    /**  @see Closure#execute(java.lang.Object) */
+    public final void execute(final T t) {
+        // nothing to do
     }
 }

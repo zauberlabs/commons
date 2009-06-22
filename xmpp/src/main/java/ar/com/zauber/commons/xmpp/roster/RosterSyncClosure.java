@@ -22,8 +22,8 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
 import ar.com.zauber.commons.dao.Closure;
-import ar.com.zauber.commons.dao.impl.MergeResult;
-import ar.com.zauber.commons.dao.impl.MergeResult.Operation;
+import ar.com.zauber.commons.dao.closure.processors.MergeResult;
+import ar.com.zauber.commons.dao.closure.processors.MergeResult.Operation;
 
 /**
  * Aplica las reglas de sincronización a  una conexión de jabber.  

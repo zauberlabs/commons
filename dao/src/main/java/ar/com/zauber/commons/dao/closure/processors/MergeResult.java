@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.dao.impl;
+package ar.com.zauber.commons.dao.closure.processors;
 
 /**
  * Resultado de la sincronización. Dice lo que decidió el sincronizador. 

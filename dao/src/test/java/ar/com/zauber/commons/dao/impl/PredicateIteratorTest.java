@@ -24,6 +24,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ar.com.zauber.commons.dao.Predicate;
+import ar.com.zauber.commons.dao.predicate.FalsePredicate;
+import ar.com.zauber.commons.dao.predicate.TruePredicate;
 
 
 /**

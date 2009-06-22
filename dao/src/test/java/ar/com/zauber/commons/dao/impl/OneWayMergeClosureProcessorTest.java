@@ -27,7 +27,10 @@ import org.junit.Test;
 
 import ar.com.zauber.commons.dao.Closure;
 import ar.com.zauber.commons.dao.ClosureProcessor;
-import ar.com.zauber.commons.dao.impl.MergeResult.Operation;
+import ar.com.zauber.commons.dao.closure.processors.InmutableMergeResult;
+import ar.com.zauber.commons.dao.closure.processors.MergeResult;
+import ar.com.zauber.commons.dao.closure.processors.OneWayMergeClosureProcessor;
+import ar.com.zauber.commons.dao.closure.processors.MergeResult.Operation;
 
 
 /**
