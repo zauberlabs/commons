@@ -93,7 +93,7 @@ public class XMPPMessage extends XMPPMessageAttributes implements Message {
         final XMPPConnection connection = getConnection();
         
         if(htmlMessage != null) {
-            if(connection == null) {
+            if(connection == null || !connection.isConnected()) {
                 LOGGER.warn("HTML Message was set, but XMPPConnection is null."
                   + " Can't check if the target jid supports XMHTML messages!");
             } else {
