@@ -124,11 +124,11 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
 
     /** @see MessageTemplate#render(Map) */
     public final XMPPMessage render(final Map<String, Object> model) {
-        final XMPPMessage ret = new XMPPMessage(renderString(defaultContent, model),
-                renderString(defaultSubject, model));
         for(final Entry<String, Object> entry : getExtraModel().entrySet()) {
             model.put(entry.getKey(), entry.getValue());
         }
+        final XMPPMessage ret = new XMPPMessage(renderString(defaultContent, model),
+                renderString(defaultSubject, model));
         
         copyTo(ret, model);
         return ret;
@@ -139,6 +139,7 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
             final Map<String, Object> model) {
         final StringWriter writer = new StringWriter();
         final VelocityContext context = new VelocityContext(model);
+        
         try {
             Velocity.evaluate(context, writer, "message", new StringReader(message));
         } catch(final Exception e) {
@@ -152,6 +153,7 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
     /** copia los atributos a otro */
     protected final void copyTo(final XMPPMessageAttributes other, 
             final Map<String, Object> model) {
+        other.setMessageType(getMessageType());
         other.setMessageType(getMessageType());
         other.setLangBodies(translateLangBodies());
         if(getHtmlStringMessage() != null) {
