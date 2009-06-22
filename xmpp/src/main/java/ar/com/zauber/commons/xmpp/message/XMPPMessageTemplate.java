@@ -166,7 +166,9 @@ public class XMPPMessageTemplate extends XMPPMessageAttributes
                 : packetExtensionTemplates) {
             packetExtensions.add(template.render(model));
         }
-        other.setExtensions(packetExtensions);
+        if(packetExtensions != null) {
+            other.setExtensions(packetExtensions);
+        }
         other.setConnection(getConnection());
     }
     
