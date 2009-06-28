@@ -33,7 +33,7 @@ public class FilteredClosure<T> implements Closure<T> {
     /** @see Closure#execute(Object) */
     public final void execute(final T t) {
         if(predicate.evaluate(t)) {
-            target.equals(t);
+            target.evaluate(t);
         }
     }
 }
