@@ -28,13 +28,17 @@ import ar.com.zauber.commons.web.proxy.ContentTransformer;
 public class InmutableContentMetadata implements ContentTransformer.ContentMetadata {
     private final String uri;
     private final String contentType;
+    private final int statusCode;
 
-    public InmutableContentMetadata(final String uri, final String contentType) {
+    /** Creates the InmutableContentMetadata. */
+    public InmutableContentMetadata(final String uri, final String contentType, 
+            final int statusCode) {
         Validate.notNull(uri);
         // contentType puede ser nulo.
     
         this.uri = uri;
         this.contentType = contentType;
+        this.statusCode = statusCode;
     }
 
     /** @see ContentMetadata#getUri() */
@@ -45,5 +49,10 @@ public class InmutableContentMetadata implements ContentTransformer.ContentMetad
     /** @see ContentMetadata#getContentType() */
     public final String getContentType() {
         return contentType;
+    }
+
+    /** @see ContentMetadata#getStatusCode() */
+    public final int getStatusCode() {
+        return statusCode;
     }
 }

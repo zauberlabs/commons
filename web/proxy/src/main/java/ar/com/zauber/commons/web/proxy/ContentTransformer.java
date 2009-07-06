@@ -39,11 +39,15 @@ public interface ContentTransformer {
      */
     void transform(InputStream is, OutputStream os, ContentMetadata metadata);
     
+    /** Metadata para ser pasada al Transformer */
     interface ContentMetadata {
         /** @return la uri a la que está asociado is. no puede ser nulo.*/
         String getUri();
         
         /** @return el content-type o <code>null</code> si no exite */
         String getContentType();
+        
+        /** @return el status-code. no puede ser nulo */
+        int getStatusCode();
     }
 }

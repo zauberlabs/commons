@@ -54,6 +54,7 @@ public class HttpClientRequestProxy {
     private final HttpClient httpClient;
     private final ContentTransformer contentTransformer;
     private final List<String> forbiddenHeader = new ArrayList<String>();
+    private boolean followRedirects = false;
     private static List<String> defaultForbiddenHeader = 
         Arrays.asList(new String[] {
                 "Set-Cookie", 
@@ -107,6 +108,11 @@ public class HttpClientRequestProxy {
             this.forbiddenHeader.add(f.toLowerCase());
         }
     }
+    
+    /** @param followRedirects <code>boolean</code> with the followRedirects. */
+    public final void setFollowRedirects(final boolean followRedirects) {
+        this.followRedirects = followRedirects;
+    }
 
     /**
      * @see AbstractController#handleRequestInternal(HttpServletRequest,
@@ -121,22 +127,26 @@ public class HttpClientRequestProxy {
             final HttpMethod method = buildRequest(request, r);
             InputStream is = null;
             try {
+                method.setFollowRedirects(followRedirects);
                 httpClient.executeMethod(method);
                 updateResponseCode(request, response, method);
                 proxyHeaders(response, method);
                 addOtherHeaders(response, method);
+
                 is = method.getResponseBodyAsStream();
                 
                 if(is != null) {
                     if(contentTransformer.getContentType() != null) {
-                        response.setContentType(contentTransformer.getContentType()); 
+                        response.setContentType(
+                                contentTransformer.getContentType()); 
                     }
                     
                     try {
-                        
                         contentTransformer.transform(is, response.getOutputStream(), 
-                                new InmutableContentMetadata(request.getPathInfo(), 
-                                        getContentType(method)));
+                                new InmutableContentMetadata(
+                                        request.getPathInfo(), 
+                                        getContentType(method), 
+                                        method.getStatusCode()));
                     } finally {
                         is.close();
                     }
