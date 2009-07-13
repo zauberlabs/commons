@@ -96,6 +96,7 @@
      <module>xmpp</module>
      <module>web</module>
      <module>wicket</module>
+     <module>test</module>
   </modules>
   
   <build>
