@@ -52,6 +52,6 @@ public class JsTestCaseTest {
                 return null;
             }
         };
-        Assert.assertEquals(false, jtc.showDetails());
+        Assert.assertEquals(true, jtc.showDetails());
     }
 }

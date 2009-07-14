@@ -93,11 +93,11 @@ public abstract class JsTestCase extends TestCase {
    
     /** 
      * @return <code>true</code> si se desea imprimir la informacion por consola.
-     * <code>false</code> por default. 
+     * <code>true</code> por default. 
      * */
     //CHECKSTYLE:DESIGN:OFF
     protected boolean showDetails() {
-        return false;
+        return true;
     }
     //CHECKSTYLE:DESIGN:ON
   
