@@ -155,16 +155,18 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         if(simpleQuery.getPaging() != null) {
             int firstResult = (simpleQuery.getPaging().getPageNumber() - 1)
                 * simpleQuery.getPaging().getResultsPerPage();
-            DetachedCriteria idsCriteria = (DetachedCriteria)criteria;
-            idsCriteria.setProjection(Projections.id());
+            DetachedCriteria idsDetachedCriteria = (DetachedCriteria)criteria;
+            idsDetachedCriteria.setProjection(Projections.id());
+            Criteria idsCriteria = idsDetachedCriteria
+                .getExecutableCriteria(this.getSession());
+            idsCriteria.setCacheable(query.getCacheable());
+            idsCriteria.setFirstResult(firstResult);
+            idsCriteria.setMaxResults(simpleQuery.getPaging().getResultsPerPage());
             // Se hace primero el select de los IDs y luego el de los objetos en
             // si ya que de otra manera en aquellos casos que haya objetos
             // que tienen colecciones cuenta los mismos varias veces haciendo
             // que se devuelvan menos resultados.
-            List ids = getHibernateTemplate().findByCriteria(
-                    idsCriteria,
-                    firstResult,
-                    simpleQuery.getPaging().getResultsPerPage());
+            List ids = idsCriteria.list();
             DetachedCriteria theCriteria =
                 (DetachedCriteria) getCriteriaSpecification(null, query, false);
             if(ids.isEmpty()) {
