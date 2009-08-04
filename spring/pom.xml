@@ -2,7 +2,7 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>3.9</version>
+    <version>3.9.1</version>
   </parent>
   <name>Zauber::Commons::Spring</name>
   <modelVersion>4.0.0</modelVersion>
