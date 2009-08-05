@@ -56,7 +56,18 @@ public abstract class OnModificationProxyCollection<T> implements Collection<T> 
     /** @see Set#equals(java.lang.Object) */
     @Override
     public final boolean equals(final Object o) {
-        return getTarget().equals(o);
+        boolean ret;
+        
+        if(o == this) {
+            ret = true;
+        } else if(o instanceof OnModificationProxyCollection<?>) {
+            ret = getTarget().equals(
+                    ((OnModificationProxyCollection<?>)o).getTarget());
+        } else {
+            ret = getTarget().equals(o);
+        }
+        
+        return ret; 
     }
 
     /** @see Set#hashCode() */
