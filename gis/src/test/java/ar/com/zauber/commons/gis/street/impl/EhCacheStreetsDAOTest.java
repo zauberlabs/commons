@@ -47,27 +47,38 @@ public class EhCacheStreetsDAOTest extends TestCase {
     private int n = 0;
     /** test */
     public final void testFoo() {
-        new File(System.getProperty("java.io.tmpdir"), 
-                "streetsdao.test.data").delete();
-        CacheManager cacheManager = new CacheManager(getClass().getResource(
-                "ehcache.xml"));
-        Cache cache = cacheManager.getCache("streetsdao.test");
-        StreetsDAO streetsDAO = new EhCacheStreetsDAO(targetStreetsDAO, cache);
-        System.out.println(streetsDAO.getStreets("JUNIN 1128, SAN LUIS, ARGENTINA"));
-        System.out.println(streetsDAO.getStreets("JUNIN 1128, SAN LUIS, ARGENTINA"));
-        System.out.println(n);
-        cache.flush();
-        cacheManager.shutdown();
-        cacheManager = new CacheManager(getClass().getResource("ehcache.xml"));
-        cache = cacheManager.getCache(cacheManager.getCacheNames()[0]);
-        streetsDAO = new EhCacheStreetsDAO(targetStreetsDAO, cache);
-        List<Result> r = streetsDAO.getStreets("JUNIN 1128, SAN LUIS, ARGENTINA");
-        assertEquals(1, n);
-        assertEquals(1, r.size());
-        final Point p = r.get(0).getPoint();
-        assertEquals(-54.0, p.getX());
-        assertEquals(-38.0, p.getY());
+        File f1 = new File(System.getProperty("java.io.tmpdir"), 
+                "streetsdao.test.data");
+        File f2 = new File(System.getProperty("java.io.tmpdir"), 
+            "streetsdao.test.index");
+        f1.delete();
+        f1.deleteOnExit();
+        f2.delete();
+        f2.deleteOnExit();
         
+        try {
+            CacheManager cacheManager = new CacheManager(getClass().getResource(
+                    "ehcache.xml"));
+            Cache cache = cacheManager.getCache("streetsdao.test");
+            StreetsDAO streetsDAO = new EhCacheStreetsDAO(targetStreetsDAO, cache);
+            System.out.println(streetsDAO.getStreets("JUNIN 1128, SAN LUIS, ARGENTINA"));
+            System.out.println(streetsDAO.getStreets("JUNIN 1128, SAN LUIS, ARGENTINA"));
+            System.out.println(n);
+            cache.flush();
+            cacheManager.shutdown();
+            cacheManager = new CacheManager(getClass().getResource("ehcache.xml"));
+            cache = cacheManager.getCache(cacheManager.getCacheNames()[0]);
+            streetsDAO = new EhCacheStreetsDAO(targetStreetsDAO, cache);
+            List<Result> r = streetsDAO.getStreets("JUNIN 1128, SAN LUIS, ARGENTINA");
+            assertEquals(1, n);
+            assertEquals(1, r.size());
+            final Point p = r.get(0).getPoint();
+            assertEquals(-54.0, p.getX());
+            assertEquals(-38.0, p.getY());
+        } finally {
+            f1.delete();
+            f2.delete();
+        }
         
     }
     
