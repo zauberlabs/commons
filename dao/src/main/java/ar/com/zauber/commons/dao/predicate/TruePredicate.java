@@ -22,6 +22,7 @@ import ar.com.zauber.commons.dao.Predicate;
  * 
  * @author Juan F. Codagnone
  * @since Jun 16, 2009
+ * @param <T> predicate type
  */
 public class TruePredicate<T> implements Predicate<T> {
 

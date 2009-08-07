@@ -37,7 +37,7 @@ public class Ordering {
      *
      * @param orders
      */
-    public Ordering(List<Order> orders) {
+    public Ordering(final List<Order> orders) {
         super();
         this.orders = orders;
     }
@@ -47,7 +47,7 @@ public class Ordering {
      * 
      * @return <code>List<Order></code> with the orders.
      */
-    public List<Order> getOrders() {
+    public final List<Order> getOrders() {
         return orders;
     }
 

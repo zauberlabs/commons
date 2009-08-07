@@ -26,6 +26,7 @@ import ar.com.zauber.commons.dao.Closure;
  * 
  * @author Juan F. Codagnone
  * @since Jan 22, 2007
+ * @param <T> Closure type
  */
 public class ListClosure<T> implements Closure<T> {
     /** closure */

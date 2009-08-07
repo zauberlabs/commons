@@ -26,6 +26,8 @@ package ar.com.zauber.commons.dao.exception;
  * @since Jun 19, 2005
  */
 public class NoSuchEntityException extends AbstractEntityException {
+    private static final long serialVersionUID = -3346843923690605245L;
+
     /**
      * @see AbstractEntityException#AbstractEntityException(Object, Throwable)
      */

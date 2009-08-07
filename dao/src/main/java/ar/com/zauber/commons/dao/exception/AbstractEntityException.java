@@ -30,6 +30,8 @@ package ar.com.zauber.commons.dao.exception;
  * @since Sep 1, 2005
  */
 public abstract class AbstractEntityException extends RuntimeException {
+    private static final long serialVersionUID = 2518319769333514282L;
+    
     /** the entity that wasn't found */
     private final Object entity;
 

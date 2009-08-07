@@ -166,8 +166,8 @@ public class Paging {
         return loadResultSize;
     }
 
-    
-    public boolean hasResultSize() {
+    /** @return true if {@link #setResultSize(long)} was called */
+    public final boolean hasResultSize() {
         return resultSize != null;
     }
     /**

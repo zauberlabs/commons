@@ -26,6 +26,7 @@ package ar.com.zauber.commons.dao.exception;
  * @since Feb 20, 2006
  */
 public class InsertionEntintyException extends AbstractEntityException {
+    private static final long serialVersionUID = 4688495255826326703L;
 
     /**
      * Creates the InsertionEntintyException.

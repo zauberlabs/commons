@@ -15,7 +15,6 @@
  */
 package ar.com.zauber.commons.dao.resources;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.lang.StringUtils;

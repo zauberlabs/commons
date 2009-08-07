@@ -23,6 +23,8 @@ package ar.com.zauber.commons.dao.exception;
  * @since Sep 1, 2005
  */
 public final class DuplicatedEntityException extends AbstractEntityException {
+    private static final long serialVersionUID = -3545872149973055255L;
+
     /**
      * @see AbstractEntityException#AbstractEntityException(Object, Throwable)
      */

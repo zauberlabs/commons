@@ -35,9 +35,6 @@ package ar.com.zauber.commons.dao;
  */
 public interface Closure<T> {
     
-    /**
-     *  closure
-     *  @throws Exception on error 
-     */
+    /**  closure */
     void execute(T t);
 }

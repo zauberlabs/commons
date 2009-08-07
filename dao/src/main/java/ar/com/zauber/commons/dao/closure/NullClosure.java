@@ -23,6 +23,7 @@ import ar.com.zauber.commons.dao.Closure;
  * 
  * @author Juan F. Codagnone
  * @since Jan 24, 2007
+ * @param <T> Closure type
  */
 public class NullClosure<T> implements Closure<T> {
     /**  @see Closure#execute(java.lang.Object) */

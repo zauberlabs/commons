@@ -20,6 +20,7 @@ package ar.com.zauber.commons.dao.closure.processors;
  * 
  * @author Juan F. Codagnone
  * @since Jun 18, 2009
+ * @param <T> Closure type
  */
 public interface MergeResult<T> {
     

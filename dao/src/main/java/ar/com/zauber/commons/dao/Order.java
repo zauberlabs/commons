@@ -29,18 +29,19 @@ public class Order {
     private final String property;
     private final boolean ascending;
     private final boolean ignoreCase;
+    
+    /** Must sort ascending */
     public static final Boolean ASCENDING = Boolean.TRUE;
+    /** Must sort descending  */
     public static final Boolean DESCENDING = Boolean.FALSE;
     
-    /**
-     * @param properties name of the sorting property
-     */
+    /** @param property name of the sorting property */
     public Order(final String property) {
         this(property, ASCENDING);
     }
     
     /**
-     * @param properties name of the sorting property
+     * @param property name of the sorting property
      * @param ascending <code>true</code> if sorting is ascending
      */
     public Order(final String property, final boolean ascending) {
@@ -48,7 +49,7 @@ public class Order {
     }
 
     /**
-     * @param properties name of the sorting property
+     * @param property name of the sorting property
      * @param ascending <code>true</code> if sorting is ascending
      * @param ignoreCase  <code>true</code> if the case is ignored when sorting
      */
@@ -60,11 +61,11 @@ public class Order {
         this.ignoreCase = ignoreCase;
     }
 
-    public String getProperty() {
+    public final String getProperty() {
         return property;
     }
 
-    public Boolean getAscending() {
+    public final Boolean getAscending() {
         return ascending;
     }
 

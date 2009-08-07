@@ -22,11 +22,12 @@ import ar.com.zauber.commons.dao.Predicate;
  * 
  * @author Juan F. Codagnone
  * @since Jun 16, 2009
+ * @param <T> Predicate Type
  */
 public class FalsePredicate<T> implements Predicate<T> {
 
     /** @see Predicate#evaluate(java.lang.Object) */
-    public boolean evaluate(final T value) {
+    public final boolean evaluate(final T value) {
         return false;
     }
 }

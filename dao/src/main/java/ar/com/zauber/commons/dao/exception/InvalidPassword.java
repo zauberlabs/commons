@@ -23,6 +23,7 @@ package ar.com.zauber.commons.dao.exception;
  * @since Mar 6, 2006
  */
 public class InvalidPassword extends RuntimeException {
+    private static final long serialVersionUID = -65022319315917842L;
 
     /**
      * Creates the InvalidPassword.
