@@ -72,4 +72,46 @@ public class Order {
     public final boolean isIgnoreCase() {
         return ignoreCase;
     }
+    
+    /** @see Object#toString() */
+    @Override
+    public final String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(property);
+        sb.append(' ');
+        sb.append(ascending ? "ASC" : "DESC");
+        if(ignoreCase) {
+            sb.append(" ignoring case");    
+        }
+        return sb.toString();
+    }
+    
+    /** @see Object#equals(Object) */
+    @Override
+    public final boolean equals(final Object obj) {
+        boolean ret = false;
+        
+        if(obj == this) {
+            ret = true;
+        } else if(obj instanceof Order) {
+            final Order order = (Order) obj;
+            
+            ret = ascending == order.ascending 
+               && ignoreCase == order.ignoreCase
+               && property.equals(order.property);
+        }
+        return ret;
+    }
+    
+    /** @see Object#hashCode() */
+    @Override
+    public final int hashCode() {
+        int ret = 37;
+        
+        ret = ret * 17 + (ascending ? 0 : 1);
+        ret = ret * 17 + (ignoreCase ? 0 : 1);
+        ret = ret * 17 + property.hashCode();
+        
+        return ret;
+    }
 }

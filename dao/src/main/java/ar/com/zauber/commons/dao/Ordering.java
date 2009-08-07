@@ -15,7 +15,7 @@
  */
 package ar.com.zauber.commons.dao;
 
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,8 +33,19 @@ import org.apache.commons.lang.Validate;
  */
 public class Ordering {
     private final List<Order> orders;
+
+    /** creates an empty ordering */
+    @SuppressWarnings("unchecked")
+    public Ordering() {
+        this(Collections.EMPTY_LIST);
+    }
     
-    /** @param */
+    /** @param orders orders */
+    public Ordering(final Order ...orders) {
+        this(Arrays.asList(orders));
+    }
+    
+    /** @param orders orders*/
     public Ordering(final List<Order> orders) {
         Validate.noNullElements(orders);
         this.orders = orders;
@@ -43,5 +54,31 @@ public class Ordering {
     /** return the orders. the returned list can't be modified */
     public final List<Order> getOrders() {
         return Collections.unmodifiableList(orders);
+    }
+    
+    /** @see Object#toString() */
+    @Override
+    public final String toString() {
+        return orders.toString();
+    }
+    
+    /** @see Object#equals(Object) */
+    @Override
+    public final boolean equals(final Object obj) {
+        boolean ret = false;
+        
+        if(obj == this) {
+            ret = true;
+        } else if(obj instanceof Ordering) {
+            final Ordering ordering = (Ordering) obj;
+            ret = orders.equals(ordering.orders);
+        }
+        return ret;
+    }
+    
+    /** @see Object#hashCode() */
+    @Override
+    public final int hashCode() {
+        return 37 + 17 * 37 + orders.hashCode();
     }
 }

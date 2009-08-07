@@ -46,4 +46,23 @@ public class OrderTest extends TestCase {
         assertFalse(o.getAscending());
         assertFalse(o.isIgnoreCase());
     }
+    
+    
+    /** test */
+    public final void testToString() {
+        assertEquals("description ASC", new Order("description", true).toString());
+        assertEquals("user DESC", new Order("user", false).toString());
+        assertEquals("user DESC ignoring case", 
+                new Order("user", false, true).toString());
+    }
+    
+    
+    /** test */
+    public final void testEquals() {
+        assertEquals(new Order("username"), new Order("username"));
+        assertEquals(new Order("username").hashCode(), 
+                new Order("username").hashCode());
+        assertFalse(new Order("username", true).equals(
+                new Order("username", false)));
+    }
 }
