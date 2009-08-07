@@ -40,7 +40,7 @@ public class OrderingTest {
     public final void tostring() {
         final Ordering ordering = new Ordering(new Order("user"), 
                 new Order("creation", false, true));
-        Assert.assertEquals("[user ASC, creation DESC ignoring case]", 
+        Assert.assertEquals("ORDER BY [user ASC, creation DESC ignoring case]", 
                 ordering.toString());
     }
     

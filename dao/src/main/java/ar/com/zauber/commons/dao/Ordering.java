@@ -59,7 +59,7 @@ public class Ordering {
     /** @see Object#toString() */
     @Override
     public final String toString() {
-        return orders.toString();
+        return "ORDER BY " + orders.toString();
     }
     
     /** @see Object#equals(Object) */
@@ -80,5 +80,20 @@ public class Ordering {
     @Override
     public final int hashCode() {
         return 37 + 17 * 37 + orders.hashCode();
+    }
+ 
+    /**
+     *  return a  {@link OrderingBuilder} that ease the  creation. Ej:
+     *  <verbatim>
+     *  final Ordering expected = new Ordering(
+     *          new Order("name"), 
+     *          new Order("username", true, true),
+     *          new Order("points", false), 
+     *          new Order("foo", false, true));
+     *   </verbatim> 
+     * 
+     * */
+    public static OrderingBuilder builder() {
+        return new OrderingBuilder();
     }
 }
