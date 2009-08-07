@@ -15,7 +15,11 @@
  */
 package ar.com.zauber.commons.dao;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.lang.Validate;
         
 
 /**
@@ -28,27 +32,16 @@ import java.util.List;
  * @since Sep 24, 2007
  */
 public class Ordering {
-
-    /** <code>orders</code> */
-    private List<Order> orders;
-        
-    /**
-     * Crea el/la Ordering.
-     *
-     * @param orders
-     */
+    private final List<Order> orders;
+    
+    /** @param */
     public Ordering(final List<Order> orders) {
-        super();
+        Validate.noNullElements(orders);
         this.orders = orders;
     }
 
-    /**
-     * Returns the orders.
-     * 
-     * @return <code>List<Order></code> with the orders.
-     */
+    /** return the orders. the returned list can't be modified */
     public final List<Order> getOrders() {
-        return orders;
+        return Collections.unmodifiableList(orders);
     }
-
 }
