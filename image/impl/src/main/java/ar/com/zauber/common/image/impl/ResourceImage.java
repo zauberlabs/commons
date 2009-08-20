@@ -18,6 +18,7 @@ package ar.com.zauber.common.image.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import org.apache.commons.lang.Validate;
 import org.codehaus.plexus.util.FileUtils;
@@ -76,5 +77,10 @@ public class ResourceImage extends AbstractImage {
             throw new RuntimeException("oppps. is is null!!");
         }
         return is;
+    }
+
+    /** @see Resource#getLastModified() */
+    public final Date getLastModified() {
+        return null;
     }
 }

@@ -18,6 +18,7 @@ package ar.com.zauber.common.image.impl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import org.apache.commons.lang.Validate;
 
@@ -36,7 +37,7 @@ public class ByteArrayResource implements Resource {
     
     /** the real data */
     private byte [] data;
-    
+    private final Date lastModified = new Date(); 
     /**
      * Creates the ByteArrayResource.
      *
@@ -64,6 +65,11 @@ public class ByteArrayResource implements Resource {
     /** @see ar.com.zauber.eventz.domain.event.Resource#getInputStream() */
     public final InputStream getInputStream() throws IOException {
         return new ByteArrayInputStream(data);
+    }
+
+    /** @see ar.com.zauber.common.image.model.Resource#getLastModified() */
+    public final Date getLastModified() {
+        return new Date(lastModified.getTime());
     }
 
 }

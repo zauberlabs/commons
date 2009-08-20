@@ -17,6 +17,7 @@ package ar.com.zauber.common.image.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 
 /**
@@ -36,4 +37,11 @@ public interface Resource {
      * @throws IOException on error
      */
     InputStream getInputStream() throws IOException;
+    
+    
+    /**
+     * @return the last-modified timestamp for this resource.
+     * or <code>null</code> if can't be determined
+     */
+    Date getLastModified();
 }
