@@ -43,6 +43,17 @@ public class ResourceImage extends AbstractImage {
      */
     public ResourceImage(final String resource) 
       throws IllegalArgumentException, IOException {
+        this(resource, 120);
+    }
+    /**
+     * Creates the ResourceFlyer.
+     *
+     * @param resource resource to load with the classloader
+     * @throws IllegalArgumentException on error
+     * @throws IOException on i/o error
+     */
+    public ResourceImage(final String resource, int maxSize) 
+      throws IllegalArgumentException, IOException {
         super(getFileName(resource));
         Validate.notNull(resource);
         if(getClass().getClassLoader().getResource(resource) == null) {
@@ -54,7 +65,7 @@ public class ResourceImage extends AbstractImage {
         
         // thumb
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        createThumbnail(getInputStream(), out);
+        createThumbnail(getInputStream(), out, maxSize);
         setThumb(new ByteArrayResource("thumb_" + getFileName(resource), out
                 .toByteArray()));
     }
