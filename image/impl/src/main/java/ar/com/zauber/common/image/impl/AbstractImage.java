@@ -125,10 +125,10 @@ public abstract class AbstractImage implements Image {
      * @throws IOException if there is a problem reading is
      */
     public static void createThumbnail(final InputStream is, 
-                                       final OutputStream os)
+                                       final OutputStream os,
+                                       final int target)
             throws IOException {
         final float compression = 0.85F;
-        final int target = 120;
         
         try {
             final BufferedImage bi = ImageIO.read(is);

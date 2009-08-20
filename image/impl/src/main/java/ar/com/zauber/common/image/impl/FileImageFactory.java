@@ -36,8 +36,15 @@ public class FileImageFactory implements ImageFactory {
     private final File baseDir;
     /** ver construcor */
     private long maxBytes;
+    private final int maxSize;
     /** default file extension for images */
     private static final String DEFAULT_FILE_EXTENSION = ".jpg";
+    
+    /** Creates the FileFlyerFactory.*/
+    public FileImageFactory(final File baseDir, final long maxBytes) {
+        this(baseDir, maxBytes, 120);
+    }
+    
     /**
      * Creates the FileFlyerFactory.
      *
@@ -46,7 +53,8 @@ public class FileImageFactory implements ImageFactory {
      *                 no hay limite, si es se pasa el maximo
      *                 se tira una excepcion
      */
-    public FileImageFactory(final File baseDir, final long maxBytes) {
+    public FileImageFactory(final File baseDir, final long maxBytes,
+            final int maxSize) {
         Validate.notNull(baseDir, "baseDir");
         Validate.isTrue(maxBytes >= 0);
         if(!baseDir.exists()) {
@@ -59,6 +67,7 @@ public class FileImageFactory implements ImageFactory {
         
         this.baseDir = baseDir;
         this.maxBytes = maxBytes;
+        this.maxSize = maxSize;
     }
     
     /** @see ImageFactory#createImage(InputStream, String) */
@@ -92,7 +101,7 @@ public class FileImageFactory implements ImageFactory {
         final FileImage thumb = new FileImage(baseDir.getAbsolutePath(),
                 "thumb_" + name + DEFAULT_FILE_EXTENSION);
         FileImage.createThumbnail(ret.getInputStream(), new FileOutputStream(
-                thumb.getFile()));
+                thumb.getFile()), maxSize);
         ret.setThumb(thumb);
         
         return ret;
