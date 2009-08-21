@@ -9,13 +9,13 @@
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
-  <version>3.9.3</version>
+  <version>3.9.4</version>
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/3.9.3/</connection>
-     <developerConnection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/release/3.9.3/</developerConnection>
-     <url>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/3.9.3/</url>
+     <connection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/3.9.4/</connection>
+     <developerConnection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/release/3.9.4/</developerConnection>
+     <url>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/3.9.4/</url>
   </scm>
 
   <licenses>
