@@ -138,12 +138,16 @@ public abstract class AbstractImage implements Image {
             }
             
             int w = bi.getWidth(), h = bi.getHeight();
-            if(w > h) {
-                h = target * bi.getHeight() / bi.getWidth(); 
-                w = target;
+            if(w < target && h < target) {
+                // nothing to recalculate, ya es chiquita.
             } else {
-                w = target * bi.getWidth() / bi.getHeight(); 
-                h = target;
+                if(w > h) {
+                    h = target * bi.getHeight() / bi.getWidth(); 
+                    w = target;
+                } else {
+                    w = target * bi.getWidth() / bi.getHeight(); 
+                    h = target;
+                }
             }
             // draw original image to thumbnail image object and
             // scale it to the new size on-the-fly
