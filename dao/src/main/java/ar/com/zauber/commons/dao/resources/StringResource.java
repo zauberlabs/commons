@@ -17,6 +17,7 @@ package ar.com.zauber.commons.dao.resources;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Date;
 
 import org.apache.commons.lang.Validate;
 
@@ -44,6 +45,11 @@ public class StringResource implements Resource {
 
     /** @see Resource#getName() */
     public final String getName() {
+        return null;
+    }
+
+    /** @see Resource#getLastModified() */
+    public Date getLastModified() {
         return null;
     }
 

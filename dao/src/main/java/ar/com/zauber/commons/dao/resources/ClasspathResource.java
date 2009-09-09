@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.dao.resources;
 
 import java.io.InputStream;
+import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -52,5 +53,9 @@ public class ClasspathResource implements Resource {
     /** @see Resource#getName() */
     public final String getName() {
         return resourcePath;
+    }
+    /** @see Resource#getLastModified() */
+    public final Date getLastModified() {
+        return null;
     }
 }
