@@ -3,7 +3,7 @@
   <parent>
     <artifactId>commons-test-parent</artifactId>
     <groupId>ar.com.zauber.commons.test</groupId>
-    <version>3.17-SNAPSHOT</version>
+    <version>3.17</version>
   </parent>
   <name>Zauber::Commons::Test::Javascript</name>
   <artifactId>commons-test-javascript</artifactId>
