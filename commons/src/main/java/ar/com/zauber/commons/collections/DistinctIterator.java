@@ -71,20 +71,19 @@ public class DistinctIterator<T> implements Iterator<T> {
 
     /** avanzo al sigueinte elemento distinto al anterior*/
     private void readNext() {
+        T aux = buffer;
         if(target.hasNext()) {
             if(buffer == null) {
                 buffer = target.next();
             } else {
-                int i = 0;
                 while(target.hasNext()) {
                     T n = target.next();
                     if(comparator.compare(n, buffer) != 0) {
                         buffer = n;
                         break;
                     }
-                    i++;
                 }
-                if(!target.hasNext() && i >= 1) {
+                if(!target.hasNext() && buffer == aux) {
                     buffer = null;
                 }
             }

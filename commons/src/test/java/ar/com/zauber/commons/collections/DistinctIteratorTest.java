@@ -69,6 +69,16 @@ public class DistinctIteratorTest {
         Assert.assertFalse(it.hasNext());
     }
     
+    /** prueba 2 iguales y despues uno distinto */
+    @Test
+    public final void test2contra1() {
+        final Iterator<String> it =  new DistinctIterator<String>(Arrays.asList(
+                "hola", "hola", "chau").iterator(), comparator);
+        Assert.assertEquals("hola", it.next());
+        Assert.assertEquals("chau", it.next());
+        Assert.assertFalse(it.hasNext());
+    }
+    
     /** prueba de solo 2 elementos */
     @Test
     public final void testTwoElementos() {
