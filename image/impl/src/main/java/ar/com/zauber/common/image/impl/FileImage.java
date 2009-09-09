@@ -16,6 +16,7 @@
 package ar.com.zauber.common.image.impl;
 
 import java.io.*;
+import java.util.Date;
 
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
@@ -60,5 +61,11 @@ public class FileImage extends AbstractImage {
     /** @return the file where the flyer is stored */
     public final File getFile() {
         return new File(directory, getName());
+    }
+    
+    /** @see Resource#getLastModified() */
+    public final Date getLastModified() {
+        final long t = getFile().lastModified();
+        return t == 0 ? null : new Date(t);
     }
 }

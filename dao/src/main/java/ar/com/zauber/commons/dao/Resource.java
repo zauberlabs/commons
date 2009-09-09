@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.dao;
 
 import java.io.InputStream;
+import java.util.Date;
 
 
 /**
@@ -36,4 +37,10 @@ public interface Resource {
     
     /** @return a stream for the resource */
     InputStream getInputStream();
+
+    /**
+     * @return the last-modified timestamp for this resource.
+     * or <code>null</code> if can't be determined
+     */
+    Date getLastModified();
 }

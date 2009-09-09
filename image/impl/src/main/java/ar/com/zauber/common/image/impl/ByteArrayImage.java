@@ -37,6 +37,11 @@ public class ByteArrayImage extends ByteArrayResource implements Image {
     /** thumbnial */
     private ByteArrayResource thumbnail;
     
+    public ByteArrayImage(final String name, final byte [] data) 
+      throws IOException {
+        this(name, data, 120);
+    }
+    
     /**
      * Creates the ByteArrayFlyer.
      *
@@ -44,12 +49,13 @@ public class ByteArrayImage extends ByteArrayResource implements Image {
      * @param data data
      * @throws IOException on i/o error
      */
-    public ByteArrayImage(final String name, final byte [] data)
+    public ByteArrayImage(final String name, final byte [] data,
+            int maxsize)
             throws IOException {
         super(name, data);
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         final ByteArrayInputStream is = new ByteArrayInputStream(data); 
-        AbstractImage.createThumbnail(is, os);
+        AbstractImage.createThumbnail(is, os, maxsize);
         thumbnail = new ByteArrayResource("thumb_" + name, os.toByteArray());
     }
     
