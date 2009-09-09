@@ -60,9 +60,10 @@ public class JREImageRetriver implements ImageRetriver {
             final HttpURLConnection huc = (HttpURLConnection)uc;
             prepare(uc);
             huc.connect();
-            final String contentType = huc.getContentType().trim();
-            if(contentType != null && contentType.length() > 0  
-                    && !huc.getContentType().startsWith("image/")) {
+            final String contentType = huc.getContentType();
+            if(contentType != null && contentType.length() > 0 
+                    &&  !huc.getContentType().trim().startsWith("image/")) {
+
                 throw new RuntimeException(
                         "la URL no parece apuntar a una imagen ");
             }
