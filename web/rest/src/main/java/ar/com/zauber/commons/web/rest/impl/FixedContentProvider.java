@@ -46,7 +46,13 @@ public class FixedContentProvider implements ContentProvider {
             throw new NoSuchEntityException(url);
         }
 
-        return getClass().getClassLoader().getResourceAsStream(destURL);
+        final InputStream is = getClass().getClassLoader().getResourceAsStream(
+                destURL);
+        if(is == null) {
+            throw new NoSuchEntityException(url);
+        }
+        
+        return is;
     }
 
     /** @see ContentProvider#put(URL, InputStream) */
