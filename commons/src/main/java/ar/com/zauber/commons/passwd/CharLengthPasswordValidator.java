@@ -17,7 +17,7 @@ package ar.com.zauber.commons.passwd;
 
 import org.apache.commons.lang.Validate;
 
-import ar.com.zauber.commons.dao.exception.InvalidPassword;
+import ar.com.zauber.commons.dao.exception.CharLengthInvalidPassword;
 
 
 /**
@@ -45,11 +45,12 @@ public class CharLengthPasswordValidator implements PasswordValidator {
     /** @see PasswordValidator#validate(String) */
     public final void validate(final String password) {
         if(password == null) {
-            throw new InvalidPassword(
-                    "la password debe contener algún caracter");
+            throw new CharLengthInvalidPassword(
+                    "la password debe contener algún caracter", minLength);
         } else if(password.length() < minLength) {
-            throw new InvalidPassword("La password debe tener por lo menos una"
-                    + " longitud de " + minLength + " caracteres");
+            throw new CharLengthInvalidPassword
+                ("La password debe tener por lo menos una"
+                    + " longitud de " + minLength + " caracteres", minLength);
         }
     }
 }

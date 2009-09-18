@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.passwd;
 
 import junit.framework.TestCase;
+import ar.com.zauber.commons.dao.exception.CharLengthInvalidPassword;
 import ar.com.zauber.commons.dao.exception.InvalidPassword;
 
 
@@ -40,4 +41,19 @@ public class CharLengthPasswordValidatorTest extends TestCase {
             // ok
         }
     }
+    
+    /** unit test */
+    public final void testItMore() {
+        final PasswordValidator val = new CharLengthPasswordValidator(4);
+        
+        val.validate("asdasdasdasdsaa");
+        val.validate("asdf");
+        try {
+            val.validate("asd");
+            fail();
+        } catch (final CharLengthInvalidPassword e) {
+            assertEquals(e.getMinLength(), 4);
+        }
+    }
+    
 }
