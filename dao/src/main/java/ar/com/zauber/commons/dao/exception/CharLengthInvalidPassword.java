@@ -19,7 +19,7 @@ public class CharLengthInvalidPassword extends InvalidPassword {
      * @param message an explanation of why the the password is invalid
      * @param minLength the minimum length that the password supports
      */
-    public CharLengthInvalidPassword(String message, int minLength) {
+    public CharLengthInvalidPassword(final String message, final int minLength) {
         super(message);
         this.minLength = minLength;
     }
