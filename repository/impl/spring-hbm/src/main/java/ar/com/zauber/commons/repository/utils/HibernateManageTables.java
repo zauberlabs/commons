@@ -15,9 +15,11 @@
  */
 package ar.com.zauber.commons.repository.utils;
 
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
@@ -92,8 +94,8 @@ public class HibernateManageTables
         if(filePath != null && filePath.length() > 0) {
             try {
                 printStream = new PrintStream(filePath);
-            } catch (Exception e) {
-                logger.info("Unable to open " + filePath);
+            } catch (final FileNotFoundException e) {
+                logger.info("Unable to open " + filePath, e);
             }
         }
         dropDatabase(dropOrUpdate, printStream);
@@ -174,7 +176,7 @@ public class HibernateManageTables
         if("NO, DONT DROP ME".equals(message)) {
             try {
                 localSessionFactoryBean.updateDatabaseSchema();
-            } catch(Exception e) {
+            } catch(Throwable e) {
                 logger.warn("An exception ocurred and the database"
                         + "schema didn't finish to execute");
                 return;
@@ -219,8 +221,7 @@ public class HibernateManageTables
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
                     "select message from " + testMarkerTableName);
-        } catch (Exception e) {
-            
+        } catch (final SQLException e) {
             // An exeption. Give some explanation just in case.
             logger.warn("An exception was caught selecting from "
                         + testMarkerTableName
