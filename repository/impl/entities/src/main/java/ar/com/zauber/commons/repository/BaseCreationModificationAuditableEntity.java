@@ -52,14 +52,15 @@ public abstract class BaseCreationModificationAuditableEntity
     public BaseCreationModificationAuditableEntity(
             final Date createdAt, final String createdBy, 
             final Date modifiedAt, final String modifiedBy) {
-        this.createdAt = createdAt;
+        this.createdAt = createdAt == null ? null : new Date(createdAt.getTime());
         this.createdBy = createdBy;
-        this.modifiedAt = modifiedAt;
+        this.modifiedAt = modifiedAt == null
+                        ? modifiedAt : new Date(modifiedAt.getTime());
         this.modifiedBy = modifiedBy;
     }
     
     public final Date getCreatedAt() {
-        return createdAt;
+        return createdAt == null ? null : new Date(createdAt.getTime());
     }
 
     public final String getCreatedBy() {
@@ -68,7 +69,7 @@ public abstract class BaseCreationModificationAuditableEntity
 
     
     public final Date getModifiedAt() {
-        return modifiedAt;
+        return modifiedAt == null ? modifiedAt : new Date(modifiedAt.getTime());
     }
 
     public final String getModifiedBy() {
