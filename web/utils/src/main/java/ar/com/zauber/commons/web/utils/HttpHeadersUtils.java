@@ -21,8 +21,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.Validate;
-
 /**
  * Clases de utilidad para trabajar con headers http.
  * 
@@ -150,12 +148,41 @@ class ContentTypeContainer implements Comparable<ContentTypeContainer> {
             } else if (this.position > o.position) {
                 ret = 1;
             } else {
-                ret = 0;
+                ret = mediaRange.compareTo(o.mediaRange);
             }
         }
         return ret;
     }
 
+    /** @see Object#equals(Object) */
+    @Override
+    public final boolean equals(final Object obj) {
+        boolean ret = false;
+        
+        if(obj == this) {
+            ret = true;
+        } else if(obj instanceof ContentTypeContainer) {
+            final ContentTypeContainer c = (ContentTypeContainer) obj;
+            ret = mediaRange.equals(c.mediaRange) 
+                && position == c.position 
+                && q == c.q; 
+        }
+        
+        return ret;
+    }
+    
+    /** @see Object#hashCode() */
+    @Override
+    public final int hashCode() {
+        int ret = 17;
+        ret = 37 * ret + mediaRange.hashCode();
+        ret = 37 * ret + ((int)(position ^ (position >>> 32)));
+        final long ql  = Double.doubleToLongBits(q);
+        ret = 37 * ret + ((int)(ql ^ (ql >>> 32)));
+        
+        return ret;
+    }
+    
     /** 
      * @return <code>true</code> el mediaRange que se pasa como argumento
      * es "compatible" con el que representa este objeto.
