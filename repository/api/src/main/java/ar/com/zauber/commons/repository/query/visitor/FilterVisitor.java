@@ -33,36 +33,25 @@ import ar.com.zauber.commons.repository.query.filters.NullFilter;
 public interface FilterVisitor {
 
     
-    /**
-     * @param binaryPropertyFilter
-     */
+    /** Visita una {@link BinaryPropertyFilter} */
     void visitBinaryPropertyFilter(BinaryPropertyFilter binaryPropertyFilter);
 
     
-    /**
-     * @param compositeFilter
-     */
+    /** Visita una {@link CompositeFilter} */
     void visitCompositeFilter(CompositeFilter compositeFilter);
 
 
     
-    /**
-     * @param isNullPropertyFilter
-     */
+    /** Visita una {@link IsNullPropertyFilter} */
     void visitIsNullPropertyFilter(IsNullPropertyFilter isNullPropertyFilter);
 
 
     
-    /**
-     * @param inPropertyFilter
-     */
+    /** Visita una {@link InPropertyFilter} */
     void visitInPropertyFilter(InPropertyFilter inPropertyFilter);
 
 
     
-    /**
-     * @param nullFilter
-     */
+    /** Visita una {@link NullFilter} */
     void visitNullFilter(NullFilter nullFilter);
-    
 }

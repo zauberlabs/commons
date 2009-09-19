@@ -34,11 +34,12 @@ public class CompositeFilter extends BaseFilter {
     private final List<BaseFilter> filters;
 
     /** constructor */
-    public CompositeFilter(final Connector connector, final List<BaseFilter> filters) {
+    public CompositeFilter(final Connector connector, 
+            final List<BaseFilter> filters) {
         super();
         this.connector = connector;
         this.filters = filters;
-        }
+    }
 
     /** @see Filter#accept(FilterVisitor) */
     public final void accept(final FilterVisitor visitor) {

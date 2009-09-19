@@ -29,7 +29,6 @@ import ar.com.zauber.commons.repository.query.values.Value;
  */
 public class BeginsLikePropertyFilter extends LikePropertyFilter {
 
-
     /**
      * @param property property to query
      * @param value    literal value to match

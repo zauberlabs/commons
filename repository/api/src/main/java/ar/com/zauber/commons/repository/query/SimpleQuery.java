@@ -25,9 +25,9 @@ import ar.com.zauber.commons.repository.query.filters.Filter;
 /**
  * Implementación tonta de {@link Query}.
  *
- *
  * @author Martin A. Marquez
  * @since Sep 21, 2007
+ * @param <T> Entity Type
  */
 public class SimpleQuery<T> implements Query<T> {
 
@@ -35,7 +35,7 @@ public class SimpleQuery<T> implements Query<T> {
     private final Paging paging;
     private final Ordering ordering;
     private final Class<T> clazz;
-    private Boolean cacheable = Boolean.FALSE;
+    private boolean cacheable = false;
 
     /**
      * Crea el/la SimpleQuery.
@@ -75,11 +75,11 @@ public class SimpleQuery<T> implements Query<T> {
         return clazz;
     }
 
-    public final Boolean getCacheable() {
+    public final boolean getCacheable() {
         return cacheable;
     }
 
-    public final void setCacheable(final Boolean cacheable) {
+    public final void setCacheable(final boolean cacheable) {
         this.cacheable = cacheable;
     }
 

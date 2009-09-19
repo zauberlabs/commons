@@ -27,10 +27,7 @@ import ar.com.zauber.commons.repository.query.values.Value;
  * @since Sep 21, 2007
  */
 public abstract class LikePropertyFilter extends BinaryPropertyFilter {
-
-    /** <code>caseSensitive</code> */
-    private Boolean caseSensitive;
-    
+    private final Boolean caseSensitive;
 
     /**
      * @param property property to query
@@ -42,9 +39,6 @@ public abstract class LikePropertyFilter extends BinaryPropertyFilter {
         this.caseSensitive = caseSensitive;
     }
 
-    /**
-     * @return
-     */
     public final Boolean getCaseSensitive() {
         return caseSensitive;
     }
@@ -53,5 +47,4 @@ public abstract class LikePropertyFilter extends BinaryPropertyFilter {
     public final String getSymbol() {
         return "LIKE";
     }
-
 }

@@ -27,7 +27,6 @@ import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
  * @since Sep 21, 2007
  */
 public class InPropertyFilter extends PropertyFilter {
-
     private final List<Value> values;
 
     /** contructor */
@@ -41,12 +40,8 @@ public class InPropertyFilter extends PropertyFilter {
         visitor.visitInPropertyFilter(this);
     }
 
-
-    /**
-     * @return
-     */
-    public List<Value> getValues() {
+    /** @return el listado de valores de la condicion IN */
+    public final List<Value> getValues() {
         return values;
     }
-
 }

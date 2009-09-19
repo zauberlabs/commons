@@ -15,15 +15,17 @@
  */
 package ar.com.zauber.commons.repository.query;
 
-
-
 /**
  * Marker interface for queries
  * 
  * @author Gabriel V. Baños
  * @since 19/06/2005
+ * @param <T> entity class
  */
 public interface Query<T> extends Translatable {
-    Boolean getCacheable();
-    void setCacheable(Boolean cacheable);
+    /** @return <code>true</code> if the query is cacheable */
+    boolean getCacheable();
+
+    /** sets whether the the query is cacheable */
+    void setCacheable(boolean cacheable);
 }

@@ -24,14 +24,14 @@ package ar.com.zauber.commons.repository.query.filters;
  * @since Sep 21, 2007
  */
 public abstract class PropertyFilter extends SimpleFilter {
-    
     private String property;
 
-    public PropertyFilter(String property) {
+    /** @param property nombre de la propiedad */
+    public PropertyFilter(final String property) {
         this.property = property;
     }
     
-    public String getProperty() {
+    public final String getProperty() {
         return property;
     }
 }

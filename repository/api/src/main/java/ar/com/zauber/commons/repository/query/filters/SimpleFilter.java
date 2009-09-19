@@ -15,9 +15,6 @@
  */
 package ar.com.zauber.commons.repository.query.filters;
 
-import java.util.List;
-
-import ar.com.zauber.commons.repository.query.connectors.Connector;
         
 
 /**

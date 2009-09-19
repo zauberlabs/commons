@@ -27,7 +27,7 @@ import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 public class NullFilter extends BaseFilter {
 
     /** @see Filter#accept(FilterVisitor) */
-    public void accept(final FilterVisitor visitor) {
+    public final void accept(final FilterVisitor visitor) {
         visitor.visitNullFilter(this);
     }
 

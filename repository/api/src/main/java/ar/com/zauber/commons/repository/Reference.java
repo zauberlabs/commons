@@ -24,82 +24,46 @@ import java.io.Serializable;
  * objeto en mas de una sesion en forma simultanea.
  * 
  * @author Martin Andres Marquez
+ * @param <T> Entity Type
  */
 public class Reference<T> implements Serializable {
+    private static final long serialVersionUID = -8996518320381455505L;
+    private final long id;
+    private final long version;
+    private final Class<T> clazz;
 
-    /** <code>id</code> */
-    private Long id;
+    /** Creates the Reference. */
+    public Reference(final Class<T> clazz) {
+        this(clazz, -1L);
+    }
 
-    /** <code>version</code> */
-    private long version;
-
-    /** <code>clazz</code> */
-    private Class<T> clazz;
-    
-    /**
-     * Creates the Reference.
-     * 
-     * @param id
-     *            the id
-     * @param className
-     *            the class name
-     */
-    public Reference(final Class<T> clazz, final Long id) {
-        this(clazz);
-        this.id = id;
+    /** Creates the Reference.*/
+    public Reference(final Class<T> clazz, final long id) {
+        this(clazz, id, -1);
     }
     
-    /**
-     * Creates the Reference.
-     *
-     * @param className
-     * @param id
-     * @param version
-     */
-    public Reference(final Class<T> clazz, final Long id, final long version) {
-        this(clazz, id);
+    /** Creates the Reference. */
+    public Reference(final Class<T> clazz, final long id, final long version) {
+        this.clazz = clazz;
+        this.id = id;
         this.version = version;
     }
     
-    /**
-     * Creates the Reference.
-     * 
-     */
-    public Reference(Class<T> clazz) {
-        this.clazz = clazz;
-        this.version = -1;
+
+    public final long getId() {
+        return id;
     }
 
-    /**
-     * Returns the id.
-     * 
-     * @return <code>Serializable</code> with the id.
-     */
-    public final Long getId() {
-        return this.id;
-    }
-
-    /**
-     * Returns the version.
-     * 
-     * @return <code>long</code> with the version.
-     */
     public final long getVersion() {
-        return this.version;
+        return version;
     }
 
-    /**
-     * Returns the className.
-     * 
-     * @return <code>String</code> with the className.
-     */
     public final String getClassName() {
         return clazz.getName();
     }
 
-    /** @see java.lang.Object#toString() */
+    /** @see Object#toString() */
     public final String toString() {
         return getClassName() + "@" + getId();
     }
-
 }

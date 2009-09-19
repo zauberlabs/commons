@@ -20,11 +20,13 @@ import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 
 /**
  * Interfaz que debe implementar un filtro.
- * 
+ * Los filtros son parte de un patrón Visitor, donde el filtro es el elemento
+ * que acepta al visitador.
  * 
  * @author Martin A. Marquez
  * @since Sep 21, 2007
  */
 public interface Filter {
-    public void accept(FilterVisitor visitor);
+    /** acepta al visitador */
+    void accept(FilterVisitor visitor);
 }
