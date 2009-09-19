@@ -82,9 +82,12 @@ public abstract class BaseEntity implements Persistible {
             for (int i = 0; i < fieldNamesArray.length; i++) {
                 try {
                     fields.add((theClass.getField(fieldNamesArray[i])));
-                } catch (Exception e) {
+                } catch (final SecurityException e) {
+                    throw new IllegalStateException(e);
+                } catch (final NoSuchFieldException e) {
                     throw new IllegalStateException(e);
                 }
+                    
             }
         } else {
             Field[] fieldsArray = theClass.getFields();
@@ -108,7 +111,9 @@ public abstract class BaseEntity implements Persistible {
             for (Field field : fields) {
                 try {
                     hashCodeBuilder.append(field.get(this));
-                } catch (Exception e) {
+                } catch (final IllegalArgumentException e) {
+                    throw new IllegalStateException(e);
+                } catch (final IllegalAccessException e) {
                     throw new IllegalStateException(e);
                 }
             }
