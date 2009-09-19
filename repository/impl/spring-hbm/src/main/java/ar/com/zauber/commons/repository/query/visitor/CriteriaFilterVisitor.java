@@ -204,13 +204,13 @@ public class CriteriaFilterVisitor implements FilterVisitor {
             String pathPart = relativePathName.substring(0, dotIndex);
             if (!aliases.containsKey(pathNamePrefix)) {
                 String alias = "alias" + aliases.size();
-                lastDotIndex = pathNamePrefix.lastIndexOf(".");
+                lastDotIndex = pathNamePrefix.lastIndexOf('.');
                 if (!isComponentType(pathPartClass, pathPart)) {
                     aliases.put(pathNamePrefix, alias);
                     if (lastDotIndex > 0) { // mas de un nivel de anidamiento
                         String nestedAlias = (String) aliases.get(
                                 pathNamePrefix.substring(0,
-                                        pathNamePrefix.lastIndexOf(".")));
+                                        pathNamePrefix.lastIndexOf('.')));
                         // un alias anidado por vez con un atributo
                         criteria = criteria.createAlias(
                                 nestedAlias + "." + pathPart, alias);
@@ -223,9 +223,9 @@ public class CriteriaFilterVisitor implements FilterVisitor {
                     }
                 } else { // si es un component no se usa alias directamente
                     String prefixComponent = null;
-                    if (pathNamePrefix.indexOf(".") > 0) {
+                    if (pathNamePrefix.indexOf('.') > 0) {
                         prefixComponent = pathNamePrefix
-                            .substring(0, pathNamePrefix.lastIndexOf("."));
+                            .substring(0, pathNamePrefix.lastIndexOf('.'));
                     } else {
                         prefixComponent = pathNamePrefix;
                     }
@@ -241,12 +241,12 @@ public class CriteriaFilterVisitor implements FilterVisitor {
                     dotIndex + 1, relativePathName.length());
             // si es el ultimo pathPart no se necesita obtener su clase
             // y se termina proceso del path
-            if (relativePathName.indexOf(".") < 0) {
+            if (relativePathName.indexOf('.') < 0) {
                 break;
             }
             // se obtiene la clase del siguiente pathPart a procesar
             pathPartClass = getNextPathPartClass(pathPartClass, pathPart);
-            dotIndex = relativePathName.indexOf(".");
+            dotIndex = relativePathName.indexOf('.');
             dotIndexAcum += dotIndex + 1;
         }
     }
@@ -335,7 +335,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @return verdadero si contiene puntos, falso sino
      */
     private boolean isMultipartQuery(final String fieldName) {
-        return (fieldName.indexOf(".") > 0);
+        return (fieldName.indexOf('.') > 0);
     }
 
     /**
@@ -367,12 +367,12 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      */
     private String getAliasPathName(final String fieldName) {
         String prefixFieldName = fieldName.substring(0,
-                fieldName.lastIndexOf("."));
+                fieldName.lastIndexOf('.'));
         if (aliases.containsKey(prefixFieldName)) {
             String aliasName = (String) aliases.get(prefixFieldName);
             String prefix = aliasName;
             String suffix = fieldName.substring(
-                    fieldName.lastIndexOf("."), fieldName.length());
+                    fieldName.lastIndexOf('.'), fieldName.length());
             return prefix + suffix;
         } else {
             return fieldName;
