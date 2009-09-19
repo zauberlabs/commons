@@ -68,11 +68,11 @@ public class SwingMailSender implements MailSender {
             }
             if(message.getCc() != null) {
                 sb.append("\nCc: ");
-                sb.append(message.getCc());
+                sb.append(Arrays.asList(message.getCc()));
             }
             if(message.getBcc() != null) {
                 sb.append("\nBcc: ");
-                sb.append(message.getBcc());
+                sb.append(Arrays.asList(message.getBcc()));
             }
             if(message.getReplyTo() != null) {
                 sb.append("\nReply-To: ");
