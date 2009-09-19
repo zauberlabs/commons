@@ -17,12 +17,14 @@ package ar.com.zauber.commons.repository.utils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
 import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.dialect.Dialect;
@@ -98,7 +100,7 @@ public abstract class AbstractHibernateDropTables
                   System.out.println(sqlUpdate[i]);
                   System.out.println(sentenceSeparator);
               }
-            } catch(Exception e) {
+            } catch(HibernateException e) {
                 logger.warn("An exception ocurred and the database"
                     + "schema didn't finish to execute");
                 return;
@@ -110,8 +112,7 @@ public abstract class AbstractHibernateDropTables
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(
                         "select message from " + testMarkerTableName);
-            } catch (Exception e) {
-                
+            } catch (SQLException e) {
                 // An exeption. Give some explanation just in case.
                 logger.warn("An exception was caught selecting from " 
                             + testMarkerTableName
