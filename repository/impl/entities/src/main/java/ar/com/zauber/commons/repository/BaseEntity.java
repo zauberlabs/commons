@@ -51,15 +51,18 @@ public abstract class BaseEntity implements Persistible {
     public final boolean naturalEquals(final Object obj) {
         Set<Field> fields = this.getIdentityFields();
         if(fields != null && fields.size() > 0) {
-            EqualsBuilder equalsBuilder = new EqualsBuilder();
-            for (Field field : fields) {
+            final EqualsBuilder equalsBuilder = new EqualsBuilder();
+            for (final Field field : fields) {
                 try {
                     equalsBuilder.append(field.get(this), field.get(obj));
-                } catch (Exception e) {
+                } catch (final IllegalArgumentException e) {
                     // Este código no deberia alcanzarse nunca.
-                    e.printStackTrace();
-                    return false;
+                    throw new IllegalStateException(e);
+                } catch (final IllegalAccessException e) {
+                 // Este código no deberia alcanzarse nunca.
+                    throw new IllegalStateException(e);
                 }
+                
             }
             return equalsBuilder.isEquals();
         }
