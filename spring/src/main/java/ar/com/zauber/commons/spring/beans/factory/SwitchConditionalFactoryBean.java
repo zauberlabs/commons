@@ -77,11 +77,6 @@ public class SwitchConditionalFactoryBean implements FactoryBean, InitializingBe
 
     /** @see FactoryBean#getObjectType() */
     public final Class getObjectType() {
-//        try {
-//            return getObject().getClass();
-//        } catch(Exception e) {
-//            throw new RuntimeException(e);
-//        }
         return null; // no tengo la mas minima idea de que se va a retornar
     }
 
@@ -92,11 +87,7 @@ public class SwitchConditionalFactoryBean implements FactoryBean, InitializingBe
     }
     
 
-    /**
-     * Sets the cases. 
-     *
-     * @param cases <code>List<CaseConditionalFactoryBean></code> with the cases.
-     */
+    /** Sets the cases. */
     public final void setCaseBlocks(final List<CaseBlock> caseBlocks) {
         this.caseBlocks = caseBlocks;
     }

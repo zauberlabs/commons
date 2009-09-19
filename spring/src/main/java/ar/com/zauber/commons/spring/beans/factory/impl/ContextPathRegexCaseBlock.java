@@ -31,14 +31,17 @@ import ar.com.zauber.commons.spring.beans.factory.CaseBlock;
  * está desplegada la apliación. Ej:
  * 
  * <pre>
- * <bean name="test1" class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean">
+ * <bean name="test1"
+ *   class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean">
  *     <property name="caseBlocks">
  *         <list>
- *            <bean class="ar.com.zauber.commons.spring.beans.factory.impl.ContextPathRegexCaseBlock" >
+ *            <bean class="ar.com.zauber.commons.spring.beans.factory.impl.
+ *                 ContextPathRegexCaseBlock" >
  *               <constructor-arg index="0"  value="^.*home$"/>
  *               <constructor-arg index="1" value="home"/>
  *            </bean>
- *            <bean class="ar.com.zauber.commons.spring.beans.factory.impl.ContextPathRegexCaseBlock" >
+ *            <bean class="ar.com.zauber.commons.spring.beans.factory.impl.
+ *                ContextPathRegexCaseBlock" >
  *               <constructor-arg index="0"  value="^.*house$"/>
  *               <constructor-arg index="1" value="house"/>
  *            </bean>
@@ -79,10 +82,10 @@ public class ContextPathRegexCaseBlock implements CaseBlock,
     }
 
     /** @see ApplicationContextAware#setApplicationContext(ApplicationContext) */
-    public final void setApplicationContext(final ApplicationContext ctx)
+    public final void setApplicationContext(final ApplicationContext aCtx)
             throws BeansException {
-        if(ctx instanceof WebApplicationContext) {
-            this.ctx = (WebApplicationContext)ctx;
+        if(aCtx instanceof WebApplicationContext) {
+            ctx = (WebApplicationContext)aCtx;
         }
     }
 

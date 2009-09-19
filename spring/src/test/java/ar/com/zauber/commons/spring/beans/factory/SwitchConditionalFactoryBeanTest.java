@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 public class SwitchConditionalFactoryBeanTest extends TestCase {
 
     /** testeo de unidad */
-    public void testFoo() {
+    public final void testFoo() {
         final BeanFactory testFactory = new XmlBeanFactory(
                 new ClassPathResource("spring-test-switch.xml"));
         assertEquals("es aretha", testFactory.getBean("test1"));

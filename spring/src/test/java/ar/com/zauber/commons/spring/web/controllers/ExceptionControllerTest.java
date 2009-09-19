@@ -39,7 +39,8 @@ public class ExceptionControllerTest {
     private ExceptionController exceptionController; 
     private HttpServletResponse res;
     private HttpServletRequest req;
-    
+
+    /** test */
     @Before
     public final void before() {
         res = new MockHttpServletResponse();
@@ -52,22 +53,25 @@ public class ExceptionControllerTest {
         exceptionController = new ExceptionController(map, "exceptions/default");
     }
 
+    /** test */
     @Test
-    public final void test404() throws Exception{
+    public final void test404() throws Exception {
         req.setAttribute("javax.servlet.error.status_code", 404);
         final ModelAndView mav = exceptionController.handleRequestInternal(req, res);
         Assert.assertEquals("exceptions/notfound", mav.getViewName());
     }
     
+    /** test */
     @Test
-    public final void test500() throws Exception{
+    public final void test500() throws Exception {
         req.setAttribute("javax.servlet.error.status_code", 500);
         final ModelAndView mav = exceptionController.handleRequestInternal(req, res);
         Assert.assertEquals("exceptions/internalerror", mav.getViewName());
     }
     
+    /** test */
     @Test
-    public final void testNull() throws Exception{
+    public final void testNull() throws Exception {
         final ModelAndView mav = exceptionController.handleRequestInternal(req, res);
         Assert.assertEquals("exceptions/default", mav.getViewName());
     }

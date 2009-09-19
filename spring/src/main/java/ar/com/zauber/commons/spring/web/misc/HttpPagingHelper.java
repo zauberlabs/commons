@@ -93,7 +93,7 @@ public final class HttpPagingHelper {
     /**
      * Changes the parameter used to get the page number from the request.
      */
-    public  final void setPageField(final String pageField) {
+    public void setPageField(final String pageField) {
         this.pageField = pageField;
     }
 

@@ -16,13 +16,11 @@
 package ar.com.zauber.commons.spring.mock;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
 
 import junit.framework.TestCase;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 

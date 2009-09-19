@@ -45,12 +45,12 @@ public class WrappedView implements View {
     }
     
     /** @see View#getContentType() */
-    public String getContentType() {
+    public final String getContentType() {
         return target.getContentType();
     }
 
     /** @see View#render(Map, HttpServletRequest, HttpServletResponse) */
-    public void render(final Map model, final HttpServletRequest request,
+    public final void render(final Map model, final HttpServletRequest request,
             final HttpServletResponse response) throws Exception {
 
         try {

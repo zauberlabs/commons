@@ -25,34 +25,39 @@ import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * <p>
- * Extension a {@link RedirectView} que permite enviar una respuesta 
- * de tipo 301 (Moved Permanently) al cliente. Ver  
+ * Extension a {@link RedirectView} que permite enviar una respuesta
+ * de tipo 301 (Moved Permanently) al cliente. Ver
  * http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html.
  * </p>
  * <p>
  * Util para cuando se cambia la uri de un controlador y se desea
  * que los clientes puedan seguir accediendo con la vieja uri, pero
- * se desea que los agents (google!) descarten la vieja url y tomen la 
+ * se desea que los agents (google!) descarten la vieja url y tomen la
  * nueva.
  * </p>
- *  
+ *
  * @author Juan F. Codagnone
  * @since Jan 2, 2007
  */
 public class PermanentlyRedirectView extends RedirectView {
 
+    /** constructor */
     public PermanentlyRedirectView() {
         // nothing to do
     }
-    
+
+    /** constructor */
     public PermanentlyRedirectView(final String url) {
         super(url);
     }
-    
-    protected void sendRedirect(
-            HttpServletRequest request, HttpServletResponse response, String targetUrl, boolean http10Compatible)
+
+    /** @see RedirectView#sendRedirect() */
+    @Override
+    protected final void sendRedirect(final HttpServletRequest request, 
+            final HttpServletResponse response, final String targetUrl, 
+            final boolean http10Compatible)
             throws IOException {
-        
+
         if(request.getMethod().toLowerCase().equals("get")) {
             response.setStatus(301);
             response.setHeader("Location", response.encodeRedirectURL(targetUrl));

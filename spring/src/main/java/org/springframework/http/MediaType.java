@@ -258,7 +258,8 @@ public class MediaType implements Comparable<MediaType> {
         }
 
     }
-
+    
+    /** @see Object#equals(Object)  */
     @Override
     public final boolean equals(final Object other) {
         if (this == other) {
@@ -273,6 +274,7 @@ public class MediaType implements Comparable<MediaType> {
                 .equals(otherType.parameters));
     }
 
+    /** @see Object#hashCode() */
     @Override
     public final int hashCode() {
         int result = type.hashCode();
@@ -281,6 +283,7 @@ public class MediaType implements Comparable<MediaType> {
         return result;
     }
 
+    /** @see Object#toString() */
     @Override
     public final String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -288,6 +291,8 @@ public class MediaType implements Comparable<MediaType> {
         return builder.toString();
     }
 
+    
+    /** appends media-type to a builder */
     private void appendTo(final StringBuilder builder) {
         builder.append(type);
         builder.append('/');

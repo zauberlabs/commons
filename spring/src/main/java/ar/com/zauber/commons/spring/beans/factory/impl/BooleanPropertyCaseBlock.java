@@ -15,7 +15,6 @@
  */
 package ar.com.zauber.commons.spring.beans.factory.impl;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.spring.beans.factory.CaseBlock;
@@ -30,7 +29,7 @@ public class BooleanPropertyCaseBlock implements CaseBlock {
     private final boolean b;
     private final Object object;
 
-    /** @param propertyName propiedad a evaluar */
+    /** constructs */
     public BooleanPropertyCaseBlock(final boolean b, 
             final Object object) {
         Validate.notNull(object);

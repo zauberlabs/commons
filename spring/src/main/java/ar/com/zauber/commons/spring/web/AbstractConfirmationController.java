@@ -92,6 +92,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
         this.preRejectView = preRejectView;
     }
    
+    /** @see la aceptacion de la confirmación */
     public final ModelAndView postconfirm(final HttpServletRequest request,
             final HttpServletResponse response) {
         if(!request.getMethod().toLowerCase().equals("post")) {

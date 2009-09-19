@@ -59,7 +59,8 @@ public  class SpringWebUtil {
      * @param url url to redirect to
      * @return a <code>RedirectView</code> object for url 
      */
-    public final PermanentlyRedirectView createPermanentlyRedirect(final String url) {
+    public final PermanentlyRedirectView createPermanentlyRedirect(
+            final String url) {
         final PermanentlyRedirectView rv = new PermanentlyRedirectView(url);
         rv.setContextRelative(contextRelative);
         rv.setHttp10Compatible(false);

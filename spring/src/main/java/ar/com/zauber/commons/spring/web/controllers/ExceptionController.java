@@ -52,7 +52,8 @@ public class ExceptionController extends AbstractController {
             final HttpServletResponse response) throws Exception {
 
         final String view;
-        final Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        final Integer statusCode = (Integer) 
+            request.getAttribute("javax.servlet.error.status_code");
         
         if(map.containsKey(statusCode)) {
             view = map.get(statusCode);

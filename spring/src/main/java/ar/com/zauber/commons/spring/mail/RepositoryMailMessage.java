@@ -16,7 +16,6 @@
 package ar.com.zauber.commons.spring.mail;
 
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +30,7 @@ import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
 
 import ar.com.zauber.commons.repository.BaseModificationAuditableEntity;
+import ar.com.zauber.commons.repository.Persistible;
 
 /**
  * {@link MailMessage} for {@link RepositoryMailSender}

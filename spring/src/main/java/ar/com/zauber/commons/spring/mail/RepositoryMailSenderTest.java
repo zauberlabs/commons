@@ -15,7 +15,6 @@
  */
 package ar.com.zauber.commons.spring.mail;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.mail.SimpleMailMessage;

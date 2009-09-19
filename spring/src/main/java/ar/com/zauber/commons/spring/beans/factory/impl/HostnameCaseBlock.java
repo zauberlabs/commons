@@ -35,6 +35,7 @@ public class HostnameCaseBlock implements CaseBlock {
     /** result */
     private Object object;
 
+    /** constructor */
     public HostnameCaseBlock(final String expectedHostname,
             final HostnameProvider hostnameProvider,
             final Object object) {
@@ -42,6 +43,7 @@ public class HostnameCaseBlock implements CaseBlock {
         this(new String[]{expectedHostname}, hostnameProvider, object);
     }
     
+    /** constructor */
     public HostnameCaseBlock(final String []expectedHostnames,
             final HostnameProvider hostnameProvider,
             final Object object) {
