@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.regex.Pattern;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -164,8 +164,6 @@ public class HttpClientRequestProxy {
         }
     }
 
-    private Pattern charsetPattern = Pattern.compile("^charset\\s*=\\s*(.*)\\s*$");
-    
     /** @return el contentType */
     public final String getContentType(final HttpMethod method) {
         final Header contenType = method.getResponseHeader("Content-Type");

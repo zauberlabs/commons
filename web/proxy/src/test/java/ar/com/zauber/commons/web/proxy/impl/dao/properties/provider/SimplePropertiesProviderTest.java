@@ -17,10 +17,8 @@ package ar.com.zauber.commons.web.proxy.impl.dao.properties.provider;
 
 import java.util.Properties;
 
-import ar.com.zauber.commons.web.proxy.impl.dao.properties.PropertiesProvider;
-import ar.com.zauber.commons.web.proxy.impl.dao.properties.provider.SimplePropertiesProvider;
-
 import junit.framework.TestCase;
+import ar.com.zauber.commons.web.proxy.impl.dao.properties.PropertiesProvider;
 
 /**
  * Tests {@link SimplePropertiesProvider}.

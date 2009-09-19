@@ -36,12 +36,12 @@ import ar.com.zauber.commons.web.proxy.ContentTransformer;
 public class NullContentTransformer  implements ContentTransformer {
 
     /** @see OutputTransformer#getContentType() */
-    public String getContentType() {
+    public final String getContentType() {
         return null;
     }
 
     /** @see OutputTransformer#transform(InputStream, OutputStream) */
-    public void transform(final InputStream is, final OutputStream os,
+    public final void transform(final InputStream is, final OutputStream os,
                           final ContentMetadata metadata) {
         try {
             IOUtils.copy(is, os);

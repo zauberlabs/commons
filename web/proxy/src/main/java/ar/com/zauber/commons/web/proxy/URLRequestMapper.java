@@ -26,7 +26,8 @@ import javax.servlet.http.HttpServletRequest;
  *  For example a request with the URI 
  *     /zauber/code/snapshots/ar/com/zauber/maven/pom.xml
  *  could be mapped to the url
- *    http://localhost:9095/nexus/content/repositories/zauber-code-snapshots/ar/com/zauber/maven/pom.xml 
+ *    http://localhost:9095/nexus/content/repositories/zauber-code-snapshots/
+ *      ar/com/zauber/maven/pom.xml 
  * </p>
  * 
  * @author Juan F. Codagnone

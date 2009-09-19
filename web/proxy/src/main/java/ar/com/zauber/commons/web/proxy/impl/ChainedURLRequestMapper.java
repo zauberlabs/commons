@@ -40,7 +40,8 @@ import ar.com.zauber.commons.web.proxy.URLResult;
  * <pre>
  *  ^/public/(.*)$  = http://localhost:9095/nexus/content/repositories/public/$1
  *  ^/nexus/(.*)$   = http://localhost:9095/nexus/$1 [^]
- *  ^/([^/]+)/([^/]+)/([^/]+)/(.*)$ = http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4
+ *  ^/([^/]+)/([^/]+)/([^/]+)/(.*)$ =
+ *     http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4
  * </pre>
  * </p>
  * @author Juan F. Codagnone
