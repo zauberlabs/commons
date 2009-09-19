@@ -136,7 +136,7 @@ public abstract class AbstractSecretsMap<T> implements SecretsMap<T> {
     /**
      * @see SecretsMap#getExpirationDatePolicy()
      */
-    public final ExpirationDatePolicy getExpirationDatePolicy() {
+    public final ExpirationDatePolicy<T> getExpirationDatePolicy() {
         return expirationDatePolicy;
     }
 

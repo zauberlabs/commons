@@ -35,7 +35,7 @@ public class CurrentTimeExpirationDateValidator implements
     }
 
     /** @see ExpirationDateValidator#getNowInvalid() */
-    public Date getNowInvalid() {
+    public final Date getNowInvalid() {
         return Calendar.getInstance().getTime();
     }
 }

@@ -26,7 +26,11 @@ import java.util.Map;
  * @since Aug 13, 2006
  */
 public abstract class LatinStringUtils {
-    private static Map<Character, Character> ACCENTS_MAP = 
+    /** utility class */
+    private LatinStringUtils() {
+        // utility class
+    }
+    private static final Map<Character, Character> ACCENTS_MAP = 
         new HashMap<Character, Character>();
     
     static {

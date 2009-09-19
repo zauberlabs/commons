@@ -153,7 +153,7 @@ public abstract class OnModificationProxyCollection<T> implements Collection<T> 
         return ret;
     }
 
-    /** @see java.lang.Object#toString() */
+    /** @see Object#toString() */
     @Override
     public final String toString() {
         return getTarget().toString();
