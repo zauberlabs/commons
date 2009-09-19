@@ -24,27 +24,19 @@ import java.math.BigDecimal;
  * of being part of a clustering algorithm.
  * 
  * @author martin
- *
+ * @param <T> param 
  */
 public interface Clusterable<T> {
 
     /**
-     * 
      * Some kind of distance between 2 <code>Clusterable</code> elements.
      * 
      * @param anotherMeasurable
      * @return a <code>BigDecimal</code> representing the distance.
      */
-    BigDecimal distance(Clusterable anotherMeasurable);
+    BigDecimal distance(Clusterable<T> anotherMeasurable);
 
-	/**
-	 * 
-	 * Add a <code>Clusterable</code> element to a Centroid of a cluster.
-	 * 
-	 * @param newCentroid
-	 * @param i
-	 * @return a <code>Clusterable</code> that is the new centroid.
-	 */
-	Clusterable addToCentroid(Clusterable newCentroid, int i);
+    /** Add a <code>Clusterable</code> element to a Centroid of a cluster. */
+    Clusterable<T> addToCentroid(Clusterable<T> newCentroid, int i);
  
 }

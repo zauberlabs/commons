@@ -22,84 +22,92 @@ import java.util.Map;
 
 import ar.com.zauber.commons.clustering.Clusterable;
 
-
-public class KmeansCluster<T extends Clusterable> implements Iterable<T> {
-
-    private Clusterable centroid;
+/**
+ * 
+ * TODO Descripcion de la clase. Los comenterios van en castellano.
+ *
+ * @param <T> param
+ */
+public class KmeansCluster<T extends Clusterable<T>> implements Iterable<T> {
+    private Clusterable<T> centroid;
     private List<T> elements;
 
-    public Iterator<T> iterator() {
-        return elements.iterator();
+
+    /** Crea el/la Cluster. */
+    @SuppressWarnings("unused")
+    private KmeansCluster() {
+        throw new UnsupportedOperationException();
     }
 
-    /**
-     * Crea el/la Cluster.
-     *
-     * @param elements
-     */
-    public KmeansCluster(T firstElement) {
+    
+    /** Crea el/la Cluster. */
+    public KmeansCluster(final T firstElement) {
         super();
         this.elements = new ArrayList<T>();
         this.elements.add(firstElement);
         recalculateCentroid();
     }
-    
-    /**
-     * Crea el/la Cluster.
-     *
-     */
-    private KmeansCluster() {
-        throw new UnsupportedOperationException();
+
+
+    /** @see Iterable#iterator() */
+    public final Iterator<T> iterator() {
+        return elements.iterator();
     }
 
-    public double calculateObjectiveFunctionResult(Map<Clusterable, Map<T, Double>> distanceCache) {
+    /** TODO documentar */
+    public final double calculateObjectiveFunctionResult(final Map<Clusterable, 
+            Map<T, Double>> distanceCache) {
         double result = 0;
-        
-        if(this.elements.size()==0) {
+
+        if(this.elements.size() == 0) {
             return result;
         }
-        
+
         Double distance = null;
-        
-        Map<T, Double> distanceMap = distanceCache.get(centroid);
-        
-        for(T element : elements) {
-       		distance = distanceMap.get(element);
-        	if(distance == null) {
-        		distance = centroid.distance(element).doubleValue();
-        		distanceMap.put(element, distance);
-        	}
+
+        final Map<T, Double> distanceMap = distanceCache.get(centroid);
+
+        for(final T element : elements) {
+            distance = distanceMap.get(element);
+            if(distance == null) {
+                distance = centroid.distance(element).doubleValue();
+                distanceMap.put(element, distance);
+            }
             result = result + distance;
             distance = null;
         }
-        
+
         return result;
-    } 
-    
-    public void addElement(T clusterable) {
+    }
+
+    /** TODO documentar */
+    public final void addElement(final T clusterable) {
         this.elements.add(clusterable);
     }
 
-    public void removeElement(T clusterable) {
-    	this.elements.remove(clusterable);
+    /** TODO documentar */
+    public final void removeElement(final T clusterable) {
+        this.elements.remove(clusterable);
     }
 
-	public void recalculateCentroid() {
-		Clusterable newCentroid = null;
-		for(T element : elements) {
-			newCentroid = element.addToCentroid(newCentroid, elements.size());
+    /** TODO documentar */
+    public final void recalculateCentroid() {
+        Clusterable<T> newCentroid = null;
+        for(final T element : elements) {
+            newCentroid = element.addToCentroid(newCentroid, elements.size());
         }
-		if(newCentroid != null) {
-			this.centroid = newCentroid;
-		}
-	}
+        if(newCentroid != null) {
+            this.centroid = newCentroid;
+        }
+    }
 
-	public Clusterable getCentroid() {
-		return centroid;
-	}
+    public final Clusterable<T> getCentroid() {
+        return centroid;
+    }
 
-	public void removeElements() {
-		elements.clear();	
-	}
+    /** TODO documentar */
+    public final void removeElements() {
+        elements.clear();
+    }
 
 }
