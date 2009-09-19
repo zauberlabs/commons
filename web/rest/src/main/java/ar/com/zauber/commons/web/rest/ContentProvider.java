@@ -16,7 +16,7 @@
 package ar.com.zauber.commons.web.rest;
 
 import java.io.InputStream;
-import java.net.URL;
+import java.net.URI;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 
@@ -33,15 +33,15 @@ public interface ContentProvider {
      * @return the content of the entity
      * @throws NoSuchEntityException if the url does not exist (404)
      */
-    InputStream getContent(URL url) throws NoSuchEntityException;
+    InputStream getContent(URI url) throws NoSuchEntityException;
     
     /**
      * @param url url to PUT
      * @param body the content of the entity to send
      * @return the response body
      */
-    InputStream  put(URL url, InputStream body);
+    InputStream  put(URI url, InputStream body);
 
     /** deletes an url */
-    void delete(URL url);
+    void delete(URI url);
 }

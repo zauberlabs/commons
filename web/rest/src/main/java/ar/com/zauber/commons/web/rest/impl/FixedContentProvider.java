@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.web.rest.impl;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
@@ -30,17 +31,17 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
  * @since Jan 26, 2009
  */
 public class FixedContentProvider implements ContentProvider {
-    private final Map<URL, String> map;
+    private final Map<URI, String> map;
 
     /** Creates the FixedContentProvider. */
-    public FixedContentProvider(final Map<URL, String> map) {
+    public FixedContentProvider(final Map<URI, String> map) {
         Validate.notNull(map);
 
         this.map = map;
     }
 
     /** @see ContentProvider#getContent(URL) */
-    public final InputStream getContent(final URL url) {
+    public final InputStream getContent(final URI url) {
         final String destURL = map.get(url);
         if(destURL == null) {
             throw new NoSuchEntityException(url);
@@ -56,12 +57,12 @@ public class FixedContentProvider implements ContentProvider {
     }
 
     /** @see ContentProvider#put(URL, InputStream) */
-    public final InputStream put(final URL url, final InputStream body) {
+    public final InputStream put(final URI url, final InputStream body) {
         throw new NotImplementedException("won't implement.");
     }
 
     /** @see ContentProvider#delete(URL) */
-    public final void delete(final URL url) {
+    public final void delete(final URI url) {
         throw new NotImplementedException("won't implement.");
     }
 }
