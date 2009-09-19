@@ -15,6 +15,7 @@
  */
 package ar.com.zauber.commons.repository;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -87,15 +88,22 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         try {
             persistible = (T)ConstructorUtils.invokeConstructor(
                     Class.forName(aRef.getClassName()), args, types);
-        } catch(Exception e) {
-            e.printStackTrace();
-            logger.error("Error, la clase" + aRef.getClass() 
-                    + "no pudo ser instanciada", e);
+        } catch (final NoSuchMethodException e) {
+            logger.error("creating instance of" + aRef.getClass(), e);
+        } catch (final IllegalAccessException e) {
+            logger.error("creating instance of" + aRef.getClass(), e);
+        } catch (final InvocationTargetException e) {
+            logger.error("creating instance of" + aRef.getClass(), e);
+        } catch (final InstantiationException e) {
+            logger.error("creating instance of" + aRef.getClass(), e);
+        } catch (final ClassNotFoundException e) {
+            logger.error("creating instance of" + aRef.getClass(), e);
         }
 
         return persistible;
     }
 
+    
     /** @see Repository#delete(Persistible)  */
     public final void delete(final Persistible anObject) {
         getHibernateTemplate().delete(anObject);
