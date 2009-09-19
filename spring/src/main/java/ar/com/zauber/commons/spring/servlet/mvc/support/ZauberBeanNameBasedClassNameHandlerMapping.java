@@ -52,7 +52,7 @@ public class ZauberBeanNameBasedClassNameHandlerMapping extends
     @Override
     protected final String[] buildUrlsForHandler(final String beanName,
             final Class beanClass) {
-        final Class controllerClass = getApplicationContext().getType(beanName);
+        final Class<?> controllerClass = getApplicationContext().getType(beanName);
         final String[] ret;
 
         if (Controller.class.isAssignableFrom(controllerClass)

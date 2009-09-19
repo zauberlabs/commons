@@ -48,8 +48,9 @@ public class RepositoryMailSenderTest
             "classpath:ar/com/zauber/commons/repository/repository-spring.xml",
         };
     }
-
+    // CHECKSTYLE:ALL:OFF
     protected Repository repository;
+    // CHECKSTYLE:ALL:ON
 
     /** test */
     public final void testFoo() {

@@ -95,7 +95,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
     /** @see la aceptacion de la confirmación */
     public final ModelAndView postconfirm(final HttpServletRequest request,
             final HttpServletResponse response) {
-        if(!request.getMethod().toLowerCase().equals("post")) {
+        if(!request.getMethod().equalsIgnoreCase("post")) {
             throw new IllegalArgumentException("only accept POST method");
         }
        
@@ -197,7 +197,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
        final String secret = ServletRequestUtils.getStringParameter(request,
               "secret", null);
 
-       if(!request.getMethod().toLowerCase().equals("post")) {
+       if(!request.getMethod().equalsIgnoreCase("post")) {
            throw new IllegalArgumentException("only accept POST method");
        }
       

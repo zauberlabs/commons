@@ -24,27 +24,32 @@ import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Es la evolucion de 
- * https://svn.leak.com.ar/jiol/trunk/jiol-iolsucker/src/java/ar/com/leak/iolsucker/container/spring/StaticConditionalFactoryBean.java
+ * https://svn.leak.com.ar/jiol/trunk/jiol-iolsucker/src/java/ar/com/leak/
+ *  iolsucker/container/spring/StaticConditionalFactoryBean.java
  * 
  * 
- *    &lt;bean name="test1" class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean"&gt;
- *         &lt;property name="caseBlocks"&gt;
- *             &lt;list&gt;
- *                &lt;bean class="ar.com.zauber.commons.spring.beans.factory.impl.HostnameCaseBlock" &gt;
- *                   &lt;constructor-arg index="0" type="java.lang.String" value="aretha"/&gt;
- *                   &lt;constructor-arg index="1" ref="hostnameProvider"/&gt;
- *                   &lt;constructor-arg index="2"&gt;
- *                        &lt;value&gt;es aretha&lt;/value&gt;
- *                   &lt;/constructor-arg&gt;
- *                &lt;/bean&gt;
- *                &lt;bean class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock" &gt;
- *                   &lt;constructor-arg index="0"&gt;
- *                               &lt;value&gt;defualt&lt;/value&gt;
- *                   &lt;/constructor-arg&gt;
- *                &lt;/bean&gt;
- *             &lt;/list&gt;
- *         &lt;/property&gt;
- *    &lt;/bean&gt;
+ * &lt;bean name="test1" 
+ *class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean"&gt;
+ *     &lt;property name="caseBlocks"&gt;
+ *         &lt;list&gt;
+ *            &lt;bean 
+ *  class="ar.com.zauber.commons.spring.beans.factory.impl.HostnameCaseBlock"&gt;
+ *               &lt;constructor-arg index="0" 
+ *                    type="java.lang.String" value="aretha"/&gt;
+ *               &lt;constructor-arg index="1" ref="hostnameProvider"/&gt;
+ *               &lt;constructor-arg index="2"&gt;
+ *                    &lt;value&gt;es aretha&lt;/value&gt;
+ *               &lt;/constructor-arg&gt;
+ *           &lt;/bean&gt;
+ *           &lt;bean 
+ *     class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock"&gt;
+ *             &lt;constructor-arg index="0"&gt;
+ *                      &lt;value&gt;defualt&lt;/value&gt;
+ *             &lt;/constructor-arg&gt;
+ *           &lt;/bean&gt;
+ *        &lt;/list&gt;
+ *    &lt;/property&gt;
+ * &lt;/bean&gt;
  *
  *    Se pueden anidar
  *    
@@ -76,7 +81,7 @@ public class SwitchConditionalFactoryBean implements FactoryBean, InitializingBe
     }
 
     /** @see FactoryBean#getObjectType() */
-    public final Class getObjectType() {
+    public final Class<?> getObjectType() {
         return null; // no tengo la mas minima idea de que se va a retornar
     }
 

@@ -67,9 +67,9 @@ public final class CommandURLParameterGenerator {
      *            a set set of the commands's objects
      * @return the parameter string
      */
-    public static String getURLParameter(final Class cmdClass, 
-            final Set values) {
-        final Map<Class, Object> map = new HashMap<Class, Object>();
+    public static String getURLParameter(final Class<?> cmdClass, 
+            final Set<?> values) {
+        final Map<Class<?>, Object> map = new HashMap<Class<?>, Object>();
 
         for(final Object object : values) {
             map.put(object.getClass(), object);
@@ -84,8 +84,8 @@ public final class CommandURLParameterGenerator {
     /**
      * @see #getURLParameter(Class, Set)
      */
-    public static String getURLParameter(final Class cmdClass, 
-                final Map<Class, Object>values) {
+    public static String getURLParameter(final Class<?> cmdClass, 
+                final Map<Class<?>, Object>values) {
         final StringBuilder sb = new StringBuilder("?");
         final Pattern getter = Pattern.compile("^get(.*)$");
         boolean first = true;
