@@ -150,9 +150,9 @@ public class HibernateManageTables
                         checkDrop(connection),
                         dropOrUpdate);
                 connection.commit();
-            } catch(Exception e) {
+            } catch(final Exception e) {
                 logger.warn("An exception ocurred and the database"
-                        + "schema didn't finish to execute");
+                        + "schema didn't finish to execute", e);
                 return;
             }
             
@@ -176,9 +176,9 @@ public class HibernateManageTables
         if("NO, DONT DROP ME".equals(message)) {
             try {
                 localSessionFactoryBean.updateDatabaseSchema();
-            } catch(Throwable e) {
+            } catch(final Throwable e) {
                 logger.warn("An exception ocurred and the database"
-                        + "schema didn't finish to execute");
+                        + "schema didn't finish to execute", e);
                 return;
             }
             return;
@@ -187,9 +187,9 @@ public class HibernateManageTables
                 try {
                     localSessionFactoryBean.dropDatabaseSchema();
                     localSessionFactoryBean.createDatabaseSchema();
-                } catch(Exception e) {
+                } catch(final Exception e) {
                     logger.warn("An exception ocurred and the database"
-                            + "schema didn't finish to execute");
+                            + "schema didn't finish to execute", e);
                     return;
                 }
             } else {
