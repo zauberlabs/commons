@@ -60,7 +60,7 @@ public class KmeansClusterer<T extends Clusterable<T>> implements
     /** calcula el cluster */
     public final void cluster() {
         isClustered = true;
-        Integer iterations = new Integer(0);
+        Integer iterations = Integer.valueOf(0);
         initCluster();
 
         while (true) {
