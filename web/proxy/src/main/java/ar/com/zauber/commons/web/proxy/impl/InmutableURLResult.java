@@ -71,15 +71,17 @@ public class InmutableURLResult implements URLResult {
         } else if(obj instanceof InmutableURLResult) {
             final InmutableURLResult r = (InmutableURLResult) obj;
             ret = r.result == this.result 
-                && (this.url == null ? true : this.url.equals(r.url)); 
+                && (this.url == null ? true  
+                 : this.url.toExternalForm().equals(r.url.toExternalForm())); 
         }
         return ret;
     }
     
-    /** @see java.lang.Object#hashCode() */
+    /** @see Object#hashCode() */
     @Override
     public final int hashCode() {
-        return 19 + 37 * (result ? 0 : 1) + (url == null ? 0 : 37 * url.hashCode());
+        return 19 + 37 * (result ? 0 : 1) 
+        + (url == null ? 0 : 37 * url.toExternalForm().hashCode());
     }
     
 }
