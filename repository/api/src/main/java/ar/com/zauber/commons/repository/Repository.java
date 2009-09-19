@@ -40,10 +40,9 @@ public interface Repository {
     * @param aRef Una referencia
     * @return Un <code>T</code>
     */
-    <T> T  createNew(final Reference<T> aRef);    
+    <T extends Persistible> T  createNew(final Reference<T> aRef);    
     
     /**
-     *
      * Crea un nuevo objeto igual que <code>createNew</code> pero
      * utilizando el contructor con los parametros correspondientes.
      *
@@ -52,10 +51,10 @@ public interface Repository {
      * @param types tipos de los argumentos del constructor
      * @return Un <code>T</code>
      */
-    <T> T createNew(Reference<T> aRef, Object [] args, Class [] types);
+    <T extends Persistible> T createNew(Reference<T> aRef, Object [] args, 
+            Class<?> [] types);
     
     /**
-     *
      * Borra un objeto.
      *
      * @param anObject Un <code>Persistible</code>
@@ -71,7 +70,7 @@ public interface Repository {
      * @return un <code>Persistible</code> con el Objeto representado por
      * la referencia.
      */
-    <T> T retrieve(Reference<T> aRef);
+    <T extends Persistible> T retrieve(Reference<T> aRef);
    
    /**
     * 
@@ -84,12 +83,13 @@ public interface Repository {
     * @deprecated usar aggregate
     */
     @Deprecated()
-   <T> int count(Query<T> criteria);
+   <T extends Persistible> int count(Query<T> criteria);
 
    /**
     * Aplica funciones de agregación a una consulta
     */
-   <R, T> R aggregate(Query<T> criteria, AggregateFunction aggregateFunction, 
+   <R, T extends Persistible> R aggregate(Query<T> criteria, 
+           AggregateFunction aggregateFunction, 
            final Class<R> retClazz);
    
    /**
@@ -102,16 +102,15 @@ public interface Repository {
     * @param filterObject
     * @return
     */
-   <T> List<T> find(Query<T> filterObject);
+   <T extends Persistible> List<T> find(Query<T> filterObject);
    
    /**
-    * 
     * Devuelve las clases que son persistibles. Este metodo suele ser util para
     * saber en runtime que clases puedo persistir.
     * 
     * @return
     */
-   Collection<Class> getPersistibleClasses();
+   Collection<Class<?>> getPersistibleClasses();
    
    /**
     * 

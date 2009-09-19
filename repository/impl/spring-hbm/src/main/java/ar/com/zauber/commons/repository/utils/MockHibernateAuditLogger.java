@@ -93,7 +93,7 @@ public class MockHibernateAuditLogger implements Interceptor {
         // nada que hacer
     }
 
-    /** @see Interceptor#onCollectionRemove(java.lang.Object, java.io.Serializable) */
+    /** @see Interceptor#onCollectionRemove(Object, Serializable) */
     public void onCollectionRemove(final Object collection, final Serializable key)
             throws CallbackException {
         // nada que hacer
@@ -147,12 +147,14 @@ public class MockHibernateAuditLogger implements Interceptor {
     }
 
     /** @see org.hibernate.Interceptor#postFlush(java.util.Iterator) */
+    @SuppressWarnings("unchecked")
     public void postFlush(final Iterator entities) throws CallbackException {
         // nada que hacer
 
     }
 
-    /** @see org.hibernate.Interceptor#preFlush(java.util.Iterator) */
+    /** @see Interceptor#preFlush(Iterator) */
+    @SuppressWarnings("unchecked")
     public void preFlush(final Iterator entities) throws CallbackException {
         // nada que hacer
     }

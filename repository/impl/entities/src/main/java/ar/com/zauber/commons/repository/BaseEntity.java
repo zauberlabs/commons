@@ -40,8 +40,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public abstract class BaseEntity implements Persistible {
     
     /** @see Persistible#getReference() */
-    public Reference generateReference() {
-        return new Reference(this.getClass(), getId());
+    @SuppressWarnings("unchecked")
+    public <T> Reference<? extends Persistible> generateReference()  {
+        return new Reference(getClass(), getId());
     }
     
     /**
@@ -69,7 +70,7 @@ public abstract class BaseEntity implements Persistible {
      * @param theClass
      * @return
      */
-    private Set<Field> getIdentityFields(final Class theClass) {
+    private static Set<Field> getIdentityFields(final Class<?> theClass) {
         Set<Field> fields = new HashSet<Field>();
         if(theClass.getAnnotation(IdentityProperties.class) != null) {
             String[] fieldNamesArray =
@@ -90,7 +91,7 @@ public abstract class BaseEntity implements Persistible {
                 }
             }
             if(!theClass.getSuperclass().equals(Object.class)) {
-                fields.addAll(this.getIdentityFields(theClass.getSuperclass()));
+                fields.addAll(getIdentityFields(theClass.getSuperclass()));
             }
         }
         return fields;
@@ -114,10 +115,8 @@ public abstract class BaseEntity implements Persistible {
 
     }
 
-    /**
-     * @return
-     */
+    /** @return */
     private Set<Field> getIdentityFields() {
-        return this.getIdentityFields(this.getClass());
+        return getIdentityFields(getClass());
     }
 }

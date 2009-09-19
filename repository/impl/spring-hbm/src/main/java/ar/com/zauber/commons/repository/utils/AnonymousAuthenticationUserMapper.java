@@ -29,6 +29,7 @@ import ar.com.zauber.commons.auth.AuthenticationUserMapper;
  *
  * @author Juan F. Codagnone
  * @since Mar 22, 2008
+ * @param <T> user type
  */
 public class AnonymousAuthenticationUserMapper<T>
        implements AuthenticationUserMapper<String> {

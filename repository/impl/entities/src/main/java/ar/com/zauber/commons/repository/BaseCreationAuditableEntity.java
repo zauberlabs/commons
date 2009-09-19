@@ -19,8 +19,6 @@ import java.util.Date;
 
 import javax.persistence.MappedSuperclass;
 
-import org.apache.commons.lang.Validate;
-
 /**
  * Clase base para entidades que necesiten auditoria de creación.
  * 

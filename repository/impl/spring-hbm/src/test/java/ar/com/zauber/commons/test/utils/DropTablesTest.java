@@ -26,18 +26,20 @@ import ar.com.zauber.commons.repository.utils.HibernateManageTables;
  * @author Martin A. Marquez
  * @since Jan 17, 2008
  */
-public class DropTablesTest
-    extends  BaseTransactionalRollbackTest {
-
+public class DropTablesTest extends  BaseTransactionalRollbackTest {
+    // CHECKSTYLE:ALL:OFF
     protected HibernateManageTables hibernateManageTables;
-
+    // CHECKSTYLE:ALL:ON
+    
+    /** constructor */
     public DropTablesTest() {
         super();
         setDefaultRollback(false);
             
     }
-
-    public void testPrint() throws Exception {
+    
+    /** print */
+    public final void testPrint() throws Exception {
         hibernateManageTables.print();
     }
     

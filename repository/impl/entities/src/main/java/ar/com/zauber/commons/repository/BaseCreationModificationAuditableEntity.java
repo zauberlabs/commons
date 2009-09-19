@@ -74,5 +74,4 @@ public abstract class BaseCreationModificationAuditableEntity
     public final String getModifiedBy() {
         return modifiedBy;
     }
-
 }

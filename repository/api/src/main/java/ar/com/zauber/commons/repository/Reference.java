@@ -26,7 +26,7 @@ import java.io.Serializable;
  * @author Martin Andres Marquez
  * @param <T> Entity Type
  */
-public class Reference<T> implements Serializable {
+public class Reference<T extends Persistible> implements Serializable {
     private static final long serialVersionUID = -8996518320381455505L;
     private final long id;
     private final long version;
@@ -48,7 +48,6 @@ public class Reference<T> implements Serializable {
         this.id = id;
         this.version = version;
     }
-    
 
     public final long getId() {
         return id;

@@ -26,7 +26,6 @@ import junit.framework.Assert;
 
 import org.apache.commons.beanutils.BeanPropertyValueChangeClosure;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import ar.com.zauber.commons.dao.Order;
 import ar.com.zauber.commons.dao.Ordering;
@@ -52,7 +51,6 @@ import ar.com.zauber.commons.repository.query.filters.ContainsLikePropertyFilter
 import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.Filter;
 import ar.com.zauber.commons.repository.query.filters.GreaterThanPropertyFilter;
-import ar.com.zauber.commons.repository.query.filters.LessThanEqualsPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.NullFilter;
 import ar.com.zauber.commons.repository.query.values.PropertyValue;
 import ar.com.zauber.commons.repository.query.values.SimpleValue;
@@ -303,6 +301,7 @@ public class SpringHibernateRepositoryTest extends
         }
     }
 
+    /** crea una persona y la guarda en el repositorio */
     private void createPersona(final String nombre, final Integer nroFiscal,
             final String descripcion, final Set<DireccionDummy> direcciones) {
         final PersonaDummy personaDummy = new PersonaDummy();
@@ -409,8 +408,8 @@ public class SpringHibernateRepositoryTest extends
 
         persona = null;
 
-        persona = repository.createNew(ref,
-                new Object[] {"pepe" }, new Class[] {String.class });
+        persona = repository.createNew(ref, new Object[] {"pepe" }, 
+                new Class[] {String.class });
 
         assertNotNull(persona);
 
@@ -512,6 +511,7 @@ public class SpringHibernateRepositoryTest extends
     }
     
     /** test */
+    @SuppressWarnings("unchecked")
     public final void testCountGroupBy() {
         createSomeData();
         
@@ -519,7 +519,7 @@ public class SpringHibernateRepositoryTest extends
             new SimpleQuery<DireccionDummy>(DireccionDummy.class, 
                 new NullFilter(), null, 
                 new Ordering(
-                        Arrays.asList(new Order[] { new Order("numero", true, true) }))
+                        Arrays.asList(new Order[] {new Order("numero", true, true)}))
                 );
         
         AggregateFunction function = new CompositeAggregateFunction(
@@ -554,6 +554,6 @@ public class SpringHibernateRepositoryTest extends
 
 
         assertEquals(Integer.valueOf(6), 
-                repository.aggregate(q1, new RowCountAggregateFilter(), Integer.class));
+          repository.aggregate(q1, new RowCountAggregateFilter(), Integer.class));
     }
 }

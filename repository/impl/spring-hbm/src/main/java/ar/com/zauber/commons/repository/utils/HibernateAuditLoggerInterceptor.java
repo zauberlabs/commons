@@ -17,13 +17,10 @@ package ar.com.zauber.commons.repository.utils;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
 
 import org.hibernate.CallbackException;
 import org.hibernate.EmptyInterceptor;
-import org.hibernate.EntityMode;
 import org.hibernate.Interceptor;
-import org.hibernate.Transaction;
 import org.hibernate.type.Type;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -40,7 +37,8 @@ import ar.com.zauber.commons.repository.ModificationAuditable;
  */
 public class HibernateAuditLoggerInterceptor extends EmptyInterceptor 
                                              implements InitializingBean {
-
+    /** <code>serialVersionUID</code> */
+    private static final long serialVersionUID = 9219430516777559965L;
     private AuthenticationUserMapper<String> authenticationUserMapper;
 
     public void setAuthenticationUserMapper(

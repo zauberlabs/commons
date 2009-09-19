@@ -18,10 +18,10 @@ package ar.com.zauber.commons.repository;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,101 +55,78 @@ import ar.com.zauber.commons.repository.query.aggreate.RowCountAggregateFilter;
  */
 public class SpringHibernateRepository extends HibernateDaoSupport implements
         Repository {
-
-    /** <code>logger</code>. */
     private Log logger = LogFactory.getLog(getClass());
 
-    /**
-     * @see Repository#createNew(Reference)
-     */
-    public final <T> T  createNew(final Reference<T> aRef) {
+    /** @see Repository#createNew(Reference)*/
+    @SuppressWarnings("unchecked")
+    public final <T extends Persistible> T  createNew(final Reference<T> aRef) {
         T persistible = null;
 
         try {
-            persistible =
-                (T)
-                    Class.forName(aRef.getClassName()).newInstance();
-        } catch(Exception e) {
-            e.printStackTrace();
-            logger.error("Error, la clase" + aRef.getClass()
-                    + "no pudo ser instanciada", e);
+            persistible = (T) Class.forName(aRef.getClassName()).newInstance();
+        } catch (final InstantiationException e) {
+            throw new UnhandledException(e);
+        } catch (final IllegalAccessException e) {
+            throw new UnhandledException(e);
+        } catch (final ClassNotFoundException e) {
+            throw new UnhandledException(e);
         }
+
         return persistible;
     }
 
     /**
      * @see Repository
-     *  #createNew(
-     *              Reference,
-     *              java.lang.Object[],
-     *              java.lang.Class[])
+     *  #createNew( Reference, java.lang.Object[], java.lang.Class[])
      */
-    public final <T> T  createNew(final Reference<T> aRef,
-            final Object [] args, final Class [] types) {
+    @SuppressWarnings("unchecked")
+    public final <T extends Persistible> T  createNew(final Reference<T> aRef,
+            final Object [] args, final Class<?> [] types) {
         T persistible = null;
 
         try {
-            persistible =
-                (T)ConstructorUtils
-                    .invokeConstructor(
-                            Class.forName(aRef.getClassName()), args, types);
+            persistible = (T)ConstructorUtils.invokeConstructor(
+                    Class.forName(aRef.getClassName()), args, types);
         } catch(Exception e) {
             e.printStackTrace();
-            logger.error("Error, la clase" + aRef.getClass() +
-                    "no pudo ser instanciada", e);
+            logger.error("Error, la clase" + aRef.getClass() 
+                    + "no pudo ser instanciada", e);
         }
 
         return persistible;
     }
 
-    /**
-     * @see Repository#delete(Persistible)
-     */
+    /** @see Repository#delete(Persistible)  */
     public final void delete(final Persistible anObject) {
         getHibernateTemplate().delete(anObject);
     }
 
 
-    /**
-     * @see Repository#retrieve(Reference)
-     */
-    public <T> T  retrieve(final Reference<T> aRef) {
-        if(aRef.getId()==null) {
-            return createNew(aRef);
-        }
-        else {
-            T persistible;
-            persistible =
-                (T)this.getHibernateTemplate().get(
-                    aRef.getClassName(), aRef.getId());
-            //this.getHibernateTemplate().evict(persistible);
-            return persistible;
-        }
-        
+    /** @see Repository#retrieve(Reference)  */
+    @SuppressWarnings("unchecked")
+    public final <T extends Persistible> T  retrieve(final Reference<T> aRef) {
+        return (T)getHibernateTemplate().get(aRef.getClassName(), aRef.getId());
     }
 
-    /**
-     * @see Repository#saveOrUpdate(Object)
-     */
-    public void saveOrUpdate(final Persistible anObject) {
+    /** @see Repository#saveOrUpdate(Object) */
+    public final void saveOrUpdate(final Persistible anObject) {
         getHibernateTemplate().saveOrUpdate(anObject);
     }
     
-    /**
-     * @see Repository#refresh(java.lang.Object)
-     */
-    public void refresh(final Persistible anObject) {
+    /** @see Repository#refresh(Object) */
+    public final void refresh(final Persistible anObject) {
         getHibernateTemplate().refresh(anObject);
     }
 
 
     /** @see Repository#find(Query) */
-    public <T> List<T> find(final Query<T> query) {
+    @SuppressWarnings("unchecked")
+    public final <T extends Persistible> List<T> find(final Query<T> query) {
         CriteriaSpecification criteria = getCriteriaSpecification(null, query, 
                 false);
-        SimpleQuery simpleQuery = (SimpleQuery) query;
+        final SimpleQuery<T> simpleQuery = (SimpleQuery<T>) query;
         Criteria aCriteria;
-        // TODO: Esto deberí ir en el metodo que hace getCriteriaSpecification
+        // TODO: Esto debería ir en el metodo que hace getCriteriaSpecification
         // pero como no tiene DetachedCriteria posibilidad de setearle valores
         // para paginación hubo que hacerlo así.
         if(simpleQuery.getPaging() != null) {
@@ -166,7 +143,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
             // si ya que de otra manera en aquellos casos que haya objetos
             // que tienen colecciones cuenta los mismos varias veces haciendo
             // que se devuelvan menos resultados.
-            List ids = idsCriteria.list();
+            List<Long> ids = idsCriteria.list();
             DetachedCriteria theCriteria =
                 (DetachedCriteria) getCriteriaSpecification(null, query, false);
             if(ids.isEmpty()) {
@@ -186,13 +163,14 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
 
     /** @see Repository#count(Query) */
     @Deprecated
-    public final int count(final Query query) {
+    public final <T extends Persistible> int count(final Query<T> query) {
         return (Integer) aggregate(query, new RowCountAggregateFilter(), 
                 Integer.class);
     }    
     
     /** @see Repository#aggregate(Query, Class) */
-    public final <R, T> R aggregate(final Query<T> query, 
+    @SuppressWarnings("unchecked")
+    public final <R, T extends Persistible> R aggregate(final Query<T> query, 
             final AggregateFunction aggregateFunction,
             final Class<R> retClazz) {
         Validate.notNull(query);
@@ -218,44 +196,38 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
             });
     }
     
-    /**
-     * @see Repository#getPersistibleClasses()
-     */
-    public Collection<Class> getPersistibleClasses() {
-        ClassMetadata aClassMetadata;
-        Collection classMetadatas;
-        Collection<Class> classes = new ArrayList<Class>();
-        classMetadatas = getSessionFactory().getAllClassMetadata().values();
+    /** @see Repository#getPersistibleClasses() */
+    @SuppressWarnings("unchecked")
+    public final Collection<Class<?>> getPersistibleClasses() {
+        final Collection<Class<?>> classes = new ArrayList<Class<?>>();
+        final Collection<ClassMetadata> classMetadatas = 
+            getSessionFactory().getAllClassMetadata().values();
         
-        for(Iterator iter = classMetadatas.iterator(); iter.hasNext();) {
-            aClassMetadata = (ClassMetadata)iter.next();
-            classes.add(aClassMetadata.getMappedClass(EntityMode.POJO));
+        for(final ClassMetadata classMetadata : classMetadatas) {
+            classes.add(classMetadata.getMappedClass(EntityMode.POJO));
         }
         
         return classes;
     }
     
     /**
-     * 
      * It's used to get a <code>CriteriaSpecification</code> from a query.
      * Finders and counters will use this method.
      * 
-     * @param aClass
-     *            (Now is always null as the query has it as a member)
-     * @param query
+     * @param aClass (Now is always null as the query has it as a member)
      * @param ignoreOrder <code>true</code> if order must be ignored 
      *        (for example on aggregation funcions)
      * @return a <code>CriteriaSpecification</code>
      */
-    private CriteriaSpecification getCriteriaSpecification(final Class aClass,
-            final Query query, final boolean ignoreOrder) {
+    private <T extends Persistible> CriteriaSpecification getCriteriaSpecification(
+            final Class<?> aClass,
+            final Query<T> query, final boolean ignoreOrder) {
         CriteriaTranslator criteriaTranslator = new CriteriaTranslator(aClass,
                 getSessionFactory(), ignoreOrder);
-        if(query != null) {        	
+        if(query != null) {
             query.acceptTranslator(criteriaTranslator);
         }
         CriteriaSpecification criteria = criteriaTranslator.getCriteria();
         return criteria;
     }
-    
 }

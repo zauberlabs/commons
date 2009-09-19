@@ -116,7 +116,7 @@ public class HibernateManageTables
 
         logger.trace("Entering runDbInstall");
         
-        for(Iterator iter = dropSessionFactoriesTablesDefinition
+        for(Iterator<String> iter = dropSessionFactoriesTablesDefinition
                 .getLocalSessionFactoryBeanNames(); iter.hasNext();) {
 
             LocalSessionFactoryBean localSessionFactoryBean =

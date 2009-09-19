@@ -30,6 +30,7 @@ import org.hibernate.type.Type;
  */
 public class SpringInjectionHibernateAuditLoggerInterceptor 
     extends HibernateAuditLoggerInterceptor {
+    private static final long serialVersionUID = -2102379795863832857L;
     private final SpringInjectionInterceptor injectionInterceptor;
 
     /** Creates the SpringInjectionHibernateAuditLoggerInterceptor. */

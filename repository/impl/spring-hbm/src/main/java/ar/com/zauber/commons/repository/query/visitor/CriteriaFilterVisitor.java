@@ -32,15 +32,13 @@ import org.hibernate.type.ComponentType;
 import org.hibernate.type.EntityType;
 import org.hibernate.type.Type;
 
-import ar.com.zauber.commons.dao.Paging;
 import ar.com.zauber.commons.repository.query.connectors.AndConnector;
 import ar.com.zauber.commons.repository.query.connectors.Connector;
 import ar.com.zauber.commons.repository.query.filters.BaseFilter;
 import ar.com.zauber.commons.repository.query.filters.BinaryPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.CompositeFilter;
 import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
-import ar.com.zauber.commons.repository.query.filters
-    .GreaterThanEqualsPropertyFilter;
+import ar.com.zauber.commons.repository.query.filters.GreaterThanEqualsPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.GreaterThanPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.InPropertyFilter;
 import ar.com.zauber.commons.repository.query.filters.IsNullPropertyFilter;
@@ -62,40 +60,31 @@ import ar.com.zauber.commons.repository.query.values.Value;
  */
 public class CriteriaFilterVisitor implements FilterVisitor {
 
-    /**
-     * <code>Criteria</code> de Hibernate resultante.
-     */
+    /** <code>Criteria</code> de Hibernate resultante. */
     private DetachedCriteria criteria;
     
     private DetachedCriteria criteriaForCount;
+    
     /**
      * <code>Criterion</code> que se construye por
      * cada <code>BaseFilterObject</code>.
      */
     private Criterion criterion;
 
-    /**
-     * Clase raiz por la que se hace la busqueda.
-     */
-    private Class clazz;
+    /** Clase raiz por la que se hace la busqueda.*/
+    private Class<?> clazz;
 
     /**
      * Alias por cada nivel de anidamiento de un atributo
      * de busqueda del tipo multipropiedad.
      */
-    private Map aliases;
+    private Map<String, String> aliases;
 
-    /**
-     * <code>SessionFactory</code> para obtener metadata de Hibernate.
-     */
+    /** <code>SessionFactory</code> para obtener metadata de Hibernate. */
     private SessionFactory sessionFactory;
 
-    /**
-     * Almacena el tipo de componente de una busqueda anidada.
-     */
+    /** Almacena el tipo de componente de una busqueda anidada. */
     private ComponentType componentType;
-
-    private Paging paging;
 
     /**
      * Crea el/la CriteriaVisitor.
@@ -103,14 +92,14 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param aClazz clase a buscar.
      * @param aSessionFactory para obtener metadata.
      */
-    public CriteriaFilterVisitor(final Class aClazz, 
+    public CriteriaFilterVisitor(final Class<?> aClazz, 
             final SessionFactory aSessionFactory) {
         criteria = DetachedCriteria.forClass(aClazz);
         criteriaForCount = DetachedCriteria.forClass(aClazz);
         criteria.setResultTransformer(
                 CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         clazz = aClazz;
-        aliases =  new HashMap();
+        aliases =  new HashMap<String, String>();
         sessionFactory = aSessionFactory;
     }
 
@@ -143,31 +132,6 @@ public class CriteriaFilterVisitor implements FilterVisitor {
     ///////////////////////////////////////////////
     // Metodos para visitar los componentes base //
     ///////////////////////////////////////////////
-
-//    /*
-//     * (non-Javadoc)
-//     * @see FilterObjectVisitor#visitEqualsFilterObject(EqualsFilterObject)
-//     */
-//    public void visitEqualsFilterObject(EqualsFilterObject equalsFilterObject) {
-//        String fieldName = getFieldName(equalsFilterObject.getFieldName());
-//        criterion = Restrictions.eq(fieldName, equalsFilterObject.getValue());
-//        NegateIfNeeded(equalsFilterObject);
-//    }
-//
-
-//    /*
-//     * (non-Javadoc)
-//     * @see FilterObjectVisitor#visitCollectionSizeEqFilterObject(
-//     *  CollectionSizeEqFilterObject)
-//     */
-//    public void visitCollectionSizeEqFilterObject(
-//            CollectionSizeEqFilterObject collectionSizeEqFilterObject) {
-//        String fieldName = getFieldName(
-//                collectionSizeEqFilterObject.getFieldName());
-//        criterion = Restrictions.sizeEq(fieldName,
-//                collectionSizeEqFilterObject.getCollectionSize());
-//        NegateIfNeeded(collectionSizeEqFilterObject);
-//    }
 
 
     /** @see FilterVisitor#visitIsNullPropertyFilter(IsNullPropertyFilter) */
@@ -232,7 +196,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
         int dotIndex = pathName.indexOf(".");
         int lastDotIndex = 0;
         int dotIndexAcum = dotIndex;
-        Class pathPartClass = clazz;
+        Class<?> pathPartClass = clazz;
         String relativePathName = pathName;
 
         while (true) {
@@ -294,10 +258,10 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param pathPart siguiente pathPart a procesar
      * @return
      */
-    private Class getNextPathPartClass(final Class pathPartClass, 
+    private Class<?> getNextPathPartClass(final Class<?> pathPartClass, 
             final String pathPart) {
         Type hibernateType      = null;
-        Class nextPathPartClass = null;
+        Class<?> nextPathPartClass = null;
 
         // se obtiene el tipo de hibernate del pathPart actual
         ClassMetadata classMetadata = sessionFactory
@@ -351,7 +315,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param pathPart nombre del atributo
      * @return
      */
-    private boolean isComponentType(final Class pathPartClass, 
+    private boolean isComponentType(final Class<?> pathPartClass, 
             final String pathPart) {
         ClassMetadata classMetadata = sessionFactory.
             getClassMetadata(pathPartClass);
@@ -445,7 +409,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @return clase de objetos a buscar
      */
-    public final Class getClazz() {
+    public final Class<?> getClazz() {
         return clazz;
     }
 
@@ -454,26 +418,9 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      *
      * @param aClazz clase de objetos a buscar
      */
-    public final void setClazz(final Class aClazz) {
+    public final void setClazz(final Class<?> aClazz) {
         clazz = aClazz;
     }
-
-//    /* (non-Javadoc)
-//     * @see FilterObjectVisitor#visitPagingFilterObject(PagingFilterObject)
-//     */
-//    public void visitPagingFilterObject(PagingFilterObject pagingFilterObject) {
-//        this.paging = pagingFilterObject.getPaging();
-//        
-//    }
-//
-//    /**
-//     * Devuelve el/la paging.
-//     *
-//     * @return <code>Paging</code> con el/la paging.
-//     */
-//    public Paging getPaging() {
-//        return paging;
-//    }
 
     /** @see FilterVisitor#visitInPropertyFilter(InPropertyFilter) */
     public final void visitInPropertyFilter(

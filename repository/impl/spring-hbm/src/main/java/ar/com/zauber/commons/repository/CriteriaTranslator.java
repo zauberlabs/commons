@@ -36,7 +36,7 @@ import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 public class CriteriaTranslator implements Translator {
 
     private SessionFactory sessionFactory;
-    private Class clazz;
+    private Class<?> clazz;
     private DetachedCriteria criteria;
     private Log logger = LogFactory.getLog(getClass());
     private boolean debugging = logger.isDebugEnabled();
@@ -49,7 +49,7 @@ public class CriteriaTranslator implements Translator {
      * @param aClass
      * @param aSessionFactory
      */
-    public CriteriaTranslator(final Class aClass, 
+    public CriteriaTranslator(final Class<?> aClass, 
             final SessionFactory aSessionFactory,
             final boolean ignoreOrder) {
         clazz = aClass;
@@ -65,15 +65,15 @@ public class CriteriaTranslator implements Translator {
     }
 
     /** @see Translator#translate(Query) */
-    public final void translate(final Query aQuery)  {
+    public final void translate(final Query<?> aQuery)  {
         if(clazz == null) {
-            clazz = ((SimpleQuery)aQuery).getClazz();
+            clazz = ((SimpleQuery<?>)aQuery).getClazz();
         }
-        final SimpleQuery simpleQuery = (SimpleQuery) aQuery;
+        final SimpleQuery<?> simpleQuery = (SimpleQuery<?>) aQuery;
         
         final FilterVisitor filterVisitor = 
             new CriteriaFilterVisitor(clazz, sessionFactory);
-        ((SimpleQuery) aQuery).getFilter().accept(filterVisitor);
+        ((SimpleQuery<?>) aQuery).getFilter().accept(filterVisitor);
         criteria = ((CriteriaFilterVisitor)filterVisitor).getCriteria();
         
         if(!ignoreOrder) {
@@ -118,5 +118,4 @@ public class CriteriaTranslator implements Translator {
         }
         return criteria;
     }
-
 }

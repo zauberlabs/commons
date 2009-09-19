@@ -22,20 +22,12 @@ package ar.com.zauber.commons.repository;
  */
 public interface Persistible {
 
-    /**
-     * @return el identificador
-     */
+    /** @return el identificador */
     Long getId();
 
-    /**
-     * @param anId
-     *            que es el identificador
-     */
+    /** @param anId que es el identificador */
     void setId(Long anId);
     
-    /**
-     * @return
-     */
+    /** @return TODO */
     <T> Reference<? extends Persistible> generateReference();
-
 }

@@ -19,7 +19,6 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -74,7 +73,6 @@ import org.springframework.context.ApplicationContextAware;
  *  }
  *  
  * 
- 
  * </pre>
  * @author Juan F. Codagnone
  * @since Mar 12, 2009
@@ -82,25 +80,26 @@ import org.springframework.context.ApplicationContextAware;
 public class SpringInjectionInterceptor extends EmptyInterceptor 
                                      implements ApplicationContextAware,
                                                 InitializingBean {
+    private static final long serialVersionUID = 2501930754071241444L;
     private ApplicationContext ctx;
-    private final Map<Class, DependencyInjection> dependencyCache = 
-        new HashMap<Class, DependencyInjection>();
+    private final Map<Class<?>, DependencyInjection> dependencyCache = 
+        new HashMap<Class<?>, DependencyInjection>();
     private final Logger log =  Logger.getLogger(SpringInjectionInterceptor.class);
  
     /**
      * @param persistibleClasses persistible classes that may requiere dependency
      *                           injection
      */
-    public SpringInjectionInterceptor(final List<Class> persistibleClasses) {
+    public SpringInjectionInterceptor(final List<Class<?>> persistibleClasses) {
         Validate.noNullElements(persistibleClasses);
         
-        for(final Class clazz : persistibleClasses) {
+        for(final Class<?> clazz : persistibleClasses) {
             final List<Entry<Field, String>> fields = 
                 new LinkedList<Entry<Field, String>>();
             for(final Annotation annotation : clazz.getAnnotations()) {
                 if(annotation instanceof Configurable) {
                     final List<Field> clazzFields = new LinkedList<Field>();
-                    Class c = clazz;
+                    Class<?> c = clazz;
                     while(c != null) {
                         clazzFields.addAll(Arrays.asList(c.getDeclaredFields()));
                         c = c.getSuperclass();

@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Iterator;
 
+import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
@@ -30,8 +31,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 
-import ar.com.zauber.commons.repository.Repository;
-
 /**
  * This class can be used to drop the database Schema.
  *
@@ -40,31 +39,31 @@ import ar.com.zauber.commons.repository.Repository;
  */
 public abstract class AbstractHibernateDropTables
     implements ApplicationContextAware {
-
+    
+    private final Log logger = LogFactory.getLog(this.getClass());
     private ApplicationContext applicationContext;
     private DropSessionFactoriesTablesDefinition
         dropSessionFactoriesTablesDefinition;
-    private Repository repository;
     private String sentenceSeparator = "GO";
-    Log logger = LogFactory.getLog(this.getClass());
 
+    /** sets the application context */
     public final void setApplicationContext(
             final ApplicationContext applicationContext) {
+        Validate.notNull(applicationContext);
         this.applicationContext = applicationContext;        
     }
     
-    /**
-     * Crea el/la BaseTest.
-     *
-     */
+    /** Crea el/la BaseTest. */
     public AbstractHibernateDropTables() {
         super();
     }
 
+    /** test drop schema */
     public final void testDrop() throws Exception {
         dropDatabase();
     }
 
+    /** drop schema */
     private void dropDatabase() throws Exception {
 
         logger.trace("Entering runDbInstall");
@@ -73,44 +72,32 @@ public abstract class AbstractHibernateDropTables
         ResultSet resultSet;
         Connection connection;
         LocalSessionFactoryBean localSessionFactoryBean;
-        String testMarkerTableName = dropSessionFactoriesTablesDefinition.getTestMarkerTableName();
+        final String testMarkerTableName = 
+            dropSessionFactoriesTablesDefinition.getTestMarkerTableName();
         String message;
         
-        for(Iterator iter = dropSessionFactoriesTablesDefinition.getLocalSessionFactoryBeanNames(); iter.hasNext();) {
-
+        for(Iterator<String> iter = dropSessionFactoriesTablesDefinition.
+                getLocalSessionFactoryBeanNames(); iter.hasNext();) {
             localSessionFactoryBean =
                (LocalSessionFactoryBean)
                    applicationContext.getBean("&" + iter.next());
        
-              
             connection = ((SessionFactory)localSessionFactoryBean
                     .getObject()).openSession().connection();
-        
             
             try {
-                Configuration configuration = localSessionFactoryBean.getConfiguration();
-                final Dialect dialect = Dialect.getDialect(configuration.getProperties());
-//                String[] sqlCreate = configuration.generateSchemaCreationScript(dialect);
-//                for(int i = 0; i < sqlCreate.length; i++) {
-//                  writer.write(sqlCreate[i]);
-//                  System.out.println(sqlCreate[i]);
-//                }                
-                DatabaseMetadata metadata = new DatabaseMetadata(connection, dialect);
-                String[] sqlUpdate = configuration.generateSchemaUpdateScript(dialect, metadata);
+                Configuration configuration = 
+                    localSessionFactoryBean.getConfiguration();
+                final Dialect dialect = Dialect.getDialect(
+                        configuration.getProperties());
+                final DatabaseMetadata metadata = new DatabaseMetadata(
+                        connection, dialect);
+                final String[] sqlUpdate = 
+                    configuration.generateSchemaUpdateScript(dialect, metadata);
                 for(int i = 0; i < sqlUpdate.length; i++) {
-//                  writer.write(sqlCreate[i]);
                   System.out.println(sqlUpdate[i]);
                   System.out.println(sentenceSeparator);
               }
-                
-//                File file;
-//                file = File.createTempFile("schemaCreate" + Calendar.getInstance(), ".sql");
-//                OutputStream stream;
-//                stream = new FileOutputStream(file, true);
-//                OutputStreamWriter writer;
-//                writer = new OutputStreamWriter(stream);
-
-
             } catch(Exception e) {
                 logger.warn("An exception ocurred and the database"
                     + "schema didn't finish to execute");

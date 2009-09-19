@@ -18,10 +18,14 @@ package ar.com.zauber.commons.repository.utils;
 import java.util.Iterator;
 import java.util.List;
 
-public class DropSessionFactoriesTablesDefinition {
+import org.apache.commons.lang.Validate;
 
-    private List<String> localSessionFactoryBeanNames;
-    private String testMarkerTableName;
+/**
+ *  TODO martin documentar
+ */
+public class DropSessionFactoriesTablesDefinition {
+    private final List<String> localSessionFactoryBeanNames;
+    private final String testMarkerTableName;
 
     /**
      * Crea el/la DropSessionFactoriesTablesDefinition.
@@ -30,14 +34,16 @@ public class DropSessionFactoriesTablesDefinition {
      * @param testMarkerTableName
      */
     public DropSessionFactoriesTablesDefinition(
-            final List localSessionFactoryBeanNames, 
+            final List<String> localSessionFactoryBeanNames, 
             final String testMarkerTableName) {
-        super();
+        Validate.notNull(localSessionFactoryBeanNames);
+        Validate.notNull(testMarkerTableName);
+        
         this.localSessionFactoryBeanNames = localSessionFactoryBeanNames;
         this.testMarkerTableName = testMarkerTableName;
     }
 
-    public final Iterator getLocalSessionFactoryBeanNames() {
+    public final Iterator<String> getLocalSessionFactoryBeanNames() {
         return localSessionFactoryBeanNames.iterator();
     }
 
@@ -49,5 +55,4 @@ public class DropSessionFactoriesTablesDefinition {
     public final String getTestMarkerTableName() {
         return testMarkerTableName;
     }
-
 }
