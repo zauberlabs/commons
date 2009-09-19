@@ -227,7 +227,6 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         if(query != null) {
             query.acceptTranslator(criteriaTranslator);
         }
-        CriteriaSpecification criteria = criteriaTranslator.getCriteria();
-        return criteria;
+        return criteriaTranslator.getCriteria();
     }
 }
