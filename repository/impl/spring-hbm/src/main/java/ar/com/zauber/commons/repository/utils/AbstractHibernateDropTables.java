@@ -100,9 +100,9 @@ public abstract class AbstractHibernateDropTables
                   System.out.println(sqlUpdate[i]);
                   System.out.println(sentenceSeparator);
               }
-            } catch(HibernateException e) {
+            } catch(final HibernateException e) {
                 logger.warn("An exception ocurred and the database"
-                    + "schema didn't finish to execute");
+                    + "schema didn't finish to execute", e);
                 return;
             }
             
