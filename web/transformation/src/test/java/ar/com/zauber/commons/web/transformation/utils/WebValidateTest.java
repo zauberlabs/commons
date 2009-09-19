@@ -17,8 +17,6 @@ package ar.com.zauber.commons.web.transformation.utils;
 
 import org.junit.Test;
 
-import ar.com.zauber.commons.web.transformation.utils.WebValidate;
-
 /**
  * TODO Descripcion de la clase. Los comenterios van en castellano.
  * 

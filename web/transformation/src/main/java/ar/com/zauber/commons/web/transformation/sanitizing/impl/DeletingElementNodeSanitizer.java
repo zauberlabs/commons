@@ -32,19 +32,15 @@ import ar.com.zauber.commons.web.transformation.sanitizing.api.TagSecutrityStrat
  */
 public class DeletingElementNodeSanitizer extends AbstractElementNodeSanitizer {
 
-    /**
-     * Creates the DeletingElementNodeSanitizer.
-     *
-     * @param tagSecutrityStrategy
-     */
+    /** Creates the DeletingElementNodeSanitizer. */
     public DeletingElementNodeSanitizer(
             final TagSecutrityStrategy tagSecutrityStrategy) {
 
         super(tagSecutrityStrategy);
     }
     
-    /** @see ar.com.zauber.commons.web.transformation.sanitizing.impl.clarin.golmix.utils.domSanitizing.AbstractElementNodeSanitizer
-     * #processInvalidElementAttributes(org.w3c.dom.Element, java.util.List) */
+    /** @see AbstractElementNodeSanitizer#processInvalidElementAttributes(
+     * Element, List) */
     @Override
     public final void processInvalidElementAttributes(final Element element,
             final List<Attr> invalidAttributes) {
@@ -57,8 +53,7 @@ public class DeletingElementNodeSanitizer extends AbstractElementNodeSanitizer {
         }
     }
 
-    /** @see ar.com.zauber.commons.web.transformation.sanitizing.impl.clarin.golmix.utils.domSanitizing.AbstractElementNodeSanitizer
-     * #processInvalidElements(java.util.List) */
+    /** @see AbstractElementNodeSanitizer#processInvalidElements(List) */
     @Override
     public final void processInvalidElements(final List<Element> invalidElements) {
         

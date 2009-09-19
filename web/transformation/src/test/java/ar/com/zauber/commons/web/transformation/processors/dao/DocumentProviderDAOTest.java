@@ -40,7 +40,8 @@ public class DocumentProviderDAOTest {
     @Test
     public final void simpleDocumetProviderDAOTest() {
         final DocumentProviderDAO dao 
-            = new SimpleStartsWithDocumentProviderDAO("/test", new JTidyDocumentProvider());
+            = new SimpleStartsWithDocumentProviderDAO("/test", 
+                    new JTidyDocumentProvider());
         
         Assert.assertTrue(dao.accept("/test/aaaa/bbbb"));
         Assert.assertFalse(dao.accept("/zzzz/aaaa/bbbb"));
@@ -53,7 +54,8 @@ public class DocumentProviderDAOTest {
     @Test(expected = InvalidParameterException.class)
     public final void simpleDocumentProviderDAOInvalidURLTest() {
         final DocumentProviderDAO dao 
-            = new SimpleStartsWithDocumentProviderDAO("/test", new JTidyDocumentProvider());
+            = new SimpleStartsWithDocumentProviderDAO("/test", 
+                    new JTidyDocumentProvider());
         
         Assert.assertTrue(dao.accept("/test/aaaa/bbbb"));
         Assert.assertFalse(dao.accept("/zzzz/aaaa/bbbb"));
@@ -65,7 +67,8 @@ public class DocumentProviderDAOTest {
     @Test
     public final void simpleDocumetProviderDAOAlwaysTest() {
         final DocumentProviderDAO dao 
-            = new SimpleStartsWithDocumentProviderDAO("", new JTidyDocumentProvider());
+            = new SimpleStartsWithDocumentProviderDAO("", 
+                    new JTidyDocumentProvider());
         
         Assert.assertTrue(dao.accept("/test/aaaa/bbbb"));
         Assert.assertTrue(dao.accept("/zzzz/aaaa/bbbb"));
@@ -88,7 +91,8 @@ public class DocumentProviderDAOTest {
         final DocumentProviderDAO dao 
             = new ChainedDocumentProviderDAO(
                 //el default acepta todo
-                new SimpleStartsWithDocumentProviderDAO("", new JTidyDocumentProvider()),
+                new SimpleStartsWithDocumentProviderDAO("", 
+                        new JTidyDocumentProvider()),
                 list);
         
         Assert.assertTrue(dao.accept("/test/aaaa/bbbb"));

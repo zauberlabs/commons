@@ -15,7 +15,7 @@
  */
 package ar.com.zauber.commons.web.transformation.sanitizing.impl;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang.Validate;
 
@@ -30,15 +30,15 @@ import ar.com.zauber.commons.web.transformation.sanitizing.api.TagSecutrityStrat
  */
 public class HashMapTagSecurityStrategy implements TagSecutrityStrategy {
 
-    private final HashMap<String, HashMap<String,
-        ? extends AttributeValueValidator>> allowedTags;
+    private final Map<String, Map<String, ? extends AttributeValueValidator>> 
+                          allowedTags;
     
     /**
      * Creates the HashMapTagSecurityStrategy.
      *
      * @param allowedTags
      */
-    public HashMapTagSecurityStrategy(final HashMap<String, HashMap<String,
+    public HashMapTagSecurityStrategy(final Map<String, Map<String,
             ? extends AttributeValueValidator>> allowedTags) {
     
         Validate.notNull(allowedTags);
@@ -46,14 +46,12 @@ public class HashMapTagSecurityStrategy implements TagSecutrityStrategy {
         this.allowedTags = allowedTags;
     }
     
-    /** @see com.clarin.golmix.utils.domSanitizing.TagSecutrityStrategy
-     * #isTagAllowed(java.lang.String) */
+    /** @see TagSecutrityStrategy#isTagAllowed(java.lang.String) */
     public final boolean isTagAllowed(final String tag) {
         return allowedTags.containsKey(tag);
     }
     
-    /** @see com.clarin.golmix.utils.domSanitizing.TagSecutrityStrategy
-     * #isAttributeAllowedForTag(java.lang.String, java.lang.String) */
+    /** @see TagSecutrityStrategy#isAttributeAllowedForTag(String, String) */
     public final boolean isAttributeAllowedForTag(final String attribute,
             final String tag) {
         
@@ -62,13 +60,12 @@ public class HashMapTagSecurityStrategy implements TagSecutrityStrategy {
                     : false;
     }
     
-    /** @see com.clarin.golmix.utils.domSanitizing.TagSecutrityStrategy
-     * #isAttributeValueValidForTag(java.lang.String, java.lang.String,
-     * java.lang.String) */
+    /** @see TagSecutrityStrategy#isAttributeValueValidForTag(String, String,
+     *   String) */
     public final boolean isAttributeValueValidForTag(final String attributeValue,
             final String attribute, final String tag) {
         
-        final HashMap<String, ? extends AttributeValueValidator> allowedAttributes =
+        final Map<String, ? extends AttributeValueValidator> allowedAttributes =
             allowedTags.get(tag); 
         if(allowedAttributes != null) {
             final AttributeValueValidator validator =

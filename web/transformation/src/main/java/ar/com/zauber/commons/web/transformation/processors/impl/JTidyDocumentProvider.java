@@ -43,7 +43,7 @@ public class JTidyDocumentProvider implements DocumentProvider {
     }
     
     /** Creates the JTidyDocumentProvider. */
-    public JTidyDocumentProvider(int encoding) {
+    public JTidyDocumentProvider(final int encoding) {
         this();
         tidy.setCharEncoding(encoding);
     }

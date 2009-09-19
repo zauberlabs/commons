@@ -18,6 +18,7 @@ package ar.com.zauber.commons.web.transformation.sanitizing.impl;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -59,13 +60,12 @@ public class XmlSanitizerTest extends TestCase {
     private XmlSanitizer xmlSanitizer;
 
 
-    /** @see junit.framework.TestCase#setUp() */
+    /** @see TestCase#setUp() */
     @Override
-    protected void setUp() throws Exception {
-        final HashMap<String, HashMap<String,
-        ? extends AttributeValueValidator>>allowedTags =
-            new HashMap<String, HashMap<String,
-            ? extends AttributeValueValidator>>();
+    protected final void setUp() throws Exception {
+        final Map<String, 
+                    Map<String, ? extends AttributeValueValidator>>allowedTags =
+            new HashMap<String, Map<String, ? extends AttributeValueValidator>>();
 
         final HashMap<String, AttributeValueValidator> emptyMap = 
             new HashMap<String, AttributeValueValidator>();
@@ -93,6 +93,7 @@ public class XmlSanitizerTest extends TestCase {
                 new HashMapTagSecurityStrategy(allowedTags)); 
     }
 
+    /** test */
     public final void testSanitizer() throws Exception {
 
         final Tidy tidy = new Tidy(); // obtain a new Tidy instance

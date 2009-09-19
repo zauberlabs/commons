@@ -15,12 +15,11 @@
  */
 package ar.com.zauber.commons.web.transformation.censors;
 
+import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
 
-import ar.com.zauber.commons.web.transformation.censors.CensorAccess;
 import ar.com.zauber.commons.web.transformation.censors.impl.FalseCensorAccess;
-
-import static org.junit.Assert.*;
 
 /**
  * Tests for {@link CensorAccess}.
