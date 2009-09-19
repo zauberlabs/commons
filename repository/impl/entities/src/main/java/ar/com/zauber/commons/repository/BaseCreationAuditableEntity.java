@@ -44,13 +44,15 @@ public abstract class BaseCreationAuditableEntity extends BaseEntity
      */
     public BaseCreationAuditableEntity(final Date createdAt,
             final String createdBy) {
-        this.createdAt = createdAt;
+        this.createdAt = createdAt == null ? createdAt 
+                       : new Date(createdAt.getTime());
         this.createdBy = createdBy;
         
     }
     
     public final Date getCreatedAt() {
-        return createdAt;
+        return createdAt == null ? createdAt 
+                : new Date(createdAt.getTime());
     }
 
     public final String getCreatedBy() {
