@@ -17,7 +17,6 @@ package ar.com.zauber.commons.web.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 

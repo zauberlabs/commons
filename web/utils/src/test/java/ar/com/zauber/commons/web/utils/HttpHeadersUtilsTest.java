@@ -38,7 +38,7 @@ public class HttpHeadersUtilsTest {
     }
     
 
-    @Test
+    
     public final void parser() {
         final String acceptHeader = "text/plain; q=0.5"
             + ", text/html, text/x-dvi; q=0.8, text/x-c";
@@ -78,6 +78,7 @@ public class HttpHeadersUtilsTest {
                 acceptHeader, acceptedContentTypes));
     }
 
+    /** test */
     @Test
     public final void acceptNothing() {
         final String acceptHeader = "audio/*; q=0.2, audio/basic";
@@ -86,6 +87,7 @@ public class HttpHeadersUtilsTest {
                 acceptedContentTypes));
     }
 
+    /** test */
     @Test
     public final void acceptPreference() {
         /*
@@ -117,6 +119,7 @@ public class HttpHeadersUtilsTest {
                 acceptHeader, acceptedContentTypes));
     }
 
+    /** test */
     @Test
     public final void acceptLevelPreference() {
         final String acceptHeader = "text/*, text/html, text/html;level=1, */*";
@@ -141,6 +144,7 @@ public class HttpHeadersUtilsTest {
                 .getContentType(acceptHeader, acceptedContentTypes));
     }
 
+    /** test */
     @Test
     public final void firefoxAccept() {
         final String acceptHeader = "text/html"
