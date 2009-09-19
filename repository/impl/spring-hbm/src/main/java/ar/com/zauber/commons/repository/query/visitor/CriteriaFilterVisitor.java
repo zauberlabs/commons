@@ -193,7 +193,7 @@ public class CriteriaFilterVisitor implements FilterVisitor {
      * @param pathName asociacion a resolver
      */
     private void multipartQueryResolver(final String pathName) {
-        int dotIndex = pathName.indexOf(".");
+        int dotIndex = pathName.indexOf('.');
         int lastDotIndex = 0;
         int dotIndexAcum = dotIndex;
         Class<?> pathPartClass = clazz;
