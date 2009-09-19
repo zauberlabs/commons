@@ -22,24 +22,21 @@ import org.apache.wicket.model.IModel;
 
 /**
  * Esta clase repressenta un {@link Link} con confirmacion de borrado.
- * 
- * 
+ *
+ *
  * @author Alejandro Souto
  * @since 17/03/2009
+ * @param <T> model 
  */
 public abstract class ConfirmLink<T> extends Link<T> {
-    final private String confirmMessage;
-    
-    /**
-     * Creates the DeleteConfirmLink.
-     *
-     * @param id
-     * @param model
-     */
-    public ConfirmLink(String id, 
-            IModel<T> model, final String confirmMessage) {
+    private static final long serialVersionUID = 1109116247860043364L;
+    private final String confirmMessage;
+
+    /** Creates the DeleteConfirmLink. */
+    public ConfirmLink(final String id,
+            final IModel<T> model, final String confirmMessage) {
         super(id, model);
-        
+
         Validate.notEmpty(confirmMessage);
         this.confirmMessage = confirmMessage;
     }
@@ -49,21 +46,21 @@ public abstract class ConfirmLink<T> extends Link<T> {
      *
      * @param id
      */
-    public ConfirmLink(String id, final String confirmMessage) {
+    public ConfirmLink(final String id, final String confirmMessage) {
         super(id);
-        
+
         Validate.notEmpty(confirmMessage);
         this.confirmMessage = confirmMessage;
     }
-    
+
     /** @see Link#onComponentTag(ComponentTag) */
     @Override
-    protected void onComponentTag(ComponentTag tag) {
+    protected final void onComponentTag(final ComponentTag tag) {
         super.onComponentTag(tag);
 
-        String onclick=(String)tag.getAttributes().get("onclick");
-        onclick="if (!confirm('" + confirmMessage + "')) return false; "+ onclick;
-        tag.getAttributes().put("onclick",onclick);
+        String onclick = (String)tag.getAttributes().get("onclick");
+        onclick = "if (!confirm('" + confirmMessage + "')) return false; " + onclick;
+        tag.getAttributes().put("onclick", onclick);
 
     }
 }
