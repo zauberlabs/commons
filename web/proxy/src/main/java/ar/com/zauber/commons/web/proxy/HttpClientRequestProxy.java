@@ -141,6 +141,14 @@ public class HttpClientRequestProxy {
                     }
                     
                     try {
+                        String uri = request.getPathInfo();
+                        // When using this component as a Filter,  the path info
+                        // can be null, but the same information is available at
+                        // getServletPath
+                        if(uri == null) {
+                            uri = request.getServletPath();
+                        }
+                        
                         contentTransformer.transform(is, response.getOutputStream(), 
                                 new InmutableContentMetadata(
                                         request.getPathInfo(), 
