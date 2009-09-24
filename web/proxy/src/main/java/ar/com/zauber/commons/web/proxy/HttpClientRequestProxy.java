@@ -151,7 +151,7 @@ public class HttpClientRequestProxy {
                         
                         contentTransformer.transform(is, response.getOutputStream(), 
                                 new InmutableContentMetadata(
-                                        request.getPathInfo(), 
+                                        uri, 
                                         getContentType(method), 
                                         method.getStatusCode()));
                     } finally {
