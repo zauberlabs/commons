@@ -40,6 +40,8 @@ public class PropertiesChainedRegexURLRequestMapperDAO
     implements URLRequestMapperDAO {
     private final PropertiesProvider provider;
     private final PropertiesPersister persister;
+    private boolean stripContextPath = true;
+    private boolean stripServletPath = true;
     
     /** constructor */
     public PropertiesChainedRegexURLRequestMapperDAO(
@@ -73,6 +75,8 @@ public class PropertiesChainedRegexURLRequestMapperDAO
             sb.append('\n');
         }
         final URLRequestMapperEditor propertyEditor = new URLRequestMapperEditor();
+        propertyEditor.setStripContextPath(stripContextPath);
+        propertyEditor.setStripServletPath(stripServletPath);
         propertyEditor.setAsText(sb.toString());
         return (URLRequestMapper) propertyEditor.getValue();
     }
@@ -94,5 +98,21 @@ public class PropertiesChainedRegexURLRequestMapperDAO
         }
         
         persister.save(result);
+    }
+
+    public final boolean isStripContextPath() {
+        return stripContextPath;
+    }
+
+    public final void setStripContextPath(final boolean stripContextPath) {
+        this.stripContextPath = stripContextPath;
+    }
+
+    public final boolean isStripServletPath() {
+        return stripServletPath;
+    }
+
+    public final void setStripServletPath(final boolean stripServletPath) {
+        this.stripServletPath = stripServletPath;
     }
 }

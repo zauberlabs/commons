@@ -27,7 +27,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import ar.com.zauber.commons.web.proxy.URLRequestMapper;
 import ar.com.zauber.commons.web.proxy.impl.ChainedURLRequestMapper;
 import ar.com.zauber.commons.web.proxy.impl.RegexURLRequestMapper;
-import ar.com.zauber.commons.web.proxy.impl.dao.URLRequestMapperDAO;
 import ar.com.zauber.commons.web.proxy.impl.dao.properties.persister.NullPropertiesPersister;
 import ar.com.zauber.commons.web.proxy.impl.dao.properties.provider.SimplePropertiesProvider;
 
@@ -46,7 +45,7 @@ public class PropertiesChainedRegexURLRequestMapperDAOTest extends TestCase {
         p.put("1", "^/([^/]+)/([^/]+)/([^/]+)/(.*)$"
               + "=http://localhost:9095/nexus/content/repositories/$1-$2-$3/$4");
         
-        final URLRequestMapperDAO dao = 
+        final PropertiesChainedRegexURLRequestMapperDAO dao = 
             new PropertiesChainedRegexURLRequestMapperDAO(
                 new SimplePropertiesProvider(p), 
                 new NullPropertiesPersister());
@@ -62,7 +61,7 @@ public class PropertiesChainedRegexURLRequestMapperDAOTest extends TestCase {
                 c.getProxiedURLFromRequest(new MockHttpServletRequest(
                 "GET", "/zauber/code/releases/foo/bar")).getURL());
     }
-    
+
     /** @throws Exception on error */
     public final void testSave() throws Exception {
         final URLRequestMapper c =  new ChainedURLRequestMapper(Arrays.asList(
@@ -87,5 +86,23 @@ public class PropertiesChainedRegexURLRequestMapperDAOTest extends TestCase {
                       properties.get("1"));
                 }
             }).save(c);
+    }
+    
+
+    /** test */
+    public final void testLoadNoStrip() {
+        final Properties p = new Properties();
+        p.put("0", "^/nexus/(.*)$=http://localhost:9095/nexus/$1");
+        
+        final PropertiesChainedRegexURLRequestMapperDAO dao = 
+            new PropertiesChainedRegexURLRequestMapperDAO(
+                new SimplePropertiesProvider(p), 
+                new NullPropertiesPersister());
+      dao.setStripContextPath(false);
+      dao.setStripServletPath(false);
+      final ChainedURLRequestMapper c = (ChainedURLRequestMapper) dao.load();
+      RegexURLRequestMapper r = (RegexURLRequestMapper) c.getChain()[0];
+      assertFalse(r.isStripServletPath());
+
     }
 }

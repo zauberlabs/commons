@@ -15,14 +15,24 @@
  */
 package ar.com.zauber.commons.web.proxy;
 
+import java.io.IOException;
+import java.net.URL;
+
 import javax.servlet.http.HttpServletRequest;
+
+import junit.framework.TestCase;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 
-import junit.framework.TestCase;
+import ar.com.zauber.commons.web.proxy.impl.InmutableURLRequestMapper;
+import ar.com.zauber.commons.web.proxy.impl.InmutableURLResult;
 
 /**
  * Tests {@link HttpClientRequestProxy}.
@@ -72,5 +82,22 @@ public class HttpClientRequestProxyTest extends TestCase {
             }
         };
         assertEquals("text/html ; charset =  utf-8", p.getContentType(m));
+    }
+    
+    
+    /** test */
+    public final void noNullPathInfo() throws Exception {
+        final HttpClientRequestProxy p = new HttpClientRequestProxy(
+                new InmutableURLRequestMapper(
+                    new InmutableURLResult(new URL("http://www.zauber.com.ar/"))), 
+                    new HttpClient());
+        final MockHttpServletRequest request = new MockHttpServletRequest("GET", 
+                "/foo");
+        request.setPathInfo(null);
+        assertNotNull(request.getServletPath());
+        request.setPathInfo("/test/landing.html");
+        final MockHttpServletResponse response = new MockHttpServletResponse(); 
+        p.handleRequestInternal(request, response);
+        System.out.println(response.getContentAsString());
     }
 }

@@ -39,11 +39,13 @@ import ar.com.zauber.commons.web.proxy.impl.RegexURLRequestMapper;
  * @since Aug 29, 2008
  */
 public class URLRequestMapperEditor extends PropertyEditorSupport {
-
+    private boolean stripContextPath = true;
+    private boolean stripServletPath = true;
+    
     /** @see PropertyEditor#setAsText(String) */
     public final void setAsText(final String s) 
         throws IllegalArgumentException {
-        URLRequestMapper r = null; 
+        ChainedURLRequestMapper r = null; 
         
         if(!StringUtils.isBlank(s)) {
             final Map<String, String> m = new LinkedHashMap<String, String>();
@@ -61,7 +63,8 @@ public class URLRequestMapperEditor extends PropertyEditorSupport {
                     }
                     m.put(l.substring(0, i).trim(), l.substring(i + 1).trim());
                 }
-                r = new ChainedURLRequestMapper(m);
+                r = new ChainedURLRequestMapper(m, stripContextPath,
+                        stripServletPath);
             } catch (final IOException e) {
                 throw new UnhandledException(e);
             }
@@ -84,4 +87,23 @@ public class URLRequestMapperEditor extends PropertyEditorSupport {
         }
         return sb.toString();
     }
+
+
+    public final boolean isStripContextPath() {
+        return stripContextPath;
+    }
+
+
+    public final boolean isStripServletPath() {
+        return stripServletPath;
+    }
+
+    public final void setStripContextPath(final boolean stripContextPath) {
+        this.stripContextPath = stripContextPath;
+    }
+
+    public final void setStripServletPath(final boolean stripServletPath) {
+        this.stripServletPath = stripServletPath;
+    }    
+    
 }

@@ -59,7 +59,13 @@ public class ChainedURLRequestMapper implements URLRequestMapper {
     
     /** @see #getChain(Map) */
     public ChainedURLRequestMapper(final Map<String, String> map) {
-        this(getChain(map));
+        this(getChain(map, true, true));
+    }
+    
+    /** @see #getChain(Map) */
+    public ChainedURLRequestMapper(final Map<String, String> map,
+            final boolean stripContextPath, final boolean stripServletPath) {
+        this(getChain(map, stripContextPath, stripServletPath));
     }
 
     /**
@@ -77,13 +83,17 @@ public class ChainedURLRequestMapper implements URLRequestMapper {
      * the Map used is an instance of <tt>LinkedHashMap</tt> or an equivalent, 
      * rather than a plain <tt>HashMap</tt>, for example.
      */
-    private static List<URLRequestMapper> getChain(final Map<String, String> m) {
+    private static List<URLRequestMapper> getChain(final Map<String, String> m,
+            final boolean stripContextPath, final boolean stripServletPath) {
         final Map<String, String> map = new LinkedHashMap<String, String>(m);
         final List<URLRequestMapper> l = new ArrayList<URLRequestMapper>();
         Validate.notNull(map);
         for(final Entry<String, String> entry : map.entrySet()) {
-            l.add(new RegexURLRequestMapper(Pattern.compile(entry.getKey()), 
-                    entry.getValue()));
+            final RegexURLRequestMapper e = new RegexURLRequestMapper(
+                    Pattern.compile(entry.getKey()), entry.getValue());
+            e.setStripContextPath(stripContextPath);
+            e.setStripServletPath(stripServletPath);
+            l.add(e);
         }
         return l;
     }
