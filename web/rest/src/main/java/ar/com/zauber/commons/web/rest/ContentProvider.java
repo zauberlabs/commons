@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.web.rest;
 
 import java.io.InputStream;
+import java.io.Reader;
 import java.net.URI;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
@@ -33,7 +34,7 @@ public interface ContentProvider {
      * @return the content of the entity
      * @throws NoSuchEntityException if the url does not exist (404)
      */
-    InputStream getContent(URI url) throws NoSuchEntityException;
+    Reader getContent(URI url) throws NoSuchEntityException;
     
     /**
      * @param url url to PUT

@@ -16,8 +16,11 @@
 package ar.com.zauber.commons.web.rest.impl;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -32,16 +35,25 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
  */
 public class FixedContentProvider implements ContentProvider {
     private final Map<URI, String> map;
+    private final Charset charset;
 
     /** Creates the FixedContentProvider. */
     public FixedContentProvider(final Map<URI, String> map) {
+        this(map, Charset.defaultCharset());
+    }
+    
+    /** Creates the FixedContentProvider. */
+    public FixedContentProvider(final Map<URI, String> map,
+            final Charset charset) {
         Validate.notNull(map);
+        Validate.notNull(charset);
 
         this.map = map;
+        this.charset = charset;
     }
 
     /** @see ContentProvider#getContent(URL) */
-    public final InputStream getContent(final URI url) {
+    public final Reader getContent(final URI url) {
         final String destURL = map.get(url);
         if(destURL == null) {
             throw new NoSuchEntityException(url);
@@ -53,7 +65,7 @@ public class FixedContentProvider implements ContentProvider {
             throw new NoSuchEntityException(url);
         }
         
-        return is;
+        return new InputStreamReader(is, charset);
     }
 
     /** @see ContentProvider#put(URL, InputStream) */
