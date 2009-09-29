@@ -6,8 +6,6 @@ package ar.com.zauber.commons.dao;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 
 /**
  * Test {@link OrderingBuilder}.
