@@ -4,7 +4,7 @@
     <parent>
         <artifactId>commons-web-parent</artifactId>
         <groupId>ar.com.zauber.commons.web</groupId>
-        <version>3.19-SNAPSHOT</version>
+        <version>3.19</version>
     </parent>
     <name>Zauber::Commons::Web::REST</name>
     <artifactId>commons-web-rest</artifactId>
