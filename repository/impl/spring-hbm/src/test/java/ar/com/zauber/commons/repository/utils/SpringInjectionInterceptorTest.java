@@ -21,6 +21,7 @@ import org.springframework.test.AbstractTransactionalSpringContextTests;
 
 import ar.com.zauber.commons.repository.Reference;
 import ar.com.zauber.commons.repository.Repository;
+import ar.com.zauber.commons.repository.test.model.DomainEmbeededEntity;
 import ar.com.zauber.commons.repository.test.model.DomainEntityExample;
 import ar.com.zauber.commons.repository.test.model.SomeService;
 
@@ -59,6 +60,7 @@ public class SpringInjectionInterceptorTest extends
     @Override
     protected final void onSetUp()  {
         final DomainEntityExample e1 = new DomainEntityExample();
+        e1.setDomainEmbeededEntity(new DomainEmbeededEntity());
         repository.saveOrUpdate(e1);
         hibernateTemplate.evict(e1);
     }
@@ -73,6 +75,9 @@ public class SpringInjectionInterceptorTest extends
         assertSame(someService, e2.getSomeService());
         assertSame(someService, e2.getFoo());
         assertTrue(e2.isInitialized());
+        final SomeService embeed = e2.getDomainEmbeededEntity().getSomeService();
+        assertNotNull(embeed);
+        assertSame(someService, embeed);
     }
     
 }

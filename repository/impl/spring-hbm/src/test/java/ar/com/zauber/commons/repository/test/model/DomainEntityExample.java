@@ -15,6 +15,7 @@
  */
 package ar.com.zauber.commons.repository.test.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,6 +46,8 @@ public class DomainEntityExample extends AbstractDomainEntityExample
     @Qualifier
     private transient SomeService someService;
     private transient boolean initialized = false;
+    @Embedded
+    private DomainEmbeededEntity domainEmbeededEntity;
     
     /** @see Persistible#generateReference() */
     public final <T> Reference<? extends Persistible> generateReference() {
@@ -80,4 +83,15 @@ public class DomainEntityExample extends AbstractDomainEntityExample
     public final boolean isInitialized() {
         return initialized;
     }
+
+    public final DomainEmbeededEntity getDomainEmbeededEntity() {
+        return domainEmbeededEntity;
+    }
+
+    public final void setDomainEmbeededEntity(
+            final DomainEmbeededEntity domainEmbeededEntity) {
+        this.domainEmbeededEntity = domainEmbeededEntity;
+    }
+    
+    
 }

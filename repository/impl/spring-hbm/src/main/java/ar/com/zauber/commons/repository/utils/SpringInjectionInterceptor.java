@@ -165,6 +165,18 @@ public class SpringInjectionInterceptor extends EmptyInterceptor
         if(d != null) {
             d.inject(entity);
         }
+        //embeeded objects may need to be injected
+        if(state != null) {
+            for(final Object o : state) {
+                if(o != null) {
+                    final DependencyInjection dio = 
+                        dependencyCache.get(o.getClass());
+                    if(dio != null) {
+                        dio.inject(o);
+                    }
+                }
+            }
+        }
         return super.onLoad(entity, id, state, propertyNames, types);
     }
     
