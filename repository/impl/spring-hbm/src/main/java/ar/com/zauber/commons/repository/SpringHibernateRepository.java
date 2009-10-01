@@ -42,6 +42,8 @@ import ar.com.zauber.commons.repository.aggregate.ProjectionAggregateFunctionVis
 import ar.com.zauber.commons.repository.query.Query;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
 import ar.com.zauber.commons.repository.query.aggreate.AggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.CompositeAggregateFunction;
+import ar.com.zauber.commons.repository.query.aggreate.GroupPropertyAggregateFilter;
 import ar.com.zauber.commons.repository.query.aggreate.RowCountAggregateFilter;
 
 
@@ -134,7 +136,7 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
                 false);
         final SimpleQuery<T> simpleQuery = (SimpleQuery<T>) query;
         Criteria aCriteria;
-        // TODO: Esto debería ir en el metodo que hace getCriteriaSpecification
+        // TODO Esto debería ir en el metodo que hace getCriteriaSpecification
         // pero como no tiene DetachedCriteria posibilidad de setearle valores
         // para paginación hubo que hacerlo así.
         if(simpleQuery.getPaging() != null) {
@@ -185,8 +187,21 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
         Validate.notNull(aggregateFunction);
         Validate.notNull(retClazz);
         
+        boolean ignoreOrder = true;
+        
+        if(aggregateFunction instanceof CompositeAggregateFunction) {
+            List<AggregateFunction> list = ((CompositeAggregateFunction) 
+                    aggregateFunction).getFunctions();
+            for(AggregateFunction a : list) {
+                if(a instanceof GroupPropertyAggregateFilter) {
+                    ignoreOrder = false;
+                }
+            }
+        } else if(aggregateFunction instanceof GroupPropertyAggregateFilter) {
+            ignoreOrder = false;
+        }
         final DetachedCriteria criteria = 
-            (DetachedCriteria) getCriteriaSpecification(null, query, true);
+            (DetachedCriteria) getCriteriaSpecification(null, query, ignoreOrder);
         final ProjectionAggregateFunctionVisitor visitor = 
             new ProjectionAggregateFunctionVisitor();
         aggregateFunction.accept(visitor);

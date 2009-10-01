@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -361,9 +362,9 @@ public class SpringHibernateRepositoryTest extends
         repository.saveOrUpdate(direccionDummy);
 
         direcciones.add(direccionDummy);
-
+        
         direccionDummy = new DireccionDummy();
-
+       
         direccionDummy.setDireccion("Cordoba");
         direccionDummy.setNumero(5678);
         direccionDummy.setCodpostal(CODIGO_POSTAL_2);
@@ -371,7 +372,7 @@ public class SpringHibernateRepositoryTest extends
         repository.saveOrUpdate(direccionDummy);
 
         direcciones.add(direccionDummy);
-
+        
         return direcciones;
     }
 
@@ -541,6 +542,110 @@ public class SpringHibernateRepositoryTest extends
          assertEquals(6, row[0]);
          assertEquals("Cordoba", row[1]);
          assertEquals(5678, row[2]);
+    }
+    
+    /** Prueba los aggregate con orden verificando explícitamente que se haga 
+     * dicho order by probando tanto las posibilidades desc como asc. 
+     **/
+    @SuppressWarnings("unchecked")
+    public final void testCountGroupByOrderBy() {
+        createSomeData();
+        
+        final Query<DireccionDummy> query = 
+            new SimpleQuery<DireccionDummy>(DireccionDummy.class, 
+                new NullFilter(), null, 
+                new Ordering(
+                        Arrays.asList(new Order[] {new Order("numero", 
+                                false, true)}))
+                );
+        
+        AggregateFunction function = new CompositeAggregateFunction(
+                Arrays.asList(new AggregateFunction[]{
+                        new CountPropertyAggregateFunction("numero"),
+                        new GroupPropertyAggregateFilter("direccion"),
+                        new GroupPropertyAggregateFilter("numero"),
+                }));
+         List<Object> rows = repository.aggregate(query, function, List.class);
+         
+         assertEquals(rows.size(), 2);
+         
+         Object[] row = (Object []) rows.get(0);
+         assertEquals(6, row[0]);
+         assertEquals("Cordoba", row[1]);
+         assertEquals(5678, row[2]);
+         
+         row = (Object []) rows.get(1);
+         assertEquals("Santa Fe", row[1]);
+         assertEquals(1234, row[2]);
+
+    }
+    
+    /** Se prueba el caso en que groupby de 1 solo resultado */
+    @SuppressWarnings("unchecked")
+    public final void testCountGroupByOrderBySolo() {
+        createPersona("Juan", 1111, "yo",
+            crearGuardarDosDirecciones());
+    
+        final Query<PersonaDummy> query = 
+            new SimpleQuery<PersonaDummy>(PersonaDummy.class, 
+                new NullFilter(), null, 
+                new Ordering(
+                        Arrays.asList(new Order[] {new Order("nombre", 
+                                false, true)}))
+                );
+        
+        AggregateFunction function = new CompositeAggregateFunction(
+                Arrays.asList(new AggregateFunction[]{
+                        new CountPropertyAggregateFunction("numeroFiscal"),
+                        new GroupPropertyAggregateFilter("nombre"),
+                        new GroupPropertyAggregateFilter("numeroFiscal"),
+                }));
+         Object rows = repository.aggregate(query, function, Object.class);
+         List<Object> result = new LinkedList<Object>();
+         if(rows instanceof List) {
+             result = (List<Object>) rows;
+         } else {
+             result.add(rows);
+         }
+         assertEquals(1, result.size());
+         
+         Object[] row = (Object []) result.get(0);
+         assertEquals(1, row[0]);
+         assertEquals("Juan", row[1]);
+         assertEquals(1111, row[2]);
+    }
+    
+    /** Prueba el caso en que se desea hacer un count de un campo y se 
+     * hace también order by sin group by
+     */
+    @SuppressWarnings("unchecked")
+    public final void testCountOrderBy() {
+        createSomeData();
+        
+        final Query<DireccionDummy> query = 
+            new SimpleQuery<DireccionDummy>(DireccionDummy.class, 
+                new NullFilter(), null, 
+                new Ordering(
+                        Arrays.asList(new Order[] {new Order("numero",
+                                false, true)}))
+                );
+        
+        AggregateFunction function = new CompositeAggregateFunction(
+                Arrays.asList(new AggregateFunction[]{
+                        new CountPropertyAggregateFunction("numero"),
+                }));
+        Object rows = repository.aggregate(query, function, Object.class);
+        List<Object> result = new LinkedList<Object>();
+        if(rows instanceof List) {
+            result = (List<Object>) rows;
+        } else {
+            result.add(rows);
+        }
+        assertEquals(1, result.size());
+         
+        Integer row = (Integer) result.get(0);
+        assertEquals(12, row.intValue());
+                 
     }
     
     
