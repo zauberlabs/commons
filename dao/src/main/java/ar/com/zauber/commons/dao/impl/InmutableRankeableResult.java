@@ -18,10 +18,7 @@ public class InmutableRankeableResult<T> implements RankeableResult<T> {
     private final Number hits;
     private final T result;
     
-    /**
-     * Creates the InmutableCountResult.
-     *
-     */
+    /** Creates the InmutableCountResult. */
     public InmutableRankeableResult(final Number hits, final T result) {        
         Validate.notNull(hits);
         Validate.notNull(result);
@@ -45,4 +42,25 @@ public class InmutableRankeableResult<T> implements RankeableResult<T> {
     public final String toString() {
         return "" + hits + ": " + result;
     }
+
+    /** @see Object#equals(Object) */
+    public boolean equals(Object obj) {
+        boolean ret = false;
+        if (obj == this) {
+            ret = true;
+        } else if (obj instanceof InmutableRankeableResult<?>){
+            InmutableRankeableResult<?> objeto = (InmutableRankeableResult<?>) obj;
+            ret = this.hits.equals(objeto.hits) && this.result.equals(objeto.result);
+        }
+        return ret;
+    }
+    
+    /** @see Object#hashCode() */
+    public int hashCode() {
+        int ret = 17;
+        ret = 37 * ret + hits.hashCode();
+        ret = 37 * ret + result.hashCode();
+        return ret;
+    }   
+
 }
