@@ -31,7 +31,20 @@ public interface ModerationEntryRepository {
     void notifyChange(Reference<Moderateable> reference, 
             ModerationState oldState, ModerationState newState);
     
-    /** Obtiene la historia de modificaciones de moderación de una entidad */
+    /** Permite indicar que un objeto moderable ha cambiado de estado */
+    void notifyChange(Moderateable moderateable, 
+            ModerationState oldState, ModerationState newState);
+    
+    /** 
+     * Obtiene la historia de modificaciones de moderación de una entidad.
+     * La lista esta ordenada por fecha y es de solo lectura. 
+     */
     List<ModerationEntry> getModerationEntries(Reference<Moderateable> reference);
+    
+    /** 
+     * Obtiene la historia de modificaciones de moderación de una entidad.
+     * La lista esta ordenada por fecha y es de solo lectura. 
+     */
+    List<ModerationEntry> getModerationEntries(Moderateable m);
     
 }
