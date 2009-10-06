@@ -97,6 +97,7 @@
      <module>web</module>
      <module>wicket</module>
      <module>test</module>
+     <module>moderation</module>
   </modules>
   
   <build>
@@ -286,6 +287,11 @@
      <dependency>
         <groupId>ar.com.zauber.commons.message</groupId>
         <artifactId>commons-message-api</artifactId>
+        <version>${pom.version}</version>
+     </dependency>
+     <dependency>
+        <groupId>ar.com.zauber.commons.moderation</groupId>
+        <artifactId>commons-moderation-api</artifactId>
         <version>${pom.version}</version>
      </dependency>
 
