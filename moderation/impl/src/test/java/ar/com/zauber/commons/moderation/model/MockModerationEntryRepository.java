@@ -17,13 +17,15 @@ package ar.com.zauber.commons.moderation.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.Validate;
 
+import ar.com.zauber.commons.auth.AuthenticationUserMapper;
+import ar.com.zauber.commons.date.DateProvider;
 import ar.com.zauber.commons.moderation.InmutableModerationEntry;
 import ar.com.zauber.commons.moderation.Moderateable;
 import ar.com.zauber.commons.moderation.ModerationEntry;
@@ -40,10 +42,19 @@ import ar.com.zauber.commons.repository.Reference;
 public class MockModerationEntryRepository implements ModerationEntryRepository {
 
     private final Map<Moderateable, List<ModerationEntry>> map;
+    private final DateProvider dateProvider;
+    private final AuthenticationUserMapper<String> authUserMapper;
 
     /** Constructor */
-    public MockModerationEntryRepository() {
-        map = new HashMap<Moderateable, List<ModerationEntry>>();
+    public MockModerationEntryRepository(final DateProvider dateProvider, 
+            final AuthenticationUserMapper<String> authUserMapper) {
+        
+        Validate.notNull(dateProvider);
+        Validate.notNull(authUserMapper);
+        
+        this.dateProvider = dateProvider;
+        this.authUserMapper = authUserMapper;
+        this.map = new HashMap<Moderateable, List<ModerationEntry>>();
     }
     
     /** @see ModerationEntryRepository#getModerationEntries(Reference) */
@@ -77,8 +88,9 @@ public class MockModerationEntryRepository implements ModerationEntryRepository 
         }
         map.get(moderateable).add(
             new InmutableModerationEntry(
-                    (Reference<Moderateable>) moderateable.generateReference(), 
-                    oldState, newState, new Date(), "Anonymous"));
+                (Reference<Moderateable>) moderateable.generateReference(), 
+                oldState, newState, 
+                dateProvider.getDate(), authUserMapper.getUser()));
     }
     
 }

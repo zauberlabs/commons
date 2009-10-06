@@ -15,11 +15,15 @@
  */
 package ar.com.zauber.commons.moderation;
 
+import java.util.Date;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.com.zauber.commons.auth.mock.MockAuthenticationUser;
+import ar.com.zauber.commons.date.impl.InmutableDateProvider;
 import ar.com.zauber.commons.moderation.model.MockModerationEntryRepository;
 import ar.com.zauber.commons.moderation.model.MockModerationState;
 import ar.com.zauber.commons.moderation.model.MockRespositoryModerateableEntity;
@@ -33,11 +37,13 @@ import ar.com.zauber.commons.moderation.model.MockRespositoryModerateableEntity;
  */
 public class RepositoryModerationTest {
 
+    private static final String ANONYMOUS = "Anonymous";
     private Moderateable entity; 
     private ModerationState open;
     private ModerationState ready;
     private ModerationState closed;
     private ModerationEntryRepository moderationRepository;
+    private Date date;
 
     /** inicializa objetos */
     @Before
@@ -49,7 +55,10 @@ public class RepositoryModerationTest {
         ((MockModerationState)ready).addValidDestination(open);
         ((MockModerationState)ready).addValidDestination(closed);
 
-        moderationRepository = new MockModerationEntryRepository();
+        date = new Date();
+        moderationRepository = new MockModerationEntryRepository(
+                new InmutableDateProvider(date), 
+                new MockAuthenticationUser<String>(ANONYMOUS));
         entity = new MockRespositoryModerateableEntity(
                 Long.valueOf(46), open, moderationRepository);
     }
@@ -68,10 +77,10 @@ public class RepositoryModerationTest {
         Assert.assertEquals(entity.getClass().getName(), 
                 entity.getModerationHistory().get(0).getEntityReference()
                     .getClassName());
-        Assert.assertEquals("Anonymous", 
+        Assert.assertEquals(ANONYMOUS, 
                 entity.getModerationHistory().get(0).getModeratedBy());
-        /*Assert.assertEquals(new Date(), 
-                entity.getModerationHistory().get(0).getModeratedAt());*/
+        Assert.assertEquals(date, 
+                entity.getModerationHistory().get(0).getModeratedAt());
     }
     
     /** Mas de un cambio */
