@@ -15,67 +15,79 @@
  */
 package ar.com.zauber.commons.moderation.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.auth.AuthenticationUserMapper;
+import ar.com.zauber.commons.dao.Order;
+import ar.com.zauber.commons.dao.Ordering;
 import ar.com.zauber.commons.date.DateProvider;
-import ar.com.zauber.commons.moderation.InmutableModerationEntry;
 import ar.com.zauber.commons.moderation.Moderateable;
 import ar.com.zauber.commons.moderation.ModerationEntry;
 import ar.com.zauber.commons.moderation.ModerationEntryRepository;
 import ar.com.zauber.commons.moderation.ModerationState;
 import ar.com.zauber.commons.repository.Reference;
+import ar.com.zauber.commons.repository.Repository;
+import ar.com.zauber.commons.repository.query.SimpleQuery;
+import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
+import ar.com.zauber.commons.repository.query.values.SimpleValue;
 
 /**
- * Implementacion para test, almacena las entradas en memoria
+ * Implementación de {@link ModerationEntryRepository} que persiste las entradas
+ * mediante un {@link Repository}
  * 
  * @author Pablo Grigolatto
- * @since Oct 6, 2009
+ * @since Oct 7, 2009
  */
-public class MockModerationEntryRepository implements ModerationEntryRepository {
+public class HibernateModerationEntryRepository 
+    implements ModerationEntryRepository {
 
-    private final Map<Moderateable, List<ModerationEntry>> map;
     private final DateProvider dateProvider;
     private final AuthenticationUserMapper<String> authUserMapper;
+    private final Repository repository;
 
     /** Constructor */
-    public MockModerationEntryRepository(final DateProvider dateProvider, 
-            final AuthenticationUserMapper<String> authUserMapper) {
+    public HibernateModerationEntryRepository(final DateProvider dateProvider, 
+            final AuthenticationUserMapper<String> authUserMapper, 
+            final Repository repository) {
         
         Validate.notNull(dateProvider);
         Validate.notNull(authUserMapper);
+        Validate.notNull(repository);
         
         this.dateProvider = dateProvider;
         this.authUserMapper = authUserMapper;
-        this.map = new HashMap<Moderateable, List<ModerationEntry>>();
+        this.repository = repository;
     }
+
     
     /** @see ModerationEntryRepository#getModerationEntries(Reference) */
     public final List<ModerationEntry> getModerationEntries(
             final Reference<Moderateable> reference) {
+        
         throw new NotImplementedException();
+    }
+
+    /** @see ModerationEntryRepository#getModerationEntries(Moderateable) */
+    public final List<ModerationEntry> getModerationEntries(final Moderateable m) {
+        return repository.find(
+            new SimpleQuery<ModerationEntry>(
+                ModerationEntry.class,
+                new EqualsPropertyFilter("reference", 
+                        new SimpleValue(m.generateReference())), 
+                null, 
+                new Ordering(new Order("moderatedAt")))
+        );
     }
 
     /** @see ModerationEntryRepository#notifyChange(
      *       Reference, ModerationState, ModerationState) */
     public final void notifyChange(final Reference<Moderateable> reference,
             final ModerationState oldState, final ModerationState newState) {
+        
         throw new NotImplementedException();
-    }
-
-    /** @see ModerationEntryRepository#getModerationEntries(Moderateable) */
-    public final List<ModerationEntry> getModerationEntries(final Moderateable m) {
-        if(map.containsKey(m)) {
-            return Collections.unmodifiableList(map.get(m));
-        }
-        return Collections.unmodifiableList(new ArrayList<ModerationEntry>());
     }
 
     /** @see ModerationEntryRepository#notifyChange(
@@ -83,14 +95,12 @@ public class MockModerationEntryRepository implements ModerationEntryRepository 
     public final void notifyChange(final Moderateable moderateable,
             final ModerationState oldState, final ModerationState newState) {
         
-        if(!map.containsKey(moderateable)) {
-            map.put(moderateable, new ArrayList<ModerationEntry>());
-        }
-        map.get(moderateable).add(
-            new InmutableModerationEntry(
+        final ModerationEntry entry = new HibernateInmutableModerationEntry(
                 (Reference<Moderateable>) moderateable.generateReference(), 
                 oldState, newState, 
-                dateProvider.getDate(), authUserMapper.getUser()));
+                dateProvider.getDate(), authUserMapper.getUser());
+        
+        repository.saveOrUpdate(entry);
     }
     
 }

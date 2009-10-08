@@ -17,6 +17,7 @@ package ar.com.zauber.commons.moderation;
 
 import java.util.Date;
 
+import ar.com.zauber.commons.repository.Persistible;
 import ar.com.zauber.commons.repository.Reference;
 
 /**
@@ -26,7 +27,7 @@ import ar.com.zauber.commons.repository.Reference;
  * @author Pablo Grigolatto
  * @since Oct 5, 2009
  */
-public interface ModerationEntry {
+public interface ModerationEntry extends Persistible {
 
     /** @return la fecha en que ocurrió este evento */
     Date getModeratedAt();

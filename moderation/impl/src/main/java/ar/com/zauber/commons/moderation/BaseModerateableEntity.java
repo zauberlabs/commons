@@ -17,7 +17,10 @@ package ar.com.zauber.commons.moderation;
 
 import java.util.Collection;
 
+import javax.persistence.MappedSuperclass;
+
 import org.apache.commons.lang.Validate;
+import org.hibernate.annotations.Type;
 
 import ar.com.zauber.commons.dao.Transformer;
 import ar.com.zauber.commons.dao.closure.ListClosure;
@@ -31,10 +34,18 @@ import ar.com.zauber.commons.repository.BaseCreationAuditableEntity;
  * @author Pablo Grigolatto
  * @since Oct 5, 2009
  */
+@MappedSuperclass
 public abstract class BaseModerateableEntity extends BaseCreationAuditableEntity 
     implements Moderateable {
 
+    /** El tipo 'type_moderationState' debe ser especificado en las subclases */
+    @Type(type = "type_moderationState")
     private ModerationState moderationState;
+    
+    /** Constructor */
+    protected BaseModerateableEntity() {
+        // default
+    }
     
     /** Constructor */
     public BaseModerateableEntity(final ModerationState moderationState) {

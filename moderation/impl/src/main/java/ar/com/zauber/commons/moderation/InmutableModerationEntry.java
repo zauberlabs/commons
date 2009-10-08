@@ -17,9 +17,16 @@ package ar.com.zauber.commons.moderation;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
+import org.hibernate.annotations.Type;
 
+import ar.com.zauber.commons.repository.BaseCreationAuditableEntity;
+import ar.com.zauber.commons.repository.Persistible;
 import ar.com.zauber.commons.repository.Reference;
 
 /**
@@ -28,14 +35,30 @@ import ar.com.zauber.commons.repository.Reference;
  * @author Pablo Grigolatto
  * @since Oct 6, 2009
  */
-public class InmutableModerationEntry implements ModerationEntry {
+@MappedSuperclass
+public class InmutableModerationEntry extends BaseCreationAuditableEntity
+    implements ModerationEntry {
 
-    private final Reference<Moderateable> reference;
-    private final ModerationState initialState;
-    private final ModerationState finalState;
-    private final Date moderatedAt;
-    private final String moderatedBy;
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    private Reference<Moderateable> reference;
+    
+    /** El tipo 'type_moderationState' debe ser especificado en las subclases */
+    @Type(type = "type_moderationState")
+    private ModerationState initialState;
+    @Type(type = "type_moderationState")
+    private ModerationState finalState;
+    
+    private Date moderatedAt;
+    private String moderatedBy;
+
+    /** Constructor */
+    protected InmutableModerationEntry() {
+        // default
+    }
+    
     /** Constructor */
     public InmutableModerationEntry(final Reference<Moderateable> reference, 
             final ModerationState initialState, final ModerationState finalState, 
@@ -77,6 +100,16 @@ public class InmutableModerationEntry implements ModerationEntry {
     /** @see ModerationEntry#getModeratedBy() */
     public final String getModeratedBy() {
         return moderatedBy;
+    }
+
+    /** @see Persistible#getId() */
+    public final Long getId() {
+        return id;
+    }
+
+    /** @see Persistible#setId(Long) */
+    public final void setId(final Long anId) {
+        id = anId;
     }
     
 }

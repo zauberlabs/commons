@@ -17,16 +17,15 @@ package ar.com.zauber.commons.moderation;
 
 import java.util.Collection;
 
+import ar.com.zauber.commons.repository.misc.Nameable;
+
 /**
  * Representa un estado de moderación para una entidad moderable
  * 
  * @author Pablo Grigolatto
  * @since Oct 5, 2009
  */
-public interface ModerationState {
-
-    /** @return el nombre del estado */
-    String getName();
+public interface ModerationState extends Nameable {
     
     /** @return los estados a los cuales es posible cambiar desde este estado.
      *         La colección viene sin orden y es de solo lectura. */

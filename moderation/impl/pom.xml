@@ -29,8 +29,37 @@
       <version>${pom.version}</version>
     </dependency>
     <dependency>
+      <groupId>ar.com.zauber.commons.repository.impl</groupId>
+      <artifactId>commons-repository-impl-springhbm</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>1.8.0.7</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.2.2</version>
+      <scope>test</scope>      
     </dependency>
   </dependencies>
 </project>

@@ -17,7 +17,7 @@ package ar.com.zauber.commons.moderation;
 
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
+import javax.persistence.MappedSuperclass;
 
 /**
  * Entidades moderables que obtienen su información de moderación 
@@ -26,32 +26,34 @@ import org.apache.commons.lang.Validate;
  * @author Pablo Grigolatto
  * @since Oct 6, 2009
  */
+@MappedSuperclass
 public abstract class BaseRepositoryModerateableEntity 
     extends BaseModerateableEntity {
 
-    private ModerationEntryRepository moderationRepository;
-
     /** Constructor */
-    public BaseRepositoryModerateableEntity(
-            final ModerationState state,
-            final ModerationEntryRepository moderationRepository) {
-        super(state);
-        
-        Validate.notNull(moderationRepository);
-        this.moderationRepository = moderationRepository;
+    protected BaseRepositoryModerateableEntity() {
+        // default
     }
+    
+    /** Constructor */
+    public BaseRepositoryModerateableEntity(final ModerationState state) {
+        super(state);
+    }
+    
+    /** @return el repositorio de entradas */
+    protected abstract ModerationEntryRepository getModerationEntryRepository();
     
     /** @see Moderateable#getModerationHistory() */
     public final List<ModerationEntry> getModerationHistory() {
-        return moderationRepository.getModerationEntries(this);
+        return getModerationEntryRepository().getModerationEntries(this);
     }
-   
+    
     /** @see BaseModerateableEntity#beforeStateChange(
      *       ModerationState, ModerationState) */
     @Override
     protected final void beforeStateChange(final ModerationState actualState,
             final ModerationState newState) {
-        moderationRepository.notifyChange(this, actualState, newState);
+        getModerationEntryRepository().notifyChange(this, actualState, newState);
     }
     
 }

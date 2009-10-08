@@ -17,6 +17,8 @@ package ar.com.zauber.commons.moderation.model;
 
 import java.util.List;
 
+import javax.persistence.MappedSuperclass;
+
 import org.apache.commons.lang.NotImplementedException;
 
 import ar.com.zauber.commons.moderation.BaseModerateableEntity;
@@ -30,6 +32,7 @@ import ar.com.zauber.commons.repository.Persistible;
  * @author Pablo Grigolatto
  * @since Oct 6, 2009
  */
+@MappedSuperclass
 public class MockBaseModerateableEntity extends BaseModerateableEntity {
 
     /** Creates the MockModerateableEntity */

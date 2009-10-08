@@ -24,9 +24,9 @@ import org.junit.Test;
 
 import ar.com.zauber.commons.auth.mock.MockAuthenticationUser;
 import ar.com.zauber.commons.date.impl.InmutableDateProvider;
+import ar.com.zauber.commons.moderation.model.EnumModerationState;
 import ar.com.zauber.commons.moderation.model.MockModerationEntryRepository;
-import ar.com.zauber.commons.moderation.model.MockModerationState;
-import ar.com.zauber.commons.moderation.model.MockRespositoryModerateableEntity;
+import ar.com.zauber.commons.moderation.model.MockRepositoryModerateableEntity;
 
 /**
  * Prueba de uso de la interface {@link Moderateable}, {@link ModerationState} 
@@ -39,27 +39,20 @@ public class RepositoryModerationTest {
 
     private static final String ANONYMOUS = "Anonymous";
     private Moderateable entity; 
-    private ModerationState open;
-    private ModerationState ready;
-    private ModerationState closed;
+    private ModerationState open = EnumModerationState.OPEN;
+    private ModerationState ready = EnumModerationState.READY;
+    private ModerationState closed = EnumModerationState.CLOSED;
     private ModerationEntryRepository moderationRepository;
     private Date date;
 
     /** inicializa objetos */
     @Before
     public final void before() {
-        open = new MockModerationState("open");
-        ready = new MockModerationState("ready");
-        closed = new MockModerationState("closed");
-        ((MockModerationState)open).addValidDestination(ready);
-        ((MockModerationState)ready).addValidDestination(open);
-        ((MockModerationState)ready).addValidDestination(closed);
-
         date = new Date();
         moderationRepository = new MockModerationEntryRepository(
                 new InmutableDateProvider(date), 
                 new MockAuthenticationUser<String>(ANONYMOUS));
-        entity = new MockRespositoryModerateableEntity(
+        entity = new MockRepositoryModerateableEntity(
                 Long.valueOf(46), open, moderationRepository);
     }
 

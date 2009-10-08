@@ -21,8 +21,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.com.zauber.commons.moderation.exceptions.IllegalModerationStateTransitionException;
+import ar.com.zauber.commons.moderation.model.EnumModerationState;
 import ar.com.zauber.commons.moderation.model.MockBaseModerateableEntity;
-import ar.com.zauber.commons.moderation.model.MockModerationState;
 
 /**
  * Prueba de uso de la interface {@link Moderateable}, {@link ModerationState} 
@@ -34,20 +34,13 @@ import ar.com.zauber.commons.moderation.model.MockModerationState;
 public class ModerationStateTest {
 
     private Moderateable entity; 
-    private ModerationState open;
-    private ModerationState ready;
-    private ModerationState closed;
+    private ModerationState open = EnumModerationState.OPEN;
+    private ModerationState ready = EnumModerationState.READY;
+    private ModerationState closed = EnumModerationState.CLOSED;
 
     /** inicializa objetos */
     @Before
     public final void before() {
-        open = new MockModerationState("open");
-        ready = new MockModerationState("ready");
-        closed = new MockModerationState("closed");
-        ((MockModerationState)open).addValidDestination(ready);
-        ((MockModerationState)ready).addValidDestination(open);
-        ((MockModerationState)ready).addValidDestination(closed);
-
         entity = new MockBaseModerateableEntity(open);
     }
     

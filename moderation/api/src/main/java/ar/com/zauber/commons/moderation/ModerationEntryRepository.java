@@ -37,13 +37,13 @@ public interface ModerationEntryRepository {
     
     /** 
      * Obtiene la historia de modificaciones de moderación de una entidad.
-     * La lista esta ordenada por fecha y es de solo lectura. 
+     * La lista esta ordenada por fecha creciente y es de solo lectura. 
      */
     List<ModerationEntry> getModerationEntries(Reference<Moderateable> reference);
     
     /** 
      * Obtiene la historia de modificaciones de moderación de una entidad.
-     * La lista esta ordenada por fecha y es de solo lectura. 
+     * La lista esta ordenada por fecha creciente y es de solo lectura. 
      */
     List<ModerationEntry> getModerationEntries(Moderateable m);
     
