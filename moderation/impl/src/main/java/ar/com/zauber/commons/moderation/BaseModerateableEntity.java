@@ -26,7 +26,7 @@ import ar.com.zauber.commons.dao.Transformer;
 import ar.com.zauber.commons.dao.closure.ListClosure;
 import ar.com.zauber.commons.dao.closure.TargetTransformerClosure;
 import ar.com.zauber.commons.moderation.exceptions.IllegalModerationStateTransitionException;
-import ar.com.zauber.commons.repository.BaseCreationAuditableEntity;
+import ar.com.zauber.commons.repository.BaseCreationModificationAuditableEntity;
 
 /**
  * Clase base para las entidades que requieren moderación
@@ -35,14 +35,15 @@ import ar.com.zauber.commons.repository.BaseCreationAuditableEntity;
  * @since Oct 5, 2009
  */
 @MappedSuperclass
-public abstract class BaseModerateableEntity extends BaseCreationAuditableEntity 
+public abstract class BaseModerateableEntity 
+    extends BaseCreationModificationAuditableEntity
     implements Moderateable {
 
     /** El tipo 'type_moderationState' debe ser especificado en las subclases */
     @Type(type = "type_moderationState")
     private ModerationState moderationState;
     
-    /** Constructor */
+    /** Constructor para hibernate */
     protected BaseModerateableEntity() {
         // default
     }
@@ -64,7 +65,8 @@ public abstract class BaseModerateableEntity extends BaseCreationAuditableEntity
         if(!moderationState.canChangeTo(newState)) {
             throw new IllegalModerationStateTransitionException(
                 "Invalid state change attemp, possible states are: " 
-                + getValidDestinationStatesMessage());
+                + getValidDestinationStatesMessage(), moderationState,
+                newState);
         }
         beforeStateChange(moderationState, newState);
         ModerationState oldState = moderationState;

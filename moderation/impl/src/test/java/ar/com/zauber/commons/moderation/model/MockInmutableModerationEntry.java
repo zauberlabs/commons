@@ -27,24 +27,24 @@ import ar.com.zauber.commons.moderation.ModerationState;
 import ar.com.zauber.commons.repository.Reference;
 
 /**
- * Implementación de {@link InmutableModerationEntry} que posee la información
- * necesaria para persistir los estados mediante hibernate 
+ * Implementación de {@link InmutableModerationEntry} de prueba que posee 
+ * la información necesaria para persistir los estados mediante hibernate 
  * 
  * @author Pablo Grigolatto
  * @since Oct 7, 2009
  */
 @Entity
 @TypeDef(name = "type_moderationState", typeClass = EnumModerationState.class)
-public class HibernateInmutableModerationEntry extends
+public class MockInmutableModerationEntry extends
         InmutableModerationEntry {
     
     /** Constructor */
-    private HibernateInmutableModerationEntry() {
+    private MockInmutableModerationEntry() {
         // default
     }
     
     /** Constructor */
-    public HibernateInmutableModerationEntry(final Reference<Moderateable> reference,
+    public MockInmutableModerationEntry(final Reference<Moderateable> reference,
             final ModerationState initialState, final ModerationState finalState,
             final Date moderatedAt, final String moderatedBy) {
         super(reference, initialState, finalState, moderatedAt, moderatedBy);

@@ -29,19 +29,28 @@ import ar.com.zauber.commons.repository.Reference;
  */
 public interface ModerationEntry extends Persistible {
 
-    /** @return la fecha en que ocurrió este evento */
+    /** @return la fecha en que ocurrió este evento. no puede ser null */
     Date getModeratedAt();
     
-    /** @return el usuario responsable de este evento */
+    /** @return el usuario responsable de este evento. no puede ser null */
     String getModeratedBy();
     
-    /** @return el {@link ModerationState} origen de la transición */
+    /** 
+     * @return el {@link ModerationState} origen de la transición. 
+     * no puede ser null
+     */
     ModerationState getInitialState();
     
-    /** @return el {@link ModerationState} destino de la transición */
+    /** 
+     * @return el {@link ModerationState} destino de la transición. 
+     * no puede ser null
+     */
     ModerationState getFinalState();
     
-    /** @return una {@link Reference} al objeto que cambió su estado */
+    /**
+     *  @return una {@link Reference} al objeto que cambió su estado. 
+     *  no puede ser null
+     */
     Reference<Moderateable> getEntityReference();
     
 }

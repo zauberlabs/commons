@@ -19,6 +19,7 @@ import java.util.List;
 
 import ar.com.zauber.commons.moderation.exceptions.IllegalModerationStateTransitionException;
 import ar.com.zauber.commons.repository.CreationAuditable;
+import ar.com.zauber.commons.repository.ModificationAuditable;
 
 /**
  * Interfaz que deben implementar aquellos objetos que requieran moderación
@@ -26,7 +27,7 @@ import ar.com.zauber.commons.repository.CreationAuditable;
  * @author Pablo Grigolatto
  * @since Oct 5, 2009
  */
-public interface Moderateable extends CreationAuditable {
+public interface Moderateable extends CreationAuditable, ModificationAuditable {
 
     /** Representa el estado de moderación del objeto */
     ModerationState getModerationState();

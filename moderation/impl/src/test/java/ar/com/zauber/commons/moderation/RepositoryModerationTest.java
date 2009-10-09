@@ -69,7 +69,7 @@ public class RepositoryModerationTest {
                 entity.getModerationHistory().get(0).getFinalState());
         Assert.assertEquals(entity.getClass().getName(), 
                 entity.getModerationHistory().get(0).getEntityReference()
-                    .getClassName());
+                    .getClazz().getName());
         Assert.assertEquals(ANONYMOUS, 
                 entity.getModerationHistory().get(0).getModeratedBy());
         Assert.assertEquals(date, 

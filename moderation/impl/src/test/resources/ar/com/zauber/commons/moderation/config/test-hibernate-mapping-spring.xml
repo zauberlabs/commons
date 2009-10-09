@@ -7,7 +7,7 @@
         <constructor-arg>
             <list>
                 <value>ar.com.zauber.commons.moderation.model.MockRepositoryModerateableEntity</value>
-                <value>ar.com.zauber.commons.moderation.model.HibernateInmutableModerationEntry</value>
+                <value>ar.com.zauber.commons.moderation.model.MockInmutableModerationEntry</value>
             </list>
         </constructor-arg>
     </bean>

@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.moderation.exceptions;
 
+import org.apache.commons.lang.Validate;
+
 import ar.com.zauber.commons.moderation.ModerationState;
 
 /**
@@ -26,10 +28,29 @@ import ar.com.zauber.commons.moderation.ModerationState;
  */
 public class IllegalModerationStateTransitionException extends RuntimeException {
     private static final long serialVersionUID = 721102751340551553L;
+    private final ModerationState initialState;
+    private final ModerationState destinationState;
 
-    /** Constructor */
-    public IllegalModerationStateTransitionException(final String msg) {
+    /** 
+     * @param initialState estado desde el cual se está intentando cambiar el estado 
+     * @param destinationState estado al cual se está intentando ir
+     */
+    public IllegalModerationStateTransitionException(final String msg, 
+            final ModerationState initialState, 
+            final ModerationState destinationState) {
         super(msg);
+        Validate.notNull(initialState);
+        Validate.notNull(destinationState);
+        
+        this.initialState = initialState;
+        this.destinationState = destinationState;
     }
-    
+
+    public final ModerationState getInitialState() {
+        return initialState;
+    }
+
+    public final ModerationState getDestinationState() {
+        return destinationState;
+    }
 }

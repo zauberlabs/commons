@@ -17,9 +17,14 @@ package ar.com.zauber.commons.moderation;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -36,6 +41,7 @@ import ar.com.zauber.commons.repository.Reference;
  * @since Oct 6, 2009
  */
 @MappedSuperclass
+@Table(name = "moderation_states_history")
 public class InmutableModerationEntry extends BaseCreationAuditableEntity
     implements ModerationEntry {
 
@@ -43,6 +49,14 @@ public class InmutableModerationEntry extends BaseCreationAuditableEntity
     @GeneratedValue
     private Long id;
 
+    @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "id", column = @Column(name = "ref_id")),
+            @AttributeOverride(name = "clazzName", 
+                    column = @Column(name = "ref_class_name")),
+            @AttributeOverride(name = "version", 
+                    column = @Column(name = "ref_version"))
+    })
     private Reference<Moderateable> reference;
     
     /** El tipo 'type_moderationState' debe ser especificado en las subclases */
@@ -51,7 +65,9 @@ public class InmutableModerationEntry extends BaseCreationAuditableEntity
     @Type(type = "type_moderationState")
     private ModerationState finalState;
     
+    @Column(nullable = false)
     private Date moderatedAt;
+    @Column(nullable = false)
     private String moderatedBy;
 
     /** Constructor */

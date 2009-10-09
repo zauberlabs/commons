@@ -10,6 +10,8 @@
         <constructor-arg index="0" value="anonymous" />
     </bean>
 
+    <bean id="moderationEntryFactory" class="ar.com.zauber.commons.moderation.model.MockInmutableModerationEntryFactory"/>
+
     <bean id="repository"
         class="ar.com.zauber.commons.repository.SpringHibernateRepository">
         <property name="hibernateTemplate">
@@ -18,12 +20,13 @@
     </bean>
 
     <bean id="moderationEntryRepository"
-        class="ar.com.zauber.commons.moderation.model.HibernateModerationEntryRepository">
+        class="ar.com.zauber.commons.moderation.HibernateModerationEntryRepository">
         <constructor-arg index="0">
             <bean class="ar.com.zauber.commons.date.impl.CurrentDateProvider" />
         </constructor-arg>
         <constructor-arg index="1" ref="userMapper" />
         <constructor-arg index="2" ref="repository" />
+        <constructor-arg index="3" ref="moderationEntryFactory"      />
     </bean>
 
 </beans>

@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.moderation.model;
+package ar.com.zauber.commons.moderation;
 
+import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.auth.AuthenticationUserMapper;
 import ar.com.zauber.commons.dao.Order;
 import ar.com.zauber.commons.dao.Ordering;
 import ar.com.zauber.commons.date.DateProvider;
-import ar.com.zauber.commons.moderation.Moderateable;
-import ar.com.zauber.commons.moderation.ModerationEntry;
-import ar.com.zauber.commons.moderation.ModerationEntryRepository;
-import ar.com.zauber.commons.moderation.ModerationState;
 import ar.com.zauber.commons.repository.Reference;
 import ar.com.zauber.commons.repository.Repository;
 import ar.com.zauber.commons.repository.query.SimpleQuery;
+import ar.com.zauber.commons.repository.query.connectors.AndConnector;
+import ar.com.zauber.commons.repository.query.filters.BaseFilter;
+import ar.com.zauber.commons.repository.query.filters.CompositeFilter;
 import ar.com.zauber.commons.repository.query.filters.EqualsPropertyFilter;
+import ar.com.zauber.commons.repository.query.filters.Filter;
 import ar.com.zauber.commons.repository.query.values.SimpleValue;
 
 /**
@@ -47,47 +47,66 @@ public class HibernateModerationEntryRepository
     private final DateProvider dateProvider;
     private final AuthenticationUserMapper<String> authUserMapper;
     private final Repository repository;
-
+    private final ModerationEntryFactory moderationEntryFactory;
+    
     /** Constructor */
     public HibernateModerationEntryRepository(final DateProvider dateProvider, 
             final AuthenticationUserMapper<String> authUserMapper, 
-            final Repository repository) {
+            final Repository repository, 
+            final ModerationEntryFactory moderationEntryFactory) {
         
         Validate.notNull(dateProvider);
         Validate.notNull(authUserMapper);
         Validate.notNull(repository);
+        Validate.notNull(moderationEntryFactory);
         
         this.dateProvider = dateProvider;
         this.authUserMapper = authUserMapper;
         this.repository = repository;
+        this.moderationEntryFactory = moderationEntryFactory;
     }
 
     
     /** @see ModerationEntryRepository#getModerationEntries(Reference) */
     public final List<ModerationEntry> getModerationEntries(
             final Reference<Moderateable> reference) {
+        final Filter comp = new CompositeFilter(new AndConnector(),
+                Arrays.asList(
+                    new BaseFilter[] {
+                        new EqualsPropertyFilter("reference.id", 
+                                new SimpleValue(Long.valueOf(
+                                        reference.getId()))),
+                        new EqualsPropertyFilter("reference.clazzName",
+                            new SimpleValue(reference.getClazz().getName()))
+                    })
+                );
         
-        throw new NotImplementedException();
+        return (List)repository.find(
+            new SimpleQuery<ModerationEntry>(
+                moderationEntryFactory.getClazz(),
+                comp, 
+                null, 
+                new Ordering(new Order("moderatedAt")))
+        );
     }
 
     /** @see ModerationEntryRepository#getModerationEntries(Moderateable) */
     public final List<ModerationEntry> getModerationEntries(final Moderateable m) {
-        return repository.find(
-            new SimpleQuery<ModerationEntry>(
-                ModerationEntry.class,
-                new EqualsPropertyFilter("reference", 
-                        new SimpleValue(m.generateReference())), 
-                null, 
-                new Ordering(new Order("moderatedAt")))
-        );
+        return getModerationEntries(
+                (Reference<Moderateable>) m.generateReference());
     }
 
     /** @see ModerationEntryRepository#notifyChange(
      *       Reference, ModerationState, ModerationState) */
     public final void notifyChange(final Reference<Moderateable> reference,
             final ModerationState oldState, final ModerationState newState) {
-        
-        throw new NotImplementedException();
+        repository.saveOrUpdate(
+            moderationEntryFactory.create(
+                    dateProvider.getDate(),
+                    authUserMapper.getUser(), 
+                    oldState, 
+                    newState, 
+                    reference));
     }
 
     /** @see ModerationEntryRepository#notifyChange(
@@ -95,12 +114,7 @@ public class HibernateModerationEntryRepository
     public final void notifyChange(final Moderateable moderateable,
             final ModerationState oldState, final ModerationState newState) {
         
-        final ModerationEntry entry = new HibernateInmutableModerationEntry(
-                (Reference<Moderateable>) moderateable.generateReference(), 
-                oldState, newState, 
-                dateProvider.getDate(), authUserMapper.getUser());
-        
-        repository.saveOrUpdate(entry);
+        notifyChange((Reference<Moderateable>) moderateable.generateReference(), 
+                oldState, newState);
     }
-    
 }

@@ -30,7 +30,7 @@ import ar.com.zauber.commons.date.DateProvider;
 import ar.com.zauber.commons.date.impl.InmutableDateProvider;
 import ar.com.zauber.commons.moderation.exceptions.IllegalModerationStateTransitionException;
 import ar.com.zauber.commons.moderation.model.EnumModerationState;
-import ar.com.zauber.commons.moderation.model.HibernateInmutableModerationEntry;
+import ar.com.zauber.commons.moderation.model.MockInmutableModerationEntry;
 import ar.com.zauber.commons.moderation.model.MockRepositoryModerateableEntity;
 import ar.com.zauber.commons.repository.Reference;
 import ar.com.zauber.commons.repository.SpringHibernateRepository;
@@ -84,8 +84,10 @@ public class HibernateRepositoryModerationTest
         
         final Moderateable entity = new MockRepositoryModerateableEntity(
                 open, moderationEntryRepository);
-        entity.setId(Long.valueOf(456));
-        final ModerationEntry entry = new HibernateInmutableModerationEntry(
+        repository.saveOrUpdate(entity);
+        final Long id = entity.getId();
+        
+        final ModerationEntry entry = new MockInmutableModerationEntry(
                 (Reference<Moderateable>) entity.generateReference(), open, closed, 
                 dateProvider.getDate(), aum.getUser());
         
@@ -96,11 +98,16 @@ public class HibernateRepositoryModerationTest
         Reference<?> aRef = entry.generateReference();
         final ModerationEntry entryFromDb = 
             (ModerationEntry) repository.retrieve(aRef);
-        Assert.assertEquals(Long.valueOf(1), entryFromDb.getId());
+
         Assert.assertEquals(open, entryFromDb.getInitialState());
         Assert.assertEquals(closed, entryFromDb.getFinalState());
         Assert.assertEquals(ANONYMOUS, entryFromDb.getModeratedBy());
         Assert.assertEquals(date, entryFromDb.getModeratedAt());
+        
+        Assert.assertEquals(id.longValue(), 
+                entryFromDb.getEntityReference().getId());
+        Assert.assertEquals(entity.getClass().getName(), 
+                entryFromDb.getEntityReference().getClazz().getName());
     }
     
     /** Salvar entradas del historial */
@@ -189,11 +196,14 @@ public class HibernateRepositoryModerationTest
         
         try {
             entityFromDb.changeState(closed);
+            
             fail("No se puede cambiar al mismo estado");
         } catch (IllegalModerationStateTransitionException e) {
             // ok!
         }
         Assert.assertEquals(2, entityFromDb.getModerationHistory().size());
+        List<ModerationEntry> moderationHistory = entityFromDb.getModerationHistory();
+        moderationHistory.size();
     }
     
 }
