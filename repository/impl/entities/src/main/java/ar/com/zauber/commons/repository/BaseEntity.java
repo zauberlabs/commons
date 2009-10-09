@@ -39,11 +39,16 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @MappedSuperclass
 public abstract class BaseEntity implements Persistible {
     
+    // CHECKSTYLE:DESIGN:OFF
     /** @see Persistible#getReference() */
     @SuppressWarnings("unchecked")
     public <T> Reference<? extends Persistible> generateReference()  {
-        return new Reference(getClass(), getId());
+        if(getId() == null) {
+            return new Reference(getClass());
+        }
+        return new Reference(getClass(), getId().longValue());
     }
+    // CHECKSTYLE:DESIGN:ON
     
     /**
      * Natural equals: TODO documentar 
