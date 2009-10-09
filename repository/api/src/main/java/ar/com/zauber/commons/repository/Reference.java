@@ -17,6 +17,8 @@ package ar.com.zauber.commons.repository;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.UnhandledException;
+
 /**
  * Representa una referencia a un objeto de dominio. La clase encapsual un
  * nombre de clase, un identificador y una version del objeto. La version se
@@ -27,11 +29,17 @@ import java.io.Serializable;
  * @param <T> Entity Type
  */
 public class Reference<T extends Persistible> implements Serializable {
-    private static final long serialVersionUID = -8996518320381455505L;
-    private final long id;
-    private final long version;
-    private final Class<T> clazz;
+    private static final long serialVersionUID = -8996518321381455505L;
+    private long id;
+    private long version;
+    private String clazzName;
+    private transient Class<T> clazz;
 
+    /** Creates the Reference. */
+    private Reference() {
+        // default
+    }
+    
     /** Creates the Reference. */
     public Reference(final Class<T> clazz) {
         this(clazz, -1L);
@@ -45,6 +53,7 @@ public class Reference<T extends Persistible> implements Serializable {
     /** Creates the Reference. */
     public Reference(final Class<T> clazz, final long id, final long version) {
         this.clazz = clazz;
+        this.clazzName = clazz.getName();
         this.id = id;
         this.version = version;
     }
@@ -57,12 +66,25 @@ public class Reference<T extends Persistible> implements Serializable {
         return version;
     }
 
+    /** @return the  class that*/
+    public final Class<T> getClazz() {
+        if(clazz == null) {
+            try {
+                clazz = (Class<T>) Class.forName(clazzName);
+            } catch (final ClassNotFoundException e) {
+                throw new UnhandledException(e);
+            }
+        }
+        return clazz;
+    }
+    
+    @Deprecated
     public final String getClassName() {
-        return clazz.getName();
+        return getClazz().getName();
     }
 
     /** @see Object#toString() */
     public final String toString() {
-        return getClassName() + "@" + getId();
+        return getClazz().getName() + "@" + getId();
     }
 }
