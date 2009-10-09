@@ -89,7 +89,7 @@ public class InmutableModerationEntry extends BaseCreationAuditableEntity
         this.reference = reference;
         this.initialState = initialState;
         this.finalState = finalState;
-        this.moderatedAt = moderatedAt;
+        this.moderatedAt = new Date(moderatedAt.getTime());
         this.moderatedBy = moderatedBy;
     }
     
