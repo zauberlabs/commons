@@ -126,7 +126,12 @@ public class HttpClientRequestProxy {
             final HttpMethod method = buildRequest(request, r);
             InputStream is = null;
             try {
-                method.setFollowRedirects(followRedirects);
+                // Entity enclosing requests cannot be redirected 
+                // without user intervention according to RFC 2616
+                if(!method.getName().equalsIgnoreCase("post") 
+                   && !method.getName().equalsIgnoreCase("put")) {
+                    method.setFollowRedirects(followRedirects);
+                }
                 httpClient.executeMethod(method);
                 updateResponseCode(request, response, method);
                 proxyHeaders(response, method);
