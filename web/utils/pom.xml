@@ -23,6 +23,11 @@
        <groupId>ar.com.zauber.commons.repository</groupId>
      </dependency>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
        <artifactId>spring-test</artifactId>
        <groupId>org.springframework</groupId>
        <scope>test</scope>
