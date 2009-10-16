@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.exception.triggered;
+package ar.com.zauber.commons.dao.exception;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -36,16 +36,21 @@ public class TriggeredException extends RuntimeException {
 
     /** constructor por defecto */
     public TriggeredException() {
+        super();
         exceptions = new LinkedList<Throwable>();
     }
     
     /** @see java.lang.Throwable#getMessage() */
     public final String getMessage() {
-        String message = "The following Exceptions ocurred:\n";
-        for(Throwable t : exceptions) {
-            message += t.getMessage() + "\n";
+        String message = (this.getClass().getSimpleName());
+        if(!this.exceptions.isEmpty()) {
+            message += "The following Exceptions ocurred:\n";
+            for(Throwable t : exceptions) {
+                message += t.toString() + "\n\n";
+            }
         }
         return message;
     }
-    
+
+
 }

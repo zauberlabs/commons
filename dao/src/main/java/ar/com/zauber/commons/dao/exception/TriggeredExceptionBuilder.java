@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.exception.triggered;
+package ar.com.zauber.commons.dao.exception;
 
 import java.util.Collection;
 import java.util.LinkedList;

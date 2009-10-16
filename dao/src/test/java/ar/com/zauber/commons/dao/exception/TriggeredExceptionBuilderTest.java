@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.exception.triggered;
+package ar.com.zauber.commons.dao.exception;
 
 import java.util.Collection;
 
@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ar.com.zauber.commons.dao.Predicate;
+import ar.com.zauber.commons.dao.exception.TriggeredException;
+import ar.com.zauber.commons.dao.exception.TriggeredExceptionBuilder;
 import ar.com.zauber.commons.dao.predicate.ThrowableMaxAmountPredicate;
 
 
