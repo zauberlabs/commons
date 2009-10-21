@@ -35,10 +35,14 @@ public final class ISODateUtils {
     
     private static final DateFormat ISO_DATE_FORMATTER = 
         new SimpleDateFormat("yyyy-MM-dd");
+    
+    static {
+        ISO_DATE_FORMATTER.setLenient(false);
+    };
 
     /**
      * Returns the isoDateFormater.
-     * 
+     * this formatter is not lenient.
      * @return <code>DateFormat</code> with the isoDateFormater.
      */
     public static DateFormat getIsoDateFormater() {
