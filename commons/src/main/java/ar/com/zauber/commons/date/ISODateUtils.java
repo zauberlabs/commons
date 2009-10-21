@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.date;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,5 +53,15 @@ public final class ISODateUtils {
     /** Formatea una fecha en YYYY-MM-DD */
     public static String isoDateFormat(final Date date) {
         return ISO_DATE_FORMATTER.format(date);
+    }
+
+    /** parse a iso date */
+    public static Date parseIsoDate(final String string) {
+        try {
+            return ISO_DATE_FORMATTER.parse(string);
+        } catch (final ParseException e) {
+            throw new IllegalArgumentException("`" + string 
+                    + "' is not a valid ISO date", e);
+        }
     }
 }
