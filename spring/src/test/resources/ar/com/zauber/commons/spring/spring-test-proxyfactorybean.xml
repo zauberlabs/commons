@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+    <bean id="invocationHandler" class="ar.com.zauber.commons.spring.beans.factory.impl.util.DateInvocationHandler">
+         <property name="target" ref="date"/>
+    </bean>
+    
+    <bean id="mutableDateBean" class="ar.com.zauber.commons.spring.beans.factory.impl.ProxyFactoryBean">
+        <constructor-arg index="0">
+            <list>
+                <value>ar.com.zauber.commons.spring.beans.factory.impl.util.DateTestInterface</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg index="1" ref="invocationHandler"/>
+    </bean>
+    
+    <bean id="date" class="ar.com.zauber.commons.spring.beans.factory.impl.util.DateTestClass">
+        <constructor-arg index="0">
+            <bean class="java.util.Date">
+	            <constructor-arg index="0" value="109"/>
+	            <constructor-arg index="1" value="7"/>
+	            <constructor-arg index="2" value="10"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    
+</beans>
