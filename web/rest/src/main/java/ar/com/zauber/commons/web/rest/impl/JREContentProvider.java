@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.UnhandledException;
 
-import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.web.rest.ContentProvider;
 
 /**
@@ -39,8 +38,8 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
  * @author Juan F. Codagnone
  * @since Sep 25, 2009
  */
-public class JREContentProvider implements ContentProvider {
-    private String userAgent;
+public class JREContentProvider extends AbstractContentProvider { 
+    
     
     /** @see ContentProvider#delete(URI) */
     public final void delete(final URI url) {
@@ -55,9 +54,10 @@ public class JREContentProvider implements ContentProvider {
                                         ? (HttpURLConnection) uc : null;
                                         
             uc.setDoInput(true);
-            uc.setAllowUserInteraction(true);
-            uc.setRequestProperty("User-Agent", userAgent);
-                        final String encoding = uc.getContentEncoding();
+            uc.setAllowUserInteraction(true);            
+            uc.setRequestProperty("User-Agent", getUserAgent());
+            modifyURLConnection(url, huc);
+            final String encoding = uc.getContentEncoding();
             if(huc != null) {
                 huc.setInstanceFollowRedirects(true);
             }
@@ -66,22 +66,7 @@ public class JREContentProvider implements ContentProvider {
             final Charset charset = getCharset(uc);
             if(huc != null) {
                 int code = huc.getResponseCode();
-                if(code >= 200 && code < 300) {
-                    // ok
-                } else  if(code == 400) {
-                    throw new IllegalArgumentException(huc.getResponseMessage());
-                } else if(code == 404) {
-                    throw new NoSuchEntityException(url);
-                } else if(code == 405) {
-                    throw new UnsupportedOperationException(
-                            huc.getResponseMessage());
-                } else if(code == 501) {
-                    throw new NotImplementedException(huc.getResponseMessage());
-                } else {
-                    throw new IllegalStateException("Code " + code + ": "
-                            + huc.getResponseMessage());
-                }
-                
+                handleCode(code, huc.getResponseMessage(), url);
             }
             return new InputStreamReader(uc.getInputStream(), charset);
         } catch (final MalformedURLException e) {
@@ -89,6 +74,11 @@ public class JREContentProvider implements ContentProvider {
         } catch (final IOException e) {
             throw new UnhandledException(e);
         }
+    }
+
+    /** Override to configure a huc */
+    protected void modifyURLConnection(final URI url, final HttpURLConnection huc) {
+        // template method
     }
 
     /** the charset */
@@ -112,12 +102,5 @@ public class JREContentProvider implements ContentProvider {
         throw new NotImplementedException();
     }
 
-    public String getUserAgent() {
-        return userAgent;
-    }
-
-    public final void setUserAgent(final String userAgent) {
-        this.userAgent = userAgent;
-    }
     
 }
