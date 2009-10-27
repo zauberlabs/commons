@@ -16,7 +16,6 @@
 package ar.com.zauber.commons.collections;
 
 import java.util.Collection;
-
 import java.util.Iterator;
 import java.util.Set;
 
@@ -83,7 +82,36 @@ public abstract class OnModificationProxyCollection<T> implements Collection<T> 
 
     /** @see Set#iterator() */
     public final Iterator<T> iterator() {
-        return getTarget().iterator();
+        return new OnmodificationProxyIterator(getTarget().iterator());
+    }
+    
+    /** {@link Iterator} that fires modification events */
+    class OnmodificationProxyIterator implements Iterator<T> {
+        private final Iterator<T> iterator;
+        private T lastNext;
+
+        /** Constructor */
+        public OnmodificationProxyIterator(final Iterator<T> iterator) {
+            this.iterator = iterator;
+        }
+
+        /** @see Iterator#hasNext() */
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
+
+        /** @see Iterator#next() */
+        public T next() {
+            lastNext = iterator.next(); 
+            return lastNext;
+        }
+
+        /** @see Iterator#remove() */
+        public void remove() {
+            onRemovePre(lastNext);
+            iterator.remove();
+            onRemovePost(lastNext);
+        }
     }
 
     /** @see Set#removeAll(java.util.Collection) */
@@ -122,12 +150,11 @@ public abstract class OnModificationProxyCollection<T> implements Collection<T> 
         return ret;
     }
     
-
     /** @see Set#clear() */
     public final void clear() {
-        final Collection<T> target = getTarget();
-        for(final T e : target) {
-            remove(e);
+        for(final Iterator<T> iterator = iterator(); iterator.hasNext();) {
+            iterator.next();
+            iterator.remove();
         }
     }
     

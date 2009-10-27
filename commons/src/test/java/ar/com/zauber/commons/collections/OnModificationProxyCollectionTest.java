@@ -17,6 +17,8 @@ package ar.com.zauber.commons.collections;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -77,5 +79,66 @@ public class OnModificationProxyCollectionTest {
         };
         
         Assert.assertFalse(c1.equals(c2));
+    }
+    
+    /** test iterator */
+    @Test
+    public final void testIterator() {
+        final Collection<String> c1 = new OnModificationProxyCollection<String>() {
+            private final List<String> target = new LinkedList<String>(
+                    Arrays.asList(new String[] {
+                    "hello", "good bye", "hi", "snake"
+            }));
+            @Override
+            protected Collection<String> getTarget() {
+                return target;
+            }
+            /** @see OnModificationProxyCollection#onRemovePre(Object) */
+            @Override
+            protected void onRemovePre(final String o) {
+                Assert.assertEquals("hi", o);
+            }
+            /** @see OnModificationProxyCollection#onRemovePost(Object) */
+            @Override
+            protected void onRemovePost(final String o) {
+                Assert.assertEquals("hi", o);
+            }
+        };
+        
+        final Iterator<String> it = c1.iterator();
+        it.next(); //hello
+        it.next(); //good bye
+        it.next(); //hi
+        it.remove();
+        it.next().equals("snake");
+    }
+    
+    /** test clear */
+    @Test
+    public final void testClear() {
+        final Collection<String> c1 = new OnModificationProxyCollection<String>() {
+            private final List<String> target = new LinkedList<String>(
+                    Arrays.asList(new String[] {
+                    "hello", "good bye", "hi", "snake"
+            }));
+            private String last;
+            @Override
+            protected Collection<String> getTarget() {
+                return target;
+            }
+            /** @see OnModificationProxyCollection#onRemovePre(Object) */
+            @Override
+            protected void onRemovePre(final String o) {
+                last = o;
+            }
+            /** @see OnModificationProxyCollection#onRemovePost(Object) */
+            @Override
+            protected void onRemovePost(final String o) {
+                Assert.assertEquals(last, o);
+            }
+        };
+        
+        c1.clear();
+        Assert.assertTrue(c1.isEmpty());
     }
 }
