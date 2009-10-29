@@ -35,14 +35,14 @@ import ar.com.zauber.commons.repository.ModificationAuditable;
  * 
  * @author Martin Marquez
  */
-public class HibernateAuditLoggerInterceptor extends EmptyInterceptor 
+public class HibernateAuditLoggerInterceptor<T> extends EmptyInterceptor 
                                              implements InitializingBean {
     /** <code>serialVersionUID</code> */
     private static final long serialVersionUID = 9219430516777559965L;
-    private AuthenticationUserMapper<String> authenticationUserMapper;
+    private AuthenticationUserMapper<T> authenticationUserMapper;
 
     public void setAuthenticationUserMapper(
-            final AuthenticationUserMapper<String> authenticationUserMapper) {
+            final AuthenticationUserMapper<T> authenticationUserMapper) {
         this.authenticationUserMapper = authenticationUserMapper;
     }
 
@@ -69,7 +69,7 @@ public class HibernateAuditLoggerInterceptor extends EmptyInterceptor
                     newValues[i] = new Date();
                 }
                 if (properties[i].equals("modifiedBy")) {
-                    newValues[i] = authenticationUserMapper.getUser();
+                    newValues[i] = authenticationUserMapper.getUser().toString();
                 }
             }
         }
@@ -88,14 +88,14 @@ public class HibernateAuditLoggerInterceptor extends EmptyInterceptor
                     newValues[i] = new Date();
                 }
                 if (properties[i].equals("createdBy")) {
-                    newValues[i] = authenticationUserMapper.getUser();
+                    newValues[i] = authenticationUserMapper.getUser().toString();
                 }
                 if (obj instanceof ModificationAuditable) {
                     if (properties[i].equals("modifiedAt")) {
                         newValues[i] = new Date();
                     }
                     if (properties[i].equals("modifiedBy")) {
-                        newValues[i] = authenticationUserMapper.getUser();
+                        newValues[i] = authenticationUserMapper.getUser().toString();
                     }
                 }
             }
