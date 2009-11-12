@@ -199,6 +199,12 @@
       <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
       <doxia.version>1.1</doxia.version>
       <jetty.version>6.1.9</jetty.version>
+
+    <sonar.mantis.id>44</sonar.mantis.id>
+    <crono.organization.name>zauber</crono.organization.name>
+    <crono.project.name>zauber-commons</crono.project.name> 
+    <crono.start.date>2009-11-12</crono.start.date>
+
   </properties>
   <dependencyManagement>
     <dependencies>
