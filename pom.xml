@@ -104,6 +104,7 @@
      <module>wicket</module>
      <module>test</module>
      <module>moderation</module>
+     <module>converter</module>
   </modules>
   
   <build>
