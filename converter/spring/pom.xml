@@ -9,5 +9,22 @@
   <name>Zauber::Commons::Conversion::Spring</name>
   <artifactId>commons-conversion-spring</artifactId>
   <dependencies>
+    <dependency>
+      <artifactId>commons-conversion-core</artifactId>
+      <groupId>${pom.groupId}</groupId>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-beans</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-test</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-context</artifactId>
+     </dependency>
   </dependencies>
 </project>

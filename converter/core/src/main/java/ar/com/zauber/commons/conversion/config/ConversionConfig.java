@@ -6,9 +6,10 @@ package ar.com.zauber.commons.conversion.config;
 import java.util.HashSet;
 import java.util.Set;
 
+
 import ar.com.zauber.commons.conversion.Converter;
-import ar.com.zauber.commons.conversion.converters.IdentityConverter;
-import ar.com.zauber.commons.conversion.converters.SinglePropertyConverter;
+import ar.com.zauber.commons.conversion.util.IdentityConverter;
+import ar.com.zauber.commons.conversion.util.SinglePropertyConverter;
 
 
 /**

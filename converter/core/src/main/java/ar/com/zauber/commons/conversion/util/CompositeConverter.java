@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.conversion.converters;
+package ar.com.zauber.commons.conversion.util;
 
 import org.apache.commons.lang.Validate;
 

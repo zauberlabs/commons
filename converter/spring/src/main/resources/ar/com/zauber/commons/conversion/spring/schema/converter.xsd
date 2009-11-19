@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0" xmlns:conversion="http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0">
+  <xs:element name="configurable-converter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="conversion:simple-property-field"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="conversion:complex-property-field"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Bean's id.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="target-class" use="required" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Target class of the conversion</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="simple-property-field">
+    <xs:annotation>
+      <xs:documentation>Field to be converted from one of the source object's properties. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="target" use="required" type="xs:string"/>
+      <xs:attribute name="source" type="xs:string"/>
+      <xs:attribute name="converter-ref" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="complex-property-field">
+    <xs:annotation>
+      <xs:documentation>Field to be converted from possibly many fields from the source object's properties.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="target" use="required" type="xs:string"/>
+      <xs:attribute name="converter-ref" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

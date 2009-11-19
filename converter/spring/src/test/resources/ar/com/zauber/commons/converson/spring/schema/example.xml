@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns="http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                        http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0 http://labs.zauber.com.ar/ns/commons/conversion/0.0.xsd">
+
+    <configurable-converter id="configurableConverter" target-class="ar.com.zauber.commons.conversion.spring.schema.testClasses.B">
+        <simple-property-field  target="integerField"/>
+        <simple-property-field  target="anotherNameIntegerField" source="integerField" />
+        <simple-property-field  target="plusOneIntegerField" source="integerField"  converter-ref="plusOneConverter" />
+        <complex-property-field target="otherClassName" converter-ref="classNameConverter"/>
+    </configurable-converter>
+
+    <beans:bean id="plusOneConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.PlusOneConverter" />
+    <beans:bean id="classNameConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.ClassNameConverter" />
+
+</beans:beans>

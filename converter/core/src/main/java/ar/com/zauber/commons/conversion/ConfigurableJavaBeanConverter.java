@@ -1,13 +1,10 @@
 /*
  * Copyright (c) 2009 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons;
+package ar.com.zauber.commons.conversion;
 
 import org.apache.commons.lang.UnhandledException;
 
-import ar.com.zauber.commons.conversion.ConfigurableMapper;
-import ar.com.zauber.commons.conversion.ConversionContext;
-import ar.com.zauber.commons.conversion.Converter;
 import ar.com.zauber.commons.conversion.config.ConversionConfig;
 
 /**
@@ -23,8 +20,10 @@ import ar.com.zauber.commons.conversion.config.ConversionConfig;
 public class ConfigurableJavaBeanConverter<S, T> extends
         ConfigurableMapper<S, T> implements Converter<S, T> {
 
-    final Class<T> clazz;
+    private Class<T> clazz;
     
+
+
     /**
      * Creates the ConfigurableJavaBeanConverter.
      *
@@ -35,7 +34,6 @@ public class ConfigurableJavaBeanConverter<S, T> extends
         super(new ConversionConfig<S>());
         this.clazz = clazz;
     }
-
 
 
     /** @see Converter#convert(java.lang.Object, ConversionContext) */
@@ -51,4 +49,15 @@ public class ConfigurableJavaBeanConverter<S, T> extends
         }
     }
 
+
+    /**
+     * Returns the clazz.
+     * 
+     * @return <code>Class<T></code> with the clazz.
+     */
+    public Class<T> getClazz() {
+        return clazz;
+    }
+
+    
 }

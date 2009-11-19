@@ -1,0 +1,26 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+
+default namespace = "http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0"
+
+
+start = element configurable-converter {
+    ## Bean's id.
+    attribute id {xsd:string }?,
+    
+    ## Target class of the conversion
+    attribute target-class { xsd:string },
+    
+    ## Field to be converted from one of the source object's properties. 
+    element simple-property-field {
+        attribute target { xsd:string },
+        attribute source { xsd:string }?,
+        attribute converter-ref { xsd:string }?
+    }*,
+    
+    ## Field to be converted from possibly many fields from the source object's properties.
+    element complex-property-field {
+        attribute target { xsd:string },
+        attribute converter-ref { xsd:string }
+    }*
+}
+
