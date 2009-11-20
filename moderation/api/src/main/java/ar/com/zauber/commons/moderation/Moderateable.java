@@ -17,7 +17,6 @@ package ar.com.zauber.commons.moderation;
 
 import java.util.List;
 
-import ar.com.zauber.commons.moderation.exceptions.IllegalModerationStateTransitionException;
 import ar.com.zauber.commons.repository.CreationAuditable;
 import ar.com.zauber.commons.repository.ModificationAuditable;
 
@@ -27,11 +26,9 @@ import ar.com.zauber.commons.repository.ModificationAuditable;
  * @author Pablo Grigolatto
  * @since Oct 5, 2009
  */
-public interface Moderateable extends CreationAuditable, ModificationAuditable {
+public interface Moderateable extends ModerateableState,
+    CreationAuditable, ModificationAuditable {
 
-    /** Representa el estado de moderación del objeto */
-    ModerationState getModerationState();
-    
     /** 
      * Representa la secuencia de cambios en los estados de moderación que
      * ha sufrido esta entidad a lo largo de su historia.
@@ -39,13 +36,4 @@ public interface Moderateable extends CreationAuditable, ModificationAuditable {
      */
     List<ModerationEntry> getModerationHistory();
 
-    /** 
-     * Indica a la entidad que se debe realizar un cambio de estado. 
-     * Si el cambio es exitoso, una nueva entrada es creada en el historial 
-     * de moderación.
-     * Si el cambio de estado no es válido, se lanza una 
-     * {@link IllegalModerationStateTransitionException}.
-     */
-    void changeState(ModerationState newState);
-    
 }
