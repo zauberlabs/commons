@@ -26,65 +26,67 @@ import ar.com.zauber.commons.gis.street.model.results.GeocodeResult;
 import ar.com.zauber.commons.gis.street.model.results.IntersectionResult;
 
 /**
- * Null Object Patter for {@link StreetsDAO}.
+ * Null Object Patter for {@link StreetsDAO}. Util tambien para crear
+ * test de unidad.
  * 
  * @author Juan F. Codagnone
  * @since Jan 7, 2009
  */
 public class NullStreetDAO implements StreetsDAO {
 
+    //CHECKSTYLE:DESIGN:OFF
     /** @see StreetsDAO#fullNameStreetExist(String) */
-    public final boolean fullNameStreetExist(final String name) {
+    public boolean fullNameStreetExist(final String name) {
         return false;
     }
 
     /** @see StreetsDAO#geocode(String, int) */
-    public final Collection<GeocodeResult> geocode(final String street,
+    public Collection<GeocodeResult> geocode(final String street,
             final int altura) {
         return Collections.EMPTY_LIST;
     }
 
     /** @see StreetsDAO#geocode(String, int, int) */
-    public final Collection<GeocodeResult> geocode(final String street,
+    public Collection<GeocodeResult> geocode(final String street,
             final int altura, final int id) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /** @see StreetsDAO#getIntersection(String, String) */
-    public final Collection<IntersectionResult> getIntersection(final String street1,
+    public Collection<IntersectionResult> getIntersection(final String street1,
             final String street2) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /** @see StreetsDAO#getIntersectionsFor(String) */
-    public final List<String> getIntersectionsFor(final String fullStreetName) {
-        return Collections.EMPTY_LIST;
+    public List<String> getIntersectionsFor(final String fullStreetName) {
+        return Collections.emptyList();
     }
 
     /** @see StreetsDAO#getSinonimos(String) */
-    public final List<String> getSinonimos(final String fullStreetName) {
-        return Collections.EMPTY_LIST;
+    public List<String> getSinonimos(final String fullStreetName) {
+        return Collections.emptyList();
     }
 
     /** @see StreetsDAO#getStreets(String) */
-    public final List<Result> getStreets(final String text) {
-        return Collections.EMPTY_LIST;
+    public List<Result> getStreets(final String text) {
+        return Collections.emptyList();
     }
 
     /** @see StreetsDAO#guessStreetName(java.util.List, String) */
-    public final List<GuessStreetResult> guessStreetName(final List<String> streets,
+    public List<GuessStreetResult> guessStreetName(final List<String> streets,
             final String unnomalizedStreetName) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /** @see StreetsDAO#suggestAddresses(String) */
-    public final List<Result> suggestAddresses(final String text) {
-        return Collections.EMPTY_LIST;
+    public List<Result> suggestAddresses(final String text) {
+        return Collections.emptyList();
     }
 
     /** @see StreetsDAO#suggestStreets(String, Paging) */
-    public final List<String> suggestStreets(final String beggining,
+    public List<String> suggestStreets(final String beggining,
             final Paging paging) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 }
