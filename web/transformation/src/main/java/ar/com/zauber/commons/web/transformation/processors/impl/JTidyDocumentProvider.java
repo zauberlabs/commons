@@ -21,19 +21,20 @@ import java.io.OutputStream;
 import org.apache.commons.lang.Validate;
 import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
+import org.xml.sax.InputSource;
 
 import ar.com.zauber.commons.web.transformation.processors.DocumentProvider;
 
 /**
  * {@link DocumentProvider} que usa JTidy
- * 
- * 
+ *
+ *
  * @author Juan F. Codagnone
  * @since May 30, 2009
  */
 public class JTidyDocumentProvider implements DocumentProvider {
     private final Tidy tidy;
-    
+
     /** Creates the JTidyDocumentProvider. */
     public JTidyDocumentProvider() {
         tidy = new Tidy(); // obtain a new Tidy instance
@@ -41,27 +42,34 @@ public class JTidyDocumentProvider implements DocumentProvider {
         tidy.setShowWarnings(false);
         tidy.setXHTML(false);
     }
-    
+
     /** Creates the JTidyDocumentProvider. */
     public JTidyDocumentProvider(final int encoding) {
         this();
         tidy.setCharEncoding(encoding);
     }
-    
+
     /** Creates the JTidyDocumentProvider. */
     public JTidyDocumentProvider(final Tidy tidy) {
         Validate.notNull(tidy);
         this.tidy = tidy;
     }
-    
+
     /** @see DocumentProvider#getInputStream(InputStream) */
     public final Document parse(final InputStream inputStream) {
-        return tidy.parseDOM(inputStream, null);
+        return parse(new InputSource(inputStream));
     }
 
+    /** @see DocumentProvider#parse(InputSource) */
+    public Document parse(InputSource inputSource) {
+        return tidy.parseDOM(inputSource.getByteStream(), null);
+    }
+
+
     /** @see DocumentProvider#serialize(Document, OutputStream) */
-    public final void serialize(final Document document, 
+    public final void serialize(final Document document,
             final OutputStream outputStream) {
         tidy.pprint(document, outputStream);
     }
+
 }

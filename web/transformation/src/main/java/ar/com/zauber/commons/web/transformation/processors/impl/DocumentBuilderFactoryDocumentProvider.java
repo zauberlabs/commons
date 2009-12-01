@@ -62,7 +62,6 @@ public class DocumentBuilderFactoryDocumentProvider implements DocumentProvider 
     /** @see DocumentProvider#getInputStream(InputStream)
      *  deprecado utilizar
      *  {@link DocumentBuilderFactoryDocumentProvider#parse(InputSource)}*/
-    @Deprecated
     public final Document parse(final InputStream inputStream) {
         return parse(new InputSource(inputStream));
     }

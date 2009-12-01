@@ -19,18 +19,24 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 /**
- * Dado {@link InputStream} crea un {@link Document}.  
- * 
+ * Dado {@link InputStream} crea un {@link Document}.
+ *
  * @author Juan F. Codagnone
  * @since May 30, 2009
  */
 public interface DocumentProvider {
 
-    /** crea un document en base a un inputstream */
+    /** crea un document en base a un inputstream
+     * Deprecado: recomendado usar {@link DocumentProvider#parse(InputSource)}*/
+    @Deprecated
     Document parse(InputStream inputStream);
-    
+
+    /** crea un document en base a un {@link InputSource} */
+    Document parse(InputSource inputSource);
+
     /** escribe un document a un output stream*/
     void serialize(Document document, OutputStream outputStream);
 }
