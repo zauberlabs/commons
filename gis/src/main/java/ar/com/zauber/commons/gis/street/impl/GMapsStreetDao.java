@@ -152,6 +152,7 @@ public class GMapsStreetDao implements StreetsDAO {
                 }
             }
         } catch (final IOException e) {
+            results.addAll(streetsDAO.getStreets(query));
             throw new UnhandledException(e);
         } catch (final ParserConfigurationException e) {
             throw new UnhandledException(e);
