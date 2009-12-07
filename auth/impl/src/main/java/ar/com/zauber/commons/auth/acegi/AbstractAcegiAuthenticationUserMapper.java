@@ -69,19 +69,20 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T>
         String ret = null;
         
         final Authentication auth = context.getAuthentication();
-        if(auth.isAuthenticated()) {
-            final Object o = auth.getPrincipal();
-            if(o instanceof String) {
-                ret = (String)o;
+        if (auth != null) {
+            if(auth.isAuthenticated()) {
+                final Object o = auth.getPrincipal();
+                if(o instanceof String) {
+                    ret = (String)o;
+                } else {
+                    ret = ((UserDetails)auth.getPrincipal()).getUsername();
+                }
+                Validate.notNull(ret);
             } else {
-                ret = ((UserDetails)auth.getPrincipal()).getUsername();
-            }
-            Validate.notNull(ret);
-        } else {
-            throw new IllegalStateException("someone didn't "
-                    + "authenticate the user. Shame on ...!!");
+                throw new IllegalStateException("someone didn't "
+                        + "authenticate the user. Shame on ...!!");
+            }            
         }
-        
         return ret;
     }
     

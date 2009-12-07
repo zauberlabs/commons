@@ -26,9 +26,7 @@ import java.util.Set;
  */
 public interface AuthenticationUserMapper<T> {
 
-    /**
-     *  @return el usuario de la sesión actual
-     */
+    /**@return el usuario de la sesión actual, null si no hay ningun usuario logueado*/
     T getUser();
 
     /**  @return <code>true</code> if the current user is anonymous */
