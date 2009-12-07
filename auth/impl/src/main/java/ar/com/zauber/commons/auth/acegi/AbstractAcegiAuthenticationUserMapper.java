@@ -59,7 +59,7 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T>
     
     /**  @see AuthenticationUserMapper#isAnonymous() */
     public final boolean isAnonymous() {
-        return getUsername().equals(anonymousString);
+        return anonymousString.equals(getUsername());
     }
     
     /** @return the username of the current session */
