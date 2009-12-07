@@ -32,14 +32,7 @@ public class GeocodeResult extends NormalAddress implements Result {
     private final int id;
     private final Point point;
     
-    /**
-     * Creates the GeocodeResult.
-     *
-     * @param id id
-     * @param street street
-     * @param altura altua
-     * @param point punto
-     */
+    /** Creates the GeocodeResult. */
     public GeocodeResult(final int id, final String street,
             final int altura, final String countryCode, final Point point) {
         super(street, altura, countryCode);
@@ -50,29 +43,25 @@ public class GeocodeResult extends NormalAddress implements Result {
         this.point = point;
     }
     
-    /**
-     * Returns the id.
-     * 
-     * @return <code>int</code> with the id.
-     */
+    /** @return <code>int</code> with the id. */
     public final int getId() {
         return id;
     }
     
-    /**
-     * Returns the point.
-     * 
-     * @return <code>Point</code> with the point.
-     */
+    /** @return <code>Point</code> with the point. */
     public final Point getPoint() {
         return point;
     }
-    
 
-    /** @see ar.com.zauber.commons.gis.street.StreetsDAO.Result#getDescription()*/
+    /** @see StreetsDAO.Result#getDescription()*/
     public final String getDescription() {
         return getStreet() + " " + getAltura();
     }
     
+    /** @see StreetsDAO.Result#getDescription()*/
+    public final String toString() {
+        return new StringBuilder(getDescription()).append(" (")
+               .append(point).append(")").toString();
+    }
 }
 
