@@ -15,11 +15,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <artifactId>commons-auth-impl</artifactId>
-      <groupId>ar.com.zauber.commons.auth</groupId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
     </dependency>
@@ -49,30 +44,15 @@
        <artifactId>slf4j-log4j12</artifactId>
        <version>1.5.2</version>
      </dependency>
-
-
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-context-support</artifactId>
-	</dependency>    
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-orm</artifactId>
 	</dependency>    
 	<dependency>
 		<groupId>org.springframework</groupId>
-		<artifactId>spring-jdbc</artifactId>
-	</dependency>    
-
-	<dependency>
-		<groupId>org.springframework</groupId>
 		<artifactId>spring-test</artifactId>
+                <scope>test</scope>
 	</dependency>
-        <!-- Acegi -->
-    <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-core-tiger</artifactId>
-    </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
