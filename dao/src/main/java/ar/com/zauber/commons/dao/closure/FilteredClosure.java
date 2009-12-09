@@ -30,22 +30,34 @@ import ar.com.zauber.commons.dao.Predicate;
  */
 public class FilteredClosure<T> implements Closure<T> {
     private final Predicate<T> predicate;
-    private final Closure<T> target;
+    private final Closure<T> trueClosure;
+    private final Closure<T> falseClosure;
 
     /** Creates the FilteredClosure. */
     public FilteredClosure(final Predicate<T> predicate,
-            final Closure<T> target) {
+            final Closure<T> trueClosure) {
+        this(predicate, trueClosure, (Closure<T>) Closures.nullClosure());
+    }
+            
+    /** Creates the FilteredClosure. */
+    public FilteredClosure(final Predicate<T> predicate,
+            final Closure<T> trueClosure,
+            final Closure<T> falseClosure) {
         Validate.notNull(predicate);
-        Validate.notNull(target);
+        Validate.notNull(trueClosure);
+        Validate.notNull(falseClosure);
         
         this.predicate = predicate;
-        this.target = target;
+        this.trueClosure = trueClosure;
+        this.falseClosure = falseClosure;
     }
     
     /** @see Closure#execute(Object) */
     public final void execute(final T t) {
         if(predicate.evaluate(t)) {
-            target.execute(t);
+            trueClosure.execute(t);
+        } else {
+            falseClosure.execute(t);
         }
     }
 }
