@@ -58,7 +58,7 @@ public class JTidyDocumentProvider implements DocumentProvider {
 
     /** @see DocumentProvider#getInputStream(InputStream) */
     public final Document parse(final InputStream inputStream) {
-        return parse(new InputSource(inputStream));
+        return tidy.parseDOM(inputStream, null);
     }
 
     /** @see DocumentProvider#parse(InputSource) */
