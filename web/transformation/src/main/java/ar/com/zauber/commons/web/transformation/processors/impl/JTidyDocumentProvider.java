@@ -18,6 +18,7 @@ package ar.com.zauber.commons.web.transformation.processors.impl;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.Validate;
 import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
@@ -62,7 +63,8 @@ public class JTidyDocumentProvider implements DocumentProvider {
 
     /** @see DocumentProvider#parse(InputSource) */
     public Document parse(InputSource inputSource) {
-        return tidy.parseDOM(inputSource.getByteStream(), null);
+        throw new NotImplementedException(
+                "tidy no es muy flexible con las fuentes de entrada");
     }
 
 
