@@ -3,13 +3,10 @@
  */
 package ar.com.zauber.commons.web.transformation.processors.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -59,16 +56,9 @@ public class XalanXSLTScraperTest {
         XalanXSLTScraper scraper = new XalanXSLTScraper(xsltSource , encoding);
         DocumentProvider prov2 = new JTidyDocumentProvider(Configuration.UTF8);
         Document doc = prov2.parse(getClass().getResourceAsStream("example.html"));
-        File file = new File("/home/marianosemelman/Desktop/archivoloco");
-        OutputStream ous = new FileOutputStream(file);
-        prov2.serialize(doc, ous);
-        ous.close();
-        file = new File("/home/marianosemelman/Desktop/archivoloco2");
-        ous = new FileOutputStream(file);
-        Writer writer = new OutputStreamWriter(ous, Charset.forName("utf-8"));
+        Writer writer = new StringWriter();
         Map<String, Object> model = new TreeMap<String, Object>();
         scraper.scrap(doc, model, writer);
-        ous.close();
     }
 
 }
