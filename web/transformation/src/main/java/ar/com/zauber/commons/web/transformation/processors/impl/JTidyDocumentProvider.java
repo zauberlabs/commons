@@ -44,7 +44,8 @@ public class JTidyDocumentProvider implements DocumentProvider {
         tidy.setXHTML(false);
     }
 
-    /** Creates the JTidyDocumentProvider. */
+    /** Creates the JTidyDocumentProvider.
+     * @see org.w3c.tidy.Configuration#CharEncoding*/
     public JTidyDocumentProvider(final int encoding) {
         this();
         tidy.setCharEncoding(encoding);
