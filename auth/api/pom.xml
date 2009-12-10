@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.auth</groupId>
-    <version>3.23-SNAPSHOT</version>
+    <version>3.24-SNAPSHOT</version>
   </parent>
   <artifactId>commons-auth-api</artifactId>
   <packaging>jar</packaging>
