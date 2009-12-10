@@ -17,6 +17,8 @@ package ar.com.zauber.commons.spring.web.handlers.strategy;
 
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.Validate;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -55,7 +57,8 @@ public class ByClassTransactionStrategy implements TransactionStrategy {
     }
 
     /** @see TransactionStrategy#getTransactionTemplate(Object) */
-    public final TransactionTemplate getTransactionTemplate(final Object handler) {
+    public final TransactionTemplate getTransactionTemplate(final Object handler,
+            final HttpServletRequest request) {
         if(handler != null && specialClass.contains(handler.getClass())) {
             return specialTemplate;
         }

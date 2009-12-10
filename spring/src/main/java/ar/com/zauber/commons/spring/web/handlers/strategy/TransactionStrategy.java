@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.spring.web.handlers.strategy;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
@@ -26,6 +28,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 public interface TransactionStrategy {
 
     /** @return el {@link TransactionTemplate} donde debe ejecutarse la accion */
-    TransactionTemplate getTransactionTemplate(Object handler);
+    TransactionTemplate getTransactionTemplate(Object handler, 
+            HttpServletRequest request);
 
 }

@@ -25,6 +25,7 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,10 +61,11 @@ public class TransactionStrategyTest {
     @Test
     public final void testNullStrategy() {
         final TransactionStrategy ts = new NullTransactionStrategy(defaultTemplate);
+        final MockHttpServletRequest req = new MockHttpServletRequest();
         final TransactionTemplate txA 
-            = ts.getTransactionTemplate(mockController);
+            = ts.getTransactionTemplate(mockController, req);
         final TransactionTemplate txB 
-            = ts.getTransactionTemplate(anotherMockController);
+            = ts.getTransactionTemplate(anotherMockController, req);
         
         Assert.assertEquals(defaultTemplate.getIsolationLevel(), 
                             txA.getIsolationLevel());
@@ -81,13 +83,14 @@ public class TransactionStrategyTest {
     public final void testStrategyByClass() {
         final Set<Class<?>> specialObjects = new HashSet<Class<?>>();
         specialObjects.add(anotherMockController.getClass());
+        final MockHttpServletRequest req = new MockHttpServletRequest();
         
         final TransactionStrategy ts = new ByClassTransactionStrategy(
                 defaultTemplate, specialTemplate, specialObjects);
         final TransactionTemplate expectedSpecialTemplate 
-            = ts.getTransactionTemplate(anotherMockController);
+            = ts.getTransactionTemplate(anotherMockController, req);
         final TransactionTemplate expectedDefaultTemplate 
-            = ts.getTransactionTemplate(mockController);
+            = ts.getTransactionTemplate(mockController, req);
         
         Assert.assertEquals(defaultTemplate.getIsolationLevel(), 
                             expectedDefaultTemplate.getIsolationLevel());
@@ -100,6 +103,31 @@ public class TransactionStrategyTest {
                             expectedSpecialTemplate.getPropagationBehavior());
     }
     
+    /** Test for {@link ByClassTransactionStrategy} */
+    @Test
+    public final void selectStrategyByMethod() {
+        final Set<Class<?>> specialObjects = new HashSet<Class<?>>();
+        specialObjects.add(anotherMockController.getClass());
+        final MockHttpServletRequest request = new MockHttpServletRequest();
+        
+        final TransactionStrategy ts = new ByMethodTransactionStrategy(
+                defaultTemplate, specialTemplate, specialObjects);
+        
+        request.setMethod("GET");
+        Assert.assertEquals(defaultTemplate.getIsolationLevel(), 
+              ts.getTransactionTemplate(mockController, request).getIsolationLevel());
+        Assert.assertEquals(specialTemplate.getIsolationLevel(), 
+                ts.getTransactionTemplate(anotherMockController, request)
+                .getIsolationLevel());
+        request.setMethod("POST");
+        Assert.assertEquals(specialTemplate.getPropagationBehavior(), 
+                ts.getTransactionTemplate(mockController, request)
+                .getPropagationBehavior());
+        request.setMethod("PUT");
+        Assert.assertEquals(specialTemplate.getIsolationLevel(), 
+                ts.getTransactionTemplate(anotherMockController, request)
+                .getIsolationLevel());
+    }
     
     /** Mock implementation */
     class MockController implements Controller {

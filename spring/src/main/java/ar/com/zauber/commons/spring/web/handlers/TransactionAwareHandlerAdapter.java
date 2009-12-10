@@ -60,7 +60,7 @@ public class TransactionAwareHandlerAdapter implements HandlerAdapter {
             throws Exception {
         
         final TransactionTemplate transactionTemplate 
-            = transactionStrategy.getTransactionTemplate(handler);
+            = transactionStrategy.getTransactionTemplate(handler, request);
 
         return transactionTemplate.execute(new TransactionCallback<ModelAndView>() {
             public ModelAndView doInTransaction(

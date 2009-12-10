@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.spring.web.handlers.strategy;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.Validate;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -35,7 +37,8 @@ public class NullTransactionStrategy implements TransactionStrategy {
     }
 
     /** @see TransactionStrategy#getTransactionTemplate(Object) */
-    public final TransactionTemplate getTransactionTemplate(final Object handler) {
+    public final TransactionTemplate getTransactionTemplate(final Object handler,
+            final HttpServletRequest request) {
         return defaultTemplate;
     }
 
