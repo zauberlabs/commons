@@ -27,6 +27,9 @@ import java.util.TreeMap;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 
+import junit.framework.Assert;
+
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.tidy.Configuration;
@@ -52,7 +55,6 @@ public class XalanXSLTScraperTest {
         Document n = prov.parse(new InputSource(reader));
         Source xsltSource = new DOMSource(n);
         XalanXSLTScraper scraper = new XalanXSLTScraper(xsltSource , encoding);
-
     }
 
     /** */
@@ -71,6 +73,26 @@ public class XalanXSLTScraperTest {
         Writer writer = new StringWriter();
         Map<String, Object> model = new TreeMap<String, Object>();
         scraper.scrap(doc, model, writer);
+        Assert.assertTrue(StringUtils.isNotBlank(writer.toString()));
+    }
+
+    /** */
+    @Test
+    public final void testScrap2() throws Exception {
+        String encoding = "utf-8";
+        DocumentProvider prov = new DocumentBuilderFactoryDocumentProvider();
+        Reader reader =
+            new InputStreamReader(getClass().getResourceAsStream("test1.xsl"),
+                    Charset.forName("utf-8"));
+        Document xsl = prov.parse(new InputSource(reader));
+        Source xsltSource = new DOMSource(xsl);
+        XalanXSLTScraper scraper = new XalanXSLTScraper(xsltSource , encoding);
+        DocumentProvider prov2 = new JTidyDocumentProvider(Configuration.UTF8);
+        Document doc = prov2.parse(getClass().getResourceAsStream("example2.html"));
+        Writer writer = new StringWriter();
+        Map<String, Object> model = new TreeMap<String, Object>();
+        scraper.scrap(doc, model, writer);
+        Assert.assertTrue(StringUtils.isNotBlank(writer.toString()));
     }
 
 }
