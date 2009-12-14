@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0"><Response>
+  <name>Dorrego 129 eq Huergo, Belgrano, Buenos Aires</name>
+  <Status>
+    <code>200</code>
+    <request>geocode</request>
+  </Status>
+  <Placemark id="p1">
+    <address>Belgrano, Buenos Aires, Argentina</address>
+    <AddressDetails Accuracy="4" xmlns="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"><Country><CountryNameCode>AR</CountryNameCode><CountryName>Argentina</CountryName><Locality><LocalityName>Ciudad Autónoma de Buenos Aires</LocalityName><DependentLocality><DependentLocalityName>Belgrano</DependentLocalityName></DependentLocality></Locality></Country></AddressDetails>
+    <ExtendedData>
+      <LatLonBox north="-34.5482885" south="-34.5850414" east="-58.4346522" west="-58.4986818"/>
+    </ExtendedData>
+    <Point><coordinates>-58.4666670,-34.5666670,0</coordinates></Point>
+  </Placemark>
+</Response></kml>
