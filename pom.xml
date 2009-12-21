@@ -42,12 +42,6 @@
       <name>Zauber Code Snapshots</name>
       <url>https://repo1.zauber.com.ar/zauber/code/snapshots</url>
     </repository>
-    <repository>
-       <id>springsource maven repo</id>
-       <url>http://maven.springframework.org/milestone</url>
-       <releases><enabled>true</enabled></releases>
-       <snapshots><enabled>false</enabled></snapshots>
-      </repository>
   </repositories>
 
   <pluginRepositories>
@@ -194,7 +188,7 @@
      </dependency>
   </dependencies>
   <properties>
-      <spring.version>3.0.0.RC3</spring.version>
+      <spring.version>3.0.0.RELEASE</spring.version>
       <spring.security.version>2.0.4</spring.security.version>
       <hibernate.version>3.3.1.GA</hibernate.version>
       <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
