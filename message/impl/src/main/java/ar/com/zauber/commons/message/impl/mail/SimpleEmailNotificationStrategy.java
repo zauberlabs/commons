@@ -67,7 +67,8 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     }
     
     /** @see NotificationStrategy#execute(NotificationAddress[], Message) */
-    public final void execute(final NotificationAddress [] addresses,
+    //CHECKSTYLE:ALL:OFF
+    public void execute(final NotificationAddress [] addresses,
             final Message message) {
                 
         final SimpleMailMessage mail = new SimpleMailMessage();
@@ -79,12 +80,12 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
         mail.setText(message.getContent());
         mailSender.send(mail);
     }
-
+  //CHECKSTYLE:ALL:ON
     /**
      * @param address address to convert to EmailAddress
      * @return the email for that address
      */
-    private String getEmailAddress(final NotificationAddress address) {
+    protected final String getEmailAddress(final NotificationAddress address) {
         return ((JavaMailEmailAddress)address).getEmailStr();
     }
 
@@ -123,8 +124,17 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
      * 
      * @return the from address to use in the email
      */
-    private JavaMailEmailAddress getFromAddress() {
+    protected final JavaMailEmailAddress getFromAddress() {
         return new JavaMailEmailAddress(account + "@"
                 + senderDomain);
+    }
+
+    /**
+     * Returns the mailSender.
+     * 
+     * @return <code>MailSender</code> with the mailSender.
+     */
+    protected final MailSender getMailSender() {
+        return mailSender;
     }
 }

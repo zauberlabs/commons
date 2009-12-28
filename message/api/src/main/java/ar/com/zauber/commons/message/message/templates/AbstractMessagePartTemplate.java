@@ -22,52 +22,38 @@ import java.util.Map.Entry;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.Resource;
-import ar.com.zauber.commons.dao.resources.StringResource;
-import ar.com.zauber.commons.message.Message;
+import ar.com.zauber.commons.message.MessagePart;
 import ar.com.zauber.commons.message.MessageTemplate;
-import ar.com.zauber.commons.message.NotificationAddress;
-import ar.com.zauber.commons.message.message.StringMessage;
+import ar.com.zauber.commons.message.message.StringMessagePart;
 
 /**
- * Implements only createMessagte
- * 
- * @author Juan F. Codagnone
- * @since Mar 15, 2006
+ * Part template from a resource 
+ * @author Christian Nardi
+ * @since Dec 28, 2009
  */
-public abstract class AbstractMessageTemplate 
-    extends AbstractTemplate implements MessageTemplate {
+public abstract class AbstractMessagePartTemplate 
+    extends AbstractTemplate implements PartTemplate {
     private final String content;
-    private final String subject;
-    private final NotificationAddress address;
+    private final String contentType;
     
-    /** @deprecated Use the other constructor */
-    public AbstractMessageTemplate(final String content, final String subject,
-            final NotificationAddress address) {
-        this(new StringResource(content), subject, address);
-    }
-
     /** Creates the AbstractMessageTemplate. */
-    public AbstractMessageTemplate(final Resource content, final String subject,
-            final NotificationAddress address) {
+    public AbstractMessagePartTemplate(final Resource content, 
+            final String contentType) {
         Validate.notNull(content);
-        Validate.notNull(subject);
-        Validate.notNull(address);
+        Validate.notEmpty(contentType);
         
         final ByteArrayOutputStream os = copyResource(content);
         this.content = os.toString();
-        this.subject = subject;
-        this.address = address;
+        this.contentType = contentType;
     }
 
     
     /** @see MessageTemplate#render(Map) */
-    public final Message render(final Map<String, Object> model) {
+    public final MessagePart createPart(final Map<String, Object> model) {
         for(final Entry<String, Object> entry : getExtraModel().entrySet()) {
             model.put(entry.getKey(), entry.getValue());
         }
         
-        return new StringMessage(renderString(content, model), 
-                renderString(subject, model),
-                address);
+        return new StringMessagePart(contentType, renderString(content, model));
     }
 }

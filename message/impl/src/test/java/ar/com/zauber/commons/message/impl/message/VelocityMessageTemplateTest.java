@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import ar.com.zauber.commons.dao.resources.StringResource;
 import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageTemplate;
 import ar.com.zauber.commons.message.NotificationAddress;
@@ -75,6 +76,17 @@ public class VelocityMessageTemplateTest extends TestCase {
         model.put("user", "juan");
         final MessageTemplate template = new VelocityMessageTemplate(
                 "hola ${user}", "subject", address);
+        final Message msg = template.render(model);
+        assertEquals("hola juan", msg.getContent());
+        assertEquals("subject", msg.getSubject());
+    }
+    
+    /** unit test */
+    public final void testRenderBodyWithModelAndResource() {
+        final Map<String, Object> model = new HashMap<String, Object>();
+        model.put("user", "juan");
+        final MessageTemplate template = new VelocityMessageTemplate(
+                new StringResource("hola ${user}"), "subject", address);
         final Message msg = template.render(model);
         assertEquals("hola juan", msg.getContent());
         assertEquals("subject", msg.getSubject());

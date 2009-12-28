@@ -23,6 +23,7 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
+import ar.com.zauber.commons.dao.Resource;
 import ar.com.zauber.commons.message.MessageFactory;
 import ar.com.zauber.commons.message.MessageTemplate;
 import ar.com.zauber.commons.message.NotificationAddress;
@@ -42,6 +43,12 @@ public class VelocityMessageTemplate extends AbstractMessageTemplate {
         super(content, subject, address);
     }
 
+    /** Creates the VelocityMessageTemplate. */
+    public VelocityMessageTemplate(final Resource resource, final String subject,
+            final NotificationAddress address) {
+        super(resource, subject, address);
+    }
+    
     static {
         try {
             Velocity.init();
