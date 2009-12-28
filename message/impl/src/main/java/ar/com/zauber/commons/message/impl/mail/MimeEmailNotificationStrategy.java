@@ -58,10 +58,10 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
     /** @see NotificationStrategy#execute(NotificationAddress[], Message) */
     public final void execute(final NotificationAddress [] addresses,
             final Message message) {
-        final JavaMailSender javaMailSender = (JavaMailSender)getMailSender();
-        final MimeMessage mail = javaMailSender.createMimeMessage();
-        final MimeMessageHelper helper = new MimeMessageHelper(mail);
         try {
+            final JavaMailSender javaMailSender = (JavaMailSender)getMailSender();
+            final MimeMessage mail = javaMailSender.createMimeMessage();
+            final MimeMessageHelper helper = new MimeMessageHelper(mail, true);
             helper.setFrom(getFromAddress().getEmailStr());
             helper.setTo(SimpleEmailNotificationStrategy.getEmailAddresses(
                     addresses));
