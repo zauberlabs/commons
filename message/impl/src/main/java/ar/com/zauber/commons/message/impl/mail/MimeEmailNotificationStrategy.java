@@ -19,6 +19,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.Entity;
 
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -49,7 +51,7 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
      * @param account
      *            account that appears in the from address
      */
-    public MimeEmailNotificationStrategy(final JavaMailSender mailSender, 
+    public MimeEmailNotificationStrategy(final MailSender mailSender, 
             final String senderDomain, final String account, 
             final boolean multipart) {
         super(mailSender, senderDomain, account);
@@ -59,16 +61,30 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
     public final void execute(final NotificationAddress [] addresses,
             final Message message) {
         try {
-            final JavaMailSender javaMailSender = (JavaMailSender)getMailSender();
-            final MimeMessage mail = javaMailSender.createMimeMessage();
-            final MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-            helper.setFrom(getFromAddress().getEmailStr());
-            helper.setTo(SimpleEmailNotificationStrategy.getEmailAddresses(
-                    addresses));
-            helper.setReplyTo(getEmailAddress(message.getReplyToAddress()));
-            helper.setSubject(message.getSubject());
-            setContent(helper, (MultipartMessage) message);
-            javaMailSender.send(mail);
+            final MailSender mailSender = getMailSender();
+            //This is ugly....but if it is not a JavaMailSender it will
+            //fail (for instance during tests). And the only way to
+            //create a Multipartemail is through JavaMailSender
+            if (mailSender instanceof JavaMailSender) {
+                final JavaMailSender javaMailSender = (JavaMailSender) mailSender;
+                final MimeMessage mail = javaMailSender.createMimeMessage();
+                final MimeMessageHelper helper = new MimeMessageHelper(mail, true);
+                helper.setFrom(getFromAddress().getEmailStr());
+                helper.setTo(SimpleEmailNotificationStrategy.getEmailAddresses(
+                        addresses));
+                helper.setReplyTo(getEmailAddress(message.getReplyToAddress()));
+                helper.setSubject(message.getSubject());
+                setContent(helper, (MultipartMessage) message);
+                javaMailSender.send(mail);
+            } else {
+                final SimpleMailMessage mail = new SimpleMailMessage();
+                mail.setFrom(getFromAddress().getEmailStr());
+                mail.setTo(getEmailAddresses(addresses));
+                mail.setReplyTo(getEmailAddress(message.getReplyToAddress()));
+                mail.setSubject(message.getSubject());
+                mail.setText(message.getContent());
+                mailSender.send(mail);
+            }
         } catch (final MessagingException e) {
             throw new RuntimeException("Could not send message", e);
         }
