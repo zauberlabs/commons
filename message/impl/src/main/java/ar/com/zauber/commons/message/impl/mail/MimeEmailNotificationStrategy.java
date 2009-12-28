@@ -39,7 +39,7 @@ import ar.com.zauber.commons.message.NotificationStrategy;
 @Entity
 public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrategy {
 
-    private static final String HTML_CONTENT_TYPE = null;
+    private static final String HTML_CONTENT_TYPE = "text/html";
 
     /**
      * @param mailSender
