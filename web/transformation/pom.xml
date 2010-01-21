@@ -13,7 +13,11 @@
         <artifactId>commons-lang</artifactId>
         <groupId>commons-lang</groupId>
      </dependency>
-     
+      <dependency>
+        <artifactId>commons-io</artifactId>
+        <groupId>commons-io</groupId>
+     </dependency>
+    
      <dependency>
         <artifactId>jtidy</artifactId>
         <groupId>jtidy</groupId>
