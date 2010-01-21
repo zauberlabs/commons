@@ -39,7 +39,7 @@ public class TidyScrapper {
     private final DOMScraper scraper;
     
     /** Creates the CLNResultsClosure. */
-    protected TidyScrapper(
+    public TidyScrapper(
             final DocumentProvider htmlProvider,
             final DOMScraper scraper) {
         Validate.notNull(htmlProvider);
