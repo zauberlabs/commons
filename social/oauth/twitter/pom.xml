@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>ar.com.zauber.commons.social.oauth</groupId>
+		<artifactId>parent</artifactId>
+		<version>3.25-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>commons-social-oauth-twitter</artifactId>
+	<name>Zauber::Commons::Social::OAuth::Twitter</name>
+
+	<dependencies>
+	    <dependency>
+            <artifactId>commons-social-oauth-api</artifactId>
+            <groupId>${pom.groupId}</groupId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+           <groupId>net.homeip.yusuke</groupId>
+           <artifactId>twitter4j-core</artifactId>
+           <version>${twitter4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ar.com.zauber.commons</groupId>
+            <artifactId>commons-spring</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+                
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>

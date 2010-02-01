@@ -99,6 +99,7 @@
      <module>test</module>
      <module>moderation</module>
      <module>converter</module>
+     <module>social</module>     
   </modules>
   
   <build>
