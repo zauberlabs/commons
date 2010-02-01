@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>assets</short-name>
+    <uri>http://labs.zauber.com.ar/commons/tags/assets</uri>
+    
+    <tag>
+        <name>javascript</name>
+        <tag-class>ar.com.zauber.commons.web.uri.assets.JavascriptTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Marks a javascript assets as needed for inclusion</description>    
+        <attribute>
+            <name>key</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The key to the Javascript Asset</description>
+        </attribute>
+        <attribute>
+            <name>property</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The attribute key to use to store javascripts</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>css</name>
+        <tag-class>ar.com.zauber.commons.web.uri.assets.CssTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Marks a css assets as needed for inclusion</description>    
+        <attribute>
+            <name>key</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The key to the Css Asset</description>
+        </attribute>
+        <attribute>
+            <name>property</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The attribute key to use to store css</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>image</name>
+        <tag-class>ar.com.zauber.commons.web.uri.assets.ImageTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Print an image url</description>    
+        <attribute>
+            <name>key</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The key to the image Asset</description>
+        </attribute>
+        <attribute>
+            <name>context</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The webContext attribute key</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>print</name>
+        <tag-class>ar.com.zauber.commons.web.uri.assets.PrintTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Prints all needed assets as previously selected with this taglib</description>
+        <attribute>
+            <name>context</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The webContext attribute key</description>
+        </attribute>
+        <attribute>
+            <name>jsProperty</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The attribute key to use to store javascripts</description>
+        </attribute>            
+    </tag>
+    
+</taglib>

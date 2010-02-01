@@ -15,5 +15,6 @@
     <module>version</module>
     <module>transformation</module>
     <module>rest</module>
+    <module>uri</module>
   </modules>
 </project>
