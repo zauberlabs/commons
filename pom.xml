@@ -13,9 +13,9 @@
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/trunk/</connection>
-     <developerConnection>scm:svn:https://code.zauber.com.ar/repos/sandbox/components/commons/code/trunk/</developerConnection>
-     <url>https://code.zauber.com.ar/repos/sandbox/components/commons/code/trunk/</url>
+     <connection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</connection>
+     <developerConnection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</developerConnection>
+     <url>https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</url>
   </scm>
 
   <licenses>
@@ -33,14 +33,14 @@
       <snapshots><enabled>false</enabled></snapshots>
       <id>zauber-code-releases</id>
       <name>Zauber Code Releases</name>
-      <url>https://repo1.zauber.com.ar/zauber/code/releases</url>
+      <url>https://repo1.zaubersoftware.com/zauber/code/releases</url>
     </repository>
     <repository>
       <releases><enabled>false</enabled></releases>
       <snapshots><enabled>true</enabled></snapshots>
       <id>zauber-code-snapshots</id>
       <name>Zauber Code Snapshots</name>
-      <url>https://repo1.zauber.com.ar/zauber/code/snapshots</url>
+      <url>https://repo1.zaubersoftware.com/zauber/code/snapshots</url>
     </repository>
   </repositories>
 
@@ -58,12 +58,12 @@
     <repository>
       <id>zauber-code-releases</id>
       <name>Zauber Code Releases</name>
-      <url>https://repo1.zauber.com.ar/zauber/code/releases</url>
+      <url>https://repo1.zaubersoftware.com/zauber/code/releases</url>
     </repository>
     <snapshotRepository>
       <id>zauber-code-snapshots</id>
       <name>Zauber Code Snapshots</name>
-      <url>https://repo1.zauber.com.ar/zauber/code/snapshots</url>
+      <url>https://repo1.zaubersoftware.com/zauber/code/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -129,7 +129,7 @@
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <tagBase>https://code.zauber.com.ar/repos/sandbox/components/commons/code/releases/</tagBase>
+          <tagBase>https://code.zaubersoftware.com/repos/sandbox/components/commons/code/releases/</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
@@ -166,7 +166,7 @@
              <useDefaultExcludes>true</useDefaultExcludes>
              <useDefaultMapping>true</useDefaultMapping>
              <properties>
-                <email>http://www.zauber.com.ar/</email>
+                <email>http://www.zaubersoftware.com/</email>
              </properties>
              <encoding>iso-8859-1</encoding>
          </configuration>
