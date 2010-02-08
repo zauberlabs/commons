@@ -15,8 +15,4 @@
     <module>twitter</module>
   </modules>
   
-  <properties>
-    <twitter4j.version>2.1.0</twitter4j.version>
-  </properties>
-  
 </project>

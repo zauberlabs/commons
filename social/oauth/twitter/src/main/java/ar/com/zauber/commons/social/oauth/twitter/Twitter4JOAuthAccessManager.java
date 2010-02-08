@@ -9,7 +9,6 @@ import java.util.Map;
 import org.apache.commons.lang.Validate;
 
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 import twitter4j.http.AccessToken;
 import twitter4j.http.RequestToken;
 import ar.com.zauber.commons.social.oauth.OAuthAccessException;

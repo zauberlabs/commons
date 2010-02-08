@@ -9,7 +9,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>commons-social-oauth-twitter</artifactId>
 	<name>Zauber::Commons::Social::OAuth::Twitter</name>
-
+		  
+    <properties>
+        <twitter4j.version>2.0.10</twitter4j.version>
+    </properties>
+  
 	<dependencies>
 	    <dependency>
             <artifactId>commons-social-oauth-api</artifactId>
@@ -18,7 +22,7 @@
         </dependency>
         <dependency>
            <groupId>net.homeip.yusuke</groupId>
-           <artifactId>twitter4j-core</artifactId>
+           <artifactId>twitter4j</artifactId>
            <version>${twitter4j.version}</version>
         </dependency>
         <dependency>
