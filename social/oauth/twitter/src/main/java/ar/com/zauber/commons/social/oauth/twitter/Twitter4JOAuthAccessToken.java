@@ -39,4 +39,9 @@ public class Twitter4JOAuthAccessToken implements OAuthAccessToken,
         return accessToken.getTokenSecret();
     }
 
+    /** @see OAuthAccessToken#getScreenName() */
+    public final String getScreenName() {
+        return accessToken.getScreenName();
+    }
+
 }

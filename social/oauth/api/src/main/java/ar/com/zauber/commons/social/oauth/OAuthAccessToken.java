@@ -17,4 +17,7 @@ public interface OAuthAccessToken {
     /** @return the token secret */
     String getTokenSecret();
     
+    /** @return the screen name of the authenticated user */
+    String getScreenName();
+    
 }
