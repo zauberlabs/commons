@@ -6,6 +6,7 @@ package ar.com.zauber.commons.social.oauth.twitter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import twitter4j.TwitterException;
@@ -35,12 +36,23 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
         this.twitterFactory = twitterFactory;
     }
 
-    /** @return la authUrl para autenticar un usuario mediante OAuth */
+    /** @see OAuthAccessManager#getAuthUrl() */
     public final String getAuthUrl() {
+        return getAuthUrl(null);
+    }
+    
+    /** @see OAuthAccessManager#getAuthUrl(String) */
+    public final String getAuthUrl(final String callbackUrl) {
         RequestToken requestToken = null;
 
         try {
-            requestToken = twitterFactory.getInstance().getOAuthRequestToken();
+            if (StringUtils.isNotEmpty(callbackUrl)) {
+                requestToken = twitterFactory.getInstance()
+                        .getOAuthRequestToken(callbackUrl);
+            } else {
+                requestToken = twitterFactory.getInstance()
+                        .getOAuthRequestToken();
+            }
         } catch (TwitterException e) {
             throw new OAuthAccessException(
                     "Exception when getting request token", e);
@@ -52,18 +64,25 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
                 .getToken(), requestToken.getTokenSecret()));
 
         return authUrl;
-    }
+    }    
 
-    /** @return el {@link OAuthAccessToken} para el oauthToken indicado */
-    public final OAuthAccessToken getAccessToken(final String oauthToken) {
+    /** @see OAuthAccessManager#getAccessToken(String, String) */
+    public final OAuthAccessToken getAccessToken(final String oauthToken,
+            final String oauthVerifier) {
         Validate.notNull(oauthToken);
         OAuthRequestToken requestToken = map.get(oauthToken);
 
         AccessToken accessToken = null;
 
         try {
-            accessToken = twitterFactory.getInstance().getOAuthAccessToken(
-                    requestToken.getToken(), requestToken.getTokenSecret());
+            if (oauthVerifier != null) {
+                accessToken = twitterFactory.getInstance().getOAuthAccessToken(
+                        requestToken.getToken(), requestToken.getTokenSecret(),
+                        oauthVerifier);    
+            } else {
+                accessToken = twitterFactory.getInstance().getOAuthAccessToken(
+                        requestToken.getToken(), requestToken.getTokenSecret());    
+            }
         } catch (TwitterException e) {
             throw new OAuthAccessException(
                     "Exception when getting access token for RequestToken: "
@@ -71,6 +90,11 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
         }
 
         return new Twitter4JOAuthAccessToken(accessToken);
+    }
+    
+    /** @see OAuthAccessManager#getAccessToken(String) */
+    public final OAuthAccessToken getAccessToken(final String oauthToken) {
+        return getAccessToken(oauthToken, null);
     }
 
 }
