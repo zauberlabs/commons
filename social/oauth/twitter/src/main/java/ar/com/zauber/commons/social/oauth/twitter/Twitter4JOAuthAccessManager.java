@@ -3,9 +3,6 @@
  */
 package ar.com.zauber.commons.social.oauth.twitter;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
@@ -16,6 +13,7 @@ import ar.com.zauber.commons.social.oauth.OAuthAccessException;
 import ar.com.zauber.commons.social.oauth.OAuthAccessManager;
 import ar.com.zauber.commons.social.oauth.OAuthAccessToken;
 import ar.com.zauber.commons.social.oauth.OAuthRequestToken;
+import ar.com.zauber.commons.social.oauth.OAuthRequestTokenRepository;
 
 /**
  * Implementación de {@link OAuthAccessManager} para Twitter4J
@@ -27,20 +25,22 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
 
     private final TwitterFactory twitterFactory;
 
-    private final Map<String, OAuthRequestToken> map = 
-        new HashMap<String, OAuthRequestToken>();
+    private final OAuthRequestTokenRepository repository;
 
     /** Creates the Twitter4JOAuthAccessManager. */
-    public Twitter4JOAuthAccessManager(final TwitterFactory twitterFactory) {
+    public Twitter4JOAuthAccessManager(final TwitterFactory twitterFactory,
+            final OAuthRequestTokenRepository repository) {
         Validate.notNull(twitterFactory);
+        Validate.notNull(repository);
         this.twitterFactory = twitterFactory;
+        this.repository = repository;
     }
 
     /** @see OAuthAccessManager#getAuthUrl() */
     public final String getAuthUrl() {
         return getAuthUrl(null);
     }
-    
+
     /** @see OAuthAccessManager#getAuthUrl(String) */
     public final String getAuthUrl(final String callbackUrl) {
         RequestToken requestToken = null;
@@ -60,17 +60,17 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
 
         String authUrl = requestToken.getAuthorizationURL();
 
-        map.put(requestToken.getToken(), new OAuthRequestTokenImpl(requestToken
-                .getToken(), requestToken.getTokenSecret()));
+        repository.save(requestToken.getToken(), new OAuthRequestTokenImpl(
+                requestToken.getToken(), requestToken.getTokenSecret()));
 
         return authUrl;
-    }    
+    }
 
     /** @see OAuthAccessManager#getAccessToken(String, String) */
     public final OAuthAccessToken getAccessToken(final String oauthToken,
             final String oauthVerifier) {
         Validate.notNull(oauthToken);
-        OAuthRequestToken requestToken = map.get(oauthToken);
+        OAuthRequestToken requestToken = repository.get(oauthToken);
 
         AccessToken accessToken = null;
 
@@ -78,10 +78,10 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
             if (oauthVerifier != null) {
                 accessToken = twitterFactory.getInstance().getOAuthAccessToken(
                         requestToken.getToken(), requestToken.getTokenSecret(),
-                        oauthVerifier);    
+                        oauthVerifier);
             } else {
                 accessToken = twitterFactory.getInstance().getOAuthAccessToken(
-                        requestToken.getToken(), requestToken.getTokenSecret());    
+                        requestToken.getToken(), requestToken.getTokenSecret());
             }
         } catch (TwitterException e) {
             throw new OAuthAccessException(
@@ -91,7 +91,7 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
 
         return new Twitter4JOAuthAccessToken(accessToken);
     }
-    
+
     /** @see OAuthAccessManager#getAccessToken(String) */
     public final OAuthAccessToken getAccessToken(final String oauthToken) {
         return getAccessToken(oauthToken, null);
