@@ -37,8 +37,8 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
  * método {@link UriFactory#buildUri(String, Object...)}.
  * 
  * <p>
- * A su vez, el {@link UriFactory} recibe un <em>baseUri</em> que se preapendea
- * al string generado por la expresión.
+ * A su vez, el {@link UriFactory} recibe un <em>host</em> y un
+ * <em>basePath</em> que se preapendean al string generado por la expresión.
  * 
  * 
  * @author Mariano Cortesi
@@ -47,15 +47,18 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 public class UriFactory {
 
     private final Map<String, Expression> uriMap = new HashMap<String, Expression>();
-    private final String baseUri;
+    private final String host;
+    private final String basePath;
 
     /** Construye un UriFactor */
-    public UriFactory(final String baseUri, final ExpressionParser parser,
-            final Map<String, String> uris) {
+    public UriFactory(final String host, final String basePath,
+            final ExpressionParser parser, final Map<String, String> uris) {
+        Validate.notNull(host);
         Validate.notNull(uris);
         Validate.notNull(parser);
-        Validate.notNull(baseUri);
-        this.baseUri = baseUri;
+        Validate.notNull(basePath);
+        this.host = host;
+        this.basePath = basePath;
         ParserContext parserContext = new TemplateParserContext("{", "}");
         for (Map.Entry<String, String> uriConf : uris.entrySet()) {
             uriMap.put(uriConf.getKey(), parser.parseExpression(uriConf
@@ -73,11 +76,36 @@ public class UriFactory {
      * @return uri generado.
      */
     public final String buildUri(final String uriKey, final Object... expArgs) {
+        return buildUri(true, uriKey, expArgs);
+    }
+
+    /**
+     * Construye la uri referida por uriKey con los parametros expArgs, sin
+     * appendear el host
+     * 
+     * @param appendHost
+     *            Si es false no se incluirá el <em>host</em> al inicio de la
+     *            uri
+     * @param uriKey
+     *            Clave del Uri
+     * @param expArgs
+     *            Parametros de la expresión referida por el uriKey.
+     * @return uri generado.
+     */
+    public final String buildUri(final boolean appendHost, final String uriKey,
+            final Object... expArgs) {
         Validate.notNull(uriKey);
         Validate.noNullElements(expArgs);
         Validate.isTrue(this.uriMap.containsKey(uriKey));
-        return new StringBuilder(this.baseUri).append(
-                this.uriMap.get(uriKey).getValue(expArgs, String.class))
-                .toString();
+        StringBuilder out = new StringBuilder();
+
+        if (appendHost) {
+            out.append(this.host);
+        }
+
+        out.append(this.basePath).append(
+                this.uriMap.get(uriKey).getValue(expArgs, String.class));
+
+        return out.toString();
     }
 }
