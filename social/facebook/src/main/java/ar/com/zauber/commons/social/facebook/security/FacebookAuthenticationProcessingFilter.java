@@ -6,7 +6,6 @@ package ar.com.zauber.commons.social.facebook.security;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +14,9 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+
+import ar.com.zauber.commons.social.facebook.FacebookCookie;
+import ar.com.zauber.commons.social.facebook.FacebookCookieFinder;
 
 /**
  * Authentication Processing Filter para login por Facebook.</br> 
@@ -25,14 +27,10 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
  * el Facebook UID.
  * 
  * @author Francisco J. González Costanzó
- * @author Andrés Moratti
  * @since Feb 4, 2010
  */
 public class FacebookAuthenticationProcessingFilter extends
         AbstractAuthenticationProcessingFilter {
-
-    private static final String USER_SUFFIX = "_user";
-    private static final String SESSION_SUFFIX = "_session_key";
 
     private final String facebookApiKey;
 
@@ -61,32 +59,15 @@ public class FacebookAuthenticationProcessingFilter extends
                             + request.getMethod());
         }
 
-        final Cookie[] cookies = request.getCookies();
-        final String userKey = facebookApiKey + USER_SUFFIX;
-        final String sessionKey = facebookApiKey + SESSION_SUFFIX;
+        final FacebookCookie cookie = FacebookCookieFinder.getCookie(
+                facebookApiKey, request);
 
-        Long fbUID = null;
-        String fbSession = null;
-        for (int i = 0; i < cookies.length && (fbUID == null || fbSession == null);
-                i++) {
-            if (fbUID == null && userKey.equals(cookies[i].getName())) {
-                try {
-                    fbUID = new Long(cookies[i].getValue());
-                } catch (NumberFormatException e) {
-                    // fbUID = -1L; ya esta en null
-                }
-            }
-            if (fbSession == null && sessionKey.equals(cookies[i].getName())) {
-                fbSession = cookies[i].getValue();
-            }
-        }
-
-        if (fbUID == null) {
+        if (cookie == null) {
             throw new AuthenticationServiceException("not autenticated");
+        } else {
+            return this.getAuthenticationManager().authenticate(
+                    new FacebookAuthenticationToken(cookie.getFbUID()));    
         }
-
-        return this.getAuthenticationManager().authenticate(
-                new FacebookAuthenticationToken(fbUID));
     }
 
 }
