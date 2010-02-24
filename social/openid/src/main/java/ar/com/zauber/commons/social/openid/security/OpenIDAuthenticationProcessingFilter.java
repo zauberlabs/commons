@@ -34,16 +34,21 @@ public class OpenIDAuthenticationProcessingFilter extends
         AbstractAuthenticationProcessingFilter {
 
     private final RelyingParty relyingParty;
+    private final String errorUrl;
 
     /**
      * Creates the OpenIDAuthenticationProcessingFilter.
      */
     protected OpenIDAuthenticationProcessingFilter(
             final String defaultFilterProcessesUrl,
+            final String errorUrl,
             final RelyingParty relyingParty) {
         super(defaultFilterProcessesUrl);
         Validate.notNull(relyingParty);
+        Validate.notNull(errorUrl);
         this.relyingParty = relyingParty;
+        this.errorUrl = errorUrl;
+        
     }
 
     /**
@@ -71,7 +76,7 @@ public class OpenIDAuthenticationProcessingFilter extends
                     }
 
                     // error
-                    response.sendRedirect("/bin/login/openid/?e=true");
+                    response.sendRedirect(errorUrl);
                     return null;
                 }
             }
