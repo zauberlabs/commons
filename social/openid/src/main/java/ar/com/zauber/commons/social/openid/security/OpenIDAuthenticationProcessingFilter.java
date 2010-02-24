@@ -57,7 +57,6 @@ public class OpenIDAuthenticationProcessingFilter extends
         OpenIdUser user = null;
 
         try {
-
             user = relyingParty.discover(request);
             if (user == null) {
                 if (RelyingParty.isAuthResponse(request)) {
@@ -109,10 +108,9 @@ public class OpenIDAuthenticationProcessingFilter extends
                 return null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new AuthenticationServiceException(
                     "Exception while authenticating with openID: "
-                            + e.getMessage());
+                            + e.getMessage(), e);
         }
 
         return null;
