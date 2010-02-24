@@ -11,6 +11,8 @@
   <packaging>pom</packaging>
   <modules>
   	<module>oauth</module>
+  	<module>facebook</module>  	
+  	<module>openid</module>  	  	
   </modules>
   
 </project>

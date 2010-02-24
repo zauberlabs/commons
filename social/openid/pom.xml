@@ -1,36 +1,34 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>ar.com.zauber.commons.social.oauth</groupId>
-		<artifactId>parent</artifactId>
-		<version>3.25-SNAPSHOT</version>
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>parent</artifactId>
+    <groupId>ar.com.zauber.commons.social</groupId>
+    <version>3.25-SNAPSHOT</version>
+  </parent>
+  <name>Zauber::Commons::Social::OpenID</name>
+  <artifactId>commons-social-openid</artifactId>
+  <groupId>ar.com.zauber.commons.social.openid</groupId>
+  <packaging>jar</packaging>
 
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>commons-social-oauth-twitter</artifactId>
-	<name>Zauber::Commons::Social::OAuth::Twitter</name>
-		  
-    <properties>
-        <twitter4j.version>2.0.10</twitter4j.version>
-    </properties>
-  
-	<dependencies>
-	    <dependency>
-            <artifactId>commons-social-oauth-api</artifactId>
-            <groupId>${pom.groupId}</groupId>
-            <version>${pom.version}</version>
-        </dependency>
+    <dependencies>
+    
+        <!-- OpenID -->
         <dependency>
-           <groupId>net.homeip.yusuke</groupId>
-           <artifactId>twitter4j</artifactId>
-           <version>${twitter4j.version}</version>
+            <groupId>org.openid4java</groupId>
+            <artifactId>openid4java-consumer</artifactId>
+            <!--artifactId>openid4java-server</artifactId-->
+            <!--artifactId>openid4java-infocard</artifactId-->
+            <!--artifactId>openid4java-xri</artifactId-->
+            <!--artifactId>openid4java</artifactId-->
+            <version>0.9.5</version>
         </dependency>
+        
         <dependency>
-            <groupId>ar.com.zauber.commons</groupId>
-            <artifactId>commons-spring</artifactId>
-            <version>${pom.version}</version>
+            <groupId>com.dyuproject</groupId>
+            <artifactId>dyuproject-openid</artifactId>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
-
+            
         <!-- BEGIN: Spring Framework -->
         <!-- Core Modules -->
         <dependency>
@@ -104,11 +102,13 @@
             <scope>provided</scope>
         </dependency>
         <!-- END: Servlet Dependencies -->
-                        
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-	</dependencies>
-
+        
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
+        </dependency>
+        
+    </dependencies>
+    
 </project>
