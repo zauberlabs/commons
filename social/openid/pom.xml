@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.social</groupId>
-    <version>3.25-SNAPSHOT</version>
+    <version>3.25</version>
   </parent>
   <name>Zauber::Commons::Social::OpenID</name>
   <artifactId>commons-social-openid</artifactId>
@@ -12,21 +12,11 @@
 
     <dependencies>
     
-        <!-- OpenID -->
-        <dependency>
-            <groupId>org.openid4java</groupId>
-            <artifactId>openid4java-consumer</artifactId>
-            <!--artifactId>openid4java-server</artifactId-->
-            <!--artifactId>openid4java-infocard</artifactId-->
-            <!--artifactId>openid4java-xri</artifactId-->
-            <!--artifactId>openid4java</artifactId-->
-            <version>0.9.5</version>
-        </dependency>
-        
+        <!-- OpenID -->     
         <dependency>
             <groupId>com.dyuproject</groupId>
             <artifactId>dyuproject-openid</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.1.6</version>
         </dependency>
             
         <!-- BEGIN: Spring Framework -->
