@@ -34,12 +34,12 @@ public class TwitterFactory {
         return instance;
     }
 
-    public final void setOAuthConsumerKey(final String oAuthConsumerKey) {
+    public final void setoAuthConsumerKey(final String oAuthConsumerKey) {
         this.oAuthConsumerKey = oAuthConsumerKey;
     }
 
-    public final void setOAuthConsumerSecret(final String oAuthConsumerSecret) {
+    public final void setoAuthConsumerSecret(final String oAuthConsumerSecret) {
         this.oAuthConsumerSecret = oAuthConsumerSecret;
     }
-
+    
 }
