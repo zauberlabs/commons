@@ -13,9 +13,9 @@
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</connection>
-     <developerConnection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</developerConnection>
-     <url>https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</url>
+     <connection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/releases/3.25/</connection>
+     <developerConnection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/releases/3.25/</developerConnection>
+     <url>https://code.zaubersoftware.com/repos/sandbox/components/commons/code/releases/3.25/</url>
   </scm>
 
   <licenses>
