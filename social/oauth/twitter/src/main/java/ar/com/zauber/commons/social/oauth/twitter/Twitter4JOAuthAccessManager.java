@@ -3,6 +3,8 @@
  */
 package ar.com.zauber.commons.social.oauth.twitter;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
@@ -66,7 +68,13 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
         return authUrl;
     }
 
-    /** @see OAuthAccessManager#getAccessToken(String, String) */
+    /**
+     * @param oauthToken
+     *            el oauthToken
+     * @param oauthVerifier
+     *            el oauthVerifier en caso de haber uno, o <b>null</b>
+     * @see OAuthAccessManager#getAccessToken(String, String)
+     */
     public final OAuthAccessToken getAccessToken(final String oauthToken,
             final String oauthVerifier) {
         Validate.notNull(oauthToken);
@@ -95,6 +103,24 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
     /** @see OAuthAccessManager#getAccessToken(String) */
     public final OAuthAccessToken getAccessToken(final String oauthToken) {
         return getAccessToken(oauthToken, null);
+    }
+
+    /** @see OAuthAccessManager#getAccessToken(HttpServletRequest) */
+    public OAuthAccessToken getAccessToken(final HttpServletRequest request) {
+        if (!request.getMethod().equals("GET")) {
+            throw new OAuthAccessException(
+                    "Authentication method not supported: "
+                            + request.getMethod());
+        }
+
+        final String oauthToken = request.getParameter("oauth_token");
+        final String oauthVerifier = request.getParameter("oauth_verifier");
+
+        if (oauthToken != null) {
+            return getAccessToken(oauthToken, oauthVerifier);
+        }
+        
+        return null;
     }
 
 }

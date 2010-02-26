@@ -11,6 +11,15 @@
 	<name>Zauber::Commons::Social::OAuth::Api</name>
 
 	<dependencies>
+        <!-- BEGIN: Servlet Dependencies -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- END: Servlet Dependencies -->
+        	
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
