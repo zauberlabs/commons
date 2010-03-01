@@ -3,6 +3,8 @@
  */
 package ar.com.zauber.commons.social.oauth.twitter;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
@@ -36,36 +38,55 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
         this.repository = repository;
     }
 
-    /** @see OAuthAccessManager#getAuthUrl() */
-    public final String getAuthUrl() {
-        return getAuthUrl(null);
+    /** @see OAuthAccessManager#getAuthenticationUrl() */
+    public final String getAuthenticationUrl() {
+        return getAuthenticationUrl(null);
     }
 
-    /** @see OAuthAccessManager#getAuthUrl(String) */
-    public final String getAuthUrl(final String callbackUrl) {
-        RequestToken requestToken = null;
-
-        try {
-            if (StringUtils.isNotEmpty(callbackUrl)) {
-                requestToken = twitterFactory.getInstance()
-                        .getOAuthRequestToken(callbackUrl);
-            } else {
-                requestToken = twitterFactory.getInstance()
-                        .getOAuthRequestToken();
-            }
-        } catch (TwitterException e) {
-            throw new OAuthAccessException(
-                    "Exception when getting request token", e);
-        }
-
-        String authUrl = requestToken.getAuthorizationURL();
+    /** @see OAuthAccessManager#getAuthenticationUrl(String) */
+    public final String getAuthenticationUrl(final String callbackUrl) {
+        final RequestToken requestToken = getRequestToken(callbackUrl);
+        final String authUrl = requestToken.getAuthenticationURL();
 
         repository.save(requestToken.getToken(), new OAuthRequestTokenImpl(
                 requestToken.getToken(), requestToken.getTokenSecret()));
 
         return authUrl;
     }
+    
+    /** @see OAuthAccessManager#getAuthorizationUrl() */
+    public final String getAuthorizationUrl() throws OAuthAccessException {
+        return getAuthorizationUrl(null);
+    }
 
+    /** @see OAuthAccessManager#getAuthorizationUrl(java.lang.String) */
+    public final String getAuthorizationUrl(final String callbackUrl)
+            throws OAuthAccessException {
+        final RequestToken requestToken = getRequestToken(callbackUrl);
+        final String authUrl = requestToken.getAuthorizationURL();
+        
+        repository.save(requestToken.getToken(), new OAuthRequestTokenImpl(
+                requestToken.getToken(), requestToken.getTokenSecret()));
+        
+        return authUrl;
+    }   
+    
+    /** @return the request token */
+    private RequestToken getRequestToken(final String callbackUrl) {
+        try {
+            if (StringUtils.isNotEmpty(callbackUrl)) {
+                return twitterFactory.getInstance().getOAuthRequestToken(
+                        callbackUrl);
+            } else {
+                return twitterFactory.getInstance().getOAuthRequestToken();
+            }
+        } catch (TwitterException e) {
+            throw new OAuthAccessException(
+                    "Exception when getting request token", e);
+        }
+
+    }
+    
     /** @see OAuthAccessManager#getAccessToken(String, String) */
     public final OAuthAccessToken getAccessToken(final String oauthToken,
             final String oauthVerifier) {
@@ -95,6 +116,24 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
     /** @see OAuthAccessManager#getAccessToken(String) */
     public final OAuthAccessToken getAccessToken(final String oauthToken) {
         return getAccessToken(oauthToken, null);
+    }
+    
+    /** @see OAuthAccessManager#getAccessToken(HttpServletRequest) */
+    public OAuthAccessToken getAccessToken(final HttpServletRequest request) {
+        if (!request.getMethod().equals("GET")) {
+            throw new OAuthAccessException(
+                    "Authentication method not supported: "
+                            + request.getMethod());
+        }
+
+        final String oauthToken = request.getParameter("oauth_token");
+        final String oauthVerifier = request.getParameter("oauth_verifier");
+
+        if (oauthToken != null) {
+            return getAccessToken(oauthToken, oauthVerifier);
+        }
+        
+        return null;
     }
 
 }
