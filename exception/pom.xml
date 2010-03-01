@@ -2,7 +2,7 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>3.25</version>
+    <version>3.25.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.zauber.commons</groupId>
