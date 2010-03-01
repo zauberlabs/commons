@@ -31,7 +31,8 @@ public interface OAuthAccessManager {
      * @return el {@link OAuthAccessToken} para el oauthToken indicado,
      *         utilizando el oauthVerifier recibido en el callback
      */
-    OAuthAccessToken getAccessToken(String oauthToken, String oauthVerifier);
+    OAuthAccessToken getAccessToken(String oauthToken, String oauthVerifier)
+            throws OAuthAccessException;
 
     /**
      * Este método obtiene el {@link OAuthAccessToken} del request hecho por
@@ -40,5 +41,6 @@ public interface OAuthAccessManager {
      * 
      * @return el {@link OAuthAccessToken} para el request indicado
      */
-    OAuthAccessToken getAccessToken(HttpServletRequest request);
+    OAuthAccessToken getAccessToken(HttpServletRequest request)
+            throws OAuthAccessException;
 }

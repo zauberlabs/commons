@@ -60,7 +60,7 @@ public class Twitter4JOAuthAccessManager implements OAuthAccessManager {
                     "Exception when getting request token", e);
         }
 
-        String authUrl = requestToken.getAuthorizationURL();
+        final String authUrl = requestToken.getAuthenticationURL();
 
         repository.save(requestToken.getToken(), new OAuthRequestTokenImpl(
                 requestToken.getToken(), requestToken.getTokenSecret()));
