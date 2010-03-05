@@ -15,13 +15,22 @@ import javax.servlet.http.HttpServletRequest;
 public interface OAuthAccessManager {
 
     /** @return la authUrl para autenticar un usuario mediante OAuth */
-    String getAuthUrl() throws OAuthAccessException;
+    String getAuthenticationUrl() throws OAuthAccessException;
 
     /**
      * @return la authUrl para autenticar un usuario mediante OAuth, con la url
      *         callback indicada
      */
-    String getAuthUrl(String callbackUrl) throws OAuthAccessException;
+    String getAuthenticationUrl(String callbackUrl) throws OAuthAccessException;
+
+    /** @return la authUrl para autenticar un usuario mediante OAuth */
+    String getAuthorizationUrl() throws OAuthAccessException;
+
+    /**
+     * @return la authUrl para autenticar un usuario mediante OAuth, con la url
+     *         callback indicada
+     */
+    String getAuthorizationUrl(String callbackUrl) throws OAuthAccessException;
 
     /** @return el {@link OAuthAccessToken} para el oauthToken indicado */
     OAuthAccessToken getAccessToken(String oauthToken)
