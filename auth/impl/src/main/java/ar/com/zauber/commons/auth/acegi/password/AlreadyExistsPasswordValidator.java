@@ -16,7 +16,7 @@
 package ar.com.zauber.commons.auth.acegi.password;
 
 import org.apache.commons.lang.Validate;
-import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import ar.com.zauber.commons.auth.AuthenticationUserMapper;
 import ar.com.zauber.commons.dao.Closure;

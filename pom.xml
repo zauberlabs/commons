@@ -190,7 +190,7 @@
   </dependencies>
   <properties>
       <spring.version>3.0.1.RELEASE</spring.version>
-      <spring.security.version>2.0.4</spring.security.version>
+      <spring.security.version>3.0.2.RELEASE</spring.security.version>
       <hibernate.version>3.3.1.GA</hibernate.version>
       <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
       <doxia.version>1.1</doxia.version>
@@ -357,18 +357,48 @@
         </exclusion>
       </exclusions>
     </dependency>
-      <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core-tiger</artifactId>
-      <version>${spring.security.version}</version>
-      <exclusions>
-        <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-support</artifactId>
-        </exclusion>
-       </exclusions>
-    </dependency>
+    <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aspectjrt</artifactId>
+                    <groupId>org.aspectj</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>aspectjweaver</artifactId>
+                    <groupId>org.aspectj</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
 
+ 
      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>

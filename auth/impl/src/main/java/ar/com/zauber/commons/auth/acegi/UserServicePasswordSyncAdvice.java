@@ -19,11 +19,11 @@ import java.lang.reflect.Method;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.aop.AfterReturningAdvice;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.userdetails.User;
-import org.springframework.security.userdetails.memory.InMemoryDaoImpl;
-import org.springframework.security.userdetails.memory.UserMap;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.memory.InMemoryDaoImpl;
+import org.springframework.security.core.userdetails.memory.UserMap;
 
 /**
  * Este advice está pensado para atrapar los llamados al método registerUser de 

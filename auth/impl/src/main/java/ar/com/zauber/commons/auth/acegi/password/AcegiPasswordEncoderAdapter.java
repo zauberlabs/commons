@@ -17,7 +17,7 @@ package ar.com.zauber.commons.auth.acegi.password;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 /**
  * The oposite of {@link PasswordEnconderAdapter}.

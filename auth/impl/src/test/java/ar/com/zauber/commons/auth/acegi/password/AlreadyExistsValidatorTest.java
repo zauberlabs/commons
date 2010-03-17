@@ -21,9 +21,9 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 import org.apache.commons.lang.NotImplementedException;
-import org.springframework.security.providers.encoding.Md5PasswordEncoder;
-import org.springframework.security.providers.encoding.PasswordEncoder;
-import org.springframework.security.providers.encoding.ShaPasswordEncoder;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 import ar.com.zauber.commons.auth.acegi.password.ldap.AcegiLdapUserPasswordEncoder;
 import ar.com.zauber.commons.auth.acegi.password.ldap.LdapUserPasswordPasswordEncoder;

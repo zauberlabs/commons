@@ -22,8 +22,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.ui.AbstractProcessingFilter;
-import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AbstractProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationProcessingFilter;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.util.WebUtils;
@@ -53,13 +55,13 @@ public final class LoginController extends AbstractController {
         final Map<String, Object> model = new HashMap<String, Object>();
 
         addToModel(request, model,
-                AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY,
+                AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY,
                 "acegiSecurityException");
         addToModel(request, model,
                 AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
                 "username");
         addToModel(request, model,
-                AuthenticationProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY,
+                DefaultSavedRequest.SPRING_SECURITY_SAVED_REQUEST_KEY,
                 "url");
         
         String referer = request.getHeader("Referer");

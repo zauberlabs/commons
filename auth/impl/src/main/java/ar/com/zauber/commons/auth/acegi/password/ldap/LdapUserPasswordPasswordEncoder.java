@@ -15,7 +15,7 @@
  */
 package ar.com.zauber.commons.auth.acegi.password.ldap;
 import org.apache.commons.lang.Validate;
-import org.springframework.security.providers.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import ar.com.zauber.commons.passwd.PasswordEncoder;
 
@@ -29,8 +29,8 @@ import ar.com.zauber.commons.passwd.PasswordEncoder;
  * @since Oct 30, 2006
  */
 public class LdapUserPasswordPasswordEncoder implements PasswordEncoder {
-    private final org.springframework.security.providers.encoding.
-        PasswordEncoder encoder;
+    private final org.springframework.security.authentication.encoding.
+       PasswordEncoder encoder;
     private final String algorithm;
     
     /** 
@@ -44,8 +44,9 @@ public class LdapUserPasswordPasswordEncoder implements PasswordEncoder {
     }
     
     /** constructor */
-    public LdapUserPasswordPasswordEncoder(org.springframework.security.
-            providers.encoding.PasswordEncoder encoder,
+    public LdapUserPasswordPasswordEncoder(
+            final org.springframework.security.authentication.encoding.
+            PasswordEncoder encoder,
             final String algorithm) {
         Validate.notNull(encoder);
         Validate.notEmpty(algorithm);

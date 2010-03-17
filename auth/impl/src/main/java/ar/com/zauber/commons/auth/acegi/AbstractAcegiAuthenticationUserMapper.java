@@ -15,17 +15,18 @@
  */
 package ar.com.zauber.commons.auth.acegi;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.Validate;
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import ar.com.zauber.commons.auth.AuthenticationUserMapper;
 
@@ -92,9 +93,9 @@ public abstract class AbstractAcegiAuthenticationUserMapper<T>
         final Authentication auth = context.getAuthentication();
         final Set<String>ret = new HashSet<String>();
         if(auth.isAuthenticated()) {
-            final GrantedAuthority [] roles = auth.getAuthorities();
-            for (int i = 0; i < roles.length; i++) {
-                ret.add(roles[i].getAuthority());
+            final Collection<GrantedAuthority> roles = auth.getAuthorities();
+            for (final GrantedAuthority role : roles) {
+                ret.add(role.getAuthority());
             }
         }
             

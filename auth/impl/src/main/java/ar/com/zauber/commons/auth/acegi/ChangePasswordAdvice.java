@@ -19,9 +19,9 @@ import java.lang.reflect.Method;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.aop.AfterReturningAdvice;
-import org.springframework.security.userdetails.User;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.memory.InMemoryDaoImpl;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.memory.InMemoryDaoImpl;
 
 
 /**

@@ -29,7 +29,7 @@ import ar.com.zauber.commons.passwd.PasswordEncoder;
  */
 public class PasswordEnconderAdapter implements PasswordEncoder {
     /** encoder to adapt */
-    private final org.springframework.security.providers.encoding.PasswordEncoder 
+    private final org.springframework.security.authentication.encoding.PasswordEncoder 
             encoder;
     
     /**
@@ -38,7 +38,7 @@ public class PasswordEnconderAdapter implements PasswordEncoder {
      * @param encoder encoder to adapt
      */
     public PasswordEnconderAdapter(
-            final org.springframework.security.providers.encoding.PasswordEncoder 
+            final org.springframework.security.authentication.encoding.PasswordEncoder 
             encoder) {
         Validate.notNull(encoder, "encoder");
         

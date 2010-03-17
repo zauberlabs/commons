@@ -20,8 +20,8 @@ import java.util.Map;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.Validate;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.providers.dao.DaoAuthenticationProvider;
-import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 
