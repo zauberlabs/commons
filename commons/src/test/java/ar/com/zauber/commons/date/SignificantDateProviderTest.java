@@ -23,7 +23,7 @@ import junit.framework.Assert;
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 
-import ar.com.zauber.commons.date.impl.CurrentDateProvider;
+import ar.com.zauber.commons.date.impl.InmutableDateProvider;
 import ar.com.zauber.commons.date.impl.SignificantDateProvider;
 
 /**
@@ -33,24 +33,28 @@ import ar.com.zauber.commons.date.impl.SignificantDateProvider;
  * @since Mar 19, 2010
  */
 public class SignificantDateProviderTest {
+    private DateProvider target = new InmutableDateProvider(
+            new Date(1269028059L * 1000));
 
     /** dia del mes */
     @Test
     public final void testDay() {
-        final DateProvider provider = new SignificantDateProvider(
-                new CurrentDateProvider(), Calendar.DAY_OF_MONTH);
+        final DateProvider provider = new SignificantDateProvider(target, 
+                Calendar.DAY_OF_MONTH);
         Assert.assertEquals(
-                DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH), 
+                DateUtils.truncate(new Date(1269028059L * 1000), 
+                        Calendar.DAY_OF_MONTH), 
                 provider.getDate());
     }
     
     /** hora del dia */
     @Test
     public final void testHour() {
-        final DateProvider provider = new SignificantDateProvider(
-                new CurrentDateProvider(), Calendar.HOUR_OF_DAY);
+        final DateProvider provider = new SignificantDateProvider(target, 
+                Calendar.HOUR_OF_DAY);
         Assert.assertEquals(
-                DateUtils.truncate(new Date(), Calendar.HOUR_OF_DAY), 
+                DateUtils.truncate(new Date(1269028059L * 1000),
+                        Calendar.HOUR_OF_DAY), 
                 provider.getDate());
     }
     
