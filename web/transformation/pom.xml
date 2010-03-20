@@ -23,17 +23,10 @@
         <groupId>jtidy</groupId>
      </dependency>
 
-<!--
-     <dependency>
-        <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
-       <scope>provided</scope>
-     </dependency>
-     <dependency>
-       <artifactId>commons-repository-api</artifactId>
-       <groupId>ar.com.zauber.commons.repository</groupId>
-     </dependency>
--->
+    <dependency>
+       <artifactId>spring-beans</artifactId>
+       <groupId>org.springframework</groupId>
+    </dependency>
     <dependency>
        <artifactId>spring-test</artifactId>
        <groupId>org.springframework</groupId>
