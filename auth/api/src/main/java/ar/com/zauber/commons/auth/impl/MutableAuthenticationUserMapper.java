@@ -35,11 +35,16 @@ public class MutableAuthenticationUserMapper<T> implements
     /** Creates the MutableAuthenticationUserMapper. */
     public MutableAuthenticationUserMapper(
             final AuthenticationUserMapper<T> authenticationUserMapper) {
+        validateNotNull(authenticationUserMapper);
+        this.target = authenticationUserMapper;
+    }
+
+    private void validateNotNull(
+            final AuthenticationUserMapper<T> authenticationUserMapper) {
         if(authenticationUserMapper == null) {
             throw new IllegalArgumentException(
                     "Target UserMapper can not be null.");
         }
-        this.target = authenticationUserMapper;
     }
 
     /** @see AuthenticationUserMapper#getRoles() */
@@ -59,6 +64,8 @@ public class MutableAuthenticationUserMapper<T> implements
     
     /** Sets the target. */
     public final void setTarget(final AuthenticationUserMapper<T> target) {
+        validateNotNull(target);
+        
         this.target = target;
     }
     
