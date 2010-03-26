@@ -4,7 +4,7 @@
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
     <groupId>ar.com.zauber.commons</groupId>
-    <version>3.27-SNAPSHOT</version>
+    <version>3.27</version>
   </parent>
   <name>Zauber::Commons::Conversion::Parent</name>
   <groupId>ar.com.zauber.commons</groupId>
