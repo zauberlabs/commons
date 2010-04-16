@@ -428,14 +428,14 @@ public class SpringHibernateRepositoryTest extends
             new SimpleQuery<DireccionDummy>(DireccionDummy.class, 
                 new NullFilter(), null, null);
         
-        assertEquals(new Integer(2), repository.aggregate(q, 
-                new RowCountAggregateFilter(), Integer.class));
+        assertEquals(Long.valueOf(2), repository.aggregate(q, 
+                new RowCountAggregateFilter(), Long.class));
         
-        assertEquals(new Integer(5678), repository.aggregate(q, 
+        assertEquals(Integer.valueOf(5678), repository.aggregate(q, 
                 new MaxPropertyAggregateFunction("numero"), Integer.class));
         
         
-        assertEquals(new Integer(1234), repository.aggregate(q, 
+        assertEquals(Integer.valueOf(1234), repository.aggregate(q, 
                 new MinPropertyAggregateFunction("numero"), Integer.class));
     }
 
@@ -474,8 +474,8 @@ public class SpringHibernateRepositoryTest extends
                     PersonaDummy.class, new NullFilter(), paging, ordering);
 
         if (paging != null && !paging.hasResultSize()) {
-            paging.setResultSize((Integer)repository.aggregate(query,
-                    new RowCountAggregateFilter(), Integer.class));
+            paging.setResultSize((Long)repository.aggregate(query,
+                    new RowCountAggregateFilter(), Long.class));
         }
         final List<PersonaDummy> d = repository.find(query);
         assertEquals(5, d.size());
@@ -539,7 +539,7 @@ public class SpringHibernateRepositoryTest extends
          assertEquals(1234, row[2]);
          
          row = (Object []) rows.get(1);
-         assertEquals(6, row[0]);
+         assertEquals(6L, row[0]);
          assertEquals("Cordoba", row[1]);
          assertEquals(5678, row[2]);
     }
@@ -570,7 +570,7 @@ public class SpringHibernateRepositoryTest extends
          assertEquals(rows.size(), 2);
          
          Object[] row = (Object []) rows.get(0);
-         assertEquals(6, row[0]);
+         assertEquals(6L, row[0]);
          assertEquals("Cordoba", row[1]);
          assertEquals(5678, row[2]);
          
@@ -610,7 +610,7 @@ public class SpringHibernateRepositoryTest extends
          assertEquals(1, result.size());
          
          Object[] row = (Object []) result.get(0);
-         assertEquals(1, row[0]);
+         assertEquals(1L, row[0]);
          assertEquals("Juan", row[1]);
          assertEquals(1111, row[2]);
     }
@@ -643,7 +643,7 @@ public class SpringHibernateRepositoryTest extends
         }
         assertEquals(1, result.size());
          
-        Integer row = (Integer) result.get(0);
+        Long row = (Long) result.get(0);
         assertEquals(12, row.intValue());
                  
     }
@@ -658,7 +658,7 @@ public class SpringHibernateRepositoryTest extends
                             new PropertyValue("id")), null, null);
 
 
-        assertEquals(Integer.valueOf(6), 
-          repository.aggregate(q1, new RowCountAggregateFilter(), Integer.class));
+        assertEquals(Long.valueOf(6), 
+          repository.aggregate(q1, new RowCountAggregateFilter(), Long.class));
     }
 }

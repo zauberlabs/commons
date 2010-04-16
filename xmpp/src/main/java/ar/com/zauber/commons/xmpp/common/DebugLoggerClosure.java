@@ -16,7 +16,8 @@
 package ar.com.zauber.commons.xmpp.common;
 
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.dao.Closure;
 
@@ -28,7 +29,7 @@ import ar.com.zauber.commons.dao.Closure;
  * @param <T> param
  */
 public class DebugLoggerClosure<T> implements Closure<T> {
-    private final Logger logger = Logger.getLogger(DebugLoggerClosure.class);
+    private final Logger logger = LoggerFactory.getLogger(DebugLoggerClosure.class);
     private final Closure<?> target;
     
     /** Creates the LoggerClosure.*/
@@ -41,7 +42,7 @@ public class DebugLoggerClosure<T> implements Closure<T> {
     /** @see Closure#execute(Object) */
     public final void execute(final T t) {
         if(logger.isDebugEnabled()) {
-            logger.debug(t);
+            logger.debug("{}", t);
         }
         target.equals(t);        
     }

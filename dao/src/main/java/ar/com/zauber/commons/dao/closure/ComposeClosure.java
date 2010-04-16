@@ -16,7 +16,8 @@
 package ar.com.zauber.commons.dao.closure;
 
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.dao.Closure;
 
@@ -29,7 +30,7 @@ import ar.com.zauber.commons.dao.Closure;
  */
 public class ComposeClosure<T> implements Closure<T> {
     private final Iterable<Closure<T>> closures;
-    private Logger logger = Logger.getLogger(ComposeClosure.class);
+    private Logger logger = LoggerFactory.getLogger(ComposeClosure.class);
     
     /** Creates the ComposeClosure. */
     public ComposeClosure(final Iterable<Closure<T>> closures) {

@@ -187,15 +187,21 @@
         <artifactId>junit</artifactId>
         <groupId>junit</groupId>
      </dependency>
+     <dependency>
+        <groupId>org.slf4j</groupId> 
+        <artifactId>slf4j-nop</artifactId> 
+        <version>${slf4j.version}</version>
+        <scope>test</scope>
+     </dependency>
   </dependencies>
   <properties>
-      <spring.version>3.0.1.RELEASE</spring.version>
+      <spring.version>3.0.2.RELEASE</spring.version>
       <spring.security.version>3.0.2.RELEASE</spring.security.version>
-      <hibernate.version>3.3.1.GA</hibernate.version>
-      <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
+      <hibernate.version>3.5.1-Final</hibernate.version>
       <doxia.version>1.1</doxia.version>
       <jetty.version>6.1.9</jetty.version>
       <leviathan.version>0.0</leviathan.version>
+      <slf4j.version>1.5.8</slf4j.version>
 
     <sonar.mantis.id>44</sonar.mantis.id>
     <crono.organization.name>zauber</crono.organization.name>
@@ -223,31 +229,10 @@
       </dependency>
 
       <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.15</version>
-        <exclusions>
-           <exclusion>
-             <groupId>javax.mail</groupId>
-             <artifactId>mail</artifactId>
-           </exclusion>
-           <exclusion>
-             <groupId>javax.jms</groupId>
-             <artifactId>jms</artifactId>
-           </exclusion>
-           <exclusion>
-             <groupId>com.sun.jmx</groupId>
-             <artifactId>jmxri</artifactId>
-           </exclusion>
-           <exclusion>
-             <groupId>com.sun.jdmk</groupId>
-             <artifactId>jmxtools</artifactId>
-           </exclusion>
-
-        </exclusions>
-        <scope>test</scope>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
       </dependency>
-
       <dependency>
         <artifactId>jtidy</artifactId>
         <groupId>jtidy</groupId>
@@ -312,13 +297,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-annotations</artifactId>
-      <version>${hibernate.annotations.version}</version>
-      <exclusions>
-        <exclusion>
-           <groupId>org.hibernate</groupId>
-           <artifactId>hibernate-commons-annotations</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>${hibernate.version}</version>
     </dependency>
     
      <!-- spring -->

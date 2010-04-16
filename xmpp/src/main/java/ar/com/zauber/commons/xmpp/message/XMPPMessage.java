@@ -19,7 +19,8 @@ import java.util.Locale;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.packet.PacketExtension;
 import org.jivesoftware.smackx.XHTMLManager;
@@ -29,7 +30,7 @@ import ar.com.zauber.commons.message.NotificationAddress;
 
 /**
  * Mensaje XMPP. Esta acopablado al {@link XMPPNotificationStrategy}, para
- * aprovechar al máximo el protocolo:
+ * aprovechar al mï¿½ximo el protocolo:
  *    - Internalizacion de los mensajes
  *    - formularios
  *    - mensajes html.
@@ -40,7 +41,7 @@ import ar.com.zauber.commons.message.NotificationAddress;
 public class XMPPMessage extends XMPPMessageAttributes implements Message {
     private final String defaultContent;
     private final String defaultSubject;
-    private static final Logger LOGGER = Logger.getLogger(XMPPMessage.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XMPPMessage.class);
     
     /**
      * @param defaultContent  contentido del mensaje
@@ -72,7 +73,7 @@ public class XMPPMessage extends XMPPMessageAttributes implements Message {
 
     
     /** 
-     * @param jid destinatario del mensaje. esto es útil para verificar las
+     * @param jid destinatario del mensaje. esto es ï¿½til para verificar las
      *       capacidades del destinatario
      * @return el mensaje xmmp propiamente dicho, rendereado.
      */

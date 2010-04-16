@@ -19,7 +19,8 @@ package ar.com.zauber.commons.dao.closure;
 
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.dao.Closure;
 
@@ -32,7 +33,7 @@ import ar.com.zauber.commons.dao.Closure;
  * @param <T> Type
  */
 public class ErrorLoggerWrapperClosure<T> implements Closure<T> {
-    private final Logger logger = Logger.getLogger(ErrorLoggerWrapperClosure.class);
+    private final Logger logger = LoggerFactory.getLogger(ErrorLoggerWrapperClosure.class);
     private final Closure<T> target;
     
     /** Creates the WrapperClosure. */

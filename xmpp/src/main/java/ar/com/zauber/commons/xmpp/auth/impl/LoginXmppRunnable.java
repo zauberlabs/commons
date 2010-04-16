@@ -16,9 +16,10 @@
 package ar.com.zauber.commons.xmpp.auth.impl;
 
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.xmpp.auth.XmppCredentialsProvider;
 
@@ -32,7 +33,7 @@ import ar.com.zauber.commons.xmpp.auth.XmppCredentialsProvider;
 public class LoginXmppRunnable implements Runnable {
     private final XMPPConnection connection;
     private final XmppCredentialsProvider provider;
-    private final Logger logger = Logger.getLogger(LoginXmppRunnable.class);
+    private final Logger logger = LoggerFactory.getLogger(LoginXmppRunnable.class);
     
     /** Creates the LoginXmppRunnable. */
     public LoginXmppRunnable(final XMPPConnection connection, 

@@ -28,7 +28,8 @@ import java.util.Map.Entry;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 import org.springframework.beans.BeansException;
@@ -84,7 +85,7 @@ public class SpringInjectionInterceptor extends EmptyInterceptor
     private ApplicationContext ctx;
     private final Map<Class<?>, DependencyInjection> dependencyCache = 
         new HashMap<Class<?>, DependencyInjection>();
-    private final Logger log =  Logger.getLogger(SpringInjectionInterceptor.class);
+    private final Logger log =  LoggerFactory.getLogger(SpringInjectionInterceptor.class);
  
     /**
      * @param persistibleClasses persistible classes that may requiere dependency
