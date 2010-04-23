@@ -3,12 +3,8 @@
  */
 package ar.com.zauber.commons.web.uri.assets;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
+import ar.com.zauber.commons.web.uri.assets.model.AssetModel;
+import ar.com.zauber.commons.web.uri.assets.model.JavascriptAsset;
 
 /**
  * Marks a Javascript asset to be included within the jsp page.
@@ -16,33 +12,15 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author Mariano Cortesi
  * @since Dec 14, 2009
  */
-public class JavascriptTag extends TagSupport {
+public class JavascriptTag extends AssetIncludeTag {
 
     /** <code>serialVersionUID</code> */
-    private static final long serialVersionUID = 1713257254742184480L;
-    
-    private String property = Assets.JS_KEY;
-    private String key;
-    
-    /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
-    @SuppressWarnings("unchecked")
+    private static final long serialVersionUID = 7382501689538531396L;
+
+    /** @see AssetIncludeTag#getAsset() */
     @Override
-    public final int doStartTag() throws JspException {
-        List<String> javascripts = 
-            (List<String>) this.pageContext.findAttribute(property);
-        if (javascripts == null) {
-            javascripts = new LinkedList<String>();
-            this.pageContext.getRequest().setAttribute(property, javascripts);
-        }
-        javascripts.add(key);
-        return Tag.SKIP_BODY;
+    protected final AssetModel getAsset() {
+        return new JavascriptAsset(getKey());
     }
 
-    public final void setProperty(final String property) {
-        this.property = property;
-    }
-
-    public final void setKey(final String key) {
-        this.key = key;
-    }
 }

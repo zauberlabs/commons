@@ -9,87 +9,45 @@
     <uri>http://labs.zauber.com.ar/commons/functions/uri</uri>
     
     <function>
-        <name>build0p</name>
+        <name>build0</name>
         <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
         <function-signature>
           java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String)
         </function-signature>
     </function>
     <function>
-        <name>build1p</name>
+        <name>build1</name>
         <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
         <function-signature>
           java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object)
         </function-signature>
     </function>
     <function>
-        <name>build2p</name>
+        <name>build2</name>
         <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
         <function-signature>
           java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object)
         </function-signature>
     </function>
     <function>
-        <name>build3p</name>
+        <name>build3</name>
         <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
         <function-signature>
           java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object)
         </function-signature>
     </function>
     <function>
-        <name>build4p</name>
+        <name>build4</name>
         <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
         <function-signature>
           java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)
         </function-signature>
     </function>
     <function>
-        <name>build5p</name>
+        <name>build5</name>
         <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
         <function-signature>
           java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)
-        </function-signature>
-    </function>
-    <function>
-        <name>build0u</name>
-        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
-        <function-signature>
-          java.lang.String build(ar.com.zauber.commons.web.uri.UriFactory, java.lang.String)
-        </function-signature>
-    </function>
-    <function>
-        <name>build1u</name>
-        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
-        <function-signature>
-          java.lang.String build(ar.com.zauber.commons.web.uri.UriFactory, java.lang.String, java.lang.Object)
-        </function-signature>
-    </function>
-    <function>
-        <name>build2u</name>
-        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
-        <function-signature>
-          java.lang.String build(ar.com.zauber.commons.web.uri.UriFactory, java.lang.String, java.lang.Object, java.lang.Object)
-        </function-signature>
-    </function>
-    <function>
-        <name>build3u</name>
-        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
-        <function-signature>
-          java.lang.String build(ar.com.zauber.commons.web.uri.UriFactory, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object)
-        </function-signature>
-    </function>
-    <function>
-        <name>build4u</name>
-        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
-        <function-signature>
-          java.lang.String build(ar.com.zauber.commons.web.uri.UriFactory, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)
-        </function-signature>
-    </function>
-    <function>
-        <name>build5u</name>
-        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
-        <function-signature>
-          java.lang.String build(ar.com.zauber.commons.web.uri.UriFactory, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)
         </function-signature>
     </function>
     

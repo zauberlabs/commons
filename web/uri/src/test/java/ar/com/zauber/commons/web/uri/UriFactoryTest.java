@@ -14,8 +14,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+import ar.com.zauber.commons.web.uri.factory.RelativeUriFactory;
+
 /**
- * TODO Descripcion de la clase. Los comentarios van en castellano.
+ * {@link RelativeUriFactory} Test.
  * 
  * 
  * @author Mariano Cortesi
@@ -23,52 +25,43 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
  */
 public class UriFactoryTest {
 
-    private UriFactory uriFactory;
+    private RelativeUriFactory relativeUriFactory;
 
     /** set up */
     @Before
     public final void setUp() {
         Map<String, String> uris = new HashMap<String, String>();
         uris.put("propertiesAndMethods",
-                "{#root[0].propA}+{#root[0].computedProperty()}+"
+                "/{#root[0].propA}+{#root[0].computedProperty()}+"
                         + "{#root[0].propertyCollection()[2]}");
-        uris.put("singleArgument", "hola/que/tal/{#root[0].propA}");
+        uris.put("singleArgument", "/hola/que/tal/{#root[0].propA}");
         uris.put("multipleArguments",
-                "hola/que/tal/{#root[0].propA}...{#root[1]}");
-        this.uriFactory = new UriFactory("http://localhost/", "BASE/",
+                "/hola/que/tal/{#root[0].propA}...{#root[1]}");
+        this.relativeUriFactory = new RelativeUriFactory(
                 new SpelExpressionParser(), uris);
     }
 
     /** test */
     @Test
     public final void propertiesAndMethods() {
-        String uri = this.uriFactory.buildUri("propertiesAndMethods",
+        String uri = this.relativeUriFactory.buildUri("propertiesAndMethods",
                 new Stub());
-        String noHostUri = this.uriFactory.buildUri(false,
-                "propertiesAndMethods", new Stub());
-        assertEquals("http://localhost/BASE/hola+5+tres", uri);
-        assertEquals("BASE/hola+5+tres", noHostUri);
+        assertEquals("/hola+5+tres", uri);
     }
 
     /** test */
     @Test
     public final void singleArgument() {
-        String uri = this.uriFactory.buildUri("singleArgument", new Stub());
-        String noHostUri = this.uriFactory.buildUri(false, "singleArgument",
-                new Stub());
-        assertEquals("http://localhost/BASE/hola/que/tal/hola", uri);
-        assertEquals("BASE/hola/que/tal/hola", noHostUri);
+        String uri = this.relativeUriFactory.buildUri("singleArgument", new Stub());
+        assertEquals("/hola/que/tal/hola", uri);
     }
 
     /** test */
     @Test
     public final void multipleArguments() {
-        String uri = this.uriFactory.buildUri("multipleArguments", new Stub(),
+        String uri = this.relativeUriFactory.buildUri("multipleArguments", new Stub(),
                 new Integer(90));
-        String noHostUri = this.uriFactory.buildUri(false, "multipleArguments",
-                new Stub(), new Integer(90));
-        assertEquals("http://localhost/BASE/hola/que/tal/hola...90", uri);
-        assertEquals("BASE/hola/que/tal/hola...90", noHostUri);
+        assertEquals("/hola/que/tal/hola...90", uri);
 
     }
 }

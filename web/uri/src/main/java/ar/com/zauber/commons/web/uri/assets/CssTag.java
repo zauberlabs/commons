@@ -3,12 +3,8 @@
  */
 package ar.com.zauber.commons.web.uri.assets;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
+import ar.com.zauber.commons.web.uri.assets.model.AssetModel;
+import ar.com.zauber.commons.web.uri.assets.model.CssAsset;
 
 /**
  * Marks a css asset to be included within the jsp page.
@@ -16,33 +12,21 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author Mariano Cortesi
  * @since Dec 14, 2009
  */
-public class CssTag extends TagSupport {
+public class CssTag extends AssetIncludeTag {
 
     /** <code>serialVersionUID</code> */
-    private static final long serialVersionUID = 1713257254742184480L;
+    private static final long serialVersionUID = -706464019083783327L;
     
-    private String property = Assets.CSS_KEY;
-    private String key;
-    
-    /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
-    @SuppressWarnings("unchecked")
+    private String media = "all";
+
+    public final void setMedia(final String media) {
+        this.media = media;
+    }
+
+    /** @see AssetIncludeTag#getAsset() */
     @Override
-    public final int doStartTag() throws JspException {
-        List<String> javascripts = 
-            (List<String>) this.pageContext.findAttribute(property);
-        if (javascripts == null) {
-            javascripts = new LinkedList<String>();
-            this.pageContext.getRequest().setAttribute(property, javascripts);
-        }
-        javascripts.add(key);
-        return Tag.SKIP_BODY;
+    protected final AssetModel getAsset() {
+        return new CssAsset(getKey(), this.media);
     }
 
-    public final void setProperty(final String property) {
-        this.property = property;
-    }
-
-    public final void setKey(final String key) {
-        this.key = key;
-    }
 }

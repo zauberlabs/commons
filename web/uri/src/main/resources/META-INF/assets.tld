@@ -14,6 +14,12 @@
         <body-content>JSP</body-content>
         <description>Marks a javascript assets as needed for inclusion</description>    
         <attribute>
+            <name>set</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The name of the set of assets</description>
+        </attribute>
+        <attribute>
             <name>key</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
@@ -38,11 +44,23 @@
             <description>The key to the Css Asset</description>
         </attribute>
         <attribute>
+            <name>media</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>CSS media type ('all' by default)</description>
+        </attribute>
+        <attribute>
             <name>property</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <description>The attribute key to use to store css</description>
         </attribute>
+        <attribute>
+            <name>set</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>The name of the set of assets</description>
+        </attribute>        
     </tag>
     <tag>
         <name>image</name>
@@ -74,11 +92,11 @@
             <description>The webContext attribute key</description>
         </attribute>
         <attribute>
-            <name>jsProperty</name>
+            <name>set</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-            <description>The attribute key to use to store javascripts</description>
-        </attribute>            
+            <description>The name of the set of assets</description>
+        </attribute>                    
     </tag>
     
 </taglib>
