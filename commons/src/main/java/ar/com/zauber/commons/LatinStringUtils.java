@@ -37,37 +37,47 @@ public abstract class LatinStringUtils {
         ACCENTS_MAP.put('á', 'a');
         ACCENTS_MAP.put('à', 'a');
         ACCENTS_MAP.put('ä', 'a');
+        ACCENTS_MAP.put('â', 'a');
         ACCENTS_MAP.put('Á', 'A');
         ACCENTS_MAP.put('À', 'A');
         ACCENTS_MAP.put('Ä', 'A');
+        ACCENTS_MAP.put('Â', 'A');
         
         ACCENTS_MAP.put('é', 'e');
         ACCENTS_MAP.put('è', 'e');
         ACCENTS_MAP.put('ë', 'e');
+        ACCENTS_MAP.put('ê', 'e');
         ACCENTS_MAP.put('É', 'E');
         ACCENTS_MAP.put('È', 'E');
         ACCENTS_MAP.put('Ë', 'E');
+        ACCENTS_MAP.put('Ê', 'E');
         
         ACCENTS_MAP.put('í', 'i');
         ACCENTS_MAP.put('ì', 'i');
         ACCENTS_MAP.put('ï', 'i');
+        ACCENTS_MAP.put('î', 'i');
         ACCENTS_MAP.put('Ì', 'I');
         ACCENTS_MAP.put('Í', 'I');
         ACCENTS_MAP.put('Ï', 'I');
+        ACCENTS_MAP.put('Î', 'I');
         
         ACCENTS_MAP.put('ó', 'o');
         ACCENTS_MAP.put('ò', 'o');
+        ACCENTS_MAP.put('ô', 'o');
         ACCENTS_MAP.put('ö', 'o');
         ACCENTS_MAP.put('Ó', 'O');
         ACCENTS_MAP.put('Ò', 'O');
         ACCENTS_MAP.put('Ö', 'O');
+        ACCENTS_MAP.put('Ô', 'O');
         
         ACCENTS_MAP.put('ú', 'u');
         ACCENTS_MAP.put('ù', 'u');
         ACCENTS_MAP.put('ü', 'u');
+        ACCENTS_MAP.put('û', 'u');
         ACCENTS_MAP.put('Ú', 'U');
         ACCENTS_MAP.put('Ù', 'U');
         ACCENTS_MAP.put('Ü', 'U');
+        ACCENTS_MAP.put('Û', 'U');
         
         ACCENTS_MAP.put('ñ', 'n');
         ACCENTS_MAP.put('Ñ', 'N');
