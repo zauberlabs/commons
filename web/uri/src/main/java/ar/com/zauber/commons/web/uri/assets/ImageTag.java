@@ -5,6 +5,7 @@ package ar.com.zauber.commons.web.uri.assets;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.Tag;
@@ -26,17 +27,26 @@ public class ImageTag extends TagSupport {
 
     private String key;
     private String context = Assets.WEBCONTEXT_KEY;
+    private String version = Assets.APPVERSION_KEY;
 
     /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
     @Override
     public final int doStartTag() throws JspException {
-        WebContext ctx = (WebContext) this.pageContext.findAttribute(context);
+        
+        WebContext webContext = (WebContext) this.pageContext.findAttribute(context);
+        if (webContext == null) {
+            String contextPath = 
+                ((HttpServletRequest) this.pageContext.getRequest())
+                .getContextPath();
+            String appVersion = (String) this.pageContext.findAttribute(version);
+            webContext = new WebContext(contextPath, appVersion);
+        }
 
         StringBuilder str = new StringBuilder();
-        str.append(ctx.getContext());
+        str.append(webContext.getContext());
         str.append(this.key);
         str.append("?v=");
-        str.append(ctx.getVersion());
+        str.append(webContext.getVersion());
 
         JspWriter out = this.pageContext.getOut();
         try {
