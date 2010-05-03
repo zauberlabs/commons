@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.social</groupId>
-    <version>3.30-SNAPSHOT</version>
+    <version>3.29.1</version>
   </parent>
   <name>Zauber::Commons::Social::Facebook</name>
   <artifactId>commons-social-facebook</artifactId>
