@@ -9,17 +9,14 @@ import org.apache.commons.lang.Validate;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import ar.com.zauber.commons.web.uri.factory.ExpressionMapUriFactory;
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
- * Jsp 2.0 Functions para ser llamadas por desde JSP EL, con la función de
- * construir uris.
+ * Jsp 2.0 Functions to be used within JSP EL; created as an easy access
+ * to the {@link UriFactory} of the application.
  * 
- * <p>
- * Para ello, buscan un {@link ExpressionMapUriFactory} en el
- * {@link PageContext} con la clave {@link #URI_FACTORY_KEY}
- * 
+ * <p>The {@link UriFactory} used to create URIs is accesed as a Spring Bean
+ * with id defined as in {@link SpringBeans#LINK_URIFACTORY_KEY}.
  * 
  * @author Mariano Cortesi
  * @since Jan 29, 2010

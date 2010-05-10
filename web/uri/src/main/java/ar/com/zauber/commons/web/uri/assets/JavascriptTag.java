@@ -11,6 +11,7 @@ import ar.com.zauber.commons.web.uri.model.JavascriptAsset;
  * 
  * @author Mariano Cortesi
  * @since Dec 14, 2009
+ * @see AssetIncludeTag
  */
 public class JavascriptTag extends AssetIncludeTag {
 

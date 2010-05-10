@@ -13,7 +13,12 @@ import ar.com.zauber.commons.web.uri.model.AssetModel;
 import ar.com.zauber.commons.web.uri.model.AssetRepository;
 
 /**
- * Abstract tag to make {@link AssetModel} inclusions.
+ * <p>Abstract tag to make {@link AssetModel} inclusions.
+ * 
+ * <p>To register the included assets, the tags depends on a 
+ * {@link AssetRepository} that should be defined as a Spring Bean
+ * with the key defined in {@link SpringBeans}. This bean, must be
+ * defined with <b>request</b> scope.
  * 
  * @author Mariano Cortesi
  * @since Apr 23, 2010
