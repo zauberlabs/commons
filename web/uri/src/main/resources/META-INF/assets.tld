@@ -25,12 +25,6 @@
             <rtexprvalue>true</rtexprvalue>
             <description>The key to the Javascript Asset</description>
         </attribute>
-        <attribute>
-            <name>property</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <description>The attribute key to use to store javascripts</description>
-        </attribute>
     </tag>
     <tag>
         <name>css</name>
@@ -50,12 +44,6 @@
             <description>CSS media type ('all' by default)</description>
         </attribute>
         <attribute>
-            <name>property</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <description>The attribute key to use to store css</description>
-        </attribute>
-        <attribute>
             <name>set</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -73,24 +61,12 @@
             <rtexprvalue>true</rtexprvalue>
             <description>The key to the image Asset</description>
         </attribute>
-        <attribute>
-            <name>context</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <description>The webContext attribute key</description>
-        </attribute>
     </tag>
     <tag>
         <name>print</name>
         <tag-class>ar.com.zauber.commons.web.uri.assets.PrintTag</tag-class>
         <body-content>JSP</body-content>
         <description>Prints all needed assets as previously selected with this taglib</description>
-        <attribute>
-            <name>context</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <description>The webContext attribute key</description>
-        </attribute>
         <attribute>
             <name>set</name>
             <required>false</required>

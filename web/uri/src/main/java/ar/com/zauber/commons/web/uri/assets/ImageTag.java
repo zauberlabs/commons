@@ -5,13 +5,14 @@ package ar.com.zauber.commons.web.uri.assets;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
 
-import ar.com.zauber.commons.web.uri.WebContext;
+import org.springframework.web.context.WebApplicationContext;
+
+import ar.com.zauber.commons.web.uri.SpringBeans;
+import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
  * Prints an image url using an image key.
@@ -20,46 +21,28 @@ import ar.com.zauber.commons.web.uri.WebContext;
  * @author Mariano Cortesi
  * @since Dec 14, 2009
  */
-public class ImageTag extends TagSupport {
+public class ImageTag extends AbstractSpringTag {
 
     /** <code>serialVersionUID</code> */
     private static final long serialVersionUID = -3624874122306975946L;
 
     private String key;
-    private String context = Assets.WEBCONTEXT_KEY;
-    private String version = Assets.APPVERSION_KEY;
 
     /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
     @Override
     public final int doStartTag() throws JspException {
+        WebApplicationContext appCtx = getApplicationContext();
+        UriFactory uriFactory = appCtx.getBean(SpringBeans.ASSET_URIFACTORY_KEY,
+                UriFactory.class); 
         
-        WebContext webContext = (WebContext) this.pageContext.findAttribute(context);
-        if (webContext == null) {
-            String contextPath = 
-                ((HttpServletRequest) this.pageContext.getRequest())
-                .getContextPath();
-            String appVersion = (String) this.pageContext.findAttribute(version);
-            webContext = new WebContext(contextPath, appVersion);
-        }
-
-        StringBuilder str = new StringBuilder();
-        str.append(webContext.getContext());
-        str.append(this.key);
-        str.append("?v=");
-        str.append(webContext.getVersion());
-
         JspWriter out = this.pageContext.getOut();
         try {
-            out.write(str.toString());
+            out.write(uriFactory.buildUri(this.key));
         } catch (IOException e) {
             throw new JspException(e);
         }
 
         return Tag.SKIP_BODY;
-    }
-
-    public final void setContext(final String context) {
-        this.context = context;
     }
 
     public final void setKey(final String key) {

@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2010 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.web.uri.assets.model;
+package ar.com.zauber.commons.web.uri.model;
 
 import org.apache.commons.lang.Validate;
 
-import ar.com.zauber.commons.web.uri.WebContext;
+import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
  * Models a Css Asset
@@ -26,13 +26,10 @@ public class CssAsset extends AssetModel {
 
     /** @see AssetModel#toHtml(WebContext) */
     @Override
-    public final String toHtml(final WebContext webContext) {
+    public final String toHtml(final UriFactory uriFactory) {
         StringBuilder str = new StringBuilder();
         str.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"");
-        str.append(webContext.getContext());
-        str.append(this.getKey());
-        str.append("?v=");
-        str.append(webContext.getVersion());
+        str.append(uriFactory.buildUri(getKey()));
         str.append("\" media=\"")
            .append(this.media)
            .append("\" />");

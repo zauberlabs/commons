@@ -3,8 +3,8 @@
  */
 package ar.com.zauber.commons.web.uri.assets;
 
-import ar.com.zauber.commons.web.uri.assets.model.AssetModel;
-import ar.com.zauber.commons.web.uri.assets.model.JavascriptAsset;
+import ar.com.zauber.commons.web.uri.model.AssetModel;
+import ar.com.zauber.commons.web.uri.model.JavascriptAsset;
 
 /**
  * Marks a Javascript asset to be included within the jsp page.

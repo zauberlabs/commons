@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2010 Zauber S.A. -- All rights reserved
  */
-package ar.com.zauber.commons.web.uri;
+package ar.com.zauber.commons.web.uri.factory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,18 +14,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
-import ar.com.zauber.commons.web.uri.factory.RelativeUriFactory;
-
 /**
- * {@link RelativeUriFactory} Test.
- * 
+ * {@link ExpressionMapUriFactory} Test.
  * 
  * @author Mariano Cortesi
  * @since Jan 29, 2010
  */
-public class UriFactoryTest {
+public class ExpressionMapUriFactoryTest {
 
-    private RelativeUriFactory relativeUriFactory;
+    private ExpressionMapUriFactory expMapUriFactory;
 
     /** set up */
     @Before
@@ -37,14 +34,14 @@ public class UriFactoryTest {
         uris.put("singleArgument", "/hola/que/tal/{#root[0].propA}");
         uris.put("multipleArguments",
                 "/hola/que/tal/{#root[0].propA}...{#root[1]}");
-        this.relativeUriFactory = new RelativeUriFactory(
+        this.expMapUriFactory = new ExpressionMapUriFactory(
                 new SpelExpressionParser(), uris);
     }
 
     /** test */
     @Test
     public final void propertiesAndMethods() {
-        String uri = this.relativeUriFactory.buildUri("propertiesAndMethods",
+        String uri = this.expMapUriFactory.buildUri("propertiesAndMethods",
                 new Stub());
         assertEquals("/hola+5+tres", uri);
     }
@@ -52,35 +49,38 @@ public class UriFactoryTest {
     /** test */
     @Test
     public final void singleArgument() {
-        String uri = this.relativeUriFactory.buildUri("singleArgument", new Stub());
+        String uri = this.expMapUriFactory.buildUri("singleArgument", new Stub());
         assertEquals("/hola/que/tal/hola", uri);
     }
 
     /** test */
     @Test
     public final void multipleArguments() {
-        String uri = this.relativeUriFactory.buildUri("multipleArguments", new Stub(),
+        String uri = this.expMapUriFactory.buildUri("multipleArguments", new Stub(),
                 new Integer(90));
         assertEquals("/hola/que/tal/hola...90", uri);
 
     }
-}
 
-/** TODO javadoc */
-class Stub {
-    private String propA = "hola";
-
-    public String getPropA() {
-        return this.propA;
-    }
-
-    /** TODO javadoc */
-    public Integer computedProperty() {
-        return 5;
-    }
-
-    /** TODO javadoc */
-    public Collection<String> propertyCollection() {
-        return Arrays.asList(new String[] {"uno", "dos", "tres"});
+    /** Test Stub */
+    private static class Stub {
+        private String propA = "hola";
+        
+        @SuppressWarnings("unused")
+        public String getPropA() {
+            return this.propA;
+        }
+        
+        /** TODO javadoc */
+        @SuppressWarnings("unused")
+        public Integer computedProperty() {
+            return 5;
+        }
+        
+        /** TODO javadoc */
+        @SuppressWarnings("unused")
+        public Collection<String> propertyCollection() {
+            return Arrays.asList(new String[] {"uno", "dos", "tres"});
+        }
     }
 }

@@ -38,21 +38,21 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  * <p>
  * El contenido entre los <code>{}</code> es evaluado por el lenguaje. La
  * variable <code>#root</code> refiere al array de argumentos que se pasan al
- * método {@link RelativeUriFactory#buildUri(String, Object...)}.
+ * método {@link ExpressionMapUriFactory#buildUri(String, Object...)}.
  * Además puede invocarse a la función #encode que llama a URLEncoder#encode(...)
  * para encoding utf-8.
  * 
  * @author Mariano Cortesi
  * @since Jan 29, 2010
  */
-public class RelativeUriFactory implements UriFactory {
+public class ExpressionMapUriFactory implements UriFactory {
 
     private final Map<String, Expression> uriMap = new HashMap<String, Expression>();
     
     private final StandardEvaluationContext ctx;
 
     /** Construye un UriFactor */
-    public RelativeUriFactory(final ExpressionParser parser, 
+    public ExpressionMapUriFactory(final ExpressionParser parser, 
             final Map<String, String> uris) {
         Validate.notNull(uris);
         Validate.notNull(parser);

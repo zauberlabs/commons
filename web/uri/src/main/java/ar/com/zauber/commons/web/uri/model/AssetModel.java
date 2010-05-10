@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2010 Zauber S.A.  -- All rights reserved
  */
-package ar.com.zauber.commons.web.uri.assets.model;
+package ar.com.zauber.commons.web.uri.model;
 
 import org.apache.commons.lang.Validate;
 
-import ar.com.zauber.commons.web.uri.WebContext;
+import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
  * Models an Asset
@@ -28,5 +28,5 @@ public abstract class AssetModel {
     }
 
     /** Transforms the {@link AssetModel} into the proper HTML include tag */
-    public abstract String toHtml(WebContext webContext);
+    public abstract String toHtml(UriFactory uriFactory);
 }

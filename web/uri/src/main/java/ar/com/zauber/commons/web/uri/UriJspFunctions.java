@@ -3,31 +3,28 @@
  */
 package ar.com.zauber.commons.web.uri;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang.Validate;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
-import ar.com.zauber.commons.web.uri.factory.AbsoluteUriFactory;
-import ar.com.zauber.commons.web.uri.factory.RelativeUriFactory;
+import ar.com.zauber.commons.web.uri.factory.ExpressionMapUriFactory;
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
- * Jsp 2.0 Functions para ser llamadas por desde JSP EL, con la función
- * de construir uris.
+ * Jsp 2.0 Functions para ser llamadas por desde JSP EL, con la función de
+ * construir uris.
  * 
- * <p>Para ello, buscan un {@link RelativeUriFactory} en el {@link PageContext} con
- * la clave {@link #URI_FACTORY_KEY} 
+ * <p>
+ * Para ello, buscan un {@link ExpressionMapUriFactory} en el
+ * {@link PageContext} con la clave {@link #URI_FACTORY_KEY}
  * 
  * 
  * @author Mariano Cortesi
  * @since Jan 29, 2010
  */
 public final class UriJspFunctions {
-
-    /** Key donde buscar el uriFactory */
-    public static final String URI_FACTORY_KEY = 
-        UriJspFunctions.class.getName() + ".__urifactory__";
 
     /** utility class */
     private UriJspFunctions() {
@@ -40,12 +37,12 @@ public final class UriJspFunctions {
         Validate.notNull(uriKey);
         Validate.notNull(ctx);
         
+        WebApplicationContext appCtx = 
+            RequestContextUtils.getWebApplicationContext(ctx.getRequest());
         
-        UriFactory uriFactory = (UriFactory) ctx.findAttribute(URI_FACTORY_KEY);
-        String contextPath = 
-            ((HttpServletRequest) ctx.getRequest()).getContextPath();
+        UriFactory uriFactory = appCtx.getBean(
+                SpringBeans.ASSET_URIFACTORY_KEY, UriFactory.class);
         
-        uriFactory = new AbsoluteUriFactory(uriFactory, contextPath);
         return uriFactory.buildUri(uriKey, params);
     }
 
