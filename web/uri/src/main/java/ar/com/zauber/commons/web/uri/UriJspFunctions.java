@@ -50,7 +50,7 @@ public final class UriJspFunctions {
             RequestContextUtils.getWebApplicationContext(ctx.getRequest());
         
         UriFactory uriFactory = appCtx.getBean(
-                SpringBeans.ASSET_URIFACTORY_KEY, UriFactory.class);
+                SpringBeans.LINK_URIFACTORY_KEY, UriFactory.class);
         
         return uriFactory.buildUri(uriKey, params);
     }
