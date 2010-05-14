@@ -231,6 +231,12 @@
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils</artifactId>
         <version>1.7.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>commons-dbcp</groupId>
@@ -238,6 +244,17 @@
         <version>1.2.2</version>
         <scope>test</scope>      
       </dependency>         
+     <dependency>
+        <artifactId>commons-httpclient</artifactId>
+        <groupId>commons-httpclient</groupId>
+        <version>3.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+     </dependency>
       <!-- END: Apache Commons -->
       <!-- BEGIN: Zauber Commons -->
       <dependency>

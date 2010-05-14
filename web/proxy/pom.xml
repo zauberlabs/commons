@@ -9,46 +9,57 @@
   <artifactId>commons-web-proxy</artifactId>
 
   <dependencies>
+    <!-- BEGIN: Zauber Commons -->
     <dependency>
-        <artifactId>commons-dao</artifactId>
-        <groupId>ar.com.zauber.commons</groupId>
-     </dependency>
-     <dependency>
-        <artifactId>commons-lang</artifactId>
-        <groupId>commons-lang</groupId>
-     </dependency>
-     <dependency>
-        <artifactId>commons-io</artifactId>
-        <groupId>commons-io</groupId>
-     </dependency>
-     <dependency>
-        <artifactId>commons-httpclient</artifactId>
-        <groupId>commons-httpclient</groupId>
-        <version>3.1</version>
-     </dependency>
-     <dependency>
-        <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
-       <scope>provided</scope>
-     </dependency>
-     <dependency>
-        <artifactId>spring-test</artifactId>
-        <groupId>org.springframework</groupId>
-        <scope>test</scope>
-     </dependency>
-     <dependency>
-        <artifactId>spring-core</artifactId>
-        <groupId>org.springframework</groupId>
-     </dependency>
-     <dependency>
-        <artifactId>spring-context</artifactId>
-        <groupId>org.springframework</groupId>
-        <scope>test</scope>
-     </dependency>
+      <artifactId>commons-dao</artifactId>
+      <groupId>ar.com.zauber.commons</groupId>
+    </dependency>
+    <!-- END: Zauber Commons -->
+    <!-- BEGIN: Apache Commons -->
     <dependency>
-        <artifactId>spring-beans</artifactId>
-        <groupId>org.springframework</groupId>
-        <scope>test</scope>
-     </dependency>
+      <artifactId>commons-lang</artifactId>
+      <groupId>commons-lang</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>commons-io</artifactId>
+      <groupId>commons-io</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>commons-httpclient</artifactId>
+      <groupId>commons-httpclient</groupId>
+    </dependency>
+    <!-- END: Apache Commons -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <!-- BEGIN: Spring Framework -->
+    <dependency>
+      <artifactId>spring-test</artifactId>
+      <groupId>org.springframework</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-core</artifactId>
+      <groupId>org.springframework</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-context</artifactId>
+      <groupId>org.springframework</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-beans</artifactId>
+      <groupId>org.springframework</groupId>
+      <scope>test</scope>
+    </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: Logging -->
+    <!-- In order to commons-logging usage is bypassed to slf4j -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+    <!-- END: Logging -->
   </dependencies> 
 </project>

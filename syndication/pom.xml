@@ -18,11 +18,12 @@
 	<artifactId>rome</artifactId>
 	<version>0.8</version>
     </dependency>
+    <!-- BEGIN: Logging -->
+    <!-- In order to commons-logging usage is bypassed to slf4j -->
     <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
- 
+    <!-- END: Logging -->
   </dependencies>
 </project>
