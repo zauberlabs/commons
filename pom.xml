@@ -559,6 +559,13 @@
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
+      <!-- In order to commons-logging usage is bypassed to slf4j -->
+      <dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>jcl-over-slf4j</artifactId>
+	<version>${slf4j.version}</version>
+        <scope>runtime</scope>
+      </dependency>
       <!-- END: Logging -->
       <!-- BEGIN: Testing -->
       <dependency>

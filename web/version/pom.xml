@@ -37,7 +37,13 @@
        <artifactId>servlet-api</artifactId>
        <scope>provided</scope>
      </dependency>
-
+    <!-- BEGIN: Logging -->
+    <!-- In order to commons-logging usage is bypassed to slf4j -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+    <!-- END: Logging -->
 
   </dependencies>
 </project>
