@@ -9,11 +9,38 @@
   <artifactId>commons-repository-impl-springhbm</artifactId>
   <groupId>ar.com.zauber.commons.repository.impl</groupId>
   <dependencies>
+    <!-- BEGIN: Zauber Commons -->
     <dependency>
       <artifactId>commons-auth-api</artifactId>
       <groupId>ar.com.zauber.commons.auth</groupId>
       <scope>compile</scope>
     </dependency>
+    <!-- BEGIN: Zauber Commons -->
+    <!-- BEGIN: Apache Commons -->
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+    </dependency>       
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+    </dependency>         
+    <!-- BEGIN: Apache Commons -->
+    <!-- BEGIN: Spring Framework -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+    </dependency>    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
@@ -22,48 +49,24 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-annotations</artifactId>
     </dependency>
-
+    <!-- END: Hibernate -->
+    <!-- BEGIN: Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <!-- END: Logging -->
+    <!-- BEGIN: JDBC Drivers -->
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+    </dependency>
+    <!-- END: JDBC Drivers -->
     <dependency>
       <groupId>javassist</groupId>
       <artifactId>javassist</artifactId>
       <version>3.4.GA</version>
     </dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-orm</artifactId>
-	</dependency>    
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-test</artifactId>
-                <scope>test</scope>
-	</dependency>
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.7.0</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2</version>
-    </dependency>       
-    <dependency>
-      <groupId>commons-dbcp</groupId>
-      <artifactId>commons-dbcp</artifactId>
-      <version>1.2.2</version>
-	  <scope>test</scope>      
-    </dependency>         
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>1.8.0.7</version>
-	  <scope>test</scope>      
-    </dependency>        
   </dependencies>
   <build>
     <plugins>

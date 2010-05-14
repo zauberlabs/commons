@@ -10,95 +10,50 @@
   <groupId>ar.com.zauber.commons.social.openid</groupId>
   <packaging>jar</packaging>
 
-    <dependencies>
+  <dependencies>
+    <!-- BEGIN: Apache Commons -->        
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <!-- END: Apache Commons -->
+    <!-- BEGIN: Spring Framework -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: Spring Security Framework -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <!-- END: Spring Security Framework -->
+    <!-- BEGIN: J2EE Servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <!-- END: J2EE Servlet -->
     
-        <!-- OpenID -->     
-        <dependency>
-            <groupId>com.dyuproject</groupId>
-            <artifactId>dyuproject-openid</artifactId>
-            <version>1.1.6</version>
-        </dependency>
-            
-        <!-- BEGIN: Spring Framework -->
-        <!-- Core Modules -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    
-        <!-- BEGIN: spring security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>aspectjrt</artifactId>
-                    <groupId>org.aspectj</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>aspectjweaver</artifactId>
-                    <groupId>org.aspectj</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <!-- END: spring security -->    
-        <!-- END: Spring Framework -->        
-
-        <!-- BEGIN: Servlet Dependencies -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- END: Servlet Dependencies -->
-        
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.4</version>
-        </dependency>
-        
-    </dependencies>
-    
+    <!-- OpenID -->     
+    <dependency>
+      <groupId>com.dyuproject</groupId>
+      <artifactId>dyuproject-openid</artifactId>
+      <version>1.1.6</version>
+    </dependency>
+  </dependencies>
+  
 </project>

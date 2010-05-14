@@ -8,6 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-spring</artifactId>
   <dependencies>
+    <!-- BEGIN: Zauber Commons -->
     <dependency>
       <groupId>ar.com.zauber.commons</groupId>
       <artifactId>commons</artifactId>
@@ -15,21 +16,30 @@
     <dependency>
       <groupId>ar.com.zauber.commons.web</groupId>
       <artifactId>commons-web-version</artifactId>
-      <version>${pom.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.web</groupId>
       <artifactId>commons-web-proxy</artifactId>
-      <version>${pom.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>ar.com.zauber.commons.web</groupId>
       <artifactId>commons-web-utils</artifactId>
-      <version>${pom.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>ar.com.zauber.commons.repository.impl</groupId>
+      <artifactId>commons-repository-impl-springhbm</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>ar.com.zauber.commons.repository.impl</groupId>
+      <artifactId>commons-repository-impl-entities</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- END: Zauber Commons -->
+    <!-- BEGIN: Spring Framework -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
@@ -42,7 +52,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
@@ -52,37 +61,30 @@
       <artifactId>spring-test</artifactId>
       <scope>compile</scope>
     </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: J2EE Servlet -->
     <dependency>
-       <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
-       <scope>provided</scope>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
     </dependency>
-    <dependency>
-      <groupId>stax</groupId>
-      <artifactId>stax</artifactId>
-      <version>1.2.0</version>
-    </dependency>
+    <!-- END: J2EE Servlet -->
+    <!-- BEGIN: Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
+    <!-- END: Logging -->
+    <!-- BEGIN: Testing -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>compile</scope>
     </dependency>
+    <!-- END: Testing -->
     <dependency>
-      <groupId>ar.com.zauber.commons.repository.impl</groupId>
-      <artifactId>commons-repository-impl-springhbm</artifactId>
-      <optional>true</optional>
-      <version>${pom.version}</version>
+      <groupId>stax</groupId>
+      <artifactId>stax</artifactId>
+      <version>1.2.0</version>
     </dependency>
-    <dependency>
-      <groupId>ar.com.zauber.commons.repository.impl</groupId>
-      <artifactId>commons-repository-impl-entities</artifactId>
-      <optional>true</optional>
-      <version>${pom.version}</version>
-    </dependency>
-
   </dependencies>
 </project>

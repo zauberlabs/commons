@@ -7,35 +7,39 @@
   </parent>
   <name>Zauber::Commons::Gis</name>
   <artifactId>commons-gis</artifactId>
-  
   <dependencies>
+    <!-- BEGIN: Zauber Commons -->
     <dependency>
-        <groupId>${pom.groupId}</groupId>
-        <artifactId>commons-dao</artifactId> 
+      <groupId>ar.com.zauber.commons</groupId>
+      <artifactId>commons-dao</artifactId> 
     </dependency>
     <dependency>
-      <groupId>com.vividsolutions</groupId>
-      <artifactId>jts</artifactId>
-      <version>1.6</version>
+      <groupId>ar.com.zauber.commons</groupId>
+      <artifactId>commons</artifactId>
     </dependency>
+    <!-- END: Zauber Commons -->
+    <!-- BEGIN: Spring Framework -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
     </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: EhCache -->
     <dependency>
-         <groupId>net.sf.ehcache</groupId>
-         <artifactId>ehcache</artifactId>
-         <version>1.2.3</version>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
     </dependency>
+    <!-- END: EhCache -->
+    <!-- BEGIN: JDBC Drivers -->
     <dependency>
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>8.2-504.jdbc3</version>
-      <scope>test</scope>
     </dependency>
+    <!-- END: JDBC Drivers -->
     <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
-        <artifactId>commons</artifactId>
+      <groupId>com.vividsolutions</groupId>
+      <artifactId>jts</artifactId>
+      <version>1.6</version>
     </dependency>
   </dependencies>
 </project>

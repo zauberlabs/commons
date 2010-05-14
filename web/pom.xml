@@ -16,5 +16,6 @@
     <module>transformation</module>
     <module>rest</module>
     <module>uri</module>
+    <module>cache</module>
   </modules>
 </project>

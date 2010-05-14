@@ -9,14 +9,27 @@
   <artifactId>commons-message-impl</artifactId>
   <packaging>jar</packaging>
   <dependencies>
+    <!-- BEGIN: Zauber Commons -->
     <dependency>
       <groupId>ar.com.zauber.commons.message</groupId>
       <artifactId>commons-message-api</artifactId>
     </dependency>
+    <!-- END: Zauber Commons -->
+    <!-- BEGIN: Apache Commons -->
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
     </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+    </dependency>
+    <!-- END: Apache Commons -->
+    <!-- BEGIN: Spring Framework -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -25,29 +38,23 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
     </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+    </dependency>
+    <!-- END: Hibernate -->
+    <!-- BEGIN: Templating -->
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+    </dependency>
+    <!-- END: Templating -->
     <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
       <version>1.4</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.7.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-annotations</artifactId>
-    </dependency>
-
   </dependencies>
 </project>

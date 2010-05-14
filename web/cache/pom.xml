@@ -6,8 +6,8 @@
     <groupId>ar.com.zauber.commons.web</groupId>
     <version>3.31-SNAPSHOT</version>
   </parent>
-  <name>Zauber::Commons::Web::Uri</name>
-  <artifactId>commons-web-uri</artifactId>
+  <name>Zauber::Commons::Web::Cache</name>
+  <artifactId>commons-web-cache</artifactId>
 
   <dependencies>
     <!-- BEGIN: Apache Commons -->
@@ -29,16 +29,35 @@
     <!-- BEGIN: Spring Framework -->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-expression</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
+      <artifactId>spring-tx</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
     </dependency>
     <!-- END: Spring Framework -->
+    <!-- BEGIN: EhCache -->
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
+    </dependency>
+    <!-- END: EhCache -->
+    <!-- BEGIN: Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+    </dependency>
+    <!-- END: Hibernate -->
+    <!-- BEGIN: Json Parsing (Jackson) -->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+    </dependency>
+    <!-- END: Json Parsing (Jackson) -->
+
   </dependencies>
 </project>

@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-     <artifactId>bare</artifactId>
-     <groupId>ar.com.zauber.maven.poms</groupId>
-     <version>1.0.7</version>
+    <artifactId>bare</artifactId>
+    <groupId>ar.com.zauber.maven.poms</groupId>
+    <version>1.0.7</version>
   </parent>
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
@@ -13,17 +13,17 @@
   <packaging>pom</packaging>
 
   <scm>
-     <connection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</connection>
-     <developerConnection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</developerConnection>
-     <url>https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</url>
+    <connection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</connection>
+    <developerConnection>scm:svn:https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</developerConnection>
+    <url>https://code.zaubersoftware.com/repos/sandbox/components/commons/code/trunk/</url>
   </scm>
 
   <licenses>
-     <license>
-       <name>The Apache Software License, Version 2.0</name>
-       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-       <distribution>repo</distribution>
-     </license>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
   </licenses>
 
 
@@ -68,62 +68,62 @@
   </distributionManagement>
 
   <!-- pluginRepositories>
-    <pluginRepository>
-      <id>mc-release</id>
-      <name>mc repository of releases</name>
-      <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
-      <snapshots> <enabled>false</enabled> </snapshots>
-      <releases> <enabled>true</enabled> </releases>
-    </pluginRepository>
+  <pluginRepository>
+    <id>mc-release</id>
+    <name>mc repository of releases</name>
+    <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+    <snapshots> <enabled>false</enabled> </snapshots>
+    <releases> <enabled>true</enabled> </releases>
+  </pluginRepository>
   </pluginRepositories -->
 
   <modules>
-     <module>dao</module>
-     <module>commons</module>
-     <module>clustering</module>
-     <module>spring</module>
-     <module>auth</module>
-     <module>message</module>
-     <module>image</module>
-     <module>syndication</module>
-     <module>fts</module>
-     <module>gis</module>
-     <module>doxia</module>
-     <module>jetty-launcher</module>
-     <module>repository</module>
-     <module>exception</module>
-     <module>facebook</module>
-     <module>xmpp</module>
-     <module>web</module>
-     <module>wicket</module>
-     <module>test</module>
-     <module>moderation</module>
-     <module>converter</module>
-     <module>social</module>     
+    <module>dao</module>
+    <module>commons</module>
+    <module>clustering</module>
+    <module>spring</module>
+    <module>auth</module>
+    <module>message</module>
+    <module>image</module>
+    <module>syndication</module>
+    <module>fts</module>
+    <module>gis</module>
+    <module>doxia</module>
+    <module>jetty-launcher</module>
+    <module>repository</module>
+    <module>exception</module>
+    <module>facebook</module>
+    <module>xmpp</module>
+    <module>web</module>
+    <module>wicket</module>
+    <module>test</module>
+    <module>moderation</module>
+    <module>converter</module>
+    <module>social</module>     
   </modules>
   
   <build>
-     <plugins>
+    <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.4.3</version>
         <configuration>
-            <includes>
-               <include>**/*Test.java</include>
-            </includes>
-         </configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
       </plugin>
       <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <executions>
-             <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-             </execution>
-          </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -135,73 +135,73 @@
       </plugin>
       <!-- mantiene a raya los headers de las licencias -->
       <plugin>
-         <groupId>com.google.code.maven-license-plugin</groupId>
-         <artifactId>maven-license-plugin</artifactId>
-         <inherited>false</inherited>
-         <configuration>
-             <quiet>false</quiet>
-             <header>src/HEADER.txt</header>
-             <failIfMissing>true</failIfMissing>
-             <aggregate>false</aggregate>
-             <includes>
-                 <include>**/src/**</include>
-                 <include>**/test/**</include>
-             </includes>
-             <excludes>
-                 <exclude>**/passwd/UnixCrypt.java</exclude>
-                 <exclude>**/words.spanish.latin1</exclude>
-                 <exclude>**/doxia/**</exclude>
-                 <exclude>**/target/**</exclude>
-                 <exclude>**/.clover/**</exclude>
-                 <exclude>**/README.txt</exclude>
-                 <exclude>**/.keep</exclude>
-                 <exclude>**/*.xml</exclude>
-                 <exclude>**/*.properties</exclude>
-                 <exclude>**/libmisc/**</exclude>
-                 <exclude>auth/password/src/main/c/**</exclude>
-                 <exclude>**/*.c</exclude>
-                 <exclude>**/*.h</exclude>
-                 <exclude>**/Makefile*</exclude>
-             </excludes>
-             <useDefaultExcludes>true</useDefaultExcludes>
-             <useDefaultMapping>true</useDefaultMapping>
-             <properties>
-                <email>http://www.zaubersoftware.com/</email>
-             </properties>
-             <encoding>iso-8859-1</encoding>
-         </configuration>
-         <executions>
-             <execution>
-                 <phase>test</phase>
-                 <goals>
-                     <goal>check</goal>
-                 </goals>
-             </execution>
-         </executions>
+        <groupId>com.google.code.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <inherited>false</inherited>
+        <configuration>
+          <quiet>false</quiet>
+          <header>src/HEADER.txt</header>
+          <failIfMissing>true</failIfMissing>
+          <aggregate>false</aggregate>
+          <includes>
+            <include>**/src/**</include>
+            <include>**/test/**</include>
+          </includes>
+          <excludes>
+            <exclude>**/passwd/UnixCrypt.java</exclude>
+            <exclude>**/words.spanish.latin1</exclude>
+            <exclude>**/doxia/**</exclude>
+            <exclude>**/target/**</exclude>
+            <exclude>**/.clover/**</exclude>
+            <exclude>**/README.txt</exclude>
+            <exclude>**/.keep</exclude>
+            <exclude>**/*.xml</exclude>
+            <exclude>**/*.properties</exclude>
+            <exclude>**/libmisc/**</exclude>
+            <exclude>auth/password/src/main/c/**</exclude>
+            <exclude>**/*.c</exclude>
+            <exclude>**/*.h</exclude>
+            <exclude>**/Makefile*</exclude>
+          </excludes>
+          <useDefaultExcludes>true</useDefaultExcludes>
+          <useDefaultMapping>true</useDefaultMapping>
+          <properties>
+            <email>http://www.zaubersoftware.com/</email>
+          </properties>
+          <encoding>iso-8859-1</encoding>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
 
   <dependencies>
-     <dependency>
-        <artifactId>junit</artifactId>
-        <groupId>junit</groupId>
-     </dependency>
-     <dependency>
-        <groupId>org.slf4j</groupId> 
-        <artifactId>slf4j-nop</artifactId> 
-        <version>${slf4j.version}</version>
-        <scope>test</scope>
-     </dependency>
+    <dependency>
+      <artifactId>junit</artifactId>
+      <groupId>junit</groupId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId> 
+      <artifactId>slf4j-nop</artifactId> 
+      <version>${slf4j.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <properties>
-      <spring.version>3.0.2.RELEASE</spring.version>
-      <spring.security.version>3.0.2.RELEASE</spring.security.version>
-      <hibernate.version>3.5.1-Final</hibernate.version>
-      <doxia.version>1.1</doxia.version>
-      <jetty.version>6.1.9</jetty.version>
-      <leviathan.version>0.0</leviathan.version>
-      <slf4j.version>1.5.8</slf4j.version>
+    <spring.version>3.0.2.RELEASE</spring.version>
+    <spring.security.version>3.0.2.RELEASE</spring.security.version>
+    <hibernate.version>3.5.1-Final</hibernate.version>
+    <doxia.version>1.1</doxia.version>
+    <jetty.version>6.1.9</jetty.version>
+    <leviathan.version>0.0</leviathan.version>
+    <slf4j.version>1.5.8</slf4j.version>
 
     <sonar.mantis.id>44</sonar.mantis.id>
     <crono.organization.name>zauber</crono.organization.name>
@@ -211,12 +211,7 @@
   </properties>
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <artifactId>junit</artifactId>
-        <groupId>junit</groupId>
-        <version>4.7</version>
-        <scope>test</scope>
-      </dependency>
+      <!-- BEGIN: Apache Commons -->
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
@@ -227,204 +222,225 @@
         <artifactId>commons-io</artifactId>
         <version>1.4</version>
       </dependency>
-
       <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${slf4j.version}</version>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>3.2</version>
+      </dependency>       
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>1.7.0</version>
       </dependency>
       <dependency>
-        <artifactId>jtidy</artifactId>
-        <groupId>jtidy</groupId>
-        <version>4aug2000r7-dev</version>
-      </dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>1.2.2</version>
+        <scope>test</scope>      
+      </dependency>         
+      <!-- END: Apache Commons -->
+      <!-- BEGIN: Zauber Commons -->
       <dependency>
-        <groupId>org.apache.velocity</groupId>
-        <artifactId>velocity</artifactId>
-        <version>1.6</version>
-       </dependency>
-      <dependency>
-        <groupId>ar.com.zauber.commons.auth</groupId>
-        <artifactId>commons-auth-api</artifactId>
-        <version>${pom.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>ar.com.zauber.commons.auth</groupId>
-        <artifactId>commons-auth-impl</artifactId>
-        <version>${pom.version}</version>
-     </dependency>
-    <dependency>
-      <groupId>ar.com.zauber.commons.repository</groupId>
-      <artifactId>commons-repository-api</artifactId>
-      <version>${pom.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>ar.com.zauber.commons.message</groupId>
-      <artifactId>commons-message-api</artifactId>
-      <version>${pom.version}</version>
-    </dependency>
-     <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons</artifactId>
         <version>${pom.version}</version>
-     </dependency>
+      </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons-dao</artifactId>
         <version>${pom.version}</version>
-     </dependency>
-     <dependency>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons</groupId>
+        <artifactId>commons-spring</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.auth</groupId>
+        <artifactId>commons-auth-api</artifactId> 
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.auth</groupId>
+        <artifactId>commons-auth-impl</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
         <groupId>ar.com.zauber.commons.image</groupId>
         <artifactId>commons-image-api</artifactId>
         <version>${pom.version}</version>
-     </dependency>
-     <dependency>
+      </dependency>
+      <dependency>
         <groupId>ar.com.zauber.commons.message</groupId>
         <artifactId>commons-message-api</artifactId>
         <version>${pom.version}</version>
-     </dependency>
-     <dependency>
+      </dependency>
+      <dependency>
         <groupId>ar.com.zauber.commons.moderation</groupId>
         <artifactId>commons-moderation-api</artifactId>
         <version>${pom.version}</version>
-     </dependency>
-
-     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>${hibernate.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-annotations</artifactId>
-      <version>${hibernate.version}</version>
-    </dependency>
-    
-     <!-- spring -->
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.web</groupId>
+        <artifactId>commons-web-utils</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.web</groupId>
+        <artifactId>commons-web-proxy</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.web</groupId>
+        <artifactId>commons-web-version</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.repository</groupId>
+        <artifactId>commons-repository-api</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.repository.impl</groupId>
+        <artifactId>commons-repository-impl-entities</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.repository.impl</groupId>
+        <artifactId>commons-repository-impl-springhbm</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.social.oauth</groupId>
+        <artifactId>commons-social-oauth-api</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <!-- END: Zauber Commons -->
+      <!-- BEGIN: Hibernate -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-annotations</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+      <!-- END: Hibernate -->
+      <!-- BEGIN: JDBC Drivers -->
+      <dependency>
+        <groupId>hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>1.8.0.7</version>
         <scope>test</scope>
-     </dependency>
-	 <dependency>
+      </dependency>
+      <dependency>
+        <groupId>postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>8.4-701.jdbc3</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- END: JDBC Drivers -->
+      <!-- BEGIN: Spring Security Framework -->
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+        <version>${spring.security.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>aspectjrt</artifactId>
+            <groupId>org.aspectj</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>aspectjweaver</artifactId>
+            <groupId>org.aspectj</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-taglibs</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <!-- END: Spring Security Framework -->
+      <!-- BEGIN: Spring Framework -->
+      <!-- ==> Spring Core --> 
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
         <version>${spring.version}</version>
-     </dependency>
-     <dependency>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
         <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-tx</artifactId>
-        <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${spring.security.version}</version>
-      <exclusions>
-        <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-support</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>aspectjrt</artifactId>
-                    <groupId>org.aspectj</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>aspectjweaver</artifactId>
-                    <groupId>org.aspectj</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.security.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-
- 
-     <dependency>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>
         <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-webmvc</artifactId>
-        <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-jdbc</artifactId>
-        <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-orm</artifactId>
-        <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-core</artifactId>
-        <version>${spring.version}</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-remoting</artifactId>
-        <version>${spring.version}</version>
-     </dependency>
-     <dependency>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
         <version>${spring.version}</version>
-     </dependency>
-     <dependency>
+      </dependency>
+      <!-- ==> Spring MVC --> 
+      <dependency>
         <groupId>org.springframework</groupId>
-        <artifactId>spring-context-support</artifactId>
+        <artifactId>spring-webmvc</artifactId>
         <version>${spring.version}</version>
-     </dependency>
-     <dependency>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <!-- ==> Spring Persistence -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-dao</artifactId>
         <version>${spring.version}</version>
@@ -434,8 +450,24 @@
             <artifactId>spring-support</artifactId>
           </exclusion>
         </exclusions>
-     </dependency>
-     <dependency>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <!-- ==> Extras -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-expression</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-support</artifactId>
         <version>${spring.version}</version>
@@ -452,50 +484,101 @@
             <artifactId>cos</artifactId>
             <groupId>com.servlets</groupId>
           </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-support</artifactId>
-          </exclusion>
         </exclusions>
-     </dependency>
-     <dependency>
+      </dependency>
+      <!-- ==> Spring Test --> 
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- END: Spring Framework -->
+      <!-- BEGIN: J2EE Servlet -->
+      <dependency>
         <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
-       <version>2.5</version>
-       <scope>provided</scope>
-     </dependency>
-
-      <dependency>
-           <groupId>ar.com.zauber.leviathan</groupId>
-           <artifactId>leviathan-api</artifactId>
-           <version>${leviathan.version}</version>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
-           <groupId>ar.com.zauber.leviathan</groupId>
-           <artifactId>leviathan-api-httpclient</artifactId>
-           <version>${leviathan.version}</version>
-           <scope>runtime</scope>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.1</version>
+        <scope>provided</scope>
+      </dependency>
+      <!-- END: J2EE Servlet -->
+      <!-- BEGIN: Leviathan -->
+      <dependency>
+        <groupId>ar.com.zauber.leviathan</groupId>
+        <artifactId>leviathan-api</artifactId>
+        <version>${leviathan.version}</version>
       </dependency>
       <dependency>
-           <groupId>ar.com.zauber.leviathan</groupId>
-           <artifactId>leviathan-api-common</artifactId>
-           <version>${leviathan.version}</version>
+        <groupId>ar.com.zauber.leviathan</groupId>
+        <artifactId>leviathan-api-httpclient</artifactId>
+        <version>${leviathan.version}</version>
+        <scope>runtime</scope>
       </dependency>
       <dependency>
-           <groupId>ar.com.zauber.leviathan</groupId>
-           <artifactId>leviathan-api-ehcache</artifactId>
-           <version>${leviathan.version}</version>
-           <scope>runtime</scope>
+        <groupId>ar.com.zauber.leviathan</groupId>
+        <artifactId>leviathan-api-common</artifactId>
+        <version>${leviathan.version}</version>
       </dependency>
       <dependency>
-           <groupId>org.mockito</groupId>
-           <artifactId>mockito-core</artifactId>
-           <version>1.8.4</version>
-           <scope>test</scope>
+        <groupId>ar.com.zauber.leviathan</groupId>
+        <artifactId>leviathan-api-ehcache</artifactId>
+        <version>${leviathan.version}</version>
+        <scope>runtime</scope>
       </dependency>
-
-
- 
+      <!-- END: Leviathan -->
+      <!-- BEGIN: EhCache -->
+      <dependency>
+        <groupId>net.sf.ehcache</groupId>
+        <artifactId>ehcache-core</artifactId>
+        <version>2.0.0</version>
+      </dependency>
+      <!-- END: EhCache -->
+      <!-- BEGIN: Templating -->
+      <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity</artifactId>
+        <version>1.6</version>
+      </dependency>
+      <!-- END: Templating -->
+      <!-- BEGIN: Json Parsing (Jackson) -->
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+        <version>1.5.1</version>
+      </dependency>
+      <!-- END: Json Parsing (Jackson) -->
+      <!-- BEGIN: Logging -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <!-- END: Logging -->
+      <!-- BEGIN: Testing -->
+      <dependency>
+        <artifactId>junit</artifactId>
+        <groupId>junit</groupId>
+        <version>4.7</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>1.8.4</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- END: Testing -->
+      <dependency>
+        <artifactId>jtidy</artifactId>
+        <groupId>jtidy</groupId>
+        <version>4aug2000r7-dev</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <reporting>
@@ -512,20 +595,20 @@
         </reportSets>
       </plugin>
       <!--plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.2</version>
-        <configuration>
-          <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-          <docletArtifact>
-            <groupId>gr.spinellis</groupId>
-            <artifactId>UmlGraph</artifactId>
-            <version>4.4</version>
-          </docletArtifact>
-          <additionalparam>
-            -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9 -nodefontpackagesize 7
-          </additionalparam>
-        </configuration>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+      <version>2.2</version>
+      <configuration>
+        <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+        <docletArtifact>
+          <groupId>gr.spinellis</groupId>
+          <artifactId>UmlGraph</artifactId>
+          <version>4.4</version>
+        </docletArtifact>
+        <additionalparam>
+          -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9 -nodefontpackagesize 7
+        </additionalparam>
+      </configuration>
       </plugin-->
     </plugins>
   </reporting>

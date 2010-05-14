@@ -9,14 +9,27 @@
   <artifactId>commons-auth-impl</artifactId>
   <packaging>jar</packaging>
   <dependencies>
+    <!-- BEGIN: Zauber Commons -->
     <dependency>
-        <groupId>ar.com.zauber.commons.auth</groupId>
-        <artifactId>commons-auth-api</artifactId> 
+      <groupId>ar.com.zauber.commons</groupId>
+      <artifactId>commons</artifactId> 
     </dependency>
     <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
-        <artifactId>commons</artifactId> 
+      <groupId>ar.com.zauber.commons.auth</groupId>
+      <artifactId>commons-auth-api</artifactId> 
     </dependency>
+    <!-- END: Zauber Commons -->
+    <!-- BEGIN: Spring Security Framework -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <!-- END: Spring Security Framework -->
+    <!-- BEGIN: Spring Framework -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
@@ -25,24 +38,16 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
     </dependency>
-
-     <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-    </dependency>
-     <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
     </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: J2EE Servlet -->
     <dependency>
-       <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
-       <scope>provided</scope>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
     </dependency>
+    <!-- END: J2EE Servlet -->
   </dependencies>
 </project>

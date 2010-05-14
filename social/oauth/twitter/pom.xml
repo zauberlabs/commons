@@ -1,88 +1,67 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>ar.com.zauber.commons.social.oauth</groupId>
-		<artifactId>parent</artifactId>
-		<version>3.31-SNAPSHOT</version>
-	</parent>
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>ar.com.zauber.commons.social.oauth</groupId>
+    <artifactId>parent</artifactId>
+    <version>3.31-SNAPSHOT</version>
+  </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>commons-social-oauth-twitter</artifactId>
-	<name>Zauber::Commons::Social::OAuth::Twitter</name>
-		  
-    <properties>
-        <twitter4j.version>2.0.10</twitter4j.version>
-    </properties>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>commons-social-oauth-twitter</artifactId>
+  <name>Zauber::Commons::Social::OAuth::Twitter</name>
   
-	<dependencies>
-	    <dependency>
-            <artifactId>commons-social-oauth-api</artifactId>
-            <groupId>${pom.groupId}</groupId>
-            <version>${pom.version}</version>
-        </dependency>
-        <dependency>
-           <groupId>net.homeip.yusuke</groupId>
-           <artifactId>twitter4j</artifactId>
-           <version>${twitter4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ar.com.zauber.commons</groupId>
-            <artifactId>commons-spring</artifactId>
-            <version>${pom.version}</version>
-        </dependency>
-
-        <!-- BEGIN: Spring Framework -->
-        <!-- Core Modules -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    
-        <!-- BEGIN: spring security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-    
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
-        <!-- END: Spring Framework -->        
-
-        <!-- BEGIN: Servlet Dependencies -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- END: Servlet Dependencies -->
-                        
-		<dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-		</dependency>
-	</dependencies>
+  <dependencies>
+    <!-- BEGIN: Zauber Commons -->
+    <dependency>
+      <artifactId>commons-social-oauth-api</artifactId>
+      <groupId>ar.com.zauber.commons.social.oauth</groupId>
+    </dependency>
+    <dependency>
+      <groupId>ar.com.zauber.commons</groupId>
+      <artifactId>commons-spring</artifactId>
+    </dependency>
+    <!-- END: Zauber Commons -->
+    <!-- BEGIN: Spring Framework -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+    <!-- END: Spring Framework -->
+    <!-- BEGIN: Spring Security Framework -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <!-- END: Spring Security Framework -->
+    <!-- BEGIN: J2EE Servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <!-- END: J2EE Servlet -->
+    <!-- BEGIN: Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <!-- END: Logging -->
+    <dependency>
+      <groupId>net.homeip.yusuke</groupId>
+      <artifactId>twitter4j</artifactId>
+      <version>2.0.10</version>
+    </dependency>
+  </dependencies>
 
 </project>
