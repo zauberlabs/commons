@@ -16,11 +16,11 @@
 package ar.com.zauber.commons.repository;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.dao.Order;
 import ar.com.zauber.commons.dao.Ordering;
@@ -38,7 +38,7 @@ public class CriteriaTranslator implements Translator {
     private SessionFactory sessionFactory;
     private Class<?> clazz;
     private DetachedCriteria criteria;
-    private Log logger = LogFactory.getLog(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private boolean debugging = logger.isDebugEnabled();
     private final boolean ignoreOrder;
     

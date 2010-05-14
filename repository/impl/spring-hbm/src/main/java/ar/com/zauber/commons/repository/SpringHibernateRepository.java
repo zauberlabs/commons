@@ -24,8 +24,6 @@ import java.util.List;
 import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
@@ -35,6 +33,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -58,7 +58,7 @@ import ar.com.zauber.commons.repository.query.aggreate.RowCountAggregateFilter;
  */
 public class SpringHibernateRepository extends HibernateDaoSupport implements
         Repository {
-    private Log logger = LogFactory.getLog(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     /** @see Repository#createNew(Reference)*/
     @SuppressWarnings("unchecked")

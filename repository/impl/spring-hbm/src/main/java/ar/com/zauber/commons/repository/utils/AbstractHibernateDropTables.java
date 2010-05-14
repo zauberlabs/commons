@@ -22,13 +22,13 @@ import java.sql.Statement;
 import java.util.Iterator;
 
 import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.tool.hbm2ddl.DatabaseMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
@@ -42,7 +42,7 @@ import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 public abstract class AbstractHibernateDropTables
     implements ApplicationContextAware {
     
-    private final Log logger = LogFactory.getLog(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private ApplicationContext applicationContext;
     private DropSessionFactoriesTablesDefinition
         dropSessionFactoriesTablesDefinition;
