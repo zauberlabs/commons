@@ -19,11 +19,17 @@
 	<version>0.8</version>
     </dependency>
     <!-- BEGIN: Logging -->
+     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+
     <!-- In order to commons-logging usage is bypassed to slf4j -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
+
     <!-- END: Logging -->
   </dependencies>
 </project>
