@@ -20,8 +20,8 @@ import java.util.Map;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.exception.MessageKeyException;
 import ar.com.zauber.commons.message.MessageFactory;
@@ -40,7 +40,8 @@ public class NotificationExceptionHandler
     private final MessageFactory messageFactory;
     private final NotificationAddress[] receivers;
 
-    private static Log log = LogFactory.getLog(NotificationExceptionHandler.class);
+    private static Logger log = LoggerFactory.getLogger(
+            NotificationExceptionHandler.class);
 
 
     /** constructor */
@@ -100,7 +101,7 @@ public class NotificationExceptionHandler
                                 model));
             }
         } catch (final Exception e) {
-            log.error(e);
+            log.error("error", e);
             e.printStackTrace();
         }
         

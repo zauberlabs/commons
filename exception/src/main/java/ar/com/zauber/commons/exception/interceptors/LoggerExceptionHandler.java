@@ -16,8 +16,8 @@
 package ar.com.zauber.commons.exception.interceptors;
 
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TODO Brief description.
@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 public class LoggerExceptionHandler extends
     MethodInvocationExceptionChainedHandler {
     /** logger */
-    private static Log logger = LogFactory.getLog(LoggerExceptionHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(LoggerExceptionHandler.class);
 
 
     /**
@@ -67,7 +67,7 @@ public class LoggerExceptionHandler extends
             logger.error(log.getStackTrace());
             context.setErrorLog(log);
         } catch (final Exception e) {
-            logger.fatal("Imposible loguear error en invocación a servicio: " + e);
+            logger.error("Imposible loguear error en invocación a servicio: " + e);
             return false;
         }
         return true;
