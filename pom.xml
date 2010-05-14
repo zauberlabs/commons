@@ -570,6 +570,41 @@
         <version>1.5.1</version>
       </dependency>
       <!-- END: Json Parsing (Jackson) -->
+      <!-- BEGIN: HTTP Client -->
+      <dependency>
+        <artifactId>httpclient</artifactId>
+        <groupId>org.apache.httpcomponents</groupId>
+        <version>4.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <artifactId>httpmime</artifactId>
+        <groupId>org.apache.httpcomponents</groupId>
+        <version>4.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <artifactId>apache-mime4j</artifactId>
+        <groupId>org.apache.james</groupId>
+        <version>0.6</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!-- END: HTTP Client -->
       <!-- BEGIN: Logging -->
       <dependency>
         <groupId>org.slf4j</groupId>
