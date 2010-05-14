@@ -23,8 +23,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.syndication.FeedReader;
 import ar.com.zauber.commons.syndication.SyndicationManager;
@@ -43,8 +43,8 @@ import com.sun.syndication.io.SyndFeedInput;
  */
 public class PeriodicRomeSyndicationManager implements SyndicationManager {
     /** logger */
-    private static final Log LOGGER = LogFactory
-            .getLog(PeriodicRomeSyndicationManager.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(PeriodicRomeSyndicationManager.class);
     /** se ocupa de periodicamente actualizar el feed */
     private final ScheduledThreadPoolExecutor executor = 
         new ScheduledThreadPoolExecutor(1);
