@@ -19,8 +19,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -35,8 +35,8 @@ public final class JndiInitialContextHelper {
         // clase de utilidad
     }
     /** logger */
-    public static final Log LOGGER = LogFactory
-            .getLog(JndiInitialContextHelper.class);
+    public static final Logger LOGGER = LoggerFactory
+            .getLogger(JndiInitialContextHelper.class);
 
     /** dado paths jndi retorna archivos de propiedades */
     public static Resource[] getJndiLocations(final String[] filePathJndiNames) {

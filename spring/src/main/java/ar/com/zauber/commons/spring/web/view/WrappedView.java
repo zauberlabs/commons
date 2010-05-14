@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.View;
 
 /**
@@ -35,8 +35,8 @@ import org.springframework.web.servlet.View;
 public class WrappedView implements View {
     private final View target;
     /** logger */
-    public static final Log LOGGER = LogFactory
-            .getLog(WrappedView.class);
+    public static final Logger LOGGER = LoggerFactory
+            .getLogger(WrappedView.class);
     
     /** Creates the WrapperView. */
     public WrappedView(final View target) {
