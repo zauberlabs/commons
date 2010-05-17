@@ -43,17 +43,20 @@ public final class FacebookCookieFinder {
 
         Long fbUID = null;
         String fbSession = null;
-        for (int i = 0; i < cookies.length
-                && (fbUID == null || fbSession == null); i++) {
-            if (fbUID == null && userKey.equals(cookies[i].getName())) {
-                try {
-                    fbUID = new Long(cookies[i].getValue());
-                } catch (NumberFormatException e) {
-                    // fbUID = -1L; ya esta en null
+        if(cookies != null) {
+            for (int i = 0; i < cookies.length
+                    && (fbUID == null || fbSession == null); i++) {
+                if (fbUID == null && userKey.equals(cookies[i].getName())) {
+                    try {
+                        fbUID = new Long(cookies[i].getValue());
+                    } catch (NumberFormatException e) {
+                        // fbUID = -1L; ya esta en null
+                    }
                 }
-            }
-            if (fbSession == null && sessionKey.equals(cookies[i].getName())) {
-                fbSession = cookies[i].getValue();
+                if (fbSession == null 
+                        && sessionKey.equals(cookies[i].getName())) {
+                    fbSession = cookies[i].getValue();
+                }
             }
         }
 
