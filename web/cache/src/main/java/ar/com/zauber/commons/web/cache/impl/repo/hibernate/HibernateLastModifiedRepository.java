@@ -3,7 +3,9 @@
  */
 package ar.com.zauber.commons.web.cache.impl.repo.hibernate;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
@@ -57,11 +59,20 @@ public class HibernateLastModifiedRepository implements
         // optimización para el caso simple
         if (keys.length == 1) {
             return this.getTimestamp(keys[0]);
+        } else {
+            return this.getMaxTimestamp(Arrays.asList(keys));
+        }
+    }
+
+    /** @see LastModifiedRepository#getMaxTimestamp(List) */
+    public final Long getMaxTimestamp(final List<StringEntityKey> keys) {
+        if (keys.size() == 0) {
+            return this.getTimestamp(keys.get(0));
         }
         
-        String[] keyStrings = new String[keys.length];
-        for (int i = 0; i < keys.length; i++) {
-            keyStrings[i] = keys[i].getAsString();
+        String[] keyStrings = new String[keys.size()];
+        for (int i = 0; i < keys.size(); i++) {
+            keyStrings[i] = keys.get(i).getAsString();
         }
         
         Query query = this.sessionFactory.getCurrentSession().getNamedQuery(
@@ -71,7 +82,7 @@ public class HibernateLastModifiedRepository implements
         query.setMaxResults(1);
         return (Long) query.uniqueResult();
     }
-
+    
     /** @see LastModifiedRepository#getTimestamp(EntityKey) */
     @Transactional(readOnly = true)
     public final Long getTimestamp(final StringEntityKey key) {
@@ -111,5 +122,6 @@ public class HibernateLastModifiedRepository implements
         Validate.notNull(timestamp);
         this.updateTimestamp(key, new Date(timestamp));
     }
+
 
 }

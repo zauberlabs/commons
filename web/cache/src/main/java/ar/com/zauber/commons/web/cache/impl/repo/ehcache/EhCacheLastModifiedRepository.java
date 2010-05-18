@@ -3,7 +3,9 @@
  */
 package ar.com.zauber.commons.web.cache.impl.repo.ehcache;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
@@ -45,18 +47,19 @@ public class EhCacheLastModifiedRepository implements
         String keyString = key.getAsString();
         LOGGER.debug("httpcache cleared: ({})", keyString);
         cache.remove(keyString);
-        
-        // FIXME ver quien usa esto y asume que se borran ambas entradas!
-//        cache.remove(namespace.getKey(locale, entity));
-//        cache.remove(namespace.getKey(locale.getLanguage(), entity));        
     }
 
     /** @see LastModifiedRepository#getMaxTimestamp(EntityKey[]) */
     public final Long getMaxTimestamp(final StringEntityKey... keys) {
+        return getMaxTimestamp(Arrays.asList(keys));
+    }
+
+    /** @see LastModifiedRepository#getMaxTimestamp(List) */
+    public final Long getMaxTimestamp(final List<StringEntityKey> keys) {
         Long maxTimestamp = null;
         
-        for (int i = 0; i < keys.length; i++) {
-            Long ts = getTimestamp(keys[i]);
+        for (StringEntityKey key : keys) {
+            Long ts = getTimestamp(key);
             if (maxTimestamp == null) {
                 maxTimestamp = ts;
             } else if (ts != null && maxTimestamp.compareTo(ts) < 0) {
@@ -65,7 +68,7 @@ public class EhCacheLastModifiedRepository implements
         }
         return maxTimestamp;
     }
-
+    
     /** @see LastModifiedRepository#getTimestamp(EntityKey) */
     public final Long getTimestamp(final StringEntityKey key) {
         Element element = cache.get(key.getAsString());
@@ -91,5 +94,6 @@ public class EhCacheLastModifiedRepository implements
         LOGGER.debug("httpcache invalidated: ({},{})", keyString , timestamp);
         cache.put(new Element(keyString, timestamp));        
     }
+
 
 }

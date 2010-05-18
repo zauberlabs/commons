@@ -4,6 +4,7 @@
 package ar.com.zauber.commons.web.cache.api.repo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -57,5 +58,14 @@ public interface LastModifiedRepository<K extends EntityKey> {
      * @return oldest timestamp
      */
     Long getMaxTimestamp(K... keys);
+
+    /**
+     * Get the max (oldest) timestamp for a collection of entities.
+     * 
+     * @param keys
+     *            Collection of entities key.
+     * @return oldest timestamp
+     */
+    Long getMaxTimestamp(List<K> keys);
 
 }
