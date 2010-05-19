@@ -560,7 +560,7 @@
       <dependency>
         <groupId>org.apache.velocity</groupId>
         <artifactId>velocity</artifactId>
-        <version>1.6</version>
+        <version>1.6.4</version>
       </dependency>
       <!-- END: Templating -->
       <!-- BEGIN: Json Parsing (Jackson) -->
