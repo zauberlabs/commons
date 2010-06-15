@@ -62,8 +62,6 @@ public class WebKitContentTypeFilter extends OncePerRequestFilter {
      */
     private boolean wrongMediaType(final HttpServletRequest request) {
         for (MediaType mediaType : getMediaTypes(request)) {
-            System.out.println(mediaType.getType() + "/"
-                    + mediaType.getSubtype());
             if (mediaType.getType().contains(TEXT)
                     && mediaType.getSubtype().contains(HTML)
                     && mediaType.getQualityValue() < 1.0) {

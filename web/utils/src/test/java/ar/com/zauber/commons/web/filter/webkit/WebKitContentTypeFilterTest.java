@@ -58,7 +58,7 @@ public class WebKitContentTypeFilterTest {
     }
     
     @Test
-    public void testname() throws Exception {
+    public void testFalse() throws Exception {
         Filter a = new WebKitContentTypeFilter();
         FilterChain chain = Mockito.mock(FilterChain.class);
         DoFilterAnswer answer = new DoFilterAnswer();
@@ -70,14 +70,32 @@ public class WebKitContentTypeFilterTest {
         a.doFilter(request, response, chain);
         Assert.assertEquals(request.getHeader(HEADER_ACCEPT), 
                 answer.req.getHeader(HEADER_ACCEPT));
-        
+    }
+    
+    @Test
+    public void testNone() throws Exception {
+        Filter a = new WebKitContentTypeFilter();
+        FilterChain chain = Mockito.mock(FilterChain.class);
+        DoFilterAnswer answer = new DoFilterAnswer();
+        Mockito.doAnswer(answer).when(chain).doFilter(
+                Mockito.any(ServletRequest.class),
+                Mockito.any(ServletResponse.class));
+        ServletResponse response = Mockito.mock(HttpServletResponse.class);
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        Mockito.when(request.getHeader("User-Agent"))
+            .thenReturn("Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.3)"
+                    + " Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3");
+        String accept = "accept";
+        Mockito.when(request.getHeader(HEADER_ACCEPT)).thenReturn(accept);
+        a.doFilter(request, response, chain);
+        Assert.assertEquals(accept, answer.req.getHeader(HEADER_ACCEPT));
     }
 
     /** @param acceptsHtml si tiene text/html entre sus contenido preferidos
      * @return un request de webkit.*/
     private HttpServletRequest createWebKitRequest(final boolean acceptsHtml) {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-        //CHECKSTYLE:ALL:OFF
+      //CHECKSTYLE:ALL:OFF
         Mockito.when(request.getHeader("User-Agent")).thenReturn("Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4");
         //CHECKSTYLE:ALL:ON
         String value;
