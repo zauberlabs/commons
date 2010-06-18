@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.web.uri.model;
 
+import java.util.Formatter;
+
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
@@ -25,13 +27,13 @@ import ar.com.zauber.commons.web.uri.factory.UriFactory;
  * @author Mariano Cortesi
  * @since Apr 23, 2010
  */
-public class CssAsset extends AssetModel {
+public class CssAsset extends HeaderAsset {
 
     private String media;
 
     /** Creates the CssAsset. */
-    public CssAsset(final String key, final String media) {
-        super(key);
+    public CssAsset(final String key, final String media, final String charset) {
+        super(key, charset);
         Validate.notNull(media);
         this.media = media;
     }
@@ -40,11 +42,19 @@ public class CssAsset extends AssetModel {
     @Override
     public final String toHtml(final UriFactory uriFactory) {
         StringBuilder str = new StringBuilder();
-        str.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"");
-        str.append(uriFactory.buildUri(getKey()));
-        str.append("\" media=\"")
+        str.append("<link rel=\"stylesheet\" type=\"text/css\"");
+        if(getCharset() != null) {
+            str.append(" charset=\"")
+                .append(getCharset())
+                .append('"');
+        }
+        str.append(" href=\"")
+            .append(uriFactory.buildUri(getKey()))
+            .append('"');
+        str.append(" media=\"")
            .append(this.media)
-           .append("\" />");
+           .append('"');
+        str.append(" />");
         return str.toString();
     }
 

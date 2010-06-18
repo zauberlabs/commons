@@ -21,6 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * {@link AssetRepository}'s implementation that stores each added asset
@@ -33,6 +36,7 @@ public class SimpleAssetsRepository implements AssetRepository {
 
     private final Map<String, List<AssetModel>> assets = 
         new HashMap<String, List<AssetModel>>();
+    Logger logger = LoggerFactory.getLogger(SimpleAssetsRepository.class); 
 
     /** @see AssetRepository#addAsset(String, AssetModel) */
     public final void addAsset(final String set, final AssetModel asset) {
@@ -44,6 +48,12 @@ public class SimpleAssetsRepository implements AssetRepository {
 
     /** @see AssetRepository#getSet(String) */
     public final List<AssetModel> getSet(final String set) {
-        return Collections.unmodifiableList(this.assets.get(set));
+        List<AssetModel> result = this.assets.get(set);
+        if(result == null) {
+            result = Collections.emptyList();
+            logger.warn("Se pidió un Set de assets vacio (probablemente se"
+                    + " llamó a printTag sin haber agregado un asset)");
+        }
+        return Collections.unmodifiableList(result);
     }
 }

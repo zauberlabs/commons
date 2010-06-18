@@ -25,6 +25,12 @@
             <rtexprvalue>true</rtexprvalue>
             <description>The key to the Javascript Asset</description>
         </attribute>
+        <attribute>
+            <name>charset</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Charset of the Javascript Asset.</description>
+        </attribute>
     </tag>
     <tag>
         <name>css</name>
@@ -48,7 +54,13 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <description>The name of the set of assets</description>
-        </attribute>        
+        </attribute>
+        <attribute>
+            <name>charset</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Charset of the included Css Asset.</description>
+        </attribute>   
     </tag>
     <tag>
         <name>image</name>

@@ -23,18 +23,24 @@ import ar.com.zauber.commons.web.uri.factory.UriFactory;
  * @author Mariano Cortesi
  * @since Apr 23, 2010
  */
-public class JavascriptAsset extends AssetModel {
+public class JavascriptAsset extends HeaderAsset {
 
     /** Creates the JavascriptAsset. */
-    public JavascriptAsset(final String key) {
-        super(key);
+    public JavascriptAsset(final String key, final String charset) {
+        super(key, charset);
     }
 
     /** @see AssetModel#toHtml(WebContext) */
     @Override
     public final String toHtml(final UriFactory uriFactory) {
         StringBuilder str = new StringBuilder();
-        str.append("<script type=\"text/javascript\" src=\"");
+        str.append("<script type=\"text/javascript\"");
+        if(getCharset() != null) {
+            str.append(" charset=\"");
+            str.append(getCharset());
+            str.append('"');
+        }
+        str.append(" src=\"");
         str.append(uriFactory.buildUri(getKey()));
         str.append("\"></script>");
         return str.toString();

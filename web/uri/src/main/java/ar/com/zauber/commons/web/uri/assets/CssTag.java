@@ -39,7 +39,7 @@ public class CssTag extends AssetIncludeTag {
     /** @see AssetIncludeTag#getAsset() */
     @Override
     protected final AssetModel getAsset() {
-        return new CssAsset(getKey(), this.media);
+        return new CssAsset(getKey(), this.media, getCharset());
     }
 
 }

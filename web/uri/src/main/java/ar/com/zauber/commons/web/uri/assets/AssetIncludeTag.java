@@ -45,6 +45,7 @@ public abstract class AssetIncludeTag extends AbstractSpringTag {
     
     private String set = DEFAULT_SET;
     private String key;
+    private String charset;
 
     /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
     public final int doStartTag() throws JspException {
@@ -66,9 +67,17 @@ public abstract class AssetIncludeTag extends AbstractSpringTag {
     public final void setSet(final String set) {
         this.set = set;
     }
-
+    
+    public final void setCharset(final String set) {
+        this.set = set;
+    }
+    
     public final String getKey() {
         return this.key;
+    }
+    
+    public final String getCharset() {
+        return this.charset;
     }
 
 }

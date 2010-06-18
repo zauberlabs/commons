@@ -33,7 +33,7 @@ public class JavascriptTag extends AssetIncludeTag {
     /** @see AssetIncludeTag#getAsset() */
     @Override
     protected final AssetModel getAsset() {
-        return new JavascriptAsset(getKey());
+        return new JavascriptAsset(getKey(), getCharset());
     }
 
 }
