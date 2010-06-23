@@ -52,6 +52,8 @@
     </partintro>
     <xi:include href="intro.xml" />
   </part>
+  <!-- Proyectos -->
+  <xi:include href="commons-web-uri.xml"/>
 
     <part xml:id="appendices">
     <title>Appendices</title>
@@ -63,4 +65,5 @@
       reference and not read consecutively.</para>
     </partintro>
   </part>
+  
 </book>

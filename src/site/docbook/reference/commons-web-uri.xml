@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preface version="5.0" xml:id="preface" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Commons Web Uri</title>
+  
+  
+  <para>Commons Web Uri provides complete control over the site internal 
+  references.</para>
+  
+  
+  
+  <section xml:id="commons-web-uri-urifactory">
+    <title>Building Links With UriFactory</title>
+    <para>UriFactory build URIs dynamically, given a key and a set of objects it 
+    returns an URI. There are several implementations of this Interface and all of 
+    them are intended to decorate another UriFactory. A typical use would be:</para>
+    
+    
+   <para>"home"      "http://www.example.com/home/index.html?v=1.0"
+        |       ^
+        V       |   
+    VersionedUriFactory (versionate the file)
+        |       ^
+        V       |   "http://www.example.com/home/index.html"
+    PrefixUriFactory (adds a prefix ie:http://www.example.com/)
+        |       ^
+        V       |   "home/index.html"
+    ExpressionMapUriFactory (finds the meaning of the key)
+        |       ^
+        V       |   "home"
+    IdentityUriFactory</para>
+    
+    <para>These artifact is very useful to manage all the links in a centralized way.
+    You can manage the links of the webpage, mails and HTTP header all from the same 
+    place avoiding knowing each little place in the application. 
+    </para>
+    
+    <title>Using UriFactory within JSPs</title>
+    <para>There's UriJspFactory utility class which let you use an specific UriFactory
+    previously defined in context inside the jsp in a very simple way. First Configure 
+    a Spring bean with name as defined in SpringBeans.LINK_URIFACTORY_KEY, this will 
+    be the UriFactory which UriJspFactory will use. Then inside your jsp you only
+    have to call buildUri method. EXAMPLE
+    </para>
+    
+    <title>Configuring ExpressionMapUriFactory</title>
+    <para>A very useful implementation of UriFactory is ExpressionMapUriFactory
+    it lets you map a </para>
+    
+    <title>Managing page resources with Assets</title>
+    <para></para>
+  </section>
+
+</preface>
