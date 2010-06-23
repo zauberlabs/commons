@@ -27,7 +27,7 @@ import ar.com.zauber.commons.web.uri.model.AssetRepository;
  * @since Jun 17, 2010
  */
 @ContextConfiguration(locations= {
-        "/ar/com/zauber/commons/web/uri/config/assets-commons-web-uri-spring.xml",
+        "/ar/com/zauber/commons/web/uri/config/assets-commons-web-uri-spring.xml"
         })
 public class AssetTagTest extends AbstractJUnit4SpringContextTests {
 
