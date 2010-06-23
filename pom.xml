@@ -168,6 +168,8 @@
             <exclude>**/*.c</exclude>
             <exclude>**/*.h</exclude>
             <exclude>**/Makefile*</exclude>
+            <exclude>src/docbkx/**</exclude>
+            <exclude>src/site/**</exclude>
           </excludes>
           <useDefaultExcludes>true</useDefaultExcludes>
           <useDefaultMapping>true</useDefaultMapping>
