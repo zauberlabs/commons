@@ -85,4 +85,7 @@ public class AssetTagTest extends AbstractJUnit4SpringContextTests {
                 .thenReturn(wc);
         return sReq;
     }
+    @org.junit.Test
+    public final void foo() {
+    }
 }
