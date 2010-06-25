@@ -27,7 +27,8 @@ public class AbsolutePathUriFactory implements UriFactory {
     
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
-        Pattern p = Pattern.compile("(https|http)://");
+        //matchea http:// y https:// (la s es opcional '?')
+        Pattern p = Pattern.compile("https?://.*");
         if(p.matcher(uriKey).matches()) {
             return uriKey;
         }
