@@ -3,38 +3,36 @@
  */
 package ar.com.zauber.commons.web.uri.assets;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import ar.com.zauber.commons.web.uri.factory.IdentityUriFactory;
 import ar.com.zauber.commons.web.uri.model.AssetModel;
-import ar.com.zauber.commons.web.uri.model.AssetRepository;
 
 /**
  * Test de tags de Javascript y Tag
  * @author Mariano Semelman
  * @since Jun 17, 2010
  */
-public class CssJavascriptTagTest extends AssetTagTest {
+public class CssJavascriptTagTest extends AssetTagTests {
 
+    /** */
     @Test
-    public void cssSetUp() throws Exception {
+    public final void cssSetUp() throws Exception {
         new CssTag();
     }
     
+    /** */
     @Test
-    public void javascriptSetUp() throws Exception {
+    public final void javascriptSetUp() throws Exception {
         new JavascriptTag();
     }
     
+    /** */
     @Test
-    public void cssTest() throws Exception {
+    public final void cssTest() throws Exception {
         CssTag t = new CssTag();
-        t.setPageContext(pc);
+        t.setPageContext(getPc());
         t.setCharset("utf-8");
         t.setKey("stylesheet.css");
         t.setMedia("text/stylesheet");
@@ -43,15 +41,17 @@ public class CssJavascriptTagTest extends AssetTagTest {
         t.doStartTag();
         AssetModel asset = t.getAsset();
         String link = asset.toHtml(new IdentityUriFactory());
-        Assert.assertEquals("<link rel=\"stylesheet\" type=\"text/css\""
-                + " href=\"stylesheet.css\" media=\"text/stylesheet\" />", 
+        Assert.assertEquals("<link rel=\"stylesheet\" type=\"text/css\" "
+                + "charset=\"utf-8\" href=\"stylesheet.css\" "
+                + "media=\"text/stylesheet\" />", 
                 link);
     }
     
+    /** */
     @Test
-    public void javascripTest() throws Exception {
+    public final void javascripTest() throws Exception {
         JavascriptTag t = new JavascriptTag();
-        t.setPageContext(pc);
+        t.setPageContext(getPc());
         t.setCharset("utf-8");
         t.setKey("script.js");
         String set = "jsSet";
@@ -60,7 +60,7 @@ public class CssJavascriptTagTest extends AssetTagTest {
         AssetModel asset = t.getAsset();
         String link = asset.toHtml(new IdentityUriFactory());
         System.out.println(link);
-        Assert.assertEquals("<script type=\"text/javascript\" src=\"script.js\">"
-                + "</script>", link);
+        Assert.assertEquals("<script type=\"text/javascript\" charset=\"utf-8\" "
+                + "src=\"script.js\"></script>", link);
     }
 }

@@ -15,8 +15,6 @@
  */
 package ar.com.zauber.commons.web.uri.model;
 
-import java.util.Formatter;
-
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.uri.factory.UriFactory;

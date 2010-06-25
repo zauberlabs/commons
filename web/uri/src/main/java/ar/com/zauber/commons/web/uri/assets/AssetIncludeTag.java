@@ -48,6 +48,7 @@ public abstract class AssetIncludeTag extends AbstractSpringTag {
     private String charset;
 
     /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
+    @Override
     public final int doStartTag() throws JspException {
         WebApplicationContext appCtx = getApplicationContext();
         AssetRepository repository = appCtx.getBean(SpringBeans.REPOSITORY_KEY,
@@ -68,8 +69,8 @@ public abstract class AssetIncludeTag extends AbstractSpringTag {
         this.set = set;
     }
     
-    public final void setCharset(final String set) {
-        this.set = set;
+    public final void setCharset(final String charset) {
+        this.charset = charset;
     }
     
     public final String getKey() {
