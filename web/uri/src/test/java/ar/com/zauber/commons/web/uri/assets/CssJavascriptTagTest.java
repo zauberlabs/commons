@@ -59,7 +59,6 @@ public class CssJavascriptTagTest extends AssetTagTests {
         t.doStartTag();
         AssetModel asset = t.getAsset();
         String link = asset.toHtml(new IdentityUriFactory());
-        System.out.println(link);
         Assert.assertEquals("<script type=\"text/javascript\" charset=\"utf-8\" "
                 + "src=\"script.js\"></script>", link);
     }
