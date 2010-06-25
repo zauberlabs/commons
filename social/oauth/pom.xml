@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.social</groupId>
-    <version>3.33-SNAPSHOT</version>
+    <version>3.34-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Social::OAuth</name>
   <artifactId>parent</artifactId>
