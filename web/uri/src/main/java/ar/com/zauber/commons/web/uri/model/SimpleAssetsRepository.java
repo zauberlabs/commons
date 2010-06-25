@@ -36,14 +36,15 @@ public class SimpleAssetsRepository implements AssetRepository {
 
     private final Map<String, List<AssetModel>> assets = 
         new HashMap<String, List<AssetModel>>();
-    Logger logger = LoggerFactory.getLogger(SimpleAssetsRepository.class); 
+    private final Logger logger = 
+        LoggerFactory.getLogger(SimpleAssetsRepository.class); 
 
     /** @see AssetRepository#addAsset(String, AssetModel) */
     public final void addAsset(final String set, final AssetModel asset) {
-        if (!assets.containsKey(set)) {
-            assets.put(set, new LinkedList<AssetModel>());
+        if (!this.assets.containsKey(set)) {
+            this.assets.put(set, new LinkedList<AssetModel>());
         }
-        assets.get(set).add(asset);
+        this.assets.get(set).add(asset);
     }
 
     /** @see AssetRepository#getSet(String) */
@@ -51,7 +52,7 @@ public class SimpleAssetsRepository implements AssetRepository {
         List<AssetModel> result = this.assets.get(set);
         if(result == null) {
             result = Collections.emptyList();
-            logger.warn("Se pidió un Set de assets vacio (probablemente se"
+            this.logger.warn("Se pidió un Set de assets vacio (probablemente se"
                     + " llamó a printTag sin haber agregado un asset)");
         }
         return Collections.unmodifiableList(result);

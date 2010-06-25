@@ -24,8 +24,8 @@ public abstract class HeaderAsset extends AssetModel {
         this.charset = charset;
     }
 
-    public String getCharset() {
-        return charset;
+    public final String getCharset() {
+        return this.charset;
     }
 
 }
