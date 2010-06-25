@@ -28,6 +28,11 @@ import org.springframework.web.context.ServletContextAware;
  * <p>It supports the set up of version suffix, static prefix, 
  * servlet-path prefix upon a base {@link UriFactory}.
  * 
+ * <p> By default it wraps the {@link UriFactory} by an 
+ *  {@link AbsolutePathUriFactory}, this can be changed by setting 
+ *  <code>false</code> in 
+ *   {@link ConfigurableUriFactoryFactoryBean#setAbsoluteUris(boolean)}
+ * 
  * @author Mariano Cortesi
  * @since May 10, 2010
  */
@@ -40,6 +45,7 @@ public class ConfigurableUriFactoryFactoryBean implements
     private String version;
     private String prefixKey;
     private ServletContext servletContext;
+    private boolean absoluteUris = true;
 
     /**
      * Creates the ConfigurableUriFactoryFactoryBean.
@@ -53,35 +59,40 @@ public class ConfigurableUriFactoryFactoryBean implements
 
     /** @see FactoryBean#getObject() */
     public final UriFactory getObject() throws Exception {
-        if (createdUriFactory == null) {
+        if (this.createdUriFactory == null) {
             createSingleton();
         }
-        return createdUriFactory;
+        return this.createdUriFactory;
     }
 
     /** Creates the singleton {@link UriFactory} */
     private void createSingleton() {
-        createdUriFactory = baseUriFactory;
+        this.createdUriFactory = this.baseUriFactory;
 
         if (this.version != null) {
-            createdUriFactory = new VersionedUriFactory(this.version, 
-                    createdUriFactory);
+            this.createdUriFactory = new VersionedUriFactory(this.version, 
+                    this.createdUriFactory);
         }
         
         if (this.prefixKey != null) {
             if (this.prefixKey.equals("servlet-path")) {
                 ServletPathUriFactory servletPathUriFactory = 
-                    new ServletPathUriFactory(createdUriFactory);
-                servletPathUriFactory.setServletContext(servletContext);
-                createdUriFactory = servletPathUriFactory;
+                    new ServletPathUriFactory(this.createdUriFactory);
+                servletPathUriFactory.setServletContext(this.servletContext);
+                this.createdUriFactory = servletPathUriFactory;
             } else if (this.prefixKey.startsWith("static:")) {
-                createdUriFactory = new PrefixUriFactory(
+                this.createdUriFactory = new PrefixUriFactory(
                         this.prefixKey.substring("static:".length()), 
-                        createdUriFactory);
+                        this.createdUriFactory);
             } else {
                 throw new IllegalArgumentException(
                         "Invalid prefixKey: " + this.prefixKey);
             }
+        }
+        
+        if(this.absoluteUris) {
+            this.createdUriFactory = 
+                new AbsolutePathUriFactory(this.createdUriFactory);
         }
     }
 
@@ -112,6 +123,14 @@ public class ConfigurableUriFactoryFactoryBean implements
     public final void setPrefixKey(final String prefixKey) {
         Validate.notNull(prefixKey);
         this.prefixKey = prefixKey;
+    }
+    
+    /**
+     * Sets if An {@link AbsolutePathUriFactory} is required on top of all 
+     * {@link UriFactory} , true by default.
+     */
+    public final void setAbsoluteUris(final boolean absoluteUris) {
+        this.absoluteUris = absoluteUris;
     }
 
     /** @see ServletContextAware#setServletContext(ServletContext) */

@@ -17,6 +17,7 @@ package ar.com.zauber.commons.web.uri.factory;
 
 
 import static junit.framework.Assert.assertEquals;
+import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,47 +38,67 @@ public class ConfigurableUriFactoryFactoryBeanTest {
     public final void testCreateFactoryBean() {
         MockServletContext servletContext = new MockServletContext();
         servletContext.setContextPath("/my-path");
-        factoryBean = new ConfigurableUriFactoryFactoryBean(
+        this.factoryBean = new ConfigurableUriFactoryFactoryBean(
                 new IdentityUriFactory());
-        factoryBean.setServletContext(servletContext);        
+        this.factoryBean.setServletContext(servletContext);        
     }
     
     /** test method */
     @Test(expected = IllegalArgumentException.class)
     public final void testWithInvalidPrefix() throws Exception {
-        factoryBean.setPrefixKey("basura");
-        factoryBean.getObject();
+        this.factoryBean.setPrefixKey("basura");
+        this.factoryBean.getObject();
     }
     
     /** test method */
     @Test
     public final void testWithPrefix() throws Exception {
-        factoryBean.setPrefixKey("static:http://www.google.com");
-        UriFactory uriFactory = factoryBean.getObject();
+        this.factoryBean.setPrefixKey("static:http://www.google.com");
+        UriFactory uriFactory = this.factoryBean.getObject();
         assertEquals("http://www.google.com/hola", uriFactory.buildUri("/hola"));
     }
 
     /** test method */
     @Test
     public final void testWithServletPath() throws Exception {
-        factoryBean.setPrefixKey("servlet-path");
-        UriFactory uriFactory = factoryBean.getObject();
+        this.factoryBean.setPrefixKey("servlet-path");
+        UriFactory uriFactory = this.factoryBean.getObject();
         assertEquals("/my-path/hola", uriFactory.buildUri("/hola"));
     }
 
     /** test method */
     @Test
     public final void testWithNoPrefix() throws Exception {
-        UriFactory uriFactory = factoryBean.getObject();
+        UriFactory uriFactory = this.factoryBean.getObject();
         assertEquals("/hola", uriFactory.buildUri("/hola"));
     }
     
     /** test method */
     @Test
     public final void testWithVersion() throws Exception {
-        factoryBean.setVersion("0.3");
-        UriFactory uriFactory = factoryBean.getObject();
+        this.factoryBean.setVersion("0.3");
+        UriFactory uriFactory = this.factoryBean.getObject();
         assertEquals("/hola?v=0.3", uriFactory.buildUri("/hola"));
     }
+    
+    /** test method */
+    @Test
+    public final void testWithAbsolute() throws Exception {
+        this.factoryBean.setPrefixKey("static:crap-");
+        UriFactory f = this.factoryBean.getObject();
+        Assert.assertEquals("http://bar", f.buildUri("http://bar"));
+        Assert.assertEquals("crap-bar", f.buildUri("bar"));
+    }
+    
+    /** test method */
+    @Test
+    public final void testWithoutAbsolute() throws Exception {
+        this.factoryBean.setPrefixKey("static:crap-");
+        this.factoryBean.setAbsoluteUris(false);
+        UriFactory f = this.factoryBean.getObject();
+        Assert.assertEquals("crap-http://bar", f.buildUri("http://bar"));
+        Assert.assertEquals("crap-bar", f.buildUri("bar"));
+    }
+    
     
 }
