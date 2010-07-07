@@ -63,15 +63,13 @@ public class HeaderBasedStatusSimpleMappingExceptionHandlerTest extends
         view.setBeanName("test");
         final HeaderBasedStatusSimpleMappingExceptionHandler h = 
             new HeaderBasedStatusSimpleMappingExceptionHandler(
-                view);
+                view, "application/json");
         
         h.setDefaultStatusCode(200);
         h.setExceptionMappings(views);
         h.setStatusMappings(status);
         h.setDefaultErrorView("default");
         
-        h.setAccept("application/json");
-
         MockHttpServletResponse response;
         ModelAndView v;
 
