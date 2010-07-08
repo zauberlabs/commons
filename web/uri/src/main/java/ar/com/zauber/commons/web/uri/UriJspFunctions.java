@@ -15,12 +15,20 @@
  */
 package ar.com.zauber.commons.web.uri;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.servlet.jsp.PageContext;
 
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import ar.com.zauber.commons.web.uri.factory.IdentityUriFactory;
+import ar.com.zauber.commons.web.uri.factory.RelativePathUriFactory;
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
@@ -39,6 +47,10 @@ public final class UriJspFunctions {
     private UriJspFunctions() {
         // void
     }
+    private static AtomicBoolean initialized = new AtomicBoolean(false);
+    private static UriFactory uriFactory;
+    private static Logger logger = LoggerFactory.getLogger(UriJspFunctions.class);
+    private static boolean usingDefault = false;
 
     /** Construye un uri */
     public static String buildVarArgs(final PageContext ctx,
@@ -46,14 +58,37 @@ public final class UriJspFunctions {
         Validate.notNull(uriKey);
         Validate.notNull(ctx);
         
-        WebApplicationContext appCtx = 
-            RequestContextUtils.getWebApplicationContext(ctx.getRequest());
-        
-        UriFactory uriFactory = appCtx.getBean(
-                SpringBeans.LINK_URIFACTORY_KEY, UriFactory.class);
-        
-        return uriFactory.buildUri(uriKey, params);
+        if(!initialized.getAndSet(true)) {
+            try {
+                logger.info("Resolving Urifactory bean.");
+                WebApplicationContext appCtx = 
+                    RequestContextUtils.getWebApplicationContext(ctx.getRequest());
+                
+                try {
+                    uriFactory = appCtx.getBean(SpringBeans.LINK_URIFACTORY_KEY, 
+                            UriFactory.class);
+                    logger.info("Using {} UriFactory.", 
+                            SpringBeans.LINK_URIFACTORY_KEY);
+                } catch (NoSuchBeanDefinitionException e) {
+                    logger.info("Using Default UriFactory.");
+                    uriFactory = new RelativePathUriFactory(
+                            new IdentityUriFactory());
+                    usingDefault = true;
+                }
+            } catch (Throwable e) {
+                initialized.set(false);
+                throw new UnhandledException("inicializando urifactory", e);
+            }
+        }
+        String uri;
+        if(usingDefault) {
+            uri = uriFactory.buildUri(uriKey, params, ctx.getRequest());
+        } else {
+            uri = uriFactory.buildUri(uriKey, params);
+        }
+        return uri;
     }
+    
 
     /** Construye un uri a través de un <em>uriKey</em> y parametros */
     public static String build(final PageContext ctx,
