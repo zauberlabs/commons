@@ -45,14 +45,21 @@ public class RelativePathUriFactory implements UriFactory {
 
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
-        HttpServletRequest request = null;
-        if (expArgs.length > 0 
-                && expArgs[expArgs.length - 1] instanceof HttpServletRequest) {
-            request = (HttpServletRequest) expArgs[expArgs.length - 1];
-        } else {
-            throw new IllegalStateException(
-            "Can not reach request. Expected Request as last argument.");
+        HttpServletRequest request = getRequest(expArgs);
+        String ret = generarPath(request);
+        String uri = callback.buildUri(uriKey, expArgs);
+        if(!uri.startsWith("/")) {
+            uri = '/' + uri;
         }
+        return ret + uri;
+    }
+
+    /**
+     * Genera el path hasta la ruta de la aplicación.
+     * @param request
+     * @return path
+     */
+    private String generarPath(final HttpServletRequest request) {
         String ret = StringUtils.EMPTY;
         try {
             String encoding = request.getCharacterEncoding();
@@ -92,11 +99,24 @@ public class RelativePathUriFactory implements UriFactory {
         } catch (UnsupportedEncodingException e) {
             throw new UnhandledException(e);
         }
-        String uri = callback.buildUri(uriKey, expArgs);
-        if(!uri.startsWith("/")) {
-            uri = '/' + uri;
+        return ret;
+    }
+
+    /**
+     * Obtiene el requeste entre los argumentos de buildUri.
+     * @param expArgs
+     * @return request
+     */
+    private HttpServletRequest getRequest(final Object... expArgs) {
+        HttpServletRequest request = null;
+        if (expArgs.length > 0 
+                && expArgs[expArgs.length - 1] instanceof HttpServletRequest) {
+            request = (HttpServletRequest) expArgs[expArgs.length - 1];
+        } else {
+            throw new IllegalStateException(
+            "Can not reach request. Expected Request as last argument.");
         }
-        return ret + uri;
+        return request;
     }
 
 }
