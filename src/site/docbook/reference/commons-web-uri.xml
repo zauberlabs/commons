@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<preface version="5.0" xml:id="preface" xmlns="http://docbook.org/ns/docbook"
+<preface version="5.0" xml:id="commons-web-uri" 
+         xmlns="http://docbook.org/ns/docbook"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
          xmlns:ns4="http://www.w3.org/2000/svg"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Commons Web Uri</title>
-  
-  
+
+  <section xml:id="commons-web-uri-urifactory">
   <para>Commons Web Uri provides complete control over the site internal 
   references.</para>
-  
-  
-  
-  <section xml:id="commons-web-uri-urifactory">
     <title>Building Links With UriFactory</title>
     <para>UriFactory build URIs dynamically, given a key and a set of objects it 
     returns an URI. There are several implementations of this Interface and all of 
@@ -111,47 +108,55 @@
         first of all we must include the tag lib. (we will be using a 
         SimpleAssetRepository and a RelativePathUriFactory)
         ...
-    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+    <![CDATA[<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
     <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
     <%@ taglib prefix="assets" uri="http://labs.zauber.com.ar/commons/tags/assets" %> !!!
         ...
-    
+    ]]>
     Later for each resource we want to include we name it by it key.
         
     ...
+    <![CDATA[
     <assets:javascript key="/_js/lib/jquery-1.4.2.js"/>
     <assets:css key="/_css/cute.css" media="text/stylesheet"/>
     <assets:css set="ie8" key="/_css/lte-ie8.css" media="screen"/>
     <assets:css set="ie6" key="/_css/ie6.css" media="screen" />
     ...
-    
+    ]]>
     Later if we put this
-    <assets:print/>
+    <![CDATA[<assets:print/>]]>
     
     The output generated will be:
+    <![CDATA[
     <script type="text/javascript" src="../../../_js/lib/jquery-1.4.2.js"></script>
-    <link rel="stylesheet" type="text/css\" href="../../../_css/cute.css"  "media="text/stylesheet" />
+    <link rel="stylesheet" type="text/css\" href="../../../_css/cute.css"
+    "media="text/stylesheet" />]]>
     
     but it gets handy using things like this:
+    <![CDATA[
     <!--[if lte IE 8]>
         <assets:print set="ie8" />
     <![endif]-->
-    
+    ]]>
     that will generate this:
+    <![CDATA[
     <!--[if lte IE 8]>
         <link rel="stylesheet" type="text/css\" href="../../../_css/lte-ie8.css"  "media="screen" />
     <![endif]-->
-    
+    ]]>
     Example Using images
+    <![CDATA[
     <body>
         <asset:image key="/res/img/imagen1.jpg" />
     </body>
-    
+    ]]>
+
     will result on this
+    <![CDATA[
     <body>
         <img src="../../../res/img/imagen1.jpg">
     </body>
-    
+    ]]>
     
     Something very usefull is to include a Header before any print tag, so the assets
     declared on the header gets printed.

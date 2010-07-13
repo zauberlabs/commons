@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<book version="5.0" xml:id="spring-roo-reference-guide"
+<book version="5.0" xml:id="zauber-commons-reference-guide"
       xmlns="http://docbook.org/ns/docbook"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -9,9 +9,7 @@
       xmlns:ns="http://docbook.org/ns/docbook">
   <info>
     <title>Zauber Commons - Reference Documentation</title>
-
     <productname>Zauber Commons</productname>
-
     <releaseinfo>4.0.0.M1</releaseinfo>
 
     <authorgroup>
@@ -51,12 +49,14 @@
       to extend Zauber Commons itself.</para>
     </partintro>
     <xi:include href="intro.xml" />
+
   </part>
-    <!-- Proyectos -->
-
+  <part>
+    <title>Modules</title>
+    <!-- Modulos -->
     <xi:include href="commons-web-uri.xml"/>
-
     <xi:include href="commons-message.xml"/>
+  </part>
 
     <part xml:id="appendices">
     <title>Appendices</title>

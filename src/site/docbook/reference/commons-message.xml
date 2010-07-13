@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter version="5.0" xml:id="preface" xmlns="http://docbook.org/ns/docbook"
+<chapter version="5.0" xml:id="commons-message" 
+         xmlns="http://docbook.org/ns/docbook"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
          xmlns:ns4="http://www.w3.org/2000/svg"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:ns="http://docbook.org/ns/docbook">
     <title>Commons Message</title>
-  
+  <!--
     <para>Commons Message provides a notification system for a site.</para>
-  
+  -->
     <section xml:id="commons-message-introduction">
         <title>Introduction</title>
         
@@ -33,7 +34,7 @@
         <section xml:id="commons-message-core-message">
             <title>Message</title>
             <para>Message abstraction. It has an asociated content, a subject and a receiver (with type NotificationAddress).</para>
-            <programlisting>public interface Message {
+            <programlisting language="Java">public interface Message {
 
     /** @return the plain content of the message */
     String getContent();
@@ -168,8 +169,8 @@
         </map>
 	</constructor-arg>
 </bean>]]></programlisting>
-            <para>Now we have our message factory. In case you didn't notice, now we are able to make a tipical mail with the starting salutation "Dear $user," where <code>$user</user> will be propopulated by some value. 
-            
+<!--
+            <para>Now we have our message factory. In case you didn't notice, now we are able to make a tipical mail with the starting salutation "Dear $user," where <code>$user</code></user> will be propopulated by some value.  
             TODO SEGUIR DE ACA LA REV.
             We are identifying an specific mail with its template key and his velocity templateBy adding more entries to the map, we can have as many templates as we want. In case of email notifications, we use <code>JavaMailSenderImpl</code>. Then, we define the strategy <code>SimpleEmailNotificationStrategy</code> and finally, we use an auxiliary function bean to send directly an email <code>MessageControllerCommand</code></para>
             <programlisting><![CDATA[
@@ -178,7 +179,7 @@
 	<constructor-arg index="1" ref="messageFactory"/>
 	<constructor-arg index="2" value="template-key/mail"/>
 </bean>]]></programlisting>            
-
+-->
     <para>There are some improvements over this configuration. We can take advantage of <code>ProxyMailSender</code> to use multiple senders (in case we want to log emails on a database). Other good feature is the the possibility to send emails to console at development time and by changing a property value, we are set to production. In order to do this we need to change: </para>
 
 <programlisting>            
