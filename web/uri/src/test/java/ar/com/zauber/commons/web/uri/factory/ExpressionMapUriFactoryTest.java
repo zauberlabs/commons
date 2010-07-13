@@ -46,7 +46,9 @@ public class ExpressionMapUriFactoryTest {
         uris.put("singleArgument", "/hola/que/tal/{#root[0].propA}");
         uris.put("multipleArguments",
                 "/hola/que/tal/{#root[0].propA}...{#root[1]}");
-        this.expMapUriFactory = new ExpressionMapUriFactory(
+        uris.put("encodedArgument",
+                "/hola/que/tal/{#encode(#root[0].propB)}");
+        expMapUriFactory = new ExpressionMapUriFactory(
                 new SpelExpressionParser(), uris);
     }
 
@@ -73,14 +75,27 @@ public class ExpressionMapUriFactoryTest {
         assertEquals("/hola/que/tal/hola...90", uri);
 
     }
+    
+    /** Test de ..*/
+    @Test
+    public final void encodeArgument() throws Exception {
+        String uri = expMapUriFactory.buildUri("encodedArgument", new Stub());
+        assertEquals("/hola/que/tal/hola%20como%20va%3F%3A%20bien%2Bvos%3F", uri);
+    }
 
     /** Test Stub */
     private static class Stub {
         private String propA = "hola";
+        private String propB = "hola como va?: bien+vos?";
         
         @SuppressWarnings("unused")
         public String getPropA() {
             return this.propA;
+        }
+        
+        @SuppressWarnings("unused")
+        public String getPropB() {
+            return propB;
         }
         
         /** TODO javadoc */
