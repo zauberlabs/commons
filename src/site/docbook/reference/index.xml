@@ -29,7 +29,7 @@
       Notice, whether distributed in print or electronically.</para>
     </legalnotice>
   </info>
-
+    
   <toc></toc>
 
   <xi:include href="preface.xml" />
@@ -52,8 +52,11 @@
     </partintro>
     <xi:include href="intro.xml" />
   </part>
-  <!-- Proyectos -->
-  <xi:include href="commons-web-uri.xml"/>
+    <!-- Proyectos -->
+
+    <xi:include href="commons-web-uri.xml"/>
+
+    <xi:include href="commons-message.xml"/>
 
     <part xml:id="appendices">
     <title>Appendices</title>
