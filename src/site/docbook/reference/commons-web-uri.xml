@@ -68,12 +68,94 @@
     <para>
         The code beteween curly brackets is what actually gets evaluated. The variable 
         <b>#root</b> refers to the array of arguments passed to the method UriFactory#buildUri
-        Furthermore there is an utility function inside the Parser called encode, which actiually
+        Furthermore there is an utility function inside the Parser called encode, which actually
         encodes the Uri.
     </para>
     
     <title>Managing page resources with Assets</title>
-    <para></para>
+    
+    <para>Assets is a collection of tools that let you manage the resources of your page. 
+        It lets you manage the resources as sets, for example you can ofuscate, minimize,
+        concatenate a bunch of css or javascript assets. Or even manage browser dependent
+        assets into differents groups.
+    </para>
+    <para>
+        For such a task it defines the entity "Asset" which refers to a single resource. 
+        Every Asset has a key which resolves the url using a UriFactory configured in the
+        spring context. In addition assets have a property named set which let you group
+        them. The assets are intended to be used inside jsp. Actually there are several tags
+        to use them.(See Examples)
+    </para>
+    <para> 
+        In order to start using them it is necessary to configure an 
+        AssetRepository and a UriFactory as spring beans (AssetRepository MUST have 
+        REQUEST scope). The AssetRepository must be named as 
+        SpringBeans.REPOSITORY_KEY defines. And the UriFactory must be named as
+        SpringBeans.ASSET_URIFACTORY_KEY defines.
+    </para>
+    <para>
+        Now, let's see Assets in action:
+        There are several usefull tags, but we can divide them in two groups, 
+        includable assets tags assets that are suitable to be preprocessed, and 
+        printable asset tags that are tags that will print content to the jsp.
+        Among includable tags we can name css and javscript tags, these assets are the
+        ones which actually get grouped by sets, by default all of them belong to a 
+        default set. On the other hand there printable tags are such as Image tag or 
+        Print tag . Print tag works together with includable tags. When we name the
+        print tag along a set, it prints out the corresponging assets to that set 
+        defined before the use of the print tag. If no set is provided it will recall 
+        the default set.
+         
+         JSP file:
+        
+        first of all we must include the tag lib. (we will be using a 
+        SimpleAssetRepository and a RelativePathUriFactory)
+        ...
+    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+    <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+    <%@ taglib prefix="assets" uri="http://labs.zauber.com.ar/commons/tags/assets" %> !!!
+        ...
+    
+    Later for each resource we want to include we name it by it key.
+        
+    ...
+    <assets:javascript key="/_js/lib/jquery-1.4.2.js"/>
+    <assets:css key="/_css/cute.css" media="text/stylesheet"/>
+    <assets:css set="ie8" key="/_css/lte-ie8.css" media="screen"/>
+    <assets:css set="ie6" key="/_css/ie6.css" media="screen" />
+    ...
+    
+    Later if we put this
+    <assets:print/>
+    
+    The output generated will be:
+    <script type="text/javascript" src="../../../_js/lib/jquery-1.4.2.js"></script>
+    <link rel="stylesheet" type="text/css\" href="../../../_css/cute.css"  "media="text/stylesheet" />
+    
+    but it gets handy using things like this:
+    <!--[if lte IE 8]>
+        <assets:print set="ie8" />
+    <![endif]-->
+    
+    that will generate this:
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css\" href="../../../_css/lte-ie8.css"  "media="screen" />
+    <![endif]-->
+    
+    Example Using images
+    <body>
+        <asset:image key="/res/img/imagen1.jpg" />
+    </body>
+    
+    will result on this
+    <body>
+        <img src="../../../res/img/imagen1.jpg">
+    </body>
+    
+    
+    Something very usefull is to include a Header before any print tag, so the assets
+    declared on the header gets printed.
+    </para>
   </section>
 
 </preface>
