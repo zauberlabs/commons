@@ -40,16 +40,37 @@
     </para>
     
     <title>Using UriFactory within JSPs</title>
-    <para>There's UriJspFactory utility class which let you use an specific UriFactory
-    previously defined in context inside the jsp in a very simple way. First Configure 
+    <para>There's UriJspFactory utility class which let you use UriFactories JSPs in 
+    a very simple way. It uses by default RelativePathUriFactory, but configuring 
     a Spring bean with name as defined in SpringBeans.LINK_URIFACTORY_KEY, this will 
     be the UriFactory which UriJspFactory will use. Then inside your jsp you only
-    have to call buildUri method. EXAMPLE
+    have to call buildUri method.
     </para>
     
     <title>Configuring ExpressionMapUriFactory</title>
     <para>A very useful implementation of UriFactory is ExpressionMapUriFactory
-    it lets you map a </para>
+        where each uri has an unique key, these uris are simple expressions which are
+        evaluated by {@link ExpressionParser}. An known implementation of this is
+        {@link SpelExpressionParser}.
+    </para>
+
+    <para>
+        These expressions ressemble Spring UriTemplate. Here are some examples with
+        SpEl:
+        <ul> 
+            <li>/users/{#root[0]}/inbox</li>
+            <li>/users/{#root[0]}/questions/{#root[1].id}</li>
+            <li>/users/{#root[0].username}/</li>
+            <li>/users/{encode(#root[1].question)}</li>
+        </ul>
+    </para>
+
+    <para>
+        The code beteween curly brackets is what actually gets evaluated. The variable 
+        <b>#root</b> refers to the array of arguments passed to the method UriFactory#buildUri
+        Furthermore there is an utility function inside the Parser called encode, which actiually
+        encodes the Uri.
+    </para>
     
     <title>Managing page resources with Assets</title>
     <para></para>
