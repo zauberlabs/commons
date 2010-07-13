@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.Validate;
+import org.springframework.core.Ordered;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -34,7 +35,7 @@ import ar.com.zauber.commons.spring.web.handlers.strategy.TransactionStrategy;
  * @author Pablo Grigolatto
  * @since Dec 2, 2009
  */
-public class TransactionAwareHandlerAdapter implements HandlerAdapter {
+public class TransactionAwareHandlerAdapter implements HandlerAdapter, Ordered {
     private final HandlerAdapter target;
     private final TransactionStrategy transactionStrategy;
     
@@ -65,6 +66,7 @@ public class TransactionAwareHandlerAdapter implements HandlerAdapter {
         return transactionTemplate.execute(new TransactionCallback<ModelAndView>() {
             public ModelAndView doInTransaction(
                     final TransactionStatus transactionStatus) {
+                // CHECKSTYLE:ALL:OFF
                 try {
                     return target.handle(request, response, handler);
                 } catch(final RuntimeException e) {
@@ -77,6 +79,7 @@ public class TransactionAwareHandlerAdapter implements HandlerAdapter {
                     throw new RuntimeException(
                             "Transaction can not be executed", e);
                 }
+                // CHECKSTYLE:ALL:ON
             }
         });
     }
@@ -86,4 +89,18 @@ public class TransactionAwareHandlerAdapter implements HandlerAdapter {
         return target.supports(handler);
     }
 
+    private int order = Integer.MAX_VALUE;
+    
+    /** @see org.springframework.core.Ordered#getOrder() */
+    public final int getOrder() {
+        return order;
+    }
+
+    /**
+     * @param order
+     */
+    public final void setOrder(final int order) {
+        this.order = order;
+    }
+    
 }
