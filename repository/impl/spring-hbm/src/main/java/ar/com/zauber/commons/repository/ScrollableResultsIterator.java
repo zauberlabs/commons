@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.repository;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.ScrollableResults;
@@ -58,7 +59,7 @@ public class ScrollableResultsIterator<T> implements Iterator<T> {
     /** @see Iterator#next() */
     public final T next() {
         if(buffer == null) {
-            throw new UnsupportedOperationException("no more rows");
+            throw new NoSuchElementException("no more rows");
         }
         T ret = buffer; 
         readNextFromScrollable();
