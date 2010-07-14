@@ -10,19 +10,30 @@
   <!--
     <para>Commons Message provides a notification system for a site.</para>
   -->
-    <section xml:id="commons-message-introduction">
-        <title>Introduction</title>
+    <section xml:id="commons-message-overview">
+        <title>Overview</title>
         
         <para><emphasis>Message</emphasis> aims to be an abstraction on the way 
         of notification. We can use <emphasis>Message</emphasis> in order to send 
-        email or jabber notifications for instance.</para>
+        email, jabber or rich text notifications for instance. </para>
+        <para>Also there are multiple 
+        benefits in order to start using <ns:emphasis>Message API</ns:emphasis>:
+        </para>
+        <ns:itemizedlist>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Multicast
+            </ns:emphasis>: Send to multiple addresses a message.</ns:para></ns:listitem>            
+            <ns:listitem><ns:para><ns:emphasis role="bold">Auditoring
+            </ns:emphasis>: Store messages in a database.</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Changing between implementations
+            </ns:emphasis>: Easy change between ways of notification.</ns:para></ns:listitem>
+        </ns:itemizedlist>          
+ 
     </section>
-	
+    
 	<section xml:id="commons-message-core">    
         <title>Core Components</title>
-        
-        <para>In order to start using message, it would be useful to understand 
-        its entities. This image illustrates the main components</para>
+        <para>We should begin to familiarize with its classes. 
+        This image illustrates the main components</para>
         
         <para>
             <inlinemediaobject>
@@ -129,10 +140,10 @@
         with the parameters:</para>
         
         <itemizedlist>
-            <listitem><emphasis role="bold">Addresses</emphasis>: An array of 
-            email addreses (using class <code>JavaMailEmailAddress</code>)</listitem>
-            <listitem><emphasis role="bold">Message</emphasis>: A reference to 
-            my message, in this case <code>myStaticMail</code>.</listitem>
+            <listitem><para><emphasis role="bold">Addresses</emphasis>: An array of 
+            email addresses (using class <code>JavaMailEmailAddress</code>)</para></listitem>
+            <listitem><para><emphasis role="bold">Message</emphasis>: A reference to 
+            my message, in this case <code>myStaticMail</code>.</para></listitem>
         </itemizedlist>
         
         <para> Obviously this example is easy to understand but not practical. 
@@ -169,21 +180,26 @@
 	<section xml:id="commons-message-implementations">    
         <title>Available implementations</title>
         
-        <para>Now, we will introduce the implementations of message and how to use 
-        them in a spring development environment.</para>
+        <para>Now, we will introduce the implementations of <ns:emphasis role="bold">
+        Message</ns:emphasis> and how to use them in a spring development 
+        environment.</para>
         
         <section xml:id="commons-message-implementations-mail">
             <title>Email implementation</title>
             <section xml:id="commons-message-implementations-mail-warm">
                 <title>Warming up</title>          
-	            <para>Now, we want to use message templating for sending personalized 
+	            <para>Now, we know how to send emails but not in a practical way. 
+	            We want to use message templating for sending personalized 
 	            email notifications. For these kind of messages, we will define a velocity 
 	            template for the email (to know more about velocity, click 
 	            <link xlink:href="http://velocity.apache.org/engine/releases/velocity-1.5/user-guide.html">
-	            here</link>) and add/redefine some spring beans. Like always, most 
-	            parameters should be injected by a property file. At first glance, 
-	            we see the bean <code>MessageFactory</code>, a way to construct new 
-	            messages with <code>VelocityMessageTemplate</code>.</para>
+	            here</link>). Like always, most parameters should be injected by 
+	            a property file. We will be making use of the given 
+	            <link linkend="commons-message-implementations-mail-simple">
+	            Simple Email Example</link> and adding some more beans. On the following
+                bean definitions, we can see the bean <code>MessageFactory</code>, 
+                a way to construct new messages with 
+                <code>VelocityMessageTemplate</code>.</para>
             
 	            <programlisting><![CDATA[
 	<!-- Mail Notification Address Factory -->
@@ -236,22 +252,73 @@
 		        <code><![CDATA[sendMessage(Map<String, Object> model, NotificationAddress [] to)]]>
 		        </code></para>
 		        <programlisting><![CDATA[
-		<bean name="senderNotificationCommand" 
-		    class="ar.com.zauber.commons.message.util.MessageControllerCommand">
-		    
-			<constructor-arg index="0" ref="emailNotificationStrategy"/>
-			<constructor-arg index="1" ref="messageFactory"/>
-			<constructor-arg index="2" value="template-key/mail"/>
-		</bean>]]>
+<bean name="senderNotificationCommand" 
+    class="ar.com.zauber.commons.message.util.MessageControllerCommand">
+    
+	<constructor-arg index="0" ref="emailNotificationStrategy"/>
+	<constructor-arg index="1" ref="messageFactory"/>
+	<constructor-arg index="2" value="template-key/mail"/>
+</bean>]]>
 		        </programlisting>            
                 </section>
+            <section xml:id="commons-message-implementations-mail-senders">
+                <title>Email senders implementations</title>
+                <para>Up to here, we are sending emails making use of 
+                <code>JavaMailSenderImpl</code> from 
+                <link linkend="commons-message-implementations-mail-simple">
+                Simple Mail Example</link>.
+                There are some useful implementations for other purposes:</para>
+                                
+                
+		        <informaltable frame='hsides'>
+		          <tgroup cols="2">
+		            <thead>
+		              <row>
+		                <entry align="center">Implementation</entry>
+		
+		                <entry align="center">Comment</entry>
+		              </row>
+		            </thead>
+		
+		            <tbody>
+		              <row>
+		                <entry><code>NullMailSender</code></entry>
+		                <entry>Dummy implementation. Useful to use at development time and then 
+		                change to other implementation via a property parameter</entry>
+		              </row>
+		              <row>
+		                <entry><code>ProxyMailSender</code></entry>
+		                <entry>Makes use of multiple mail senders. It takes a list of senders 
+		                and sends the message using each one in the list</entry>
+		              </row>
+		              <row>
+		                <entry><code>JdbcMailSender</code></entry>
+		                <entry>Uses JDBC to store sent messages</entry>
+		              </row>
+		              <row>
+		                <entry><code>RepositoryMailSender</code></entry>
+		                <entry>Uses Hibernate to store sent messages</entry>
+		              </row>
+		              <row>
+		                <entry><code>SwingMailSender</code></entry>
+		                <entry>Show sent messages in a swing window</entry>
+		              </row>
+		
+		            </tbody>
+		          </tgroup>
+		        </informaltable>
+
+            </section>                     
+                
             <section xml:id="commons-message-implementations-mail-sending">                
             <title>Improving configuration</title>
-		    <para>There are some improvements over this configuration. We can take 
-		    advantage of <code>ProxyMailSender</code> to use multiple senders (in case we 
-		    want to log emails on a database). Other good feature is the the possibility 
-		    to send emails to console at development time and, by changing a property value, 
-		    we are set to go live (making use of <code>SwitchConditionalFactoryBean</code>). 
+		    <para>There are some improvements over this configuration. In the next 
+		    example we will use <code>ProxyMailSender</code> to
+		    make use of multiple senders since we are desiring to send the email and store 
+		    its content in our database. Other good feature showed in this example is 
+		    the the possibility to send emails to console at development time and, 
+		    by changing a property value, we are ready to go live 
+		    (making use of <code>SwitchConditionalFactoryBean</code>). 
 		    In order to do this we need to change: </para>
 
             <programlisting>            
@@ -262,6 +329,7 @@
     
     <!-- Sender logic class -->
 	<constructor-arg index="0">
+	    <!-- Proxy will take our messages and send to everyone in the list-->
 	    <bean class="ar.com.zauber.commons.spring.mail.ProxyMailSender">
             <constructor-arg index="0">
                 <list>
@@ -277,8 +345,9 @@
 	<constructor-arg index="2" value="$name of the sender"/>
 </bean>
 
-<bean id="hibernateMailSender" class="com.tcpn.spring.mail.HibernateMailSender">
+<bean id="hibernateMailSender" class="ar.com.zauber.commons.spring.mail.RepositoryMailSender">
     <constructor-arg index="0">
+        <!-- Reference to hibernate Session Factory -->
         <ref bean="sessionFactory"/>
     </constructor-arg>
 </bean>
@@ -323,10 +392,11 @@
 </bean>]]>
             </programlisting>
             </section>
+       
                 <section xml:id="commons-message-implementations-mail-complete">
                     <title>Complete configuration example</title>
                     <para>Here there is a complete configuration example.</para>
-                    <para>Properties file:</para>
+                    <para><ns:emphasis role="bold">Properties file</ns:emphasis>:</para>
                     <programlisting>
 mail.mock=true
 mail.host=mail.test
@@ -343,7 +413,7 @@ mail.replyto=noreply@zaubersoftware.com
 
 mail.accountVerification.subject=Welcome to Zauber Software - Account Verification              
                     </programlisting>
-                    <para>Our spring message bean definition file:</para>
+                    <para>Our spring message <ns:emphasis role="bold">bean definition file</ns:emphasis>:</para>
                     <programlisting><![CDATA[
     <bean id="emailFromAddress" 
             class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress">
@@ -366,7 +436,7 @@ mail.accountVerification.subject=Welcome to Zauber Software - Account Verificati
         <constructor-arg index="2" value="${mail.from.name}"/>
     </bean>
     
-    <bean id="hibernateMailSender" class="com.tcpn.spring.mail.HibernateMailSender">
+    <bean id="hibernateMailSender" class="ar.com.zauber.commons.spring.mail.RepositoryMailSender">
         <constructor-arg index="0">
             <ref bean="sessionFactory"/>
         </constructor-arg>
@@ -434,7 +504,7 @@ mail.accountVerification.subject=Welcome to Zauber Software - Account Verificati
         class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddressFactory"/>    
 	]]>
                     </programlisting>
-                    <para>Velocity template</para>
+                    <para><ns:emphasis role="bold">Velocity template</ns:emphasis>:</para>
                     <programlisting>
 Hello $user.name,
 
@@ -444,10 +514,8 @@ You have just registered an account on zaubersoftware.com!
 Zauber Software
 www.zaubersoftware.com
                     </programlisting>
-                    <para>Code example</para>
+                    <para><ns:emphasis role="bold">Code example</ns:emphasis></para>
                     <programlisting><![CDATA[
-
-accountVerificationCommand
 class Foo {
     @Autowired
     NotificationAddressFactory notificationAddressFactory;
@@ -464,25 +532,98 @@ class Foo {
 		    });
     }
 }]]>
-    
                     </programlisting>                                      
                 </section>            
             </section>
     
         <section xml:id="commons-message-implementations-jabber">
             <title>Jabber notifications</title>
-            <para>In order to start using message, it would be useful to understand its entities. </para>
+            <para>After seeing a full example for email notifications, jabber 
+            notifications are not very different. We only need to add an entry 
+            in <code>messageFactory</code> for each notification template in our 
+            jabber notifications: </para>
+            
+            <ns:programlisting><![CDATA[
+<entry key="observation/update">
+    <bean class="ar.com.zauber.commons.xmpp.message.XMPPMessageTemplate">
+        <!-- Message default context -->
+        <constructor-arg index="0">
+            <description>modelo: observation, date, resource</description>
+            <bean class="ar.com.zauber.commons.dao.resources.ClasspathResource">
+                <constructor-arg index="0" value="path/to/velocity/template.text.vm"/>
+            </bean>
+        </constructor-arg>
+        <!-- Message subject -->
+        <constructor-arg value="Crono: Observaciones del dia de hoy"/>
+        <!-- Message charset -->
+        <constructor-arg value="iso-8859-1"/>
+    </bean>
+</entry>]]>
+            </ns:programlisting>
+            
         </section>
         
         <section xml:id="commons-message-implementations-multipart">
-            <title>Multipart Messages</title>
-            <para>In order to start using message, it would be useful to understand its entities. </para>
+            <title>Rich Text Messages</title>
+            <para>Rich Text Messages is intended to make use of 
+            <link xlink:href="http://en.wikipedia.org/wiki/MIME">MIME Internet standard</link>. 
+            This implementation add suport for plain or html text (Using  
+            <link xlink:href="http://en.wikipedia.org/wiki/MIME#Multipart_messages">multipart messages</link>. 
+            </para>
+            <para><ns:emphasis>Code example</ns:emphasis></para>
+            <ns:programlisting><![CDATA[
+final PartTemplate templatePlain = new VelocityMessagePartTemplate(
+        "text/plain", new StringResource("hey! $you"));
+final PartTemplate templateHtml = new VelocityMessagePartTemplate(
+        "text/html", new StringResource("<html><h1>hey!</h1> "
+                + "<h2>$you</h2></html>"));
+final MessageTemplate template = new MultipartMessageTemplate(
+        Arrays.asList(new PartTemplate[]{templatePlain, templateHtml}), 
+        "hi me", address);
+
+final Map<String, Object> model = new HashMap<String, Object>();
+model.put("you", "you");
+
+final MultipartMessage msg = (MultipartMessage) template.render(model);
+final MessagePart partPlain = msg.getPart("text/plain");
+final MessagePart partHtml = msg.getPart("text/html");
+final MessagePart partOther = msg.getPart("text/other");
+assertNotNull(partPlain);
+assertNotNull(partHtml);
+assertNull(partOther);
+assertEquals("hey! you", msg.getContent());
+assertEquals("hey! you", partPlain.getContent());
+assertEquals("<html><h1>hey!</h1> <h2>you</h2></html>", 
+        partHtml.getContent());
+assertEquals("hi me", msg.getSubject());]]>
+            </ns:programlisting>
         </section>
         
         <section xml:id="commons-message-implementations-null">
             <title>Null Messages</title>
             <para>In order to start using message, it would be useful to understand its entities. </para>
         </section>
+        
+        <section xml:id="commons-message-implementations-limitations">
+            <title>Limitations</title>
+            <ns:itemizedlist>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Bounces</ns:emphasis>: 
+            Handling for messages that failed to be delivered.</ns:para>
+            </ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Templating for subjects</ns:emphasis>: 
+            Posibility to have a subject template.</ns:para>
+            </ns:listitem>            
+            <ns:listitem><ns:para><ns:emphasis role="bold">Hibernate</ns:emphasis>: 
+            Lack of <ns:code>MailSender</ns:code> for Hibernate without using 
+            repository.</ns:para>
+            </ns:listitem>            
+            <ns:listitem><ns:para><ns:emphasis role="bold">Multipart Messages</ns:emphasis>: 
+            No support for inline resources like images, css, etc.</ns:para>
+            </ns:listitem>            
+
+            </ns:itemizedlist>
+        </section>        
+        
     </section>
     
     
