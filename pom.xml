@@ -91,7 +91,6 @@
     <module>auth</module>
     <module>message</module>
     <module>image</module>
-    <module>syndication</module>
     <module>fts</module>
     <module>gis</module>
     <module>doxia</module>

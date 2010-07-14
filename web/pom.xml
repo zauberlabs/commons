@@ -14,7 +14,6 @@
     <module>proxy</module>
     <module>version</module>
     <module>transformation</module>
-    <module>rest</module>
     <module>uri</module>
     <module>cache</module>
   </modules>
