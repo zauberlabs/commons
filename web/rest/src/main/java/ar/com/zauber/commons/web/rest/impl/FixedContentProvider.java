@@ -32,7 +32,9 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
 /**
  * @author Juan F. Codagnone
  * @since Jan 26, 2009
+ * @deprecated Use leviathan's ar.com.zauber.leviathan.common.mock.FixedURIFetcher
  */
+@Deprecated
 public class FixedContentProvider implements ContentProvider {
     private final Map<URI, String> map;
     private final Charset charset;

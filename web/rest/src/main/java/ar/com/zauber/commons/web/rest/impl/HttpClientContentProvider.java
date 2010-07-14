@@ -41,7 +41,10 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
  * 
  * @author Matías G. Tito
  * @since Oct 23, 2009
+ * @deprecated Use 
+ *   leviathan's ar.com.zauber.leviathan.impl.httpclient.HTTPClientURIFetcher
  */
+@Deprecated
 public class HttpClientContentProvider extends AbstractContentProvider {
     private final HttpClient httpClient;
 

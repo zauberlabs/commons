@@ -27,7 +27,9 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
  * 
  * @author Matías G. Tito
  * @since Oct 23, 2009
+ * @deprecated Use leviathans
  */
+@Deprecated
 public abstract class AbstractContentProvider implements ContentProvider {
     private String userAgent;
     

@@ -38,7 +38,9 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
  *
  * @author Juan F. Codagnone
  * @since Sep 25, 2009
+ * @deprecated Leviathan's ar.com.zauber.leviathan.impl.ehcache.EhcacheURIFetcher
  */
+@Deprecated
 public class EhcacheContentProvider implements ContentProvider {
     private final ContentProvider contentProvider;
     private final Cache cache;

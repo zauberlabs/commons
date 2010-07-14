@@ -26,7 +26,9 @@ import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
  * 
  * @author Juan F. Codagnone
  * @since Jan 26, 2009
+ * @deprecated Use leviathan: ar.com.zauber.leviathan.api.URIFetcher
  */
+@Deprecated
 public interface ContentProvider {
 
     /**

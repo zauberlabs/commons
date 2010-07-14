@@ -37,7 +37,10 @@ import ar.com.zauber.commons.web.rest.ContentProvider;
  *
  * @author Juan F. Codagnone
  * @since Sep 25, 2009
+ * @deprecated Use leviathan's 
+ *  ar.com.zauber.leviathan.impl.httpclient.HTTPClientURIFetcher
  */
+@Deprecated
 public class JREContentProvider extends AbstractContentProvider { 
     
     
