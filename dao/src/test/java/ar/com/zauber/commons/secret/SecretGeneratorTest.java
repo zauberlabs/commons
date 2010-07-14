@@ -19,8 +19,8 @@ import java.security.SecureRandom;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ar.com.zauber.commons.secret.impl.SecureRandomSecretGenerator;
 
@@ -34,7 +34,7 @@ public class SecretGeneratorTest extends TestCase {
     /** algoritmo a testear */
     public static final String SECURE_RANDOM_ALGO = "SHA1PRNG"; 
     /** logger */
-    private final Log logger = LogFactory.getLog(SecretGeneratorTest.class);
+    private final Logger logger = LoggerFactory.getLogger(SecretGeneratorTest.class);
 
     /**
      * test that the secret use base64 charset

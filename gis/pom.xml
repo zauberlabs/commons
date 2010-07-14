@@ -13,10 +13,6 @@
       <groupId>ar.com.zauber.commons</groupId>
       <artifactId>commons-dao</artifactId> 
     </dependency>
-    <dependency>
-      <groupId>ar.com.zauber.commons</groupId>
-      <artifactId>commons</artifactId>
-    </dependency>
     <!-- END: Zauber Commons -->
     <!-- BEGIN: Spring Framework -->
     <dependency>

@@ -85,7 +85,6 @@
 
   <modules>
     <module>dao</module>
-    <module>commons</module>
     <module>clustering</module>
     <module>spring</module>
     <module>auth</module>
