@@ -40,7 +40,9 @@ import com.sun.syndication.io.SyndFeedInput;
  * 
  * @author Juan F. Codagnone
  * @since Jul 2, 2006
+ * @deprecated no hay alternativa
  */
+@Deprecated
 public class PeriodicRomeSyndicationManager implements SyndicationManager {
     /** logger */
     private static final Logger LOGGER = LoggerFactory

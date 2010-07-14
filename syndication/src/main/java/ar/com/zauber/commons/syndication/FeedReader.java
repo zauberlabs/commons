@@ -24,7 +24,9 @@ import java.io.Reader;
  * 
  * @author Juan F. Codagnone
  * @since Jul 2, 2006
+ * @deprecated no hay alternativa
  */
+@Deprecated
 public interface FeedReader {
 
     Reader getReader() throws IOException;

@@ -30,6 +30,7 @@ import ar.com.zauber.commons.syndication.FeedReader;
  * 
  * @author Juan F. Codagnone
  * @since Jul 2, 2006
+ * @deprecated no hay alternativa
  */
 public class ClasspathFeedReader implements FeedReader {
     /** path a buscar el archivo */

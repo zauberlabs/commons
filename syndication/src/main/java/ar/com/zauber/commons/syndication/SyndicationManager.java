@@ -25,7 +25,9 @@ import com.sun.syndication.feed.synd.SyndEntry;
  * 
  * @author Juan F. Codagnone
  * @since Jul 2, 2006
+ * @deprecated no hay alternativa
  */
+@Deprecated
 public interface SyndicationManager {
 
     List<SyndEntry> getEntries();

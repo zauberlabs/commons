@@ -32,6 +32,7 @@ import ar.com.zauber.commons.syndication.FeedReader;
  * @author Juan F. Codagnone
  * @since Jul 2, 2006
  */
+@Deprecated
 public class XmlFeedReader implements FeedReader {
     /** dirección del feed */
     private URL feedURL;
