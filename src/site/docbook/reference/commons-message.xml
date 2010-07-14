@@ -13,27 +13,32 @@
     <section xml:id="commons-message-introduction">
         <title>Introduction</title>
         
-        <para><emphasis>Message</emphasis> aims to be an abstraction on the way of notification. 
-        We can use <emphasis>Message</emphasis> in order to send email or jabber notifications for instance.</para>
+        <para><emphasis>Message</emphasis> aims to be an abstraction on the way 
+        of notification. We can use <emphasis>Message</emphasis> in order to send 
+        email or jabber notifications for instance.</para>
     </section>
 	
 	<section xml:id="commons-message-core">    
         <title>Core Components</title>
         
-        <para>In order to start using message, it would be useful to understand its entities. This image illustrates the main components</para>
+        <para>In order to start using message, it would be useful to understand 
+        its entities. This image illustrates the main components</para>
         
         <para>
             <inlinemediaobject>
                 <imageobject>
-                    <imagedata fileref="./images/message.png" align="center" valign="middle"/>
+                    <imagedata fileref="./images/message.png" 
+                        align="center" valign="middle"/>
                 </imageobject>
             </inlinemediaobject>
         </para>
         
         <para>There are three mayor objects:</para>
+        
         <section xml:id="commons-message-core-message">
             <title>Message</title>
-            <para>Message abstraction. It has an asociated content, a subject and a receiver (with type NotificationAddress).</para>
+            <para>Message abstraction. It has an asociated content, a subject and 
+            a receiver (with type NotificationAddress).</para>
             <programlisting language="Java">public interface Message {
 
     /** @return the plain content of the message */
@@ -51,6 +56,7 @@
             <title>NotifyAddress</title>
             <para>Receiver asociated data.</para>
         </section>
+        
         <section xml:id="commons-message-core-message-strategy">        
             <title>MessageStrategy</title>
             <para>Logic to send a message.</para>
@@ -61,53 +67,37 @@
 }</programlisting>
         </section>
 
-        <para>In order to start sending notifications, we need to provide an implementation of each mentioned component.</para>
+        <para>In order to start sending notifications, we need to provide an 
+        implementation of each mentioned component.</para>
+        
     </section>
     
-	<section xml:id="commons-message-extending">    
-        <title>Extending concepts</title>
+    <section xml:id="commons-message-implementations-mail-simple">
+        <title>A simple email sending example</title>
         
-        <para>Up to here we see the core classes of message. In practice we need a few extra:</para>
-
-        <itemizedlist>
-            <listitem>
-           		<para><emphasis role="bold">NotificationAddressFactory</emphasis>: Generates addresses with associated string keys.</para>
-            </listitem>
-            <listitem>
-           		<para><emphasis role="bold">MessageTemplate</emphasis>: Message scheleton definition. Its basic structure and its methods to render.</para>
-            </listitem>
-            <listitem>
-           		<para><emphasis role="bold">MessageFactory</emphasis>: With a model and view, constructs a new message. This is used with message templates.</para>
-            </listitem>
-        </itemizedlist>
-
-    </section>
-    
-	<section xml:id="commons-message-implementations">    
-        <title>Available implementations</title>
+        <para>In order to start sending email notifications, we need to define 
+        some spring beans. Most parameters should be injected by a property 
+        file. In case of email notifications, we need to define a sender logic class 
+        <code>JavaMailSenderImpl</code> used by our strategy, 
+        <code>SimpleEmailNotificationStrategy</code></para>
         
-        <para>Now, we will introduce the implementations of message.</para>
-        
-        <section xml:id="commons-message-implementations-mail">
-            <title>Sending emails</title>
-            
-            
-            <section xml:id="commons-message-implementations-mail-simple">
-                <title>Simple email sending</title>
-                <para>In order to start sending email notifications, we need to define some spring beans. Most parameters should be injected by a property file.</para>
-                <programlisting><![CDATA[
+        <programlisting><![CDATA[
 <!-- Message -->
-<bean id="myStaticMail" class="ar.com.zauber.commons.message.message.StringMessage">
-	<!-- Message body -->
-	<constructor-arg index="0" value="hello world!"/>
-	<!-- Message subject -->
-	<constructor-arg index="1" value="testing mail system"/>
-	<!-- Sender email address -->
-	<constructor-arg index="2" value="source.email@test.com"/>		
+<bean id="myStaticMail" 
+    class="ar.com.zauber.commons.message.message.StringMessage">
+    
+    <!-- Message body -->
+    <constructor-arg index="0" value="hello world!"/>
+    <!-- Message subject -->
+    <constructor-arg index="1" value="testing mail system"/>
+    <!-- Sender email address -->
+    <constructor-arg index="2" value="source.email@test.com"/>      
 </bean>
 
 <!-- Sender logic class -->
-<bean id="externalMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+<bean id="externalMailSender" 
+    class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    
     <property name="host" value="mail.host"/>
     <property name="defaultEncoding" value="mail.encoding"/>
     <property name="username" value="mail.username"/>
@@ -123,69 +113,153 @@
 </bean> 
 
 <!-- Notification strategy bean -->
-<bean id="emailNotificationStrategy" class="ar.com.zauber.commons.message.impl.mail.SimpleEmailNotificationStrategy">
+<bean id="emailNotificationStrategy" 
+    class="ar.com.zauber.commons.message.impl.mail.SimpleEmailNotificationStrategy">
     <!-- Sender logic class -->
-	<constructor-arg index="0" ref="externalMailSender"/>
-	<!-- Sender's domain -->
-	<constructor-arg index="1" value="senderdomain.com"/>
-	<!-- Sender's name -->
-	<constructor-arg index="2" value="$name of the sender"/>
-</bean>
+    <constructor-arg index="0" ref="externalMailSender"/>
+    <!-- Sender's domain -->
+    <constructor-arg index="1" value="senderdomain.com"/>
+    <!-- Sender's name -->
+    <constructor-arg index="2" value="$name of the sender"/>
+</bean>]]>
+        </programlisting>
+        
+        <para>Up this point we are able to send an email using the bean 
+        <code>emailNotificationStrategy</code> and calling <code>execute</code> 
+        with the parameters:</para>
+        
+        <itemizedlist>
+            <listitem><emphasis role="bold">Addresses</emphasis>: An array of 
+            email addreses (using class <code>JavaMailEmailAddress</code>)</listitem>
+            <listitem><emphasis role="bold">Message</emphasis>: A reference to 
+            my message, in this case <code>myStaticMail</code>.</listitem>
+        </itemizedlist>
+        
+        <para> Obviously this example is easy to understand but not practical. 
+        We are sending an static message to a list of addresses. Things would 
+        become more interesting if we define the structure of the email and using 
+        parameters we prepopulate the message (templating).</para>         
+    </section>  
+    
+    <section xml:id="commons-message-extending">    
+        <title>Extending concepts</title>
+        
+        <para>Up to here we see the core classes of message and how to use them 
+        in a simple example. In practice we will need a few extra:</para>
 
-<bean id="mailFactory" class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddressFactory"/>
-]]></programlisting>
-            </section>            
-            <para>Up this point we are able to send an email using the bean <code>emailNotificationStrategy</code> and calling <code>execute</code> with the parameters:</para>
-            <itemizedlist>
-                <listitem><emphasis role="bold">Addresses</emphasis>: An array of addreses created with <code>mailFactory</code></listitem>
-                <listitem><emphasis role="bold">Message</emphasis>: A reference to my message, in this case <code>myStaticMail</code>.</listitem>
-            </itemizedlist>
-            <para> Obviously this example is easy to understand but not practical. We are sending an static message to a list of addresses. Things would become more interesting if we define the structure of the email and using parameters we prepopulate the message. For these, we will define a velocity template for the email (to know more about velocity, click here) and add/redefine some spring beans. Like always, most parameters should be injected by a property file. At first glance, we see the bean <code>MessageFactory</code>, a way to construct new messages with <code>VelocityMessageTemplate</code>.</para>
-            <programlisting><![CDATA[
-<bean id="sourceAddressBean" 
-        class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress">
-    <constructor-arg value="sender@mail.com" />
-</bean>            
-<!-- Message factory bean -->
-<bean name="messageFactory" class="ar.com.zauber.commons.message.message.templates.MessageTemplateMessageFactory">
-	<description>Mail templates</description>
-    <constructor-arg index="0">
-        <map>
-           <!-- Template identification key -->
-           <entry key="template-key/mail">
-		        <bean class="ar.com.zauber.commons.message.impl.message.VelocityMessageTemplate">
-			        <constructor-arg index="0">
-				        <bean class="ar.com.zauber.commons.dao.resources.ClasspathResource">
-				            <!-- Velocity message template -->
-					        <constructor-arg index="0" value="path/to/velocity/template.text.vm"/>
-				        </bean>
-			        </constructor-arg>
-			        <!-- Email subject -->                            
-			        <constructor-arg index="1" value="Email subject"/>
-			        <!-- Reference to source address bean -->
-			        <constructor-arg index="2" ref="sourceAddressBean"/>
-		        </bean>
-            </entry>
-        </map>
-	</constructor-arg>
-</bean>]]></programlisting>
-<!--
-            <para>Now we have our message factory. In case you didn't notice, now we are able to make a tipical mail with the starting salutation "Dear $user," where <code>$user</code></user> will be propopulated by some value.  
-            TODO SEGUIR DE ACA LA REV.
-            We are identifying an specific mail with its template key and his velocity templateBy adding more entries to the map, we can have as many templates as we want. In case of email notifications, we use <code>JavaMailSenderImpl</code>. Then, we define the strategy <code>SimpleEmailNotificationStrategy</code> and finally, we use an auxiliary function bean to send directly an email <code>MessageControllerCommand</code></para>
-            <programlisting><![CDATA[
-<bean name="senderNotificationCommand" class="ar.com.zauber.commons.message.util.MessageControllerCommand">
-	<constructor-arg index="0" ref="emailNotificationStrategy"/>
-	<constructor-arg index="1" ref="messageFactory"/>
-	<constructor-arg index="2" value="template-key/mail"/>
-</bean>]]></programlisting>            
--->
-    <para>There are some improvements over this configuration. We can take advantage of <code>ProxyMailSender</code> to use multiple senders (in case we want to log emails on a database). Other good feature is the the possibility to send emails to console at development time and by changing a property value, we are set to production. In order to do this we need to change: </para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">NotificationAddressFactory</emphasis>: 
+                Generates addresses with associated string keys.</para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">MessageTemplate</emphasis>: Message 
+                skeleton definition. Its basic structure and its methods to 
+                render.</para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">MessageFactory</emphasis>: With a model 
+                and view, constructs a new message. This is used with message 
+                templates.</para>
+            </listitem>
+        </itemizedlist>
 
-<programlisting>            
+    </section>        
+    
+	<section xml:id="commons-message-implementations">    
+        <title>Available implementations</title>
+        
+        <para>Now, we will introduce the implementations of message and how to use 
+        them in a spring development environment.</para>
+        
+        <section xml:id="commons-message-implementations-mail">
+            <title>Email implementation</title>
+            <section xml:id="commons-message-implementations-mail-warm">
+                <title>Warming up</title>          
+	            <para>Now, we want to use message templating for sending personalized 
+	            email notifications. For these kind of messages, we will define a velocity 
+	            template for the email (to know more about velocity, click 
+	            <link xlink:href="http://velocity.apache.org/engine/releases/velocity-1.5/user-guide.html">
+	            here</link>) and add/redefine some spring beans. Like always, most 
+	            parameters should be injected by a property file. At first glance, 
+	            we see the bean <code>MessageFactory</code>, a way to construct new 
+	            messages with <code>VelocityMessageTemplate</code>.</para>
+            
+	            <programlisting><![CDATA[
+	<!-- Mail Notification Address Factory -->
+	<bean id="mailFactory" class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddressFactory"/>
+	
+	<!-- Sender address -->
+	<bean id="sourceAddressBean" 
+	        class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress">
+	    <constructor-arg value="sender@mail.com" />
+	</bean>    
+	        
+	<!-- Mail Message Factory bean -->
+	<bean name="messageFactory" class="ar.com.zauber.commons.message.message.templates.MessageTemplateMessageFactory">
+		<description>Mail templates</description>
+	    <constructor-arg index="0">
+	        <map>
+	           <!-- Template identification key -->
+	           <entry key="template-key/mail">
+			        <bean class="ar.com.zauber.commons.message.impl.message.VelocityMessageTemplate">
+				        <constructor-arg index="0">
+					        <bean class="ar.com.zauber.commons.dao.resources.ClasspathResource">
+					            <!-- Velocity message template -->
+						        <constructor-arg index="0" value="path/to/velocity/template.text.vm"/>
+					        </bean>
+				        </constructor-arg>
+				        <!-- Email subject -->                            
+				        <constructor-arg index="1" value="Email subject"/>
+				        <!-- Reference to source address bean -->
+				        <constructor-arg index="2" ref="sourceAddressBean"/>
+			        </bean>
+	            </entry>
+	        </map>
+		</constructor-arg>
+	</bean>]]>
+	           </programlisting>
+
+		        <para>Now we have our message factory. In case you didn't notice, now we 
+		        are able to make a typical personalized mail with the opening greeting 
+		        <ns:emphasis>"Dear $user"</ns:emphasis> where <code>$user</code> will be 
+		        prepopulated by the some value passed by our model. The model is a map where 
+		        keys will be the variables to be prepopulated and its values will be the 
+		        injected ones on the email.</para>
+          
+		        <para>Looking at the example, <code>template-key/mail</code> identifies 
+		        specific mails with its template key and his asociated velocity template. 
+		        By adding more entries to this map, we can have as many mails as we want. </para>
+        
+		        <para>To simplify the way we use message, we will use an instance of 
+		        <code>MessageControllerCommand</code> and use its function: 
+		        <code><![CDATA[sendMessage(Map<String, Object> model, NotificationAddress [] to)]]>
+		        </code></para>
+		        <programlisting><![CDATA[
+		<bean name="senderNotificationCommand" 
+		    class="ar.com.zauber.commons.message.util.MessageControllerCommand">
+		    
+			<constructor-arg index="0" ref="emailNotificationStrategy"/>
+			<constructor-arg index="1" ref="messageFactory"/>
+			<constructor-arg index="2" value="template-key/mail"/>
+		</bean>]]>
+		        </programlisting>            
+                </section>
+            <section xml:id="commons-message-implementations-mail-sending">                
+            <title>Improving configuration</title>
+		    <para>There are some improvements over this configuration. We can take 
+		    advantage of <code>ProxyMailSender</code> to use multiple senders (in case we 
+		    want to log emails on a database). Other good feature is the the possibility 
+		    to send emails to console at development time and, by changing a property value, 
+		    we are set to go live (making use of <code>SwitchConditionalFactoryBean</code>). 
+		    In order to do this we need to change: </para>
+
+            <programlisting>            
 <![CDATA[
 <!-- Notification strategy bean -->
-<bean id="emailNotificationStrategy" class="ar.com.zauber.commons.message.impl.mail.SimpleEmailNotificationStrategy">
+<bean id="emailNotificationStrategy" 
+    class="ar.com.zauber.commons.message.impl.mail.SimpleEmailNotificationStrategy">
+    
     <!-- Sender logic class -->
 	<constructor-arg index="0">
 	    <bean class="ar.com.zauber.commons.spring.mail.ProxyMailSender">
@@ -213,26 +287,32 @@
         class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean">
      <property name="caseBlocks">
           <list>
-             <bean 
-                    class="ar.com.zauber.commons.spring.beans.factory.impl.BooleanPropertyCaseBlock" >
-                <constructor-arg index="0" value="${mail.mock}"/>
+             <bean class="ar.com.zauber.commons.spring.beans.factory.impl.BooleanPropertyCaseBlock" >
+                <!-- Some property indicating true if we are at development time, to show mails on console -->
+                <constructor-arg index="0" value="mail.mock"/>
                 <constructor-arg index="1">
-                    <bean id="mockMailSender" class="ar.com.zauber.commons.spring.mail.NullMailSender"/>
+                    <bean id="mockMailSender" 
+                        class="ar.com.zauber.commons.spring.mail.NullMailSender"/>
                 </constructor-arg>
              </bean>
-             <bean 
-                    class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock" >
+             <bean class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock" >
                 <constructor-arg index="0">
                     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-                        <property name="host" value="${mail.host}"/>
-                        <property name="defaultEncoding" value="${mail.defaultEncoding}"/>
-                        <property name="username" value="${mail.username}"/>
-                        <property name="password" value="${mail.password}"/>
-                        <property name="port" value="${mail.port}"/>
+                        <!-- Mail Host -->
+                        <property name="host" value="mail.host"/>
+                        <!-- Mail Default Encoding -->
+                        <property name="defaultEncoding" value="mail.defaultEncoding"/>
+                        <!-- Mail Username -->
+                        <property name="username" value="mail.username"/>
+                        <!-- Mail Password -->
+                        <property name="password" value="mail.password"/>
+                        <!-- Mail Service Port -->
+                        <property name="port" value="mail.port"/>
+                        <!-- Mail Service Authentication -->
                         <property name="javaMailProperties">
                            <props>
-                                <prop key="mail.smtp.starttls.enable">${mail.tls}</prop>
-                                <prop key="mail.smtp.auth">${mail.auth}</prop>
+                                <prop key="mail.smtp.starttls.enable">mail.tls</prop>
+                                <prop key="mail.smtp.auth">mail.auth</prop>
                            </props>
                         </property>
                     </bean>                        
@@ -240,10 +320,155 @@
              </bean>
           </list>
       </property>
-</bean>]]></programlisting>            
-        </section>
-        <para>Then we use <code>senderNotificationCommand</code> to start sending messages using the function <code><![CDATA[sendMessage(final Map<String, Object> model,
-            final NotificationAddress [] to)]]></code></para>
+</bean>]]>
+            </programlisting>
+            </section>
+                <section xml:id="commons-message-implementations-mail-complete">
+                    <title>Complete configuration example</title>
+                    <para>Here there is a complete configuration example.</para>
+                    <para>Properties file:</para>
+                    <programlisting>
+mail.mock=true
+mail.host=mail.test
+mail.port=25
+mail.username=test
+mail.password=test
+mail.tls=true
+mail.auth=true
+mail.defaultEncoding=utf-8
+
+mail.from.name=(Zauber Software) noreply
+mail.from.domain=zaubersoftware.com
+mail.replyto=noreply@zaubersoftware.com      
+
+mail.accountVerification.subject=Welcome to Zauber Software - Account Verification              
+                    </programlisting>
+                    <para>Our spring message bean definition file:</para>
+                    <programlisting><![CDATA[
+    <bean id="emailFromAddress" 
+            class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress">
+        <constructor-arg value="${mail.replyto}" />
+    </bean>
+
+    <bean id="emailNotificationStrategy" 
+            class="ar.com.zauber.commons.message.impl.mail.SimpleEmailNotificationStrategy">
+        <constructor-arg index="0">
+            <bean class="ar.com.zauber.commons.spring.mail.ProxyMailSender">
+                <constructor-arg index="0">
+                    <list>
+                        <ref bean="externalMailSender"/>
+                        <ref bean="hibernateMailSender"/>
+                    </list>
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
+        <constructor-arg index="1" value="${mail.from.domain}"/>
+        <constructor-arg index="2" value="${mail.from.name}"/>
+    </bean>
+    
+    <bean id="hibernateMailSender" class="com.tcpn.spring.mail.HibernateMailSender">
+        <constructor-arg index="0">
+            <ref bean="sessionFactory"/>
+        </constructor-arg>
+    </bean>
+    
+    <bean name="messageFactory" 
+            class="ar.com.zauber.commons.message.message.templates.MessageTemplateMessageFactory">
+        <description>Mail templates</description>
+        <constructor-arg index="0">
+            <map>
+               <entry key="accountVerification/mail">
+                    <bean class="ar.com.zauber.commons.message.impl.message.VelocityMessageTemplate">
+                        <constructor-arg index="0">
+                            <bean class="ar.com.zauber.commons.dao.resources.ClasspathResource">
+                                <constructor-arg index="0" value="com/project/impl/messages/accountVerification.text.vm"/>
+                            </bean>
+                        </constructor-arg>                            
+                        <constructor-arg index="1" value="${mail.accountVerification.subject}"/>
+                        <constructor-arg index="2" ref="emailFromAddress"/>
+                    </bean>
+               </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+	<bean name="accountVerificationCommand" class="ar.com.zauber.commons.message.util.MessageControllerCommand">
+	    <constructor-arg index="0" ref="emailNotificationStrategy"/>
+	    <constructor-arg index="1" ref="messageFactory"/>
+	    <constructor-arg index="2" value="accountVerification/mail"/>
+	</bean>
+    <bean name="externalMailSender" 
+            class="ar.com.zauber.commons.spring.beans.factory.SwitchConditionalFactoryBean">
+         <property name="caseBlocks">
+              <list>
+                 <bean 
+                        class="ar.com.zauber.commons.spring.beans.factory.impl.BooleanPropertyCaseBlock" >
+                    <constructor-arg index="0" value="${mail.mock}"/>
+                    <constructor-arg index="1">
+                        <bean id="mockMailSender" class="ar.com.zauber.commons.spring.mail.NullMailSender"/>
+                    </constructor-arg>
+                 </bean>
+                 <bean 
+                        class="ar.com.zauber.commons.spring.beans.factory.impl.DefaultCaseBlock" >
+                    <constructor-arg index="0">
+                        <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+                            <property name="host" value="${mail.host}"/>
+                            <property name="defaultEncoding" value="${mail.defaultEncoding}"/>
+                            <property name="username" value="${mail.username}"/>
+                            <property name="password" value="${mail.password}"/>
+                            <property name="port" value="${mail.port}"/>
+                            <property name="javaMailProperties">
+                               <props>
+                                    <prop key="mail.smtp.starttls.enable">${mail.tls}</prop>
+                                    <prop key="mail.smtp.auth">${mail.auth}</prop>
+                               </props>
+                            </property>
+                        </bean>                        
+                    </constructor-arg>
+                 </bean>
+              </list>
+          </property>
+    </bean>	
+    <!-- Mail Notification Address Factory -->
+    <bean id="notificationAddressFactory" 
+        class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddressFactory"/>    
+	]]>
+                    </programlisting>
+                    <para>Velocity template</para>
+                    <programlisting>
+Hello $user.name,
+
+You have just registered an account on zaubersoftware.com!
+
+--
+Zauber Software
+www.zaubersoftware.com
+                    </programlisting>
+                    <para>Code example</para>
+                    <programlisting><![CDATA[
+
+accountVerificationCommand
+class Foo {
+    @Autowired
+    NotificationAddressFactory notificationAddressFactory;
+    @Autowired
+    MessageControllerCommand accountVerificationCommand;
+    
+    void sendEmail() {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("user.name", "John");
+		accountVerificationCommand.sendMessage(
+		    model, 
+		    new NotificationAddress[] { 
+		        notificationAddressFactory.createNotificationAddress("receiver@test.com"), 
+		    });
+    }
+}]]>
+    
+                    </programlisting>                                      
+                </section>            
+            </section>
+    
         <section xml:id="commons-message-implementations-jabber">
             <title>Jabber notifications</title>
             <para>In order to start using message, it would be useful to understand its entities. </para>
@@ -259,4 +484,6 @@
             <para>In order to start using message, it would be useful to understand its entities. </para>
         </section>
     </section>
+    
+    
 </chapter>
