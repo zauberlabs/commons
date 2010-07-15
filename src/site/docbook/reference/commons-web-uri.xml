@@ -18,19 +18,19 @@
         
         
        <programlisting>
-       "home"      "http://www.example.com/home/index.html?v=1.0"
-            |       ^
-            V       |   
-        VersionedUriFactory (versionate the file)
-            |       ^
-            V       |   "http://www.example.com/home/index.html"
-        PrefixUriFactory (adds a prefix ie:http://www.example.com/)
-            |       ^
-            V       |   "home/index.html"
-        ExpressionMapUriFactory (finds the meaning of the key)
-            |       ^
-            V       |   "home"
-        IdentityUriFactory</programlisting>
+"home"      "http://www.example.com/home/index.html?v=1.0"
+    |       ^
+    V       |   
+VersionedUriFactory (versionate the file)
+    |       ^
+    V       |   "http://www.example.com/home/index.html"
+PrefixUriFactory (adds a prefix ie:http://www.example.com/)
+    |       ^
+    V       |   "home/index.html"
+ExpressionMapUriFactory (finds the meaning of the key)
+    |       ^
+    V       |   "home"
+IdentityUriFactory</programlisting>
         
         <para>These artifact is very useful to manage all the links in a centralized way.
         You can manage the links of the webpage, mails and HTTP header all from the same 
@@ -46,7 +46,14 @@
             have to call buildUri method.</para>
             <section>
                 <title>Example</title>
-                <para>blabla</para>
+                <para>Begin using JspUriFunctions by including this taglib to your jsp:</para>
+                <programlisting><![CDATA[<%@taglib prefix="uri" uri="http://labs.zauber.com.ar/commons/functions/uri" %>]]></programlisting>
+                <para>To build a uri you should use the functions provided by the taglib
+                as follow:</para>
+                <programlisting><![CDATA[<a href="${uri:build0(pageContext, "/one/two/three")}}">link</a>]]></programlisting>
+                <para>That will print out this wherever you write it:</para>
+                <programlisting><![CDATA[<a href="www.example.com/context/path/one/two/three">link</a>]]></programlisting>
+                <para>where "www.example.com/context/path/" is where you have deployed your webapp.</para>
             </section>
         </section>
         <section xml:id="commons-web-uri-urifactory-expressionmap">
@@ -113,61 +120,50 @@
         <para>Something very usefull is to include a Header before any print tag, so 
             the assets declared on the header gets printed.
         </para>
-        <section xml:id="">
+        <section xml:id="commons-web-uri-assets-usage-general">
             <title>Typical use inside a jsp</title>
             <para>first of all we must include the tag lib. (we will be using a 
                 SimpleAssetRepository and a RelativePathUriFactory)
             </para>
-            <programlisting><![CDATA[
-            <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-            <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-            <%@ taglib prefix="assets" uri="http://labs.zauber.com.ar/commons/tags/assets" %>
-            
-            ]]></programlisting>
+            <programlisting><![CDATA[<%@ taglib prefix="assets" uri="http://labs.zauber.com.ar/commons/tags/assets" %>]]></programlisting>
             <para>for each resource we want to include we name it by it key.</para>
-            <programlisting><![CDATA[
-            ...
-            <assets:javascript key="/_js/lib/jquery-1.4.2.js"/>
-            <assets:css key="/_css/cute.css" media="text/stylesheet"/>
-            <assets:css set="ie8" key="/_css/lte-ie8.css" media="screen"/>
-            <assets:css set="ie6" key="/_css/ie6.css" media="screen" />
-            ...
-            ]]></programlisting>
+            <programlisting><![CDATA[<assets:javascript key="/_js/lib/jquery-1.4.2.js"/>
+<assets:css key="/_css/cute.css" media="text/stylesheet"/>]]></programlisting>
             <para>Later if we put this</para>
             <programlisting><![CDATA[<assets:print/>]]></programlisting>
             <para>The output generated will be:</para>
-            <programlisting><![CDATA[
-            <script type="text/javascript" src="../../../_js/lib/jquery-1.4.2.js"></script>
-            <link rel="stylesheet" type="text/css\" href="../../../_css/cute.css"
+            <programlisting><![CDATA[<script type="text/javascript" 
+            src="../../../_js/lib/jquery-1.4.2.js"></script>
+<link rel="stylesheet" type="text/css\" href="../../../_css/cute.css"
             "media="text/stylesheet" />]]></programlisting>
         </section>
         <section xml:id="commons-web-uri-assets-usage-set">
             <title>Grouping assets into sets</title>
-            <para>but it gets handy using things like this:</para>
-            <programlisting><![CDATA[
-            <!--[if lte IE 8]>
-                <assets:print set="ie8" />
-            <![endif]-->
-            ]]></programlisting>
-            <para>that will generate this:</para>
-            <programlisting><![CDATA[
-            <!--[if lte IE 8]>
-                <link rel="stylesheet" type="text/css\" href="../../../_css/lte-ie8.css"  "media="screen" />
-            <![endif]-->
-            ]]></programlisting>
+            <para>To group assets into groups we set each asset with a set, and then 
+            recall that set in the print tag.</para>
+            <programlisting><![CDATA[<assets:css set="ie8" key="/_css/lte-ie8.css" 
+            media="screen"/>
+<assets:css set="ie6" key="/_css/ie6.css" media="screen" />
+<!--[if lte IE 8]>
+    <assets:print set="ie8" />
+<![endif]-->]]></programlisting>
+            <para>As a result of using the print tag with set property "ie8" we will 
+            obtain this:</para>
+            <programlisting><![CDATA[<!--[if lte IE 8]>
+    <link rel="stylesheet" type="text/css\" href="../../../_css/lte-ie8.css"  
+        "media="screen" />
+<![endif]-->]]></programlisting>
         </section>
         <section xml:id="commons-web-uri-assets-usage-images">
             <title>Inserting images</title>
-            <para>Example Using images</para>
-            <programlisting><![CDATA[
-            <body>
-                <asset:image key="/res/img/imagen1.jpg" />
-            </body>]]></programlisting>
+            <para>Using asset:image to include an image referenced by a key</para>
+            <programlisting><![CDATA[<body>
+    <asset:image key="/res/img/imagen1.jpg" />
+</body>]]></programlisting>
             <para>will result on this</para>
-            <programlisting><![CDATA[
-            <body>
-                <img src="../../../res/img/imagen1.jpg">
-            </body>]]></programlisting>
+            <programlisting><![CDATA[<body>
+    <img src="../../../res/img/imagen1.jpg">
+</body>]]></programlisting>
         </section>
     </section>
 </chapter>
