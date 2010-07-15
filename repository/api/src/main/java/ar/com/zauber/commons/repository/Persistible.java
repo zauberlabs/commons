@@ -20,7 +20,9 @@ package ar.com.zauber.commons.repository;
  * Es la interfaz que debe implementar cualquier objeto persistible del sistema.
  * 
  * @author Martin Andres Marquez
+ * @deprecated Se recomienda usar el EntityManager de JPA2
  */
+@Deprecated
 public interface Persistible extends Identifiable {
 
     /** @return el identificador */

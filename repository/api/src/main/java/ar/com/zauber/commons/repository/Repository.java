@@ -29,8 +29,9 @@ import ar.com.zauber.commons.repository.query.aggreate.AggregateFunction;
  * repository con el fin de ser mas consciente del dominio.
  *
  * @author Martin Andres Marquez
- *
+ * @deprecated Se recomienda usar el EntityManager de JPA2
  */
+@Deprecated
 public interface Repository {
 
     /**

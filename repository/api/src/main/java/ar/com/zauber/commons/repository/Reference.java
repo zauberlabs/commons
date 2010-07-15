@@ -27,7 +27,9 @@ import org.apache.commons.lang.UnhandledException;
  * 
  * @author Martin Andres Marquez
  * @param <T> Entity Type
+ * @deprecated Se recomienda usar el EntityManager de JPA2
  */
+@Deprecated
 public class Reference<T extends Persistible> implements Serializable {
     private static final long serialVersionUID = -8996518321381455505L;
     private long id;

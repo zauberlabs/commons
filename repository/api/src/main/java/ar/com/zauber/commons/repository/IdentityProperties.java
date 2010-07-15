@@ -28,7 +28,9 @@ package ar.com.zauber.commons.repository;
  * 
  * @author Martín A. Márquez
  * @since Jul 3, 2008
+ * @deprecated Se recomienda usar el EntityManager de JPA2
  */
+@Deprecated
 public @interface IdentityProperties {
     
     /** (Required) An array of the field names that make up the properties. */
