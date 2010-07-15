@@ -15,20 +15,16 @@
  */
 package ar.com.zauber.commons.repository;
 
+import java.io.Serializable;
 
 /**
- * Es la interfaz que debe implementar cualquier objeto persistible del sistema.
+ * Can be identified
  * 
- * @author Martin Andres Marquez
+ * @author Juan F. Codagnone
+ * @since Jul 15, 2010
  */
-public interface Persistible extends Identifiable {
-
-    /** @return el identificador */
-    Long getId();
-
-    /** @param anId que es el identificador */
-    void setId(Long anId);
+public interface Identifiable {
     
-    /** @return TODO */
-    <T> Reference<? extends Persistible> generateReference();
+    /** @return el identificador, or null if it is transient.  */
+    Serializable getId();
 }

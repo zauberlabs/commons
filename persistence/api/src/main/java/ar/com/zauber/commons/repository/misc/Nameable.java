@@ -15,7 +15,7 @@
  */
 package ar.com.zauber.commons.repository.misc;
 
-import java.io.Serializable;
+import ar.com.zauber.commons.repository.Identifiable;
 
 
 /**
@@ -24,10 +24,7 @@ import java.io.Serializable;
  * @author Juan F. Codagnone
  * @since Feb 26, 2009
  */
-public interface Nameable {
+public interface Nameable extends Identifiable {
     /** @return nombre de la entidad */
     String getName();
-
-    /** @return el identificador */
-    Serializable getId();
 }
