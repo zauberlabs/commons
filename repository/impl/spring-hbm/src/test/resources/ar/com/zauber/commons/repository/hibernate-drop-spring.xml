@@ -3,22 +3,5 @@
 "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-  <bean id="definition"
-    class="ar.com.zauber.commons.repository.utils.DropSessionFactoriesTablesDefinition">
-    <constructor-arg index="0">
-      <list>
-        <value>sessionFactory</value>
-      </list>
-    </constructor-arg>
-    <constructor-arg index="1">
-        <value>HOLA</value>
-    </constructor-arg>
-  </bean>
   
-  <bean id="hibernateManageTables"
-    class="ar.com.zauber.commons.repository.utils.HibernateManageTables">
-    <constructor-arg index="0">
-        <ref bean="definition"/>      
-    </constructor-arg>
-  </bean>	
 </beans>

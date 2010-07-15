@@ -15,7 +15,8 @@
  */
 package ar.com.zauber.commons.repository.misc;
 
-import ar.com.zauber.commons.repository.Persistible;
+import java.io.Serializable;
+
 
 /**
  * Tiene un nombre
@@ -23,7 +24,10 @@ import ar.com.zauber.commons.repository.Persistible;
  * @author Juan F. Codagnone
  * @since Feb 26, 2009
  */
-public interface Nameable extends Persistible {
+public interface Nameable {
     /** @return nombre de la entidad */
     String getName();
+
+    /** @return el identificador */
+    Serializable getId();
 }

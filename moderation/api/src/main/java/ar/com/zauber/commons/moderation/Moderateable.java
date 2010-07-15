@@ -19,6 +19,7 @@ import java.util.List;
 
 import ar.com.zauber.commons.repository.CreationAuditable;
 import ar.com.zauber.commons.repository.ModificationAuditable;
+import ar.com.zauber.commons.repository.Persistible;
 
 /**
  * Interfaz que deben implementar aquellos objetos que requieran moderación
@@ -27,7 +28,7 @@ import ar.com.zauber.commons.repository.ModificationAuditable;
  * @since Oct 5, 2009
  */
 public interface Moderateable extends ModerateableState,
-    CreationAuditable, ModificationAuditable {
+    CreationAuditable, ModificationAuditable, Persistible {
 
     /** 
      * Representa la secuencia de cambios en los estados de moderación que

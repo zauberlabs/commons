@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.web.utils;
 
+import java.io.Serializable;
+
 import ar.com.zauber.commons.repository.misc.Nameable;
 
 
@@ -32,5 +34,5 @@ public interface SEOIdStrategy {
     
     
     /** @return el id desde la representacion string */
-    Long getIdFromSEOFriendly(String l);
+    Serializable getIdFromSEOFriendly(String l);
 }

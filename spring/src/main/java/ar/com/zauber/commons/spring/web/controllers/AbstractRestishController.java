@@ -74,13 +74,15 @@ public abstract class AbstractRestishController extends AbstractController {
         } else if(patharray.length == firstIndex) {
             ret = list(request, response);
         } else if(patharray.length == firstIndex + 1) {
-            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[firstIndex]);
+            final Long id = (Long) seoStrategy.getIdFromSEOFriendly(
+                    patharray[firstIndex]);
             if(id == null) {
                 throw new NoSuchEntityException(patharray[firstIndex]);
             }
             ret = entity(id, request, response);
         } else if(patharray.length == firstIndex + 2) {
-            final Long id = seoStrategy.getIdFromSEOFriendly(patharray[firstIndex]);
+            final Long id = (Long) seoStrategy.getIdFromSEOFriendly(
+                    patharray[firstIndex]);
             if(id == null) {
                 throw new NoSuchEntityException(patharray[firstIndex]);
             }

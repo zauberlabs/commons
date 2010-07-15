@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.web.utils.impl;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang.StringUtils;
 
 import ar.com.zauber.commons.repository.misc.Nameable;
@@ -31,7 +33,7 @@ public class IdSEOIdStrategy implements SEOIdStrategy {
     private final String allMark = "all";
     
     /** @see SEOIdStrategy#getIdFromSEOFriendly(String) */
-    public final Long getIdFromSEOFriendly(final String l) {
+    public final Serializable getIdFromSEOFriendly(final String l) {
         return StringUtils.isBlank(l) ? null : l.equals(allMark)
                 ? null : Long.parseLong(l);
     }

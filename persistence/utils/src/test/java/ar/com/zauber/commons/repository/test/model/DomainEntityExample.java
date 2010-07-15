@@ -25,9 +25,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import ar.com.zauber.commons.repository.Persistible;
-import ar.com.zauber.commons.repository.Reference;
-
 /**
  * A domain entity for an example
  * 
@@ -37,7 +34,7 @@ import ar.com.zauber.commons.repository.Reference;
 @Entity
 @Configurable
 public class DomainEntityExample extends AbstractDomainEntityExample 
-                              implements Persistible, InitializingBean {
+                              implements InitializingBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -49,22 +46,6 @@ public class DomainEntityExample extends AbstractDomainEntityExample
     @Embedded
     private DomainEmbeededEntity domainEmbeededEntity;
     
-    /** @see Persistible#generateReference() */
-    public final <T> Reference<? extends Persistible> generateReference() {
-        return new Reference<DomainEntityExample>(DomainEntityExample.class, id);
-    }
-
-    /** @see Persistible#getId() */
-    public final Long getId() {
-        return id;
-    }
-
-    /** @see Persistible#setId(Long) */
-    public final void setId(final Long anId) {
-        this.id = anId;
-    }
-
-   
     public final SomeService getService() {
         return service;
     }

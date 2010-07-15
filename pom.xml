@@ -85,6 +85,7 @@
 
   <modules>
     <module>dao</module>
+    <module>persistence</module>
     <module>clustering</module>
     <module>spring</module>
     <module>auth</module>
@@ -446,6 +447,16 @@
       <dependency>
         <groupId>ar.com.zauber.commons.web</groupId>
         <artifactId>commons-web-version</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.persistence</groupId>
+        <artifactId>commons-persistence-api</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ar.com.zauber.commons.persistence</groupId>
+        <artifactId>commons-persistence-utils</artifactId>
         <version>${pom.version}</version>
       </dependency>
       <dependency>

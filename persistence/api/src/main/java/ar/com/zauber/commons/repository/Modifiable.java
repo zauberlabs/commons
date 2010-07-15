@@ -15,26 +15,24 @@
  */
 package ar.com.zauber.commons.repository;
 
-import java.util.Date;
 
 /**
- * Interfaz que deben implementar aquellos objetos que requieran auditoria
- * en la creación de los mismos
+ * Es la interfaz que debe implementar cualquier objeto que pueda ser
+ * modificado. Permite realizar optimistic locking mediante un campo
+ * de versión. También poseea metodos para auditoría.
  * 
- * 
- * @author Martín Andrés Márquez
- * @since Nov 12, 2007
+ * @author Martin Andres Marquez
  */
-public interface CreationAuditable extends Persistible {
+public interface Modifiable {
 
     /**
-     * @return quien es el responsable de la creación del objeto. 
+     * @return la versión del objeto
      */
-    String getCreatedBy();
+    Long getVersion();
     
     /**
-     * @return cuando fue creado el objeto.
+     * @param version la versión del objeto
      */
-    Date getCreatedAt();
+    void setVersion(Long version);
     
 }

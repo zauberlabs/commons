@@ -15,24 +15,26 @@
  */
 package ar.com.zauber.commons.repository;
 
+import java.util.Date;
 
 /**
- * Es la interfaz que debe implementar cualquier objeto que pueda ser
- * modificado. Permite realizar optimistic locking mediante un campo
- * de versión. También poseea metodos para auditoría.
+ * Interfaz que deben implementar aquellos objetos que requieran auditoria
+ * en la creación de los mismos
  * 
- * @author Martin Andres Marquez
+ * 
+ * @author Martín Andrés Márquez
+ * @since Nov 12, 2007
  */
-public interface Modifiable extends Persistible {
+public interface CreationAuditable {
 
     /**
-     * @return la versión del objeto
+     * @return quien es el responsable de la creación del objeto. 
      */
-    Long getVersion();
+    String getCreatedBy();
     
     /**
-     * @param version la versión del objeto
+     * @return cuando fue creado el objeto.
      */
-    void setVersion(Long version);
+    Date getCreatedAt();
     
 }
