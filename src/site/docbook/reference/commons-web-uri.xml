@@ -27,12 +27,13 @@
         it returns an URI.</para>
         
         <section xml:id="commons-web-uri-urifactory-jsp">
-            <title>Using UriFactory within JSPs</title>
-            <para>There's UriJspFactory utility class which let you use UriFactories JSPs in 
-            a very simple way. It uses by default RelativePathUriFactory, but 
-            providing an UriFactory Spring bean with name SpringBeans.LINK_URIFACTORY_KEY, 
-            will override the default UriFactory. Then inside your jsp you only have 
-            to call buildUri method.</para>
+            <title>Using <code>UriFactory</code> within JSPs</title>
+            <para>There's <code>UriJspFactory</code> utility class which let you use 
+            UriFactory inside your JSPs in a very simple way. It uses by default 
+            <code>RelativePathUriFactory</code>, but providing an <code>UriFactory</code> 
+            Spring bean with name <code>SpringBeans.LINK_URIFACTORY_KEY, </code>
+            will override the default <code>UriFactory</code>. Then inside your jsp you only have 
+            to call build method.</para>
             <section>
                 <title>Example</title>
                 <para>Begin using JspUriFunctions by including this taglib to your jsp:</para>
@@ -41,8 +42,8 @@
                 as follow:</para>
                 <programlisting><![CDATA[<a href="${uri:build0(pageContext, "/one/two/three")}}">link</a>]]></programlisting>
                 <para>That will print out this wherever you write it:</para>
-                <programlisting><![CDATA[<a href="www.example.com/context/path/one/two/three">link</a>]]></programlisting>
-                <para>where "www.example.com/context/path/" is where you have deployed your webapp.</para>
+                <programlisting><![CDATA[<a href="http://www.example.com/context/path/one/two/three">link</a>]]></programlisting>
+                <para>where "http://www.example.com/context/path/" is where you have deployed your webapp.</para>
             </section>
         </section>
         <section xml:id="commons-web-uri-implementations">
@@ -60,15 +61,15 @@
             </para>
             <section xml:id="commons-web-uri-urifactory-expressionmap">
                 <title>Configuring ExpressionMapUriFactory</title>
-                <para>A very useful implementation of UriFactory is ExpressionMapUriFactory
+                <para>A very useful implementation of UriFactory is <code>ExpressionMapUriFactory</code>
                     where each uri has an unique key, these uris are simple expressions which are
-                    evaluated by {@link ExpressionParser}. An known implementation of this is
-                    {@link SpelExpressionParser}.
+                    evaluated by <code>ExpressionParser</code>. An known implementation of this is
+                    <code>SpelExpressionParser</code>.
                 </para>
 
                 <para>
-                    These expressions ressemble Spring UriTemplate. Here are some examples with
-                    SpEl:
+                    These expressions ressemble Spring class <code>UriTemplate</code>. Here are some examples with
+                    <code>SpEl</code>:
                     <itemizedlist>
                         <listitem><programlisting>/users/{#root[0]}/inbox</programlisting></listitem>
                         <listitem><programlisting>/users/{#root[0]}/questions/{#root[1].id}</programlisting></listitem>
@@ -80,21 +81,75 @@
                 <para>
                     The code beteween curly brackets is what actually gets evaluated. The variable 
                     <emphasis role="bold">#root</emphasis> refers to the array of arguments passed 
-                    to the method UriFactory#buildUri .Furthermore there is an utility 
-                    function inside the Parser called encode, which actually encodes the Uri.
+                    to the method <code>UriFactory#buildUri</code> .Furthermore there is an utility 
+                    function inside the arser called <code>encode</code>, which actually 
+                    encodes the Uri.
                 </para>
             </section>
-            <section xml:id="commons-web-uri-urifactory-versionated">
-                <title>Versionated Uri Factory</title>
-                <para>Adding version numbers let you use far future expiration dates,
-                this practice improves considerably the web page performance.</para>
-                <para>This Implementation adds a predefined version identificator to
-                    the uri. Let's see an example, applying buildUri to the following
-                    key:
-                </para>
-                <programlisting>http://www.example.com/css/glossy.css</programlisting>
-                <para>will result on this:</para>
-                <programlisting>http://www.example.com/css/glossy.css?v=1.2</programlisting>
+            <section xml:id="commons-web-uri-urifactory-general-use">
+                <title>Common use UriFactories</title>
+                <informaltable frame='hsides'>
+		          <tgroup cols="4">
+		            <thead>
+		              <row>
+		                <entry align="center">Implementation</entry>
+		                <entry align="left">Description</entry>
+                        <entry align="left">Input</entry>
+                        <entry align="left">Output</entry>
+		              </row>
+		            </thead>
+                    
+		
+		            <tbody>
+		              <row>
+		                <entry><code>IdentityUriFactory</code></entry>
+		                <entry>Do nothing, just return the key received.</entry>
+                        <entry><programlisting>/example/</programlisting></entry>
+                        <entry><programlisting>/example/</programlisting></entry>
+		              </row>
+                      <row>
+		                <entry><code>PrefixUriFactory</code></entry>
+		                <entry>Given an key, it returns the key processed by its callback, 
+                        then it prepends a prefix previously configured.</entry>
+                        <entry><programlisting>/example/</programlisting></entry>
+                        <entry><programlisting>http://www.myhost.com/example/</programlisting></entry>
+		              </row>
+                      <row>
+		                <entry><code>AbsolutePathUriFactory</code></entry>
+		                <entry>If the uri is an absolute path does nothing, else it calls
+                            the urifactory callback and returns that</entry>
+                        <entry> <programlisting>/example/</programlisting>
+                                <programlisting>http://www.example.com/example/</programlisting></entry>
+                        <entry><programlisting>http://www.myhost.com/strange/url/example/</programlisting>
+                                <programlisting>http://www.example.com/example/</programlisting></entry>
+		              </row>
+                      <row>
+		                <entry><code>VersionedUriFactory</code></entry>
+		                <entry>Given a key, it calls the UriFactory Callback and appends
+                        a version parameter to that uri.</entry>
+                        <entry><programlisting>/example/file.txt</programlisting></entry>
+                        <entry><programlisting>http://www.myhost.com/example/file.txt?v=version_number</programlisting></entry>
+		              </row>
+                      <row>
+		                <entry><code>RelativePathUriFactory</code></entry>
+		                <entry>Given a path from the context path and a request, calculates the relative path to that place.
+                            Expects a request as the last argument.<code></code></entry>
+                        <entry><programlisting>/one/two/three/
+(being at contextPath/foo/bar/)</programlisting></entry>
+                        <entry><programlisting>../../one/two/three/</programlisting></entry>
+		              </row>
+                    </tbody>
+                </tgroup>
+                </informaltable>
+                
+                <para>Note About <code>VersionedUriFactory</code>: Adding version numbers 
+                let you use far future expiration dates, this practice improves 
+                considerably the web page performance.</para>
+                
+            </section>
+            <section xml:id="commons-web-uri-urifactory-factorybean">
+            <title>Configuring UriFactories with ConfigurableUriFactoryFactoryBean</title>
+            <para>COMPLETAR</para>
             </section>
         </section>
     </section>
@@ -115,44 +170,52 @@
             dependent assets into differents groups.
         </para>
         <para>
-            For such a task it defines the entity "Asset" which refers to a single resource. 
+            For such a task it defines the entity <code>Asset</code> which refers to a single resource. 
             Every Asset has a key which resolves the url using a UriFactory configured in the
             spring context. In addition assets have a property named set which let you group
             them. The assets are intended to be used inside jsp. Actually there are several tags
-            to use them.(See Examples)
-        </para>
-        <para> 
-            In order to start using them it is necessary to configure an 
-            AssetRepository and a UriFactory as spring beans (AssetRepository MUST be
-            request scoped). The AssetRepository must be named as 
-            SpringBeans.REPOSITORY_KEY defines. And the UriFactory must be named as
-            SpringBeans.ASSET_URIFACTORY_KEY defines.
+            to use them.<link xlink:linkend="commons-web-uri-assets-usage-general">(See EXAMPLES)</link>
         </para>
         <para>The workflow is the following, each asset is stored in the repository 
             grouped by set and indetified by its key. So depends on the repository 
             what will be printed out when the assets are recalled. The repository 
             could balance requests giving URLs to differents servers.
         </para>
-        <para>
-            Now, let's see Assets in action:
-            There are several usefull tags, but we can divide them into two groups, 
-            includable assets tags assets that are suitable to be preprocessed, and 
-            printable asset tags that are tags that will print content to the jsp.
-            Among includable tags we can name css and javscript tags, these assets are the
-            ones which actually get grouped by sets, by default all of them belong to a 
-            default set. On the other hand there printable tags are such as Image tag or 
-            Print tag . Print tag works together with includable tags. When we name the
-            print tag along a set, it prints out the corresponging assets to that set 
-            defined before the use of the print tag. If no set is provided it will recall 
-            the default set.
-        </para>
-        <para>Something very usefull is to include a Header before any print tag, so 
-            the assets declared on the header gets printed.
-        </para>
+        <section xml:id="commons-web-uri-assets-configuration">
+            <title>CONFIGURE ASSETS</title>
+            <para> 
+                In order to start using them it is necessary to configure an 
+                <code>AssetRepository</code> and a <code>UriFactory</code> as spring 
+                beans (<code>AssetRepository</code> MUST be request scoped). The 
+                <code>AssetRepository</code> must be named as <code>SpringBeans.REPOSITORY_KEY</code> 
+                defines. And the <code>UriFactory</code> must be named as 
+                <code>SpringBeans.ASSET_URIFACTORY_KEY</code> defines.
+            </para>
+            <programlisting>INCLUDE:XML DE SPRING</programlisting>
+            <para>hay que intercambiar el UriFactory y el AssetRepository in order to 
+                implement TODO
+            </para>
+        </section>
         <section xml:id="commons-web-uri-assets-usage-general">
             <title>Typical use inside a jsp</title>
+            <para>
+                Now, let's see Assets in action:
+                There are several usefull tags, but we can divide them into two groups, 
+                includable assets tags assets that are suitable to be preprocessed, and 
+                printable asset tags that are tags that will print content to the jsp.
+                Among includable tags we can name css and javscript tags, these assets are the
+                ones which actually get grouped by sets, by default all of them belong to a 
+                default set. On the other hand there are printable tags are such as Image tag or 
+                Print tag . Print tag works together with includable tags. When we name the
+                print tag along a set, it prints out the corresponging assets to that set 
+                defined before the use of the print tag. If no set is provided it will recall 
+                the default set.
+            </para>
+            <para>Something very usefull is to include a Header before any print tag, so 
+                the assets declared on the header gets printed.
+            </para>
             <para>first of all we must include the tag lib. (we will be using a 
-                SimpleAssetRepository and a RelativePathUriFactory)
+                <code>SimpleAssetRepository</code> and a <code>RelativePathUriFactory</code>)
             </para>
             <programlisting><![CDATA[<%@ taglib prefix="assets" uri="http://labs.zauber.com.ar/commons/tags/assets" %>]]></programlisting>
             <para>for each resource we want to include we name it by it key.</para>
@@ -179,7 +242,7 @@
             <para>As a result of using the print tag with set property "ie8" we will 
             obtain this:</para>
             <programlisting><![CDATA[<!--[if lte IE 8]>
-    <link rel="stylesheet" type="text/css\" href="../../../_css/lte-ie8.css"  
+    <link rel="stylesheet" type="text/css" href="../../../_css/lte-ie8.css"  
         "media="screen" />
 <![endif]-->]]></programlisting>
         </section>
