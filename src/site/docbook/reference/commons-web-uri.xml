@@ -8,42 +8,31 @@
          xmlns:ns="http://docbook.org/ns/docbook">
     <title>Commons Web Uri</title>
     <para>Commons Web Uri provides complete control over the site internal 
-        references.
+        references. This package provide several enhances to boost and improve page 
+        performance of web applications as well as simplify their development. 
+        These enhances aim to  simplify things as:
+        
+        <itemizedlist>
+            <listitem>Centralize uri management</listitem>
+            <listitem>Simplify concatenation/minimization of scripts or stylesheets</listitem>
+            <listitem>Versionate uris</listitem>
+            <listitem>Work with content delivery networks</listitem>
+            <listitem>Simplify construction of relative uri paths</listitem>
+        </itemizedlist>
+        
     </para>
     <section xml:id="commons-web-uri-urifactory">
         <title>Building Links With UriFactory</title>
-        <para>UriFactory build URIs dynamically, given a key and a set of objects it 
-        returns an URI. There are several implementations of this Interface and all of 
-        them are intended to decorate another UriFactory. A typical use would be:</para>
-        
-        
-       <programlisting>
-"home"      "http://www.example.com/home/index.html?v=1.0"
-    |       ^
-    V       |   
-VersionedUriFactory (versionate the file)
-    |       ^
-    V       |   "http://www.example.com/home/index.html"
-PrefixUriFactory (adds a prefix ie:http://www.example.com/)
-    |       ^
-    V       |   "home/index.html"
-ExpressionMapUriFactory (finds the meaning of the key)
-    |       ^
-    V       |   "home"
-IdentityUriFactory</programlisting>
-        
-        <para>These artifact is very useful to manage all the links in a centralized way.
-        You can manage the links of the webpage, mails and HTTP header all from the same 
-        place avoiding knowing each little place in the application. 
-        </para>
+        <para>UriFactory build URIs dynamically, given a key and some optional arguments
+        it returns an URI.</para>
         
         <section xml:id="commons-web-uri-urifactory-jsp">
             <title>Using UriFactory within JSPs</title>
             <para>There's UriJspFactory utility class which let you use UriFactories JSPs in 
-            a very simple way. It uses by default RelativePathUriFactory, but configuring 
-            a Spring bean with name as defined in SpringBeans.LINK_URIFACTORY_KEY, this will 
-            be the UriFactory which UriJspFactory will use. Then inside your jsp you only
-            have to call buildUri method.</para>
+            a very simple way. It uses by default RelativePathUriFactory, but 
+            providing an UriFactory Spring bean with name SpringBeans.LINK_URIFACTORY_KEY, 
+            will override the default UriFactory. Then inside your jsp you only have 
+            to call buildUri method.</para>
             <section>
                 <title>Example</title>
                 <para>Begin using JspUriFunctions by including this taglib to your jsp:</para>
@@ -56,39 +45,74 @@ IdentityUriFactory</programlisting>
                 <para>where "www.example.com/context/path/" is where you have deployed your webapp.</para>
             </section>
         </section>
-        <section xml:id="commons-web-uri-urifactory-expressionmap">
-            <title>Configuring ExpressionMapUriFactory</title>
-            <para>A very useful implementation of UriFactory is ExpressionMapUriFactory
-                where each uri has an unique key, these uris are simple expressions which are
-                evaluated by {@link ExpressionParser}. An known implementation of this is
-                {@link SpelExpressionParser}.
+        <section xml:id="commons-web-uri-implementations">
+            <title>Available Implementations</title>
+            <para>There are several implementations of this Interface and all of 
+            them are intended to decorate another UriFactory. Here is a graph showing how
+            it is intended to behave:</para>
+            
+            <imagedata fileref="./images/diagrama-commons-web-uri-600.jpg" 
+                             align="center" valign="middle"/>
+            
+            <para>These artifacts are very useful to manage the links in a centralized way.
+            You can manage the links of the webpage, mails and HTTP headers all from the same 
+            place avoiding to have them all diseminated through the application.
             </para>
+            <section xml:id="commons-web-uri-urifactory-expressionmap">
+                <title>Configuring ExpressionMapUriFactory</title>
+                <para>A very useful implementation of UriFactory is ExpressionMapUriFactory
+                    where each uri has an unique key, these uris are simple expressions which are
+                    evaluated by {@link ExpressionParser}. An known implementation of this is
+                    {@link SpelExpressionParser}.
+                </para>
 
-            <para>
-                These expressions ressemble Spring UriTemplate. Here are some examples with
-                SpEl:
-                <itemizedlist>
-                    <listitem><programlisting>/users/{#root[0]}/inbox</programlisting></listitem>
-                    <listitem><programlisting>/users/{#root[0]}/questions/{#root[1].id}</programlisting></listitem>
-                    <listitem><programlisting>/users/{#root[0].username}/</programlisting></listitem>
-                    <listitem><programlisting>/users/{encode(#root[1].question)}</programlisting></listitem>    
-                </itemizedlist>
-            </para>
+                <para>
+                    These expressions ressemble Spring UriTemplate. Here are some examples with
+                    SpEl:
+                    <itemizedlist>
+                        <listitem><programlisting>/users/{#root[0]}/inbox</programlisting></listitem>
+                        <listitem><programlisting>/users/{#root[0]}/questions/{#root[1].id}</programlisting></listitem>
+                        <listitem><programlisting>/users/{#root[0].username}/</programlisting></listitem>
+                        <listitem><programlisting>/users/{encode(#root[1].question)}</programlisting></listitem>    
+                    </itemizedlist>
+                </para>
 
-            <para>
-                The code beteween curly brackets is what actually gets evaluated. The variable 
-                <emphasis role="bold">#root</emphasis> refers to the array of arguments passed 
-                to the method UriFactory#buildUri .Furthermore there is an utility 
-                function inside the Parser called encode, which actually encodes the Uri.
-            </para>
+                <para>
+                    The code beteween curly brackets is what actually gets evaluated. The variable 
+                    <emphasis role="bold">#root</emphasis> refers to the array of arguments passed 
+                    to the method UriFactory#buildUri .Furthermore there is an utility 
+                    function inside the Parser called encode, which actually encodes the Uri.
+                </para>
+            </section>
+            <section xml:id="commons-web-uri-urifactory-versionated">
+                <title>Versionated Uri Factory</title>
+                <para>Adding version numbers let you use far future expiration dates,
+                this practice improves considerably the web page performance.</para>
+                <para>This Implementation adds a predefined version identificator to
+                    the uri. Let's see an example, applying buildUri to the following
+                    key:
+                </para>
+                <programlisting>http://www.example.com/css/glossy.css</programlisting>
+                <para>will result on this:</para>
+                <programlisting>http://www.example.com/css/glossy.css?v=1.2</programlisting>
+            </section>
         </section>
     </section>
     <section xml:id="commons-web-uri-assets">
         <title>Managing page resources with Assets</title>
+        <section xml:id="commons-web-uri-why">
+            <title>Increasing website performance</title>
+            <para>It's well known that users spend most of their time waiting the page
+                to load. So there are some good practices such as content delivery networks,
+                code minimization and stylesheet concatenation which boost significantly
+                the average load time. But some of this practices require to resolve uris
+                dynamically, Assets is intended to solve this problem.
+            </para>
+        </section>
         <para>Assets is a collection of tools that let you manage the resources of your page. 
-            It lets you manage the resources as sets, for example you can ofuscate, minimize,
-            concatenate a bunch of css or javascript assets. Or even manage browser dependent
-            assets into differents groups.
+            It lets you manage the resources as sets, to later ofuscate, minimize,
+            concatenate a bunch of css or javascript assets. Or even manage browser 
+            dependent assets into differents groups.
         </para>
         <para>
             For such a task it defines the entity "Asset" which refers to a single resource. 
@@ -99,10 +123,15 @@ IdentityUriFactory</programlisting>
         </para>
         <para> 
             In order to start using them it is necessary to configure an 
-            AssetRepository and a UriFactory as spring beans (AssetRepository MUST have 
-            REQUEST scope). The AssetRepository must be named as 
+            AssetRepository and a UriFactory as spring beans (AssetRepository MUST be
+            request scoped). The AssetRepository must be named as 
             SpringBeans.REPOSITORY_KEY defines. And the UriFactory must be named as
             SpringBeans.ASSET_URIFACTORY_KEY defines.
+        </para>
+        <para>The workflow is the following, each asset is stored in the repository 
+            grouped by set and indetified by its key. So depends on the repository 
+            what will be printed out when the assets are recalled. The repository 
+            could balance requests giving URLs to differents servers.
         </para>
         <para>
             Now, let's see Assets in action:
