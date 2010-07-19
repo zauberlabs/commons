@@ -112,7 +112,8 @@
 		                <entry>Given an key, it returns the key processed by its callback, 
                         then it prepends a prefix previously configured.</entry>
                         <entry><programlisting>/example/</programlisting></entry>
-                        <entry><programlisting>http://www.myhost.com/example/</programlisting></entry>
+                        <entry><programlisting>http://www.myhost.com/
+example/</programlisting></entry>
 		              </row>
                       <row>
 		                <entry><code>AbsolutePathUriFactory</code></entry>
@@ -120,23 +121,34 @@
                             the urifactory callback and returns that</entry>
                         <entry> <programlisting>/example/</programlisting>
                                 <programlisting>http://www.example.com/example/</programlisting></entry>
-                        <entry><programlisting>http://www.myhost.com/strange/url/example/</programlisting>
-                                <programlisting>http://www.example.com/example/</programlisting></entry>
+                        <entry><programlisting>http://www.myhost.com/
+strange/url/example/</programlisting>
+                                <programlisting>http://www.example.com/
+example/</programlisting></entry>
 		              </row>
                       <row>
 		                <entry><code>VersionedUriFactory</code></entry>
 		                <entry>Given a key, it calls the UriFactory Callback and appends
                         a version parameter to that uri.</entry>
                         <entry><programlisting>/example/file.txt</programlisting></entry>
-                        <entry><programlisting>http://www.myhost.com/example/file.txt?v=version_number</programlisting></entry>
+                        <entry><programlisting>http://www.myhost.com/
+example/file.txt?v=version_number</programlisting></entry>
 		              </row>
                       <row>
 		                <entry><code>RelativePathUriFactory</code></entry>
-		                <entry>Given a path from the context path and a request, calculates the relative path to that place.
-                            Expects a request as the last argument.<code></code></entry>
+		                <entry>Given a path from the context path and a request, calculates 
+                            the relative path to that place. Expects a request as 
+                            the last argument.<code></code></entry>
                         <entry><programlisting>/one/two/three/
 (being at contextPath/foo/bar/)</programlisting></entry>
                         <entry><programlisting>../../one/two/three/</programlisting></entry>
+		              </row>
+                      <row>
+		                <entry><code>ServletPathUriFactory</code></entry>
+		                <entry>Given a key, it prepends the contextPath of the current 
+                            servlet</entry>
+                        <entry><programlisting>/one/two/three/</programlisting></entry>
+                        <entry><programlisting>/context/path/one/two/three</programlisting></entry>
 		              </row>
                     </tbody>
                 </tgroup>
@@ -149,7 +161,23 @@
             </section>
             <section xml:id="commons-web-uri-urifactory-factorybean">
             <title>Configuring UriFactories with ConfigurableUriFactoryFactoryBean</title>
-            <para>COMPLETAR</para>
+                <para>There is a Factory Bean defined to simplify the UriFactories 
+                    coniguration. The <code>ConfigurableUriFactoryFactoryBean</code> let's 
+                    you configure from a base Urifactory (an user defined <code>UriFactory</code>)
+                    and on top of that add different commonly used implementations:
+                    <code>VersionatedUriFactory</code>, <code>PrefixUriFactory</code>,
+                    <code>AbsolutePathUriFactory</code> and <code>ServletPathUriFactory</code>.
+                    Note that <code>PrefixUriFactory</code> and <code>ServletPathUriFactory</code>
+                    in general are not compatible. Spring configuration Example:
+                </para>
+                <programlisting><![CDATA[<bean class="ar.com.zauber.commons.web.uri.factory.ConfigurableUriFactoryFactoryBean">
+    <constructor-arg index="0">
+        <bean class="ar.com.zauber.commons.web.uri.factory.IdentityUriFactory"/>
+    </constructor-arg>
+    <property name="absoluteUris" value="false"/>
+    <property name="prefixKey" value="http://www.abc.com"/>
+    <property name="version" value="1.0"/>
+</bean>]]></programlisting>
             </section>
         </section>
     </section>
@@ -182,24 +210,25 @@
             could balance requests giving URLs to differents servers.
         </para>
         <section xml:id="commons-web-uri-assets-configuration">
-            <title>CONFIGURE ASSETS</title>
+            <title>Configuring Assets</title>
             <para> 
                 In order to start using them it is necessary to configure an 
                 <code>AssetRepository</code> and a <code>UriFactory</code> as spring 
                 beans (<code>AssetRepository</code> MUST be request scoped). The 
                 <code>AssetRepository</code> must be named as <code>SpringBeans.REPOSITORY_KEY</code> 
                 defines. And the <code>UriFactory</code> must be named as 
-                <code>SpringBeans.ASSET_URIFACTORY_KEY</code> defines.
+                <code>SpringBeans.ASSET_URIFACTORY_KEY</code> defines. Let's see an example:
             </para>
-            <programlisting>INCLUDE:XML DE SPRING</programlisting>
-            <para>hay que intercambiar el UriFactory y el AssetRepository in order to 
-                implement TODO
+            <programlisting><![CDATA[<bean id="requestAssetsRepository" scope="request" 
+        class="ar.com.zauber.commons.web.uri.model.SimpleAssetsRepository" />]]></programlisting>
+            <para>Using AssetRepository and UriFactory in a clever way is how you 
+                can obtain great results from this utility. You can define different 
+                strategies to resolve URIs depending on your needs.
             </para>
         </section>
         <section xml:id="commons-web-uri-assets-usage-general">
             <title>Typical use inside a jsp</title>
             <para>
-                Now, let's see Assets in action:
                 There are several usefull tags, but we can divide them into two groups, 
                 includable assets tags assets that are suitable to be preprocessed, and 
                 printable asset tags that are tags that will print content to the jsp.
