@@ -44,7 +44,8 @@
             </inlinemediaobject>
         </para>
         
-        <para>There are three mayor objects:</para>
+        <para>In order to start sending notifications, we need to provide an 
+        implementation of each of the following components.There are three mayor objects:</para>
         
         <section xml:id="commons-message-core-message">
             <title>Message</title>
@@ -77,10 +78,6 @@
 
 }</programlisting>
         </section>
-
-        <para>In order to start sending notifications, we need to provide an 
-        implementation of each mentioned component.</para>
-        
     </section>
     
     <section xml:id="commons-message-implementations-mail-simple">

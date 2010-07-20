@@ -56,6 +56,7 @@
     <!-- Modulos -->
     <xi:include href="commons-web-uri.xml"/>
     <xi:include href="commons-message.xml"/>
+    <xi:include href="commons-version-provider.xml"/>
   </part>
 
     <part xml:id="appendices">

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xml:id="commons-version-provider"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Version Provider</title>
+
+  <section xml:id="commons-version-provider-description">
+    <title>Description</title>
+
+    <para><code>VersionProvider</code> gives support to have version number
+    inside java.</para>
+
+    <programlisting language="java">/**
+ * Provides module version. ie: web application version.
+ * 
+ * The idea behind this class is to versionate statc files in a web project
+ * so they remain cached by the browser for long times.
+ * 
+ * @author Juan F. Codagnone
+ * @since Jul 19, 2008
+ */
+public interface VersionProvider {
+    /** @return version or blank, never null
+     * this version number should be url friendly. (easily encodeable)
+     */
+    String getVersion();
+}</programlisting>
+  </section>
+
+  <section xml:id="commons-version-provider-configuration">
+    <title>Maven configuration</title>
+
+    <para>In order to start using this, insert in your pom.xml:</para>
+
+    <programlisting language="xml">
+         &lt;groupId&gt;ar.com.zauber.commons&lt;/groupId&gt;
+         &lt;artifactId&gt;commons-spring&lt;/artifactId&gt;
+     &lt;/dependency&gt;
++    &lt;dependency&gt;
++        &lt;groupId&gt;ar.com.zauber.commons.web&lt;/groupId&gt;
++        &lt;artifactId&gt;commons-web-version&lt;/artifactId&gt;
++        &lt;version&gt;${commons.version}&lt;/version&gt;
++    &lt;/dependency&gt;
++
+      &lt;dependency&gt;
+       &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+       &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+</programlisting>
+  </section>
+
+  <section xml:id="commons-version-provider-implementations">
+    <title>Known Implementations</title>
+
+    <para>There are several known implemetations packed along
+    <code>VersionProvider</code>:<informaltable>
+        <tgroup cols="2">
+          <colspec align="left" />
+
+          <thead>
+            <row>
+              <entry align="left"><para>Class</para></entry>
+
+              <entry align="center"><para>Description</para></entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><para>AppenderDecoratorVersionProvider</para></entry>
+
+              <entry><para>Concatenates an static string to another
+              <code>VersionProvider</code>.</para></entry>
+            </row>
+
+            <row>
+              <entry><para>AppenderMultipleVersionProvider</para></entry>
+
+              <entry><para>Concatenates multiple <code>VersionProvider</code>
+              if they are valid.</para></entry>
+            </row>
+
+            <row>
+              <entry><para>EmptyVersionProvider</para></entry>
+
+              <entry><para>Returns always blank text.</para></entry>
+            </row>
+
+            <row>
+              <entry><para>InmutableVersionProvider</para></entry>
+
+              <entry><para>Returns always the same value, defined at
+              constructions (configurable).</para></entry>
+            </row>
+
+            <row>
+              <entry><para>ManifestVersionProvider</para></entry>
+
+              <entry><para><code>VersionProvider</code> which retrieves the
+              version from the java manifest.</para><para>Useful to use the
+              version in the MANIFEST.MF while building with
+              hudson.</para></entry>
+            </row>
+
+            <row>
+              <entry><para>MultipleVersionProvider</para></entry>
+
+              <entry><para>Chained VersionProvider, Useful to try to get a
+              version number without knowing which one will give a valid
+              answer.</para></entry>
+            </row>
+
+            <row>
+              <entry><para>PropertiesVersionProvider</para></entry>
+
+              <entry><para><code>VersionProvider</code> which uses a property
+              from <code>Properties</code>.It can get the artifactId version which
+              Maven leaves at META-INF.</para></entry>
+            </row>
+
+            <row>
+              <entry><para>ValidatorVersionProvider</para></entry>
+
+              <entry><para>This Validates that each VersionProvider complies
+              </para></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable> Without too many prerequisits, you can easily achieve a
+    <code>VersionProvider</code> combining these Implementations. For example
+    you can easily implement a <code>VersionProvider</code> that: <orderedlist
+        numeration="arabic">
+        <listitem>
+          <para>If there is pom and hudson build version information. uses
+          both</para>
+        </listitem>
+
+        <listitem>
+          <para>else, if there is only pom version informtion uses it.</para>
+        </listitem>
+
+        <listitem>
+          <para>else, if there is only build version information uses
+          it.</para>
+        </listitem>
+
+        <listitem>
+          <para>else it will use the date when the app started.</para>
+        </listitem>
+      </orderedlist> According to the example the outputs would be in each
+    case.<orderedlist numeration="arabic">
+        <listitem>
+          <para>0.0-SNAPSHOT-build-25</para>
+        </listitem>
+
+        <listitem>
+          <para>0.0-SNAPSHOT</para>
+        </listitem>
+
+        <listitem>
+          <para>build-25</para>
+        </listitem>
+
+        <listitem>
+          <para>11B3D01DFE8</para>
+        </listitem>
+      </orderedlist></para>
+  </section>
+
+  <section xml:id="commons-web-version-provider-mvc">
+    <title>Spring MVC</title>
+
+    <para>If you use Spring MVcC commons-web-utils provides you with the
+    necessary beans to start using the previously shown example. In the
+    example below we will see instructions to start using VersionProvider in a
+    common web application.:<orderedlist numeration="arabic">
+        <listitem>
+          <para>Add the following dependencies to your pom:
+          <code>commons-spring</code> y <code>commons-web-utils</code></para>
+        </listitem>
+
+        <listitem>
+          <para>Add the following to your spring context:</para>
+
+          <itemizedlist>
+            <listitem>
+              <programlisting>&lt;import resource="classpath:ar/com/zauber/commons/web/version/version-provider-spring.xml"/&gt;</programlisting>
+            </listitem>
+
+            <listitem>
+              <programlisting>&lt;import resource="classpath:ar/com/zauber/commons/spring/web/utils/resource-version-provider-spring.xml"/&gt;</programlisting>
+            </listitem>
+          </itemizedlist>
+
+          <para>And provide the following properties (ie JNDI) :</para>
+
+          <para><itemizedlist>
+              <listitem>
+                <para><code>commons.web.version.manifest.atribute=Hudson-Build-Number</code></para>
+              </listitem>
+
+              <listitem>
+                <para><code>commons.web.version.manifest=META-INF/MANIFEST.MF</code>
+                <emphasis>(where to get hudson build number)</emphasis></para>
+              </listitem>
+
+              <listitem>
+                <para><code>commons.web.version.pom=META-INF/maven/ar.com.zauber.tools.bob/bob-web/pom.properties</code>
+                <emphasis>(where to get artifact version
+                number.)</emphasis></para>
+              </listitem>
+            </itemizedlist></para>
+        </listitem>
+
+        <listitem>
+          <para>asdas ???????????????? usar urifactory :<programlisting>NOOOOOOOOOOOOOOOOO
+&lt;bean id="viewResolver"
+    class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
+    &lt;property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/&gt;
+    &lt;property name="prefix" value="/WEB-INF/templates/jsp/"/&gt;
+    &lt;property name="suffix" value=".jsp"/&gt;
+    &lt;property name="attributesMap"&gt;
+        &lt;map&gt;
+            &lt;entry key="helper_version"&gt;
+                &lt;bean factory-bean="commonsWebUtilsVersionProvider"
+                      factory-method="getVersion"/&gt;
+            &lt;/entry&gt;
+        &lt;/map&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>????????? usar uriFactory: <programlisting>&lt;link rel="stylesheet" type="text/css" 
+           href="&lt;%= ctx %&gt;/static/styles/generic/style.css?v=${helper_version}" /&gt;</programlisting></para>
+        </listitem>
+      </orderedlist></para>
+  </section>
+</chapter>
