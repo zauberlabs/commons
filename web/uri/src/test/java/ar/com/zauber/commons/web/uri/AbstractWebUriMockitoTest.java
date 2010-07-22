@@ -90,7 +90,8 @@ public abstract class AbstractWebUriMockitoTest
             if(invocation.getMethod().getName().equals("getBean")
                     && invocation.getArguments().length == 2) {
                 if(isException()) {
-                    throw new NoSuchBeanDefinitionException("Test Purposes");
+                    throw new NoSuchBeanDefinitionException(
+                            invocation.getArguments()[0].toString());
                 } else {
                     Class<Object> c = (Class<Object>) invocation.getArguments()[1];
                     return applicationContext.getBean(
