@@ -13,11 +13,11 @@
   	<artifactId>commons-repository-api</artifactId>
   	<groupId>ar.com.zauber.commons.repository</groupId>
 	<version>${pom.version}</version>
-    </dependency>        
+    </dependency>
     <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>persistence-api</artifactId>
-      <version>1.0</version>      
+         <groupId>org.hibernate.javax.persistence</groupId> 
+         <artifactId>hibernate-jpa-2.0-api</artifactId> 
+         <version>1.0.0.Final</version>
     </dependency>
     <dependency>
         <groupId>org.springframework</groupId>
