@@ -17,6 +17,7 @@ package ar.com.zauber.commons.repository;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -29,10 +30,13 @@ import javax.persistence.MappedSuperclass;
 public abstract class BaseCreationModificationAuditableEntity 
                            extends BaseModifiableEntity 
                            implements CreationAuditable, ModificationAuditable {
-
+    @Column(name = "createdat")
     private Date createdAt;
+    @Column(name = "createdby")
     private String createdBy;
+    @Column(name = "modifiedat")
     private Date modifiedAt;
+    @Column(name = "modifiedby")
     private String modifiedBy;
 
     /** Creates the BaseCreationModificationAuditableEntity. */
