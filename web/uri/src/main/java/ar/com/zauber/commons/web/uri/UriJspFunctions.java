@@ -17,6 +17,7 @@ package ar.com.zauber.commons.web.uri;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang.UnhandledException;
@@ -55,14 +56,20 @@ public final class UriJspFunctions {
     /** Construye un uri */
     public static String buildVarArgs(final PageContext ctx,
             final String uriKey, final Object... params) {
+        return buildVarArgs(ctx.getRequest(), uriKey, params);
+        
+    }
+    /** Construye un uri */
+    public static String buildVarArgs(final ServletRequest request,
+            final String uriKey, final Object... params) {
         Validate.notNull(uriKey);
-        Validate.notNull(ctx);
+        Validate.notNull(request);
         
         if(!initialized.getAndSet(true)) {
             try {
                 logger.info("Resolving Urifactory bean.");
                 WebApplicationContext appCtx = 
-                    RequestContextUtils.getWebApplicationContext(ctx.getRequest());
+                    RequestContextUtils.getWebApplicationContext(request);
                 
                 try {
                     uriFactory = appCtx.getBean(SpringBeans.LINK_URIFACTORY_KEY, 
@@ -82,7 +89,7 @@ public final class UriJspFunctions {
         }
         String uri;
         if(usingDefault) {
-            uri = uriFactory.buildUri(uriKey, params, ctx.getRequest());
+            uri = uriFactory.buildUri(uriKey, params, request);
         } else {
             uri = uriFactory.buildUri(uriKey, params);
         }
