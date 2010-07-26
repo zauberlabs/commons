@@ -302,7 +302,7 @@ example/file.txt?v=version_number</programlisting></entry>
       example:</para>
 
       <programlisting>&lt;bean id="requestAssetsRepository" scope="request" 
-        class="ar.com.zauber.commons.web.uri.model.SimpleAssetsRepository" /&gt;</programlisting>
+        class="ar.com.zauber.commons.web.uri.model.SimpleAssetsRepository" scope="request"/&gt;</programlisting>
 
       <para>Using AssetRepository and UriFactory in a clever way is how you
       can obtain great results from this utility. You can define different
