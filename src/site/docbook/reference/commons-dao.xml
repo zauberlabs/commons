@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xml:id="commons-dao" 
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+    <title>Commons DAO</title>
+    
+    <section xml:id="commons-dao-overview">
+        <title>Overview</title>
+        
+        <para><emphasis>Commons DAO</emphasis> aims to be an alternative to Apache Commons 
+        adding some features that are useful for developing. </para>
+        <para><emphasis>Commons DAO</emphasis> can be divided in:
+        </para>
+        <ns:itemizedlist>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Functors
+            </ns:emphasis>: objects that encapsulates functional logic.</ns:para></ns:listitem>            
+            <ns:listitem><ns:para><ns:emphasis role="bold">Exceptions
+            </ns:emphasis>: Most used exceptions.</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Ordering and Paging
+            </ns:emphasis>: Objects to handling ordering and paging in collections.</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Secret Handling
+            </ns:emphasis>: Secret's generation (generated random value for secure actions).</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Other utils
+            </ns:emphasis>: Date, String and Password Encoders utils.</ns:para></ns:listitem>
+        </ns:itemizedlist>          
+ 
+    </section>
+
+    <section xml:id="commons-dao-functors">
+        <title>Functors</title>
+        
+        <!-- basado de http://www.discursive.com/books/cjcook/reference/functors.html-->
+
+        <!-- agregar: diferencias con commons-->
+        
+        <!-- cambiar un poco mas esto (casi textual)... -->
+        <para>A functor is an object that encapsulates functional logic. So with a definition as abstract as "something that does stuff," you won't find a lot of satisfying, concise explanations of what a functor can do; in the abstract, anything that performs an operation or function could be considered a functor, and the process of drawing divisions between what should and should not be implemented with functors becomes a matter of personal preference. Functors are less of an impressive new technology and are more of an approach to programming. Even if you are unfamiliar with the term, you've likely used functors without realizing it; two functors in common usage are Comparator and Iterator.
+        </para>
+         
+        <!-- Crear tres subsecciones para predicados, closures y transformaciones -->
+        <!-- basarse en -->
+        <!-- predicados: http://www.discursive.com/books/cjcook/reference/functors-sect-simple-pred.html-->
+        <!-- transformaciones: http://www.discursive.com/books/cjcook/reference/functors-sect-transforming-objects.html -->
+        <!-- closures: http://www.discursive.com/books/cjcook/reference/functors-sect-writing-closure.html-->
+        
+    </section>
+    
+    
+    <section xml:id="commons-dao-secret">
+        <title>Secret Handling</title>
+        
+        
+    </section>    
+    
+    <section xml:id="commons-dao-page-and-order">
+        <title>Paging and Ordering</title>
+        
+        
+    </section>    
+    
+    
+</chapter>
