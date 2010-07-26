@@ -56,7 +56,7 @@ public class OpenSessionClosure<T> implements Closure<T> {
         this.dryrun = dryrun;
         
         if(dryrun) {
-            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producciï¿½n)."
+            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producción)."
                     + "Cuidado con el starvation de conexiones jdbc.");
         }
     }
