@@ -34,8 +34,11 @@ public abstract class AbstractSpringTag extends TagSupport {
 
     /** @return Request {@link ApplicationContext} */
     protected final WebApplicationContext getApplicationContext() {
+        if(pageContext == null) {
+            throw new IllegalStateException("pageContext is null!");
+        }
         return RequestContextUtils.getWebApplicationContext(
-                this.pageContext.getRequest());
+                pageContext.getRequest());
     }
 
 }
