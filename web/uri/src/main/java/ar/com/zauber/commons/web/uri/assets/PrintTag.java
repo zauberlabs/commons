@@ -43,27 +43,27 @@ import ar.com.zauber.commons.web.uri.model.AssetRepository;
  * @since Dec 14, 2009
  */
 public class PrintTag extends AbstractSpringTag {
-
     /** <code>serialVersionUID</code> */
     private static final long serialVersionUID = -3624874122306975946L;
 
     private String set = Assets.DEFAULT_SET;
 
+    
     /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
     @Override
     public final int doStartTag() throws JspException {
-        WebApplicationContext appCtx = getApplicationContext();
-        AssetRepository repository = appCtx.getBean(SpringBeans.REPOSITORY_KEY,
+        final WebApplicationContext appCtx = getApplicationContext();
+        final AssetRepository repository = appCtx.getBean(SpringBeans.REPOSITORY_KEY,
                 AssetRepository.class); 
-        UriFactory uriFactory = appCtx.getBean(SpringBeans.ASSET_URIFACTORY_KEY,
+        final UriFactory uriFactory = appCtx.getBean(SpringBeans.ASSET_URIFACTORY_KEY,
                 UriFactory.class); 
         
-        JspWriter out = this.pageContext.getOut();
+        final JspWriter out = pageContext.getOut();
         try {
-            for (AssetModel asset : repository.getSet(this.set)) {
+            for(final AssetModel asset : repository.getSet(set)) {
                 out.write(asset.toHtml(uriFactory));
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new JspException(e);
         }
         return Tag.SKIP_BODY;
