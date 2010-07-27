@@ -11,9 +11,9 @@
     <section xml:id="commons-dao-overview">
         <title>Overview</title>
         
-        <para><emphasis>Commons DAO</emphasis> aims to be an alternative to Apache Commons 
-        adding some features that are useful for developing. </para>
-        <para><emphasis>Commons DAO</emphasis> can be divided in:
+        <para><emphasis role="bold">Commons DAO</emphasis> aims to be an adaptation of 
+        Apache Commons adding some features that are useful for developing. </para>
+        <para><emphasis role="bold">Commons DAO</emphasis> can be divided in:
         </para>
         <ns:itemizedlist>
             <ns:listitem><ns:para><ns:emphasis role="bold">Functors
@@ -21,9 +21,11 @@
             <ns:listitem><ns:para><ns:emphasis role="bold">Exceptions
             </ns:emphasis>: Most used exceptions.</ns:para></ns:listitem>
             <ns:listitem><ns:para><ns:emphasis role="bold">Ordering and Paging
-            </ns:emphasis>: Objects to handling ordering and paging in collections.</ns:para></ns:listitem>
+            </ns:emphasis>: Objects for handling ordering and paging in 
+            collections.</ns:para></ns:listitem>
             <ns:listitem><ns:para><ns:emphasis role="bold">Secret Handling
-            </ns:emphasis>: Secret's generation (generated random value for secure actions).</ns:para></ns:listitem>
+            </ns:emphasis>: Secret's generation (generated random value for 
+            unique secure actions).</ns:para></ns:listitem>
             <ns:listitem><ns:para><ns:emphasis role="bold">Other utils
             </ns:emphasis>: Date, String and Password Encoders utils.</ns:para></ns:listitem>
         </ns:itemizedlist>          
@@ -34,32 +36,526 @@
         <title>Functors</title>
         
         <!-- basado de http://www.discursive.com/books/cjcook/reference/functors.html-->
-
-        <!-- agregar: diferencias con commons-->
         
-        <!-- cambiar un poco mas esto (casi textual)... -->
-        <para>A functor is an object that encapsulates functional logic. So with a definition as abstract as "something that does stuff," you won't find a lot of satisfying, concise explanations of what a functor can do; in the abstract, anything that performs an operation or function could be considered a functor, and the process of drawing divisions between what should and should not be implemented with functors becomes a matter of personal preference. Functors are less of an impressive new technology and are more of an approach to programming. Even if you are unfamiliar with the term, you've likely used functors without realizing it; two functors in common usage are Comparator and Iterator.
-        </para>
-         
-        <!-- Crear tres subsecciones para predicados, closures y transformaciones -->
-        <!-- basarse en -->
-        <!-- predicados: http://www.discursive.com/books/cjcook/reference/functors-sect-simple-pred.html-->
-        <!-- transformaciones: http://www.discursive.com/books/cjcook/reference/functors-sect-transforming-objects.html -->
-        <!-- closures: http://www.discursive.com/books/cjcook/reference/functors-sect-writing-closure.html-->
+        <!-- TODO Change this, almost verbatim -->
+        <para>A functor is an object that encapsulates functional logic. So with 
+        a definition as abstract as "something that does stuff," you won't find 
+        a lot of satisfying, concise explanations of what a functor can do; in 
+        the abstract, anything that performs an operation or function could be 
+        considered a functor, and the process of drawing divisions between 
+        <ns:emphasis role="bold"> what should and should not be implemented with 
+        functors becomes a matter of personal preference</ns:emphasis>. Functors 
+        are less of an impressive new technology and are more of 
+        <ns:emphasis role="bold">an approach to programming</ns:emphasis>. Even 
+        if you are unfamiliar with the term, you've likely used functors without 
+        realizing it; two functors in common usage are <code>Comparator</code> 
+        and <code>Iterator</code>. </para>
+        <para>This small pieces of logic can be considered as 
+        <link xlink:href="http://www.lego.com/">lego</link> blocks. A simple
+        block of lego is useless but combined you can do interesting stuff. In 
+        <ns:emphasis role="bold">Zauber Commons</ns:emphasis> we can find 
+        <code>Predicate</code>, <code>Transformer</code> and <code>Closure</code> 
+        functors which were taken from <ns:emphasis role="bold">Apache Commons</ns:emphasis> 
+        adding types to their definitions (making use of Java Generics). </para>
+        <para>Another important thing to say is that <ns:emphasis role="bold">Zauber Commons DAO</ns:emphasis> 
+        has no dependencies like Spring or other mayor technologies.</para>
+        
+        <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-simple-pred.html-->
+        <section xml:id="commons-dao-functors-predicate">
+            <title>Predicates</title>
+            <section xml:id="commons-dao-functors-predicate-problem">
+                <title>Problem</title>
+                <para>You need to perform logic that is predicated on a certain 
+                condition being satisfied, and you want to encapsulate this 
+                condition in an object.</para>
+            </section>
+            <section xml:id="commons-dao-functors-predicate-solution">
+                <title>Solution</title>
+                <para>Use a <code>Predicate</code> to evaluate a criteria or a condition. A 
+                <code>Predicate</code> is an object that evaluates another object and returns 
+                true or false; predicates are commonly used with collections 
+                for filtering, selecting, and validating 
+                their contents. This code demonstrates the use of 
+                simple predicates to test the type and contents of an object:</para>
+
+                <programlisting language="Java">
+import ar.com.zauber.commons.dao.Predicate;
+import ar.com.zauber.commons.dao.predicate.*;
+String name = "Shirley";
+Predicate&lt;String&gt; nameEmma = new EqualsPredicate( "Emma" );
+Predicate&lt;String&gt; nameShirley = new EqualsPredicate( "Shirley" );
+// Testing all predicates for "Shirley"
+System.out.println( "Is Name Emma?: " + nameEmma.evaluate( name ) );
+System.out.println( "Is Name Shirley?: " + nameShirley.evaluate( name ) );</programlisting>
+                
+                <para>The previous example tests the name object against a few 
+                Predicate implementations producing the following console output:</para>
+
+                <programlisting language="Java">
+Is Name Emma?: false
+Is Name Shirley?: true</programlisting>
+
+                <para>The string "Shirley" is subjected to <code>EqualsPredicate</code> 
+                which test the contents of the string, returning true if the object 
+                being evaluated is equal to the object passed into the 
+                <code>EqualPredicate</code>'s constructor.</para>
+                
+            </section>
+            
+            <section xml:id="commons-dao-functors-predicate-discussion">
+
+                <title>Discussion</title>
+
+                <para>The <code>Predicate</code> interface is central to a number of 
+                utilities related with collections. To implement Predicate, 
+                define an <code>evaluate()</code> method that returns a boolean; a Predicate  
+                is a function object (or functor) that captures a criteria in an 
+                object that can be created and altered at runtime. Creating and 
+                evaluating a Predicate is just as valid as writing an if statement; 
+                for example, the code in the Solution of this recipe could have 
+                been implemented as a series of if statements:</para>
+
+                <programlisting language="Java">
+String name = "Shirley";
+if( name.equals( "Emma" ) ) {
+        System.out.println( "The name is Emma." );
+}
+if( name.equals( "Shirley" ) ) {
+        System.out.println( "The name is Shirley." );
+}</programlisting>
+
+                <para>Predicate instances capture an if statement in an object, 
+                and if you are going to <ns:emphasis role="bold">constantly change the behavior of your 
+                application, you might want to consider placing conditional expressions 
+                in <code>Predicate</code> instances</ns:emphasis>. For example, if a system is designed to 
+                classify a storm as being a hurricane, you may want to capture 
+                all of your classification criteria in an XML file—parsing this 
+                file at runtime and creating a series of Predicate objects. A 
+                storm is a hurricane when the winds exceed a certain value, and 
+                the barometric pressure falls below a certain point. But, in a 
+                few years those criteria might change to involve a new, or more 
+                complex, set of measurements. If your decision logic is encapsulated 
+                in a Predicate object, it will be easier to upgrade the program 
+                to take new criteria into account; all of this logic will be 
+                encapsulated in an instance of Predicate.
+                </para>
+                
+                <para><ns:emphasis role="bold">Zauber Commons DAO</ns:emphasis> 
+                provides a number of basic predicates for common situations. 
+                Table 5.1 lists a number of simple 
+                <code>Predicate</code> implementations.</para>
+
+                <table frame='hsides'>
+                    <title>Predicate implementations</title>
+                
+                    <tgroup cols="2">
+                        <thead>
+                            <row>
+                                <entry align="center">Name</entry>
+                                <entry align="center">Description</entry>
+                            </row>
+                        </thead>
+
+                        <tbody>
+                            <row>
+                                <entry><code>EqualsPredicate</code></entry>
+                                <entry>Compares each object to an object passed via a 
+                                constructor—returning true if the two are equal.</entry>
+                            </row>
+							<row>
+								<entry>
+									<code>NotPredicate</code>
+								</entry>
+								<entry>Wraps a Predicate and returns the opposite result.</entry>
+							</row>
+							<row>
+								<entry>
+									<code>TruePredicate</code>
+								</entry>
+								<entry>Always returns true.</entry>
+							</row>
+							<row>
+								<entry>
+									<code>FalsePredicate</code>
+								</entry>
+								<entry>Always returns false.</entry>
+							</row>
+							<row>
+								<entry>
+									<code>AndPredicate</code>
+								</entry>
+								<entry>Takes a list of predicates by constructor and makes an And
+									operation between them and the object passed via parameter.</entry>
+							</row>
+							<row>
+								<entry>
+									<code>IgnoreCaseEqualsPredicate</code>
+								</entry>
+								<entry>Compares String passed via constructor with argument ignoring
+									case.</entry>
+							</row>
+							<row>
+								<entry>
+									<code>InPredicate</code>
+								</entry>
+								<entry>Returns true if the object is in the list passed via
+									constructor.</entry>
+							</row>
+							<row>
+								<entry>
+									<code>ThrowableMaxAmountPredicate</code>
+								</entry>
+								<!-- Taken from -->
+								<!-- https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto21 -->
+								<entry><code>Predicate</code> with type 
+								<code>Collection&lt;Throwable&gt;</code> and returns 
+								true if the amount of throwables exceeds the parameter 
+								passed via constructor. Useful to combine with the 
+								triggered exception builder for having a builder that
+								allows a certain amount of exceptions and then throws
+								an exception (use case e.x: network dependent routines).</entry>
+							</row>                    
+							
+						</tbody>
+					</tgroup>
+                </table>
+            </section>
+        </section>
+        
+        <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-transforming-objects.html -->
+        <section xml:id="commons-dao-functors-transformer">
+            <title>Transformers</title>
+            <section xml:id="commons-dao-functors-transformer-problem">
+                <title>Problem</title>
+                
+                <para>You need to perform a transformation, taking an object and 
+                creating a new object.</para>
+                
+            </section>
+            
+            <section xml:id="commons-dao-functors-transformer-solution">
+                <title>Solution</title>
+                
+                <para>Implement the Transformer interface. A Transformer takes 
+                an object and returns a new object instance. The following example 
+                demonstrates the joinArmy <code>Transformer</code>; the <code>transform( )</code> 
+                method takes a <code>Recruit</code> object instance and returns a 
+                <code>Soldier</code> object:</para>
+                
+<programlisting language="Java">
+import ar.com.zauber.commons.dao.Transformer;
+Transformer&lt;Recruit, Soldier&gt; joinArmy = new Transformer( ) {
+    public Soldier transform(Recruit input) {
+                BootCamp.obstacleCourse( input );
+                Soldier soldier = BootCamp.graduate( recruit );
+                return soldier;
+        }
+}
+Recruit recruit1 = new Recruit("Pat T.");
+System.out.println( "Status before transformation: " + recruit );
+Soldier soldier1 = joinArmy.transform( recruit1 );
+System.out.println( "Status after transformation: " + soldier );</programlisting>
+
+                <para>A <code>Recruit</code> object is passed to the <code>joinArmy.transform( )</code> 
+                method, and a <code>Soldier</code> object is returned. The state of the recruit 
+                and soldier instances are printed before and after the 
+                transformation:</para>
+
+<programlisting language="Java">
+Status before transformation: Pat T., Recruit
+Status after transformation: Pat T., Soldier</programlisting>
+
+            </section>
+            
+            <section xml:id="commons-dao-functors-transformer-discussion">
+                <title>Discussion</title>
+                
+				<para>This object isolates and encapsulates a transition; a 
+				system that needs to translate between two domain models or two 
+				object types should encapsulate such a transition in a <code>Transformer</code>. 
+				<code>Transformer</code>  may be something of a misnomer. When an object 
+				undergoes a transformation, it is common to think of an object 
+				being modified or acted upon, but this is contrary to the design 
+				of the Transformer interface. The Javadoc for <code>Transformer</code> expressly 
+				states, "The original object is left unchanged."</para>
+
+            </section>    
+                    
+        </section>
+        
+        <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-writing-closure.html-->
+        <section xml:id="commons-dao-functors-closure">
+            <title>Closures</title>
+            <section xml:id="commons-dao-functors-closure-problem">
+                <title>Problem</title>
+                <para>You need a functor that operates on an object.</para>
+            </section>
+            <section xml:id="commons-dao-functors-closure-solution">
+                <title>Solution</title>
+                
+                <para>Use a Closure to encapsulate a block of code that acts on 
+                an object. In this example, a discount <code>Closure</code> operates 
+                on a <code>Product</code> object, reducing the price by 10 percent:</para>
+
+<programlisting language="Java">
+Closure discount = new Closure( ) {
+    int count = 0;
+    public int getCount( ) { return count; }
+
+    public void execute(Object input) {
+        count++;
+            (Product) product = (Product) input;
+            product.setPrice( product.getPrice( ) * 0.90 );
+    }
+}
+Product shoes = new Product( );
+shoes.setName( "Fancy Shoes" );
+shoes.setPrice( 120.00 );
+System.out.println( "Shoes before discount: " + shoes );
+discount.execute( shoes );
+System.out.println( "Shoes after discount: " + shoes );
+discount.execute( shoes );
+discount.execute( shoes );
+System.out.println( "Shoes after " + discount.getcount( ) +
+                    " discounts: " + shoes );</programlisting>
+
+                <para>The example prints out the original cost of shoes ($120) and 
+                then proceeds to discount shoes and print out the discounted price. 
+                The <code>Product</code> object, shoes, is modified by the discount <code>Closure</code> 
+                three separate times:</para>
+
+                <programlisting language="Java">
+Shoes before discount: Fancy Shoes for $120.00
+Shoes after discount: Fancy Shoes for $108.00
+Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
+
+            </section>
+
+            <section xml:id="commons-dao-functors-closure-discussion">
+                <title>Discussion</title>
+
+                <para>A <code>Closure</code> operates on the input object passed 
+                to the <code>execute( )</code> method, while a <code>Transformer</code> 
+                does not alter the object passed to <code>transform( )</code>. 
+                Use <code>Closure</code> if your system needs to act on an object. 
+                Like the <code>Transformer</code> and <code>Predicate</code> interfaces, 
+                there are a number of <code>Closure</code> implementations that 
+                can be used to chain and combine <code>Closure</code> instances.</para>
+                <para>The following table shows <ns:emphasis role="bold">Zauber Commons</ns:emphasis> 
+                implementations for <code>Closure</code></para>
+                <table frame='hsides'>
+                    <title>Closure implementations</title>
+                
+                    <tgroup cols="2">
+                        <thead>
+                            <row>
+                                <entry align="center">Name</entry>
+                                <entry align="center">Description</entry>
+                            </row>
+                        </thead>
+
+                        <tbody>
+                            <row>
+                                <entry>
+                                    <code>NullClosure</code>
+                                </entry>
+                                <entry>Do nothing.</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>ComposeClosure</code>
+                                </entry>
+                                <entry>Executes every closure in the list passed 
+                                via constructor on the object.</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>ErrorLoggerWrapperClosure</code>
+                                </entry>
+                                <entry>Log exceptions. Useful for beeing an outer 
+                                closure in a threadpool.</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>ExecutorClosure</code>
+                                </entry>
+                                <entry>Closure that delegates its execution to an 
+                                <code>Executor</code> given by constructor 
+                                (probably in other thread).</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>FilteredClosure</code>
+                                </entry>
+                                <entry>Aplies a <code>Closure</code> depending on 
+                                a <code>Predicate</code> passed via constructor. 
+                                Two instances of <code>Closure</code> can be passed 
+                                by constructor, one to be executed on true and the other
+                                on false.</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>ListClosure</code>
+                                </entry>
+                                <entry>Stores the objects passed in the <code>execute()</code> 
+                                call in a list. These can be retrieved by method <code>getList()</code></entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>MutableClosure</code>
+                                </entry>
+                                <entry>Closure behavior can be changed using 
+                                method <code>setTarget()</code> and passing a new
+                                <code>Closure</code>.</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>SwitchClosure</code>
+                                </entry>
+                                <entry>Takes a list of <code>PredicateClosureEntry</code> 
+                                (entries with predicates as keys and closures as values) 
+                                via constructor and executes closures with asociated 
+                                keys evaluated as true.</entry>
+                            </row>     
+                            <row>
+                                <entry>
+                                    <code>TargetTransformerClosure</code>
+                                </entry>
+                                <entry>Transforms it's input using a <code>Transform</code>
+                                object and then delegate the new object to an instance of
+                                <code>Closure</code>. Both objects are passed 
+                                via constructor.</entry>
+                            </row>                                 
+                        </tbody>
+                    </tgroup>
+                </table>                
+                
+            </section>            
+        </section>
         
     </section>
     
+    <section xml:id="commons-dao-exception">
+        <title>Useful Exceptions</title>
+        <ns:para>The following table shows the most frequently used exceptions</ns:para>
+        <!-- TODO making a paragraph to talk about the TriggeredExceptionBuilder -->
+        <!-- Use javadoc and https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto21 -->        
+        <table frame='hsides'>
+            <title>Exceptions</title>
+        
+            <tgroup cols="2">
+                <thead>
+                    <row>
+                        <entry align="center">Name</entry>
+                        <entry align="center">Description</entry>
+                    </row>
+                </thead>
+
+                <tbody>
+                    <row>
+                        <entry>
+                            <code>AbstractEntityException</code>
+                        </entry>
+                        <!-- Taken from javadoc -->
+                        <entry> It is designed to be extended. It may be rare only 
+                        extend the class to change the semantics but not its behavior. 
+                        This is much better than having an enum in the constructor. 
+                        The solution should be the most elegant.</entry>
+                    </row>
+                    <!-- TODO the next two exceptions are not following 
+                    the Exception ending convention -->
+                    <row>
+                        <entry>
+                            <code>InvalidPassword</code>
+                        </entry>
+                        <entry>Indicates the entry of an invalid password.</entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <code>CharLengthInvalidPassword</code>
+                        </entry>
+                        <entry>Allows to identify an invalid length password.</entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <code>DuplicatedEntityException</code>
+                        </entry>
+                        <entry>The entry is duplicated.</entry>
+                    </row>
+                    <!-- Mispelled entity -->
+                    <row>
+                        <entry>
+                            <code>InsertionEntintyException</code>
+                        </entry>
+                        <!-- TODO add description -->
+                        <!-- 
+                        <entry>No description here</entry>
+                         -->
+                    </row>
+                    <row>
+                        <entry>
+                            <code>NoSuchEntityException</code>
+                        </entry>
+                        <entry>Indicates that the entity does not exist.</entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <code>TriggeredException</code>
+                        </entry>
+                        <entry>Exception thrown by <code>TriggeredExceptionBuilder</code></entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>                
+
+    </section>    
+
     
     <section xml:id="commons-dao-secret">
         <title>Secret Handling</title>
-        
-        
+        <!-- TODO -->
     </section>    
     
     <section xml:id="commons-dao-page-and-order">
         <title>Paging and Ordering</title>
         
-        
+        <section xml:id="commons-dao-page-and-order-order">
+            <ns:title>Ordering</ns:title>
+            <!-- Taken from javadoc and -->
+            <!-- https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto17 -->
+            <para>There are classes defined to handle the order in Collections. 
+            <code>Order</code> class represents an specified order by telling 
+            ascending or descending order and the name of the field (java.util.String).</para>
+            <para><code>Ordering</code> is a class composed by a list of <code>Order</code>
+            to define in each field if it is ascending or descending. 
+            We can make use of <code>OrderingBuilder</code> for a more human use. 
+            Before if we wanted users in ascending orden, then ascending ignoring 
+            case by username, then descending by points and finally descending 
+            ignoring case by foo, we had to do:</para>
+            
+            <ns:programlisting language="Java">
+final Ordering expected = new Ordering(
+           new Order("name"), 
+           new Order("username", true, true),
+           new Order("points", false), 
+           new Order("foo", false, true));</ns:programlisting>
+                                 
+            <para>Now this can be done, using builder pattern, by doing: </para>
+            
+           <ns:programlisting language="Java">
+final Ordering ordering = Ordering.builder()
+                        .asc("name")
+                        .ascIgnoringCase("username")
+                        .desc("points")
+                        .descIgnoringCase("foo")
+                        .ordering();</ns:programlisting>
+
+        </section>
+        <section xml:id="commons-dao-page-and-order-paging">
+            <ns:title>Paging</ns:title>
+	        <!-- TODO -->        
+        </section>
+                    
     </section>    
     
     
