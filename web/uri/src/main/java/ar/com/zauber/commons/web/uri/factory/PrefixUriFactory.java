@@ -23,7 +23,6 @@ package ar.com.zauber.commons.web.uri.factory;
  * @since May 7, 2010
  */
 public class PrefixUriFactory implements UriFactory {
-
     private final String prefix;
     private final UriFactory uriFactory;
     
@@ -42,7 +41,7 @@ public class PrefixUriFactory implements UriFactory {
 
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
-        return new StringBuilder(this.prefix)
+        return new StringBuilder(prefix)
             .append(uriFactory.buildUri(uriKey, expArgs))
             .toString();
     }
