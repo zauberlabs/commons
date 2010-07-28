@@ -40,9 +40,9 @@ public class VersionedUriFactory implements UriFactory {
 
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
-        String uri = this.uriFactory.buildUri(uriKey, expArgs);
-        int ampIdx = uri.lastIndexOf("?");
-        String separator;
+        final String uri = uriFactory.buildUri(uriKey, expArgs);
+        final int ampIdx = uri.lastIndexOf("?");
+        final String separator;
         if (ampIdx >= 0) {
             separator = "&";
         } else {
