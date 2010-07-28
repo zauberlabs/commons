@@ -45,8 +45,8 @@ public class RelativePathUriFactory implements UriFactory {
 
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
-        HttpServletRequest request = getRequest(expArgs);
-        String ret = generarPath(request);
+        final HttpServletRequest request = getRequest(expArgs);
+        final String ret = generarPath(request);
         String uri = callback.buildUri(uriKey, expArgs);
         if(!uri.startsWith("/")) {
             uri = '/' + uri;
