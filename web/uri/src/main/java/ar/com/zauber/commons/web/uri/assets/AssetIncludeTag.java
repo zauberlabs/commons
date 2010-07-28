@@ -17,8 +17,7 @@ package ar.com.zauber.commons.web.uri.assets;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.springframework.web.context.WebApplicationContext;
+import javax.servlet.jsp.tagext.TagSupport;
 
 import ar.com.zauber.commons.web.uri.SpringBeans;
 import ar.com.zauber.commons.web.uri.model.AssetModel;
@@ -36,27 +35,22 @@ import ar.com.zauber.commons.web.uri.model.AssetRepository;
  * @since Apr 23, 2010
  */
 public abstract class AssetIncludeTag extends AbstractSpringTag {
-
     /** Name of the default set */
     public static final String DEFAULT_SET = "_default_";
     
     /** <code>serialVersionUID</code> */
-    private static final long serialVersionUID = 1273787500463849908L;
+    private static final long serialVersionUID = 1273787500463849909L;
     
     private String set = DEFAULT_SET;
     private String key;
     private String charset;
 
-    /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
+    /** @see TagSupport#doStartTag() */
     @Override
     public final int doStartTag() throws JspException {
-        WebApplicationContext appCtx = getApplicationContext();
-        AssetRepository repository = appCtx.getBean(SpringBeans.REPOSITORY_KEY,
-                AssetRepository.class); 
-        
-        repository.addAsset(this.set, getAsset());
+        getAssetRepository().addAsset(set, getAsset());
         return Tag.SKIP_BODY;
-    }    
+    }
     
     /** @return {@link AssetModel} to include */
     protected abstract AssetModel getAsset();
@@ -74,11 +68,10 @@ public abstract class AssetIncludeTag extends AbstractSpringTag {
     }
     
     public final String getKey() {
-        return this.key;
+        return key;
     }
     
     public final String getCharset() {
-        return this.charset;
+        return charset;
     }
-
 }

@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.web.uri.model;
 
+import javax.servlet.ServletRequest;
+
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
@@ -38,7 +40,8 @@ public class CssAsset extends HeaderAsset {
 
     /** @see AssetModel#toHtml(WebContext) */
     @Override
-    public final String toHtml(final UriFactory uriFactory) {
+    public final String toHtml(final UriFactory uriFactory,
+            final ServletRequest request) {
         StringBuilder str = new StringBuilder();
         str.append("<link rel=\"stylesheet\" type=\"text/css\"");
         if(getCharset() != null) {
@@ -47,7 +50,7 @@ public class CssAsset extends HeaderAsset {
                 .append('"');
         }
         str.append(" href=\"")
-            .append(uriFactory.buildUri(getKey()))
+            .append(uriFactory.buildUri(getKey(), request))
             .append('"');
         str.append(" media=\"")
            .append(this.media)

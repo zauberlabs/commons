@@ -20,8 +20,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.springframework.web.context.WebApplicationContext;
+import javax.servlet.jsp.tagext.TagSupport;
 
 import ar.com.zauber.commons.web.uri.SpringBeans;
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
@@ -44,24 +43,21 @@ import ar.com.zauber.commons.web.uri.model.AssetRepository;
  */
 public class PrintTag extends AbstractSpringTag {
     /** <code>serialVersionUID</code> */
-    private static final long serialVersionUID = -3624874122306975946L;
+    private static final long serialVersionUID = -3624874122306975948L;
 
     private String set = Assets.DEFAULT_SET;
 
     
-    /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
+    /** @see TagSupport#doStartTag() */
     @Override
     public final int doStartTag() throws JspException {
-        final WebApplicationContext appCtx = getApplicationContext();
-        final AssetRepository repository = appCtx.getBean(SpringBeans.REPOSITORY_KEY,
-                AssetRepository.class); 
-        final UriFactory uriFactory = appCtx.getBean(SpringBeans.ASSET_URIFACTORY_KEY,
-                UriFactory.class); 
+        final AssetRepository repository = getAssetRepository();
+        final UriFactory uriFactory = getUriFactory();
         
         final JspWriter out = pageContext.getOut();
         try {
             for(final AssetModel asset : repository.getSet(set)) {
-                out.write(asset.toHtml(uriFactory));
+                out.write(asset.toHtml(uriFactory, pageContext.getRequest()));
             }
         } catch (final IOException e) {
             throw new JspException(e);

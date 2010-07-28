@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.web.uri.model;
 
+import javax.servlet.ServletRequest;
+
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
@@ -36,9 +38,10 @@ public abstract class AssetModel {
     }
 
     public final String getKey() {
-        return this.key;
+        return key;
     }
 
     /** Transforms the {@link AssetModel} into the proper HTML include tag */
-    public abstract String toHtml(UriFactory uriFactory);
+    public abstract String toHtml(UriFactory uriFactory, 
+            final ServletRequest request);
 }

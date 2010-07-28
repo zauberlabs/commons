@@ -38,7 +38,14 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
+      <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <!-- END: Spring Framework -->
     <!-- BEGIN: Logging -->
     <!-- In order to commons-logging usage is bypassed to slf4j -->

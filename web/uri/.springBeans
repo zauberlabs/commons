@@ -7,7 +7,6 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>src/test/resources/ar/com/zauber/commons/web/uri/config/assets-commons-web-uri-spring.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

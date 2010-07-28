@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.web.uri.model;
 
+import javax.servlet.ServletRequest;
+
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
@@ -32,7 +34,8 @@ public class JavascriptAsset extends HeaderAsset {
 
     /** @see AssetModel#toHtml(WebContext) */
     @Override
-    public final String toHtml(final UriFactory uriFactory) {
+    public final String toHtml(final UriFactory uriFactory,
+            final ServletRequest request) {
         StringBuilder str = new StringBuilder();
         str.append("<script type=\"text/javascript\"");
         if(getCharset() != null) {
@@ -41,9 +44,8 @@ public class JavascriptAsset extends HeaderAsset {
             str.append('"');
         }
         str.append(" src=\"");
-        str.append(uriFactory.buildUri(getKey()));
+        str.append(uriFactory.buildUri(getKey(), request));
         str.append("\"></script>");
         return str.toString();
     }
-
 }

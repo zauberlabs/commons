@@ -52,26 +52,29 @@ public class SingleFileAssetRepository implements AssetRepository {
 
     /** @see AssetRepository#addAsset(java.lang.String, AssetModel) */
     public final void addAsset(final String set, final AssetModel asset) {
-        if (!this.typesIncluded.containsKey(asset.getClass())) {
-            this.typesIncluded.put(asset.getClass(), new HashSet<String>());
+        if (!typesIncluded.containsKey(asset.getClass())) {
+            typesIncluded.put(asset.getClass(), new HashSet<String>());
         }
-        this.typesIncluded.get(asset).add(set);
+        final Set<String> type = typesIncluded.get(asset);
+        if(type == null) {
+            throw new IllegalStateException("No configuration for " + asset);
+        }
+        type.add(set);
     }
 
     /** @see AssetRepository#getSet(String) */
     public final List<AssetModel> getSet(final String set) {
-        List<AssetModel> predefined = this.predefinedAssets.get(set);
+        final List<AssetModel> predefined = predefinedAssets.get(set);
         Validate.notNull(predefined, "no predefined assets for set: " + set);
 
-        List<AssetModel> assets = new ArrayList<AssetModel>(predefined.size());
-        for (AssetModel assetModel : predefined) {
-            if (this.typesIncluded.containsKey(assetModel.getClass()) 
-                    && this.typesIncluded.get(assetModel.getClass()).contains(set)) {
+        final List<AssetModel> assets = new ArrayList<AssetModel>(predefined.size());
+        for(final AssetModel assetModel : predefined) {
+            if(typesIncluded.containsKey(assetModel.getClass()) 
+                    && typesIncluded.get(assetModel.getClass()).contains(set)) {
                 assets.add(assetModel);
             }
         }
         
         return assets;
     }
-
 }

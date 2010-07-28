@@ -1,0 +1,1 @@
+../../1.gif<script type="text/javascript" src="../../_js/lib/jquery-1.4.2.js"></script><script type="text/javascript" charset="utf-8" src="../../_js/model/foo.js"></script><link rel="stylesheet" type="text/css" charset="utf-8" href="../../stylesheet.css" media="all" />

@@ -21,8 +21,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.Tag;
 
-import org.springframework.web.context.WebApplicationContext;
-
 import ar.com.zauber.commons.web.uri.SpringBeans;
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
@@ -37,22 +35,17 @@ import ar.com.zauber.commons.web.uri.factory.UriFactory;
  * @since Dec 14, 2009
  */
 public class ImageTag extends AbstractSpringTag {
-
-    /** <code>serialVersionUID</code> */
-    private static final long serialVersionUID = -3624874122306975946L;
-
+    private static final long serialVersionUID = -3624874122306975948L;
     private String key;
 
-    /** @see javax.servlet.jsp.tagext.TagSupport#doStartTag() */
+    /** @see TagSupport#doStartTag() */
     @Override
     public final int doStartTag() throws JspException {
-        WebApplicationContext appCtx = getApplicationContext();
-        UriFactory uriFactory = appCtx.getBean(SpringBeans.ASSET_URIFACTORY_KEY,
-                UriFactory.class); 
+        final UriFactory uriFactory = getUriFactory(); 
         
-        JspWriter out = this.pageContext.getOut();
+        final JspWriter out = pageContext.getOut();
         try {
-            out.write(uriFactory.buildUri(this.key));
+            out.write(uriFactory.buildUri(key, pageContext.getRequest()));
         } catch (IOException e) {
             throw new JspException(e);
         }
