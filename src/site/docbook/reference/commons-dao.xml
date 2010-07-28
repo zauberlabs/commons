@@ -430,7 +430,8 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                     </tgroup>
                 </table>                
                 
-            </section>            
+            </section>   
+            <!-- TODO Closure Processors -->         
         </section>
         
     </section>
@@ -458,9 +459,9 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                         </entry>
                         <!-- Taken from javadoc -->
                         <entry> It is designed to be extended. It may be rare only 
-                        extend the class to change the semantics but not its behavior. 
+                        extend the class to change the semantic but not its behavior. 
                         This is much better than having an enum in the constructor. 
-                        The solution should be the most elegant.</entry>
+                        This solution is most elegant.</entry>
                     </row>
                     <!-- TODO the next two exceptions are not following 
                     the Exception ending convention -->
@@ -509,10 +510,197 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
         </table>                
 
     </section>    
-
     
     <section xml:id="commons-dao-secret">
-        <title>Secret Handling</title>
+        <title>Secrets Handling</title>
+        <section xml:id="commons-dao-secret-problem">
+            <title>Problem</title>
+            
+	        <para>Let's assume that we need to verify user's email address in some 
+	        web project. For these we will send him an email to the unverified email 
+	        account with a link to our system in order to confirm the address. 
+	        Obviously we will need some kind of code for this unique action to be 
+	        secure. Here is where <code>SecretMap</code> comes in.</para>
+	        
+        </section>
+        <ns:section xml:id="commons-dao-secret-solution">
+            <title>Solution</title>
+            <para>We need some class that handles a relationship between 
+            my user and a secret code. <code>SecretMap</code> is fulfilling that 
+            role. Also this class provides a way to determine the date of expiration
+            for that secret to be used. Some methods defined on <code>SecretMap</code> interface are:</para>
+            <ns:programlisting>
+public interface SecretsMap&lt;T&gt; {
+
+    // Creates a new secret for object T. If object T had a previus secret, it
+    // becomes replaced by the new.
+    // The secret must be unique (in the scope of each instance)
+    String register(T obj, Date expirationDate);
+
+    // Register a new secret, using the default expiration schema
+    String register(T t);
+    
+    // Makes invalid the current secret for a T. If he didn't have a secret
+    // nothing happens.
+    void unregister(T t);
+
+    // Peeks a secret
+    String peekSecret(T t) throws NoSuchEntityException;
+
+    // Returns the secret for object T and if it doesn't exist, registers T 
+    // and returns a new secret. 
+    String safeGetSecret(T t);
+
+    // Given a secret, retrives T.
+    T getT(String secret) throws NoSuchEntityException;
+
+    // Removes all secrets belonging to a key. Implementation
+    // decides how to match the key.
+    void removeByKey(String key);
+     
+    // Get all the objects Ts that belongs to a key. Implementation
+    // decides how to match the key.
+    T getByKey(String key);
+     
+    // Removes secrets that has expired.
+    void cleanup();
+}</ns:programlisting>
+        </ns:section>
+        
+        
+        <!-- TODO finish-->
+    </section>    
+
+    <section xml:id="commons-dao-utils">
+        <title>String, Date, Password and Validation Utils</title>
+        <para>This section show how to use different utils that are useful
+        for developing like latin related string utils, password encoders, 
+        validators and date utils.</para>
+        <section xml:id="commons-dao-utils-date">
+            <title>Date Utils</title>
+
+            <para>There are two main classes in <ns:emphasis role="bold">Zauber Commons</ns:emphasis> 
+            to help using Java <code>Date</code>. The first is <code>ISODateUtils</code>
+            which is a helpful class for handling ISO format dates: parsing from strings, 
+            retrieving ISO formaters or making an ISO formated date string from 
+            a <code>Date</code> object. The second is not a helper class, but 
+            an interface to be extended. <ns:code>DateProvider</ns:code> 
+            provides a <code>Date</code> object depending on the implementation
+            This interface is defined:
+            </para>
+
+<ns:programlisting language="java">
+public interface DateProvider {
+    // Provides a date
+    Date getDate();
+}</ns:programlisting>
+
+	        <para>Actually, there are three implementations of <code>DateProvider</code>:</para>
+	
+	        <ns:itemizedlist>
+	            <ns:listitem><ns:para><ns:emphasis role="bold">CurrentDateProvider
+	            </ns:emphasis>: Returns the current date.</ns:para></ns:listitem>            
+	            <ns:listitem><ns:para><ns:emphasis role="bold">InmutableDateProvider
+	            </ns:emphasis>: Returns a new <ns:code>Date</ns:code> with same value 
+	            as the inmutable date passed as parameter.</ns:para></ns:listitem>
+	            <ns:listitem><ns:para><ns:emphasis role="bold">SignificantDateProvider
+	            </ns:emphasis>: Cut the date after the last significant digit. E.x: 
+	            2010-03-03 19:54:22 returns 2010-03-03 00:00:00.</ns:para></ns:listitem>
+	        </ns:itemizedlist>       
+        </section>
+        <section xml:id="commons-dao-utils-string">
+            <title>Latin String Utils</title>
+            <para><ns:code>LatinStringUtils</ns:code> is a helper class that 
+            provides a method for removing accents from characters.</para>
+        </section>
+        <section xml:id="commons-dao-utils-password">
+            <title>Password Related Utils</title>
+            <para>Provides interfaces for password encoding and validation. 
+            The following table shows implementations for <code>PasswordEncoder</code>
+            and <code>PasswordValidator</code>:
+            </para>
+            <table frame='hsides'>
+                <title>Password Validators and Encoders</title>
+        
+                <tgroup cols="2">
+                    <thead>
+                        <row>
+                            <entry align="center">Name</entry>
+                            <entry align="center">Description</entry>
+                        </row>
+                    </thead>
+
+                    <tbody>
+                        <row>
+                            <entry>
+                                <code>AlwaysValidPasswordValidator</code>
+                            </entry>
+                            <entry>Skip validation, returning always true.</entry>
+                        </row>
+                        <row>
+                            <entry>
+                            <code>CharLengthPasswordValidator</code>
+                        </entry>
+                        <entry>Validates string's length of password.</entry>
+	                    </row>
+	                    <row>
+	                        <entry>
+	                            <code>NullPasswordEncoder</code>
+	                        </entry>
+	                        <entry>No encoding is done.</entry>
+	                    </row>
+	                    <row>
+	                        <entry>
+	                            <code>UnixCrypyPasswordEncoder</code>
+	                        </entry>
+	                        <entry>Encodes with Unix function <code>Crypt()</code>.</entry>
+	                    </row>
+	                </tbody>
+	            </tgroup>
+	        </table>                            
+            <!-- TODO  -->
+        </section>
+        <section xml:id="commons-dao-utils-validate">
+            <title>Validation</title>
+            <para><code>Validate</code> in <ns:emphasis role="bold">Zauber Commons</ns:emphasis>
+            is an extension from <ns:emphasis>Apache's Validate</ns:emphasis>. 
+            Incorporates variable arguments to methods <code>notNull()</code> and
+            <code>notBlank()</code>. Following this, also adds ways of retrieving
+            which object has returned the error.</para>
+        </section>
+
+    </section>
+    
+    <section xml:id="commons-dao-rankeable">
+        <title>Rankeable Results</title>
+        <!-- TODO -->
+    </section>    
+
+    <section xml:id="commons-dao-resource">
+        <title>Resource</title>
+        <para>Resource is an attempt to replace 
+        <ns:emphasis>Spring</ns:emphasis>'s <code>Resource</code> class
+        which purpose is to abstract from the actual type of underlying resource, 
+        such as a file or class path resource. Actually there are two implementations
+        of <code>Resource</code>: <code>ClasspathResource</code> and <code>StringResource</code>.
+        The <code>Resource</code> interface is defined:
+        </para>  
+        <ns:programlisting>
+public interface Resource {
+
+    // Resource Name
+    String getName();
+    
+    // Stream for the resource
+    InputStream getInputStream();
+
+    // Last-modified timestamp for this resource.
+    Date getLastModified();
+}</ns:programlisting>
+    </section>    
+
+    <section xml:id="commons-dao-collections">
+        <title>Collections</title>
         <!-- TODO -->
     </section>    
     
@@ -549,11 +737,31 @@ final Ordering ordering = Ordering.builder()
                         .desc("points")
                         .descIgnoringCase("foo")
                         .ordering();</ns:programlisting>
-
         </section>
         <section xml:id="commons-dao-page-and-order-paging">
             <ns:title>Paging</ns:title>
-	        <!-- TODO -->        
+	        <para>Class that keeps information related to paging. There are two 
+	        constructors that can be used: </para>
+            <ns:itemizedlist>
+                <ns:listitem><ns:para><code>Paging(Integer pageNumber, 
+                Integer resultsPerPage)</code></ns:para></ns:listitem>
+                <ns:listitem><ns:para><code>Paging(Integer pageNumber, Integer 
+                resultsPerPage, boolean loadResultSize)</code></ns:para></ns:listitem>
+            </ns:itemizedlist>
+            <para>We should use the first one if we want to use <code>loadResultSize</code> 
+            default value (which is true). Parameters should be understood:</para>  	        
+	        <ns:itemizedlist>
+	            <ns:listitem><ns:para><ns:emphasis role="bold">pageNumber
+	            </ns:emphasis>: Current page number.</ns:para></ns:listitem>            
+	            <ns:listitem><ns:para><ns:emphasis role="bold">resultsPerPage
+	            </ns:emphasis>: Results that are shown by page.</ns:para></ns:listitem>
+	            <ns:listitem><ns:para><ns:emphasis role="bold">loadResultSize
+	            </ns:emphasis>: Load result size.</ns:para></ns:listitem>
+	        </ns:itemizedlist>   	        
+
+        <para>No much more to mention about the <code>Paging</code> object. 
+        You should use it instead of passing values between classes.
+        </para>    
         </section>
                     
     </section>    
