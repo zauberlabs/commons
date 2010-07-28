@@ -25,11 +25,12 @@ public class AbsolutePathUriFactory implements UriFactory {
         this.uriFactory = uriFactory;
     }
     
+    //matchea http:// y https:// (la s es opcional '?')
+    private static final Pattern SCHEMA_PATT = Pattern.compile("https?://.*");
+    
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
-        //matchea http:// y https:// (la s es opcional '?')
-        Pattern p = Pattern.compile("https?://.*");
-        if(p.matcher(uriKey).matches()) {
+        if(SCHEMA_PATT.matcher(uriKey).matches()) {
             return uriKey;
         }
         return this.uriFactory.buildUri(uriKey, expArgs);
