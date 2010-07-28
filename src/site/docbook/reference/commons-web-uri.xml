@@ -37,17 +37,23 @@
   <section xml:id="commons-web-uri-urifactory">
     <title>Building Links With UriFactory</title>
 
-    <para>UriFactory build URIs dynamically, given a key and some optional
-    arguments it returns an URI.</para>
+    <para><code>UriFactory</code> build URIs dynamically, given a key and some optional
+    arguments it returns an URI or an URI reference.</para>
+
+    <programlisting>
+public interface UriFactory {
+  String buildUri(final String uriKey, final Object... expArgs);
+}</programlisting>
 
     <section xml:id="commons-web-uri-urifactory-jsp">
       <title>Using <code>UriFactory</code> within JSPs</title>
 
       <para>There's <code>UriJspFactory</code> utility class which let you use
-      UriFactory inside your JSPs in a very simple way. It uses by default
+      <code>UriFactory</code> inside your JSPs in a very simple way. It uses by default
       <code>RelativePathUriFactory</code>, but providing an
       <code>UriFactory</code> Spring bean with name
-      <code>SpringBeans.LINK_URIFACTORY_KEY, </code> will override the default
+      <code>linksUriFactory</code> (Java constant
+      <code>SpringBeans.LINK_URIFACTORY_KEY</code>), will override the default
       <code>UriFactory</code>. Then inside your jsp you only have to call
       build method.</para>
 
@@ -62,14 +68,16 @@
         <para>To build a uri you should use the functions provided by the
         taglib as follow:</para>
 
-        <programlisting>&lt;a href="${uri:build0(pageContext, "/one/two/three")}}"&gt;link&lt;/a&gt;</programlisting>
+        <programlisting>&lt;a href="${uri:build0(pageContext, "/one/two/three")}"&gt;link&lt;/a&gt;</programlisting>
 
         <para>That will print out this wherever you write it:</para>
 
+        <programlisting>&lt;a href="../../one/two/three"&gt;link&lt;/a&gt;</programlisting>
+
+        <para>or something like</para>
         <programlisting>&lt;a href="http://www.example.com/context/path/one/two/three"&gt;link&lt;/a&gt;</programlisting>
 
-        <para>where "http://www.example.com/context/path/" is where you have
-        deployed your webapp.</para>
+        <para>depending on the configuration.</para>
       </section>
     </section>
 
@@ -77,7 +85,7 @@
       <title>Available Implementations</title>
 
       <para>There are several implementations of this Interface and all of
-      them are intended to decorate another UriFactory. Here is a graph
+      them are intended to decorate another <code>UriFactory</code>. Here is a graph
       showing how it is intended to behave:</para>
 
       <para><inlinemediaobject>
@@ -96,7 +104,7 @@
       <section xml:id="commons-web-uri-urifactory-expressionmap">
         <title>Configuring ExpressionMapUriFactory</title>
 
-        <para>A very useful implementation of UriFactory is
+        <para>A very useful implementation of <code>UriFactory</code> is
         <code>ExpressionMapUriFactory</code> where each uri has an unique key,
         these uris are simple expressions which are evaluated by
         <code>ExpressionParser</code>. An known implementation of this is
@@ -292,19 +300,22 @@ example/file.txt?v=version_number</programlisting></entry>
     <section xml:id="commons-web-uri-assets-configuration">
       <title>Configuring Assets</title>
 
-      <para>In order to start using them it is necessary to configure an
-      <code>AssetRepository</code> and a <code>UriFactory</code> as spring
-      beans (<code>AssetRepository</code> MUST be request scoped). The
+      <para>This module comes with a default configuration (assets are 
+       linked using relative paths); but this can be overrided configuring
+       a <code>AssetRepository</code> and a <code>UriFactory</code> as spring
+      beans. The
       <code>AssetRepository</code> must be named as
-      <code>SpringBeans.REPOSITORY_KEY</code> defines. And the
+      <code>requestAssetsRepository</code> (Java constant
+      <code>SpringBeans.REPOSITORY_KEY</code>) and  MUST be request scoped. And the
       <code>UriFactory</code> must be named as
-      <code>SpringBeans.ASSET_URIFACTORY_KEY</code> defines. Let's see an
+      <code>assetsUriFactory</code> (Java constant
+      <code>SpringBeans.ASSET_URIFACTORY_KEY</code>) . Let's see an
       example:</para>
 
       <programlisting>&lt;bean id="requestAssetsRepository" scope="request" 
         class="ar.com.zauber.commons.web.uri.model.SimpleAssetsRepository" scope="request"/&gt;</programlisting>
 
-      <para>Using AssetRepository and UriFactory in a clever way is how you
+      <para>Using <code>AssetRepository</code> and <code>UriFactory</code> in a clever way is how you
       can obtain great results from this utility. You can define different
       strategies to resolve URIs depending on your needs.</para>
     </section>
