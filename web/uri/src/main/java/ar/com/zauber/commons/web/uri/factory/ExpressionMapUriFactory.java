@@ -21,6 +21,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -60,8 +61,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 public class ExpressionMapUriFactory implements UriFactory {
 
     private final Map<String, Expression> uriMap = new HashMap<String, Expression>();
-    
-    private final StandardEvaluationContext ctx;
+    private final Method encodeMethod;
 
     /** Construye un UriFactor */
     public ExpressionMapUriFactory(final ExpressionParser parser, 
@@ -75,16 +75,13 @@ public class ExpressionMapUriFactory implements UriFactory {
                     .getValue(), parserContext));
         }
         
-        Method encodeMethod;
         try {
             encodeMethod = getClass().getDeclaredMethod(
                     "encodeUtf8", String.class);
         } catch(final NoSuchMethodException e) {
-            throw new RuntimeException();
+            throw new UnhandledException(e);
         }
         
-        this.ctx = new StandardEvaluationContext();
-        this.ctx.registerFunction("encode", encodeMethod);
     }
 
     /** @see UriFactory#buildUri(String, Object) */
@@ -93,9 +90,9 @@ public class ExpressionMapUriFactory implements UriFactory {
         Validate.noNullElements(expArgs);
         Validate.isTrue(this.uriMap.containsKey(uriKey));
         
-        ctx.setRootObject(expArgs);
-        
-        return this.uriMap.get(uriKey).getValue(ctx, String.class);
+        final StandardEvaluationContext ctx = new StandardEvaluationContext(expArgs);
+        ctx.registerFunction("encode", encodeMethod);
+        return uriMap.get(uriKey).getValue(ctx, String.class);
     }
     
     /**
