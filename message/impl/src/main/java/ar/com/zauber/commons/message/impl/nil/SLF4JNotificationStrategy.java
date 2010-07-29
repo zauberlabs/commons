@@ -21,9 +21,10 @@ import ar.com.zauber.commons.message.NotificationStrategy;
  * @since Jul 29, 2010
  */
 public class SLF4JNotificationStrategy implements NotificationStrategy {
-    private final Logger logger = LoggerFactory.getLogger(SLF4JNotificationStrategy.class);
+    private final Logger logger = LoggerFactory.getLogger(
+            SLF4JNotificationStrategy.class);
     /** @see NotificationStrategy#execute(NotificationAddress[], Message) */
-    public void execute(final NotificationAddress[] addresses, 
+    public final void execute(final NotificationAddress[] addresses, 
             final Message message) {
         final StringBuilder sb = new StringBuilder();
         sb.append("This window show that the system tried to send a message.\n");
@@ -52,7 +53,7 @@ public class SLF4JNotificationStrategy implements NotificationStrategy {
 
             sb.append("\n\n");
             sb.append(message.getContent());
-            logger.info(message.toString());
+            logger.info(sb.toString());
     }
 
 }
