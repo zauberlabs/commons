@@ -97,7 +97,7 @@ public class RepositoryMailMessage
         setTo(m.getTo());
     }
     
-    /** @see org.springframework.mail.MailMessage#setBcc(java.lang.String) */
+    /** @see MailMessage#setBcc(String) */
     public final void setBcc(final String bcc) throws MailParseException {
         this.bcc = bcc;
     }
@@ -121,48 +121,48 @@ public class RepositoryMailMessage
         this.bcc = generateString(bcc);
     }
 
-    /** @see org.springframework.mail.MailMessage#setCc(java.lang.String) */
+    /** @see MailMessage#setCc(String) */
     public final void setCc(final String cc) throws MailParseException {
         this.cc = cc;
 
     }
 
-    /** @see org.springframework.mail.MailMessage#setCc(java.lang.String[]) */
+    /** @see MailMessage#setCc(String[]) */
     public final void setCc(final String[] cc) throws MailParseException {
         this.cc = generateString(cc);
     }
 
-    /** @see org.springframework.mail.MailMessage#setFrom(java.lang.String) */
+    /** @see MailMessage#setFrom(String) */
     public final void setFrom(final String from) throws MailParseException {
         this.from = from;
     }
 
-    /** @see org.springframework.mail.MailMessage#setReplyTo(java.lang.String) */
+    /** @see MailMessage#setReplyTo(String) */
     public final void setReplyTo(final String replyTo) throws MailParseException {
         this.replyTo = replyTo;
     }
 
-    /** @see org.springframework.mail.MailMessage#setSentDate(java.util.Date) */
+    /** @see MailMessage#setSentDate(java.util.Date) */
     public final void setSentDate(final Date sentDate) throws MailParseException {
         this.sentDate = sentDate == null ? null : new Date(sentDate.getTime());
     }
 
-    /** @see org.springframework.mail.MailMessage#setSubject(java.lang.String) */
+    /** @see MailMessage#setSubject(String) */
     public final void setSubject(final String subject) throws MailParseException {
         this.subject = subject;
     }
 
-    /** @see org.springframework.mail.MailMessage#setText(java.lang.String) */
+    /** @see MailMessage#setText(String) */
     public final void setText(final String text) throws MailParseException {
         this.text = text;
     }
 
-    /** @see org.springframework.mail.MailMessage#setTo(java.lang.String) */
+    /** @see MailMessage#setTo(String) */
     public final void setTo(final String to) throws MailParseException {
         this.to = to;
     }
 
-    /** @see org.springframework.mail.MailMessage#setTo(java.lang.String[]) */
+    /** @see MailMessage#setTo(String[]) */
     public final void setTo(final String[] to) throws MailParseException {
         this.to = generateString(to);
 
