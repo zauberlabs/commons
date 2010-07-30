@@ -16,11 +16,10 @@
 package ar.com.zauber.commons.spring.mail;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.SessionFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-
-import ar.com.zauber.commons.repository.Repository;
 
 /**
  * {@link MailSender} that persists message to the database using repository
@@ -29,27 +28,21 @@ import ar.com.zauber.commons.repository.Repository;
  * @author Juan F. Codagnone
  * @since Apr 3, 2009
  */
-public class RepositoryMailSender implements MailSender {
-    private final Repository repository;
+public class SessionFactoryMailSender extends AbstractMailSender {
+    private final SessionFactory sessionFactory;
 
     /** constructor */
-    public RepositoryMailSender(final Repository repository) {
-        Validate.notNull(repository);
-        this.repository = repository;
+    public SessionFactoryMailSender(final SessionFactory sessionFactory) {
+        Validate.notNull(sessionFactory, "sessionFactory is null");
+        
+        this.sessionFactory = sessionFactory;
     }
     /** @see MailSender#send(SimpleMailMessage) */
     public final void send(final SimpleMailMessage simpleMessage) 
         throws MailException {
-        Validate.notNull(simpleMessage);
-        repository.saveOrUpdate(new RepositoryMailMessage(simpleMessage));
-    }
-
-    /** @see MailSender#send(SimpleMailMessage[]) */
-    public final void send(final SimpleMailMessage[] simpleMessages) 
-        throws MailException {
-        for(final SimpleMailMessage message : simpleMessages) {
-            send(message);
-        }
+        Validate.notNull(simpleMessage, "message is null");
+        sessionFactory.getCurrentSession().saveOrUpdate(new RepositoryMailMessage(
+                simpleMessage));
     }
 
 }

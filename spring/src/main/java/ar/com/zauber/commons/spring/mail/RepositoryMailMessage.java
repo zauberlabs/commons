@@ -33,7 +33,7 @@ import ar.com.zauber.commons.repository.BaseModificationAuditableEntity;
 import ar.com.zauber.commons.repository.Persistible;
 
 /**
- * {@link MailMessage} for {@link RepositoryMailSender}
+ * {@link MailMessage} for {@link SessionFactoryMailSender}
  *
  * @author Juan F. Codagnone
  * @since Apr 3, 2009

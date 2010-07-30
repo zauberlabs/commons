@@ -15,46 +15,39 @@
  */
 package ar.com.zauber.commons.spring.mail;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.test.AbstractSingleSpringContextTests;
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import ar.com.zauber.commons.repository.Repository;
-import ar.com.zauber.commons.repository.query.SimpleQuery;
-import ar.com.zauber.commons.repository.query.filters.NullFilter;
+import org.junit.Test;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 /**
- * Test {@link RepositoryMailSender}
+ * Test {@link SessionFactoryMailSender}
  * 
  * 
  * @author Juan F. Codagnone
  * @since Apr 3, 2009
  */
-public class RepositoryMailSenderTest 
-     extends AbstractTransactionalDataSourceSpringContextTests {
+@ContextConfiguration(locations = {
+        "classpath:ar/com/zauber/commons/spring/mail/entitymail-spring.xml"
+        })
+public class EntityManagerMailSenderTest  
+     extends AbstractTransactionalJUnit4SpringContextTests {
+    @Resource
+    private EntityManagerMailSender ms;
+    @PersistenceContext
+    private EntityManager em;
     
-    /** Creates the RepositoryMailSenderTest. */
-    public RepositoryMailSenderTest() {
-        setPopulateProtectedVariables(true);
-        setDefaultRollback(true);
-    }
-    /** @see AbstractSingleSpringContextTests#getConfigLocations() */
-    protected final String[] getConfigLocations() {
-        final String base = "classpath:ar/com/zauber/commons/spring/mail";
-        return new String[]  {
-            base + "/mail-spring.xml",
-            "classpath:ar/com/zauber/commons/repository/repository-spring.xml",
-        };
-    }
-    // CHECKSTYLE:ALL:OFF
-    protected Repository repository;
-    // CHECKSTYLE:ALL:ON
-
     /** test */
+    @Test
     public final void testFoo() {
-        final RepositoryMailSender ms = new RepositoryMailSender(repository);
         final SimpleMailMessage message = new SimpleMailMessage();
         message.setBcc("bcc");
         message.setCc("cc");
@@ -64,10 +57,10 @@ public class RepositoryMailSenderTest
         message.setTo("a");
         ms.send(message);
         
-        final List<RepositoryMailMessage> l = repository.find(
-                new SimpleQuery<RepositoryMailMessage>(
-                RepositoryMailMessage.class, new NullFilter(), null, null));
-        
+        em.flush();
+        em.clear();
+        final List<RepositoryMailMessage> l = em.createQuery(
+                "from RepositoryMailMessage").getResultList();
         assertEquals(1, l.size());
         final RepositoryMailMessage m = l.get(0);
         assertEquals("bcc", m.getBcc());
