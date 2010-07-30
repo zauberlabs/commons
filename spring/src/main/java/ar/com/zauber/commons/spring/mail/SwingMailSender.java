@@ -48,49 +48,8 @@ public class SwingMailSender implements MailSender {
     /** @see SimpleMailMessage[]) */
     public final void send(final SimpleMailMessage [] simpleMessages) 
            throws MailException {
-        
-        final StringBuilder sb = new StringBuilder();
-        sb.append("This window show that the system tried to send an email.\n");
-        sb.append("\n");
-        sb.append("The email wasnt sent. To do change the AppContext.\n");
-        
-        for(final SimpleMailMessage message : simpleMessages) {
-            sb.append("--------------8<-------------- #");
-            sb.append(i);
-            sb.append(" --------------8<--------------\n");
-            if(message.getFrom() != null) {
-                sb.append("From: ");
-                sb.append(message.getFrom());
-            }
-            if(message.getTo() != null) {
-                sb.append("\nTo: ");
-                sb.append(Arrays.asList(message.getTo()));
-            }
-            if(message.getCc() != null) {
-                sb.append("\nCc: ");
-                sb.append(Arrays.asList(message.getCc()));
-            }
-            if(message.getBcc() != null) {
-                sb.append("\nBcc: ");
-                sb.append(Arrays.asList(message.getBcc()));
-            }
-            if(message.getReplyTo() != null) {
-                sb.append("\nReply-To: ");
-                sb.append(message.getReplyTo());
-            }
-            if(message.getSentDate() != null) {
-                sb.append("\nDate: ");
-                sb.append(message.getSentDate());
-            }
-            if(message.getSubject() != null) {
-                    sb.append("\nSubject: ");
-                    sb.append(message.getSubject());
-            }
-            sb.append("\n\n");
-            sb.append(message.getText());
-            i++;
-        }
-        final JTextArea area = new JTextArea(sb.toString());
+        final JTextArea area = new JTextArea(AbstractMailSender.toString(
+                simpleMessages));
         area.setLineWrap(true);
         final JFrame frame = new JFrame("email sent");
         frame.getContentPane().add(new JScrollPane(area,
