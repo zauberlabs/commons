@@ -11,7 +11,7 @@
   <dependencies>
     <!-- BEGIN: Zauber Commons -->
     <dependency>
-      <artifactId>commons-dao</artifactId>
+      <artifactId>commons-base</artifactId>
       <groupId>ar.com.zauber.commons</groupId>
     </dependency>
     <!-- END: Zauber Commons -->

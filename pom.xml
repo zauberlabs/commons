@@ -84,7 +84,7 @@
   </pluginRepositories -->
 
   <modules>
-    <module>dao</module>
+    <module>base</module>
     <module>persistence</module>
     <module>clustering</module>
     <module>spring</module>
@@ -401,7 +401,7 @@
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons</groupId>
-        <artifactId>commons-dao</artifactId>
+        <artifactId>commons-base</artifactId>
         <version>${pom.version}</version>
       </dependency>
       <dependency>

@@ -6,9 +6,9 @@
      <version>3.36-SNAPSHOT</version>
   </parent>
   <groupId>ar.com.zauber.commons</groupId>
-  <artifactId>commons-dao</artifactId>
+  <artifactId>commons-base</artifactId>
   <packaging>jar</packaging>
-  <name>Zauber::Commons::DAO</name>
+  <name>Zauber::Commons::Base</name>
   <dependencies>
     <dependency>
        <artifactId>commons-lang</artifactId>

@@ -19,7 +19,7 @@
        <groupId>ar.com.zauber.commons.persistence</groupId>
      </dependency>
      <dependency>
-       <artifactId>commons-dao</artifactId>
+       <artifactId>commons-base</artifactId>
        <groupId>ar.com.zauber.commons</groupId>
      </dependency>
     <dependency>

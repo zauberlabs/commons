@@ -12,7 +12,7 @@
   <dependencies>
     <dependency>
       <groupId>ar.com.zauber.commons</groupId>
-      <artifactId>commons-dao</artifactId>
+      <artifactId>commons-base</artifactId>
     </dependency>
   </dependencies>
 </project>
