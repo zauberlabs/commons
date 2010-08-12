@@ -767,7 +767,6 @@ public interface DateProvider {
 	                </tbody>
 	            </tgroup>
 	        </table>                            
-            <!-- TODO  -->
         </section>
         <section xml:id="commons-dao-utils-validate">
             <title>Validation</title>
@@ -779,11 +778,6 @@ public interface DateProvider {
         </section>
 
     </section>
-    
-    <section xml:id="commons-dao-rankeable">
-        <title>Rankeable Results</title>
-        <!-- TODO -->
-    </section>    
 
     <section xml:id="commons-dao-resource">
         <title>Resource</title>
@@ -810,13 +804,26 @@ public interface Resource {
 
     <section xml:id="commons-dao-collections">
         <title>Collections</title>
-        <!-- TODO -->
+        This section introduces utilities for handling collections. There are four classes in this package:
+        <ns:itemizedlist>
+            <ns:listitem><ns:para><ns:code>DistinctIterator
+            </ns:code>: Iterator implementation that eliminates consecutive 
+            repeated elements.</ns:para></ns:listitem>            
+            <ns:listitem><ns:para><ns:code>DynamicSortedCollection
+            </ns:code>: Collection whose order can change dynamically by setting a
+            new comparator and it is reordered.</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:code>OnModificationProxyCollection
+            </ns:code>: Abstract class that let us define preprocessing and 
+            postprocessing methods on add and remove collection functionallity.</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:code>OnModificationProxyList
+            </ns:code>: Same as above but using lists</ns:para></ns:listitem>
+        </ns:itemizedlist>            
     </section>    
     
     <section xml:id="commons-dao-page-and-order">
-        <title>Paging and Ordering</title>
+        <title>Other general purpose classes</title>
         
-        <section xml:id="commons-dao-page-and-order-order">
+        <section xml:id="commons-dao-general-purpose-order">
             <ns:title>Ordering</ns:title>
             <!-- Taken from javadoc and -->
             <!-- https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto17 -->
@@ -841,13 +848,13 @@ final Ordering expected = new Ordering(
             
            <ns:programlisting language="Java">
 final Ordering ordering = Ordering.builder()
-                        .asc("name")
-                        .ascIgnoringCase("username")
-                        .desc("points")
-                        .descIgnoringCase("foo")
-                        .ordering();</ns:programlisting>
+          .asc("name")
+          .ascIgnoringCase("username")
+          .desc("points")
+          .descIgnoringCase("foo")
+          .ordering();</ns:programlisting>
         </section>
-        <section xml:id="commons-dao-page-and-order-paging">
+        <section xml:id="commons-dao-general-purpose-paging">
             <ns:title>Paging</ns:title>
 	        <para>Class that keeps information related to paging. There are two 
 	        constructors that can be used: </para>
@@ -872,6 +879,12 @@ final Ordering ordering = Ordering.builder()
         You should use it instead of passing values between classes.
         </para>    
         </section>
+	    <section xml:id="commons-dao-general-purpose-rankeable">
+	        <title>Rankeable Result</title>
+	        <ns:para><code>RankeableResult</code> purpose is to represent a search 
+	        result which has an associated ranking. </ns:para>
+	    </section>            
+        
                     
     </section>    
     
