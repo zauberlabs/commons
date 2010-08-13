@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter version="5.0" xml:id="commons-dao" 
+<chapter version="5.0" xml:id="commons-base" 
          xmlns="http://docbook.org/ns/docbook"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
          xmlns:ns4="http://www.w3.org/2000/svg"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:ns="http://docbook.org/ns/docbook">
-    <title>Commons DAO</title>
+    <title>Commons Base</title>
     
-    <section xml:id="commons-dao-overview">
+    <section xml:id="commons-base-overview">
         <title>Overview</title>
         
-        <para><emphasis role="bold">Commons DAO</emphasis> aims to be an adaptation of 
+        <para><emphasis role="bold">Commons Base</emphasis> aims to be an adaptation of 
         Apache Commons adding some features that are useful for developing. </para>
-        <para><emphasis role="bold">Commons DAO</emphasis> can be divided in:
+        <para><emphasis role="bold">Commons Base</emphasis> can be divided in:
         </para>
         <ns:itemizedlist>
             <ns:listitem><ns:para><ns:emphasis role="bold">Functors
             </ns:emphasis>: objects that encapsulates functional logic.</ns:para></ns:listitem>            
             <ns:listitem><ns:para><ns:emphasis role="bold">Exceptions
             </ns:emphasis>: Most used exceptions.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Ordering and Paging
-            </ns:emphasis>: Objects for handling ordering and paging in 
-            collections.</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">General Purpose Classes
+            </ns:emphasis>: Handling ordering and paging in 
+            collections and rankeable results.</ns:para></ns:listitem>
             <ns:listitem><ns:para><ns:emphasis role="bold">Secret Handling
             </ns:emphasis>: Secret's generation (generated random value for 
             unique secure actions).</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Resources
+            </ns:emphasis>: Abstractions for resources.</ns:para></ns:listitem>
+            <ns:listitem><ns:para><ns:emphasis role="bold">Collections
+            </ns:emphasis>: Handling collections.</ns:para></ns:listitem>
             <ns:listitem><ns:para><ns:emphasis role="bold">Other utils
             </ns:emphasis>: Date, String and Password Encoders utils.</ns:para></ns:listitem>
         </ns:itemizedlist>          
  
     </section>
 
-    <section xml:id="commons-dao-functors">
+    <section xml:id="commons-base-functors">
         <title>Functors</title>
         
         <!-- basado de http://www.discursive.com/books/cjcook/reference/functors.html-->
@@ -57,19 +61,19 @@
         <code>Predicate</code>, <code>Transformer</code> and <code>Closure</code> 
         functors which were taken from <ns:emphasis role="bold">Apache Commons</ns:emphasis> 
         adding types to their definitions (making use of Java Generics). </para>
-        <para>Another important thing to say is that <ns:emphasis role="bold">Zauber Commons DAO</ns:emphasis> 
+        <para>Another important thing to say is that <ns:emphasis role="bold">Zauber Commons Base</ns:emphasis> 
         has no dependencies like Spring or other mayor technologies.</para>
         
         <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-simple-pred.html-->
-        <section xml:id="commons-dao-functors-predicate">
+        <section xml:id="commons-base-functors-predicate">
             <title>Predicates</title>
-            <section xml:id="commons-dao-functors-predicate-problem">
+            <section xml:id="commons-base-functors-predicate-problem">
                 <title>Problem</title>
                 <para>You need to perform logic that is predicated on a certain 
                 condition being satisfied, and you want to encapsulate this 
                 condition in an object.</para>
             </section>
-            <section xml:id="commons-dao-functors-predicate-solution">
+            <section xml:id="commons-base-functors-predicate-solution">
                 <title>Solution</title>
                 <para>Use a <code>Predicate</code> to evaluate a criteria or a condition. A 
                 <code>Predicate</code> is an object that evaluates another object and returns 
@@ -79,8 +83,8 @@
                 simple predicates to test the type and contents of an object:</para>
 
                 <programlisting language="Java">
-import ar.com.zauber.commons.dao.Predicate;
-import ar.com.zauber.commons.dao.predicate.*;
+import ar.com.zauber.commons.base.Predicate;
+import ar.com.zauber.commons.base.predicate.*;
 String name = "Shirley";
 Predicate&lt;String&gt; nameEmma = new EqualsPredicate( "Emma" );
 Predicate&lt;String&gt; nameShirley = new EqualsPredicate( "Shirley" );
@@ -102,7 +106,7 @@ Is Name Shirley?: true</programlisting>
                 
             </section>
             
-            <section xml:id="commons-dao-functors-predicate-discussion">
+            <section xml:id="commons-base-functors-predicate-discussion">
 
                 <title>Discussion</title>
 
@@ -140,7 +144,7 @@ if( name.equals( "Shirley" ) ) {
                 encapsulated in an instance of Predicate.
                 </para>
                 
-                <para><ns:emphasis role="bold">Zauber Commons DAO</ns:emphasis> 
+                <para><ns:emphasis role="bold">Zauber Commons Base</ns:emphasis> 
                 provides a number of basic predicates for common situations. 
                 Table 5.1 lists a number of simple 
                 <code>Predicate</code> implementations.</para>
@@ -223,9 +227,9 @@ if( name.equals( "Shirley" ) ) {
         </section>
         
         <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-transforming-objects.html -->
-        <section xml:id="commons-dao-functors-transformer">
+        <section xml:id="commons-base-functors-transformer">
             <title>Transformers</title>
-            <section xml:id="commons-dao-functors-transformer-problem">
+            <section xml:id="commons-base-functors-transformer-problem">
                 <title>Problem</title>
                 
                 <para>You need to perform a transformation, taking an object and 
@@ -233,7 +237,7 @@ if( name.equals( "Shirley" ) ) {
                 
             </section>
             
-            <section xml:id="commons-dao-functors-transformer-solution">
+            <section xml:id="commons-base-functors-transformer-solution">
                 <title>Solution</title>
                 
                 <para>Implement the Transformer interface. A Transformer takes 
@@ -243,7 +247,7 @@ if( name.equals( "Shirley" ) ) {
                 <code>Soldier</code> object:</para>
                 
 <programlisting language="Java">
-import ar.com.zauber.commons.dao.Transformer;
+import ar.com.zauber.commons.base.Transformer;
 Transformer&lt;Recruit, Soldier&gt; joinArmy = new Transformer( ) {
     public Soldier transform(Recruit input) {
                 BootCamp.obstacleCourse( input );
@@ -267,7 +271,7 @@ Status after transformation: Pat T., Soldier</programlisting>
 
             </section>
             
-            <section xml:id="commons-dao-functors-transformer-discussion">
+            <section xml:id="commons-base-functors-transformer-discussion">
                 <title>Discussion</title>
                 
 				<para>This object isolates and encapsulates a transition; a 
@@ -284,13 +288,13 @@ Status after transformation: Pat T., Soldier</programlisting>
         </section>
         
         <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-writing-closure.html-->
-        <section xml:id="commons-dao-functors-closure">
+        <section xml:id="commons-base-functors-closure">
             <title>Closures</title>
-            <section xml:id="commons-dao-functors-closure-problem">
+            <section xml:id="commons-base-functors-closure-problem">
                 <title>Problem</title>
                 <para>You need a functor that operates on an object.</para>
             </section>
-            <section xml:id="commons-dao-functors-closure-solution">
+            <section xml:id="commons-base-functors-closure-solution">
                 <title>Solution</title>
                 
                 <para>Use a Closure to encapsulate a block of code that acts on 
@@ -331,7 +335,7 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
 
             </section>
 
-            <section xml:id="commons-dao-functors-closure-discussion">
+            <section xml:id="commons-base-functors-closure-discussion">
                 <title>Discussion</title>
 
                 <para>A <code>Closure</code> operates on the input object passed 
@@ -436,7 +440,7 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
         
     </section>
     
-    <section xml:id="commons-dao-exception">
+    <section xml:id="commons-base-exception">
         <title>Useful Exceptions</title>
         <ns:para>The following table shows the most frequently used exceptions</ns:para>
         <!-- TODO making a paragraph to talk about the TriggeredExceptionBuilder -->
@@ -511,9 +515,9 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
 
     </section>    
     
-    <section xml:id="commons-dao-secret">
+    <section xml:id="commons-base-secret">
         <title>Secrets Handling</title>
-        <section xml:id="commons-dao-secret-problem">
+        <section xml:id="commons-base-secret-problem">
             <title>Problem</title>
             
 	        <para>Let's assume that we need to verify user's email address in some 
@@ -523,7 +527,7 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
 	        secure. Here it is where <code>SecretMap</code> comes in.</para>
 	        
         </section>
-        <ns:section xml:id="commons-dao-secret-solution">
+        <ns:section xml:id="commons-base-secret-solution">
             <title>Solution</title>
             <para>We need some class that handles a relationship between 
             my user and a secret code. <code>SecretMap</code> is fulfilling that 
@@ -573,7 +577,7 @@ public interface SecretsMap&lt;T&gt; {
             that secret, retrieve the user, verify him and remove the entry from 
             the map.</para>
         </ns:section>
-        <ns:section xml:id="commons-dao-secret-implementation">
+        <ns:section xml:id="commons-base-secret-implementation">
             <ns:title>Implementation</ns:title>
             <para>For secret handling also we need to determine how secrets 
             will be generated and their's expiration policy. For these purposes 
@@ -680,12 +684,12 @@ try {
         
     </section>    
 
-    <section xml:id="commons-dao-utils">
+    <section xml:id="commons-base-utils">
         <title>String, Date, Password and Validation Utils</title>
         <para>This section show how to use different utils that are useful
         for developing like latin related string utils, password encoders, 
         validators and date utils.</para>
-        <section xml:id="commons-dao-utils-date">
+        <section xml:id="commons-base-utils-date">
             <title>Date Utils</title>
 
             <para>There are two main classes in <ns:emphasis role="bold">Zauber Commons</ns:emphasis> 
@@ -717,12 +721,12 @@ public interface DateProvider {
 	            2010-03-03 19:54:22 returns 2010-03-03 00:00:00.</ns:para></ns:listitem>
 	        </ns:itemizedlist>       
         </section>
-        <section xml:id="commons-dao-utils-string">
+        <section xml:id="commons-base-utils-string">
             <title>Latin String Utils</title>
             <para><ns:code>LatinStringUtils</ns:code> is a helper class that 
             provides a method for removing accents from characters.</para>
         </section>
-        <section xml:id="commons-dao-utils-password">
+        <section xml:id="commons-base-utils-password">
             <title>Password Related Utils</title>
             <para>Provides interfaces for password encoding and validation. 
             The following table shows implementations for <code>PasswordEncoder</code>
@@ -768,7 +772,7 @@ public interface DateProvider {
 	            </tgroup>
 	        </table>                            
         </section>
-        <section xml:id="commons-dao-utils-validate">
+        <section xml:id="commons-base-utils-validate">
             <title>Validation</title>
             <para><code>Validate</code> in <ns:emphasis role="bold">Zauber Commons</ns:emphasis>
             is an extension from <ns:emphasis>Apache's Validate</ns:emphasis>. 
@@ -779,7 +783,7 @@ public interface DateProvider {
 
     </section>
 
-    <section xml:id="commons-dao-resource">
+    <section xml:id="commons-base-resource">
         <title>Resource</title>
         <para>Resource is an attempt to replace 
         <ns:emphasis>Spring</ns:emphasis>'s <code>Resource</code> class
@@ -802,7 +806,7 @@ public interface Resource {
 }</ns:programlisting>
     </section>    
 
-    <section xml:id="commons-dao-collections">
+    <section xml:id="commons-base-collections">
         <title>Collections</title>
         This section introduces utilities for handling collections. There are four classes in this package:
         <ns:itemizedlist>
@@ -820,10 +824,10 @@ public interface Resource {
         </ns:itemizedlist>            
     </section>    
     
-    <section xml:id="commons-dao-page-and-order">
+    <section xml:id="commons-base-page-and-order">
         <title>Other general purpose classes</title>
         
-        <section xml:id="commons-dao-general-purpose-order">
+        <section xml:id="commons-base-general-purpose-order">
             <ns:title>Ordering</ns:title>
             <!-- Taken from javadoc and -->
             <!-- https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto17 -->
@@ -854,7 +858,7 @@ final Ordering ordering = Ordering.builder()
           .descIgnoringCase("foo")
           .ordering();</ns:programlisting>
         </section>
-        <section xml:id="commons-dao-general-purpose-paging">
+        <section xml:id="commons-base-general-purpose-paging">
             <ns:title>Paging</ns:title>
 	        <para>Class that keeps information related to paging. There are two 
 	        constructors that can be used: </para>
@@ -879,7 +883,7 @@ final Ordering ordering = Ordering.builder()
         You should use it instead of passing values between classes.
         </para>    
         </section>
-	    <section xml:id="commons-dao-general-purpose-rankeable">
+	    <section xml:id="commons-base-general-purpose-rankeable">
 	        <title>Rankeable Result</title>
 	        <ns:para><code>RankeableResult</code> purpose is to represent a search 
 	        result which has an associated ranking. </ns:para>

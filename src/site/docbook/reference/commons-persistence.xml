@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xml:id="commons-persistence" 
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+    <title>Commons Persistence</title>
+    
+    <section xml:id="commons-persistence-overview">
+        <title>Overview</title>
+        
+    </section>        
+    <!-- Herramientas que tienen que ver con la persistencia -->
+
+    <!-- Mencionar common auth : wrapper por ej, para spring acegi , me brinda
+    la posibilidad de manejar genericamente los usuarios -->
+
+    <!-- Interceptores relacionados con hibernate -->
+
+    <!-- 
+    Clases de la api
+    Nameable = objeto nombrable [getName]
+    CreationAuditable = Provee auditoria para la creacion
+    Identifiable = objeto identificable [getId]
+    LogicallyDeleteable = Objecto que puede ser dado de baja logicamente
+    Modifiable = Maneja versionado de un objeto que es mutable
+    ModificationAuditable = Provee auditoria para la modificacion
+     -->
+    
+    <!-- 
+    Clases de utils
+    ScrollableResultsIterator
+    
+    **Closures -> Tienen que ver con el Open Session in view
+    Donde spring abre la sesion (cuando le llega el request mediante un interceptor
+    y dps la cierra)
+    
+    Ver clase OpenEntityManagerInViewFilter de springframework
+    
+    En este caso se aplica la misma logica que usa spring para poder usar en otros
+    contextos (mediante un closure o soporte para runnables)
+    
+    OpenEntityManagerClosure
+    OpenEntityManagerRunnable
+    OpenSessionClosure
+    
+    **Utils -> 
+    AnonymousAuthenticationUserMapper
+
+    ConfigurableHibernatePersistence -> recibe un interceptor
+
+    MockHibernateAuditLogger -> para entornos de testing
+    
+    HibernateAuditLoggerInterceptor -> fijarse  los metodos que implementan
+    para ver donde se cuelga cada uno
+    SpringInjectionHibernateAuditLoggerInterceptor
+    SpringInjectionInterceptor
+    
+    chequear el ultimo mail de juan de los interceptors... se habla de esto
+    https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto35
+    https://wiki.zaubersoftware.com/intra/bin/view/Commons/AboutRepository
+     -->
+    
+</chapter>
