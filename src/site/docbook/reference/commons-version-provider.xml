@@ -216,26 +216,24 @@ public interface VersionProvider {
         </listitem>
 
         <listitem>
-          <para>asdas ???????????????? usar urifactory :<programlisting>NOOOOOOOOOOOOOOOOO
-&lt;bean id="viewResolver"
-    class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
-    &lt;property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/&gt;
-    &lt;property name="prefix" value="/WEB-INF/templates/jsp/"/&gt;
-    &lt;property name="suffix" value=".jsp"/&gt;
-    &lt;property name="attributesMap"&gt;
-        &lt;map&gt;
-            &lt;entry key="helper_version"&gt;
-                &lt;bean factory-bean="commonsWebUtilsVersionProvider"
-                      factory-method="getVersion"/&gt;
-            &lt;/entry&gt;
-        &lt;/map&gt;
-    &lt;/property&gt;
-&lt;/bean&gt;</programlisting></para>
-        </listitem>
-
-        <listitem>
-          <para>????????? usar uriFactory: <programlisting>&lt;link rel="stylesheet" type="text/css" 
-           href="&lt;%= ctx %&gt;/static/styles/generic/style.css?v=${helper_version}" /&gt;</programlisting></para>
+          <para>This component is recommended to be used together with 
+          <link linkend="commons-web-uri-urifactory">Commons web urifactory</link>
+          here it's an example of how to use an 
+          <code>ConfigurableUriFactoryFactoryBean</code> with this.</para>
+          
+          <programlisting>&lt;bean name="versionString" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"&gt;
+    &lt;property name="targetObject" ref="versionProvider"&gt;
+    &lt;property name="targetMethod" value="getVersion"/&gt;
+&lt;/bean&gt;
+          
+&lt;bean class="ar.com.zauber.commons.web.uri.factory.ConfigurableUriFactoryFactoryBean"&gt;
+    &lt;constructor-arg index="0"&gt;
+        &lt;bean class="ar.com.zauber.commons.web.uri.factory.IdentityUriFactory"/&gt;
+    &lt;/constructor-arg&gt;
+    &lt;property name="absoluteUris" value="false"/&gt;
+    &lt;property name="prefixKey" value="http://www.abc.com"/&gt;
+    &lt;property name="version" ref="versionString"/&gt;
+&lt;/bean&gt;</programlisting>
         </listitem>
       </orderedlist></para>
   </section>
