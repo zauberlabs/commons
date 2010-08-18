@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
@@ -51,7 +52,6 @@ public final class UriJspFunctions {
     private static AtomicBoolean initialized = new AtomicBoolean(false);
     private static UriFactory uriFactory;
     private static Logger logger = LoggerFactory.getLogger(UriJspFunctions.class);
-    private static boolean usingDefault = false;
 
     /** Construye un uri */
     public static String buildVarArgs(final PageContext ctx,
@@ -80,20 +80,14 @@ public final class UriJspFunctions {
                     logger.info("Using Default UriFactory.");
                     uriFactory = new RelativePathUriFactory(
                             new IdentityUriFactory());
-                    usingDefault = true;
                 }
             } catch (Throwable e) {
                 initialized.set(false);
                 throw new UnhandledException("inicializando urifactory", e);
             }
         }
-        String uri;
-        if(usingDefault) {
-            uri = uriFactory.buildUri(uriKey, params, request);
-        } else {
-            uri = uriFactory.buildUri(uriKey, params);
-        }
-        return uri;
+
+        return uriFactory.buildUri(uriKey, ArrayUtils.add(params, request));
     }
     
 

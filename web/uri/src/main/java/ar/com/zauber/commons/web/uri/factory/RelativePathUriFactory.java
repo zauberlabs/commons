@@ -60,7 +60,6 @@ public class RelativePathUriFactory implements UriFactory {
      * @return path
      */
     private String generarPath(final HttpServletRequest request) {
-        String ret = StringUtils.EMPTY;
         try {
             String encoding = request.getCharacterEncoding();
             if (StringUtils.isBlank(encoding)) {
@@ -74,32 +73,31 @@ public class RelativePathUriFactory implements UriFactory {
                 uri = request.getRequestURI();
             }
             uri = URLDecoder.decode(uri, encoding);
+
+            // Saco el contexto
             uri = uri.substring(URLDecoder.decode(request.getContextPath(),
                     encoding).length());
+
+            // cuento los subs
+            int slashes = StringUtils.countMatches(uri, "/");
+
+            // si empezaba en barra resto 1
             if (uri.startsWith("/")) {
-                uri = uri.substring(1);
-            }
-            int slashses = 0;
-            for (int i = 0; i < uri.length(); i++) {
-                if (uri.charAt(i) == '/') {
-                    slashses++;
-                }
+                slashes--;
             }
 
             final StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < slashses; i++) {
+            for (int i = 0; i < slashes; i++) {
                 sb.append("..");
-                if (i + 1 < slashses) {
+                if (i + 1 < slashes) {
                     sb.append('/');
                 }
             }
-            if (!sb.toString().isEmpty()) {
-                ret = sb.toString();
-            }
+            return (sb.toString().isEmpty()) ? "." : sb.toString();
+
         } catch (UnsupportedEncodingException e) {
             throw new UnhandledException(e);
         }
-        return ret;
     }
 
     /**

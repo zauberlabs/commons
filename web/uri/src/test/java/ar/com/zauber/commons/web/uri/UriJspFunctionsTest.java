@@ -66,4 +66,24 @@ public class UriJspFunctionsTest extends AbstractWebUriMockitoTest {
         Assert.assertEquals(uriKey, UriJspFunctions.buildVarArgs(getPc(), uriKey));
     }
     
+    /** Test que prueba si el pedido es en el mismo segmento ..*/
+    @Test
+    public final void buildUriWithContext(){
+        setException(true);
+        PageContext ctx = getPc();
+        HttpServletRequest req = getReq();
+        Mockito.when(req.getRequestURI()).thenReturn("/app/bin/nada");
+        Mockito.when(req.getContextPath()).thenReturn("/app/bin");
+        Assert.assertEquals("./abc", 
+                UriJspFunctions.buildVarArgs(ctx , "abc", ctx.getRequest()));
+        
+        Assert.assertEquals("./abc", 
+                UriJspFunctions.buildVarArgs(ctx , "/abc", ctx.getRequest()));
+        
+        Mockito.when(req.getRequestURI()).thenReturn("/app/bin/nada/par");
+        Mockito.when(req.getContextPath()).thenReturn("/app/bin");
+        
+        Assert.assertEquals("../par/abc", 
+                UriJspFunctions.buildVarArgs(ctx , "/par/abc", ctx.getRequest()));
+    }
 }
