@@ -1,12 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<book version="5.0" xml:id="zauber-commons-reference-guide"
-      xmlns="http://docbook.org/ns/docbook"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      xmlns:xi="http://www.w3.org/2001/XInclude"
-      xmlns:ns5="http://www.w3.org/1998/Math/MathML"
-      xmlns:ns4="http://www.w3.org/2000/svg"
-      xmlns:ns3="http://www.w3.org/1999/xhtml"
-      xmlns:ns="http://docbook.org/ns/docbook">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+]>
+<book xmlns:xi="http://www.w3.org/2001/XInclude">
   <info>
     <title>Zauber Commons - Reference Documentation</title>
     <productname>Zauber Commons</productname>
@@ -30,7 +26,7 @@
     
   <toc></toc>
 
-  <xi:include href="preface.xml" />
+  <xi:include href="preface.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 
   <part xml:id="welcome">
     <title>Welcome to Zauber Commons</title>
@@ -48,8 +44,9 @@
       of this manual are more designed for reference usage and people who wish
       to extend Zauber Commons itself.</para>
     </partintro>
+    <!--
     <xi:include href="intro.xml" />
-
+-->
   </part>
   <part>
     <title>Modules</title>
@@ -59,7 +56,6 @@
     <xi:include href="commons-web-uri.xml"/>
     <xi:include href="commons-message.xml"/>
     <xi:include href="commons-version-provider.xml"/>
-
   </part>
 
     <part xml:id="appendices">
@@ -72,5 +68,6 @@
       reference and not read consecutively.</para>
     </partintro>
   </part>
-  
+
+   <xi:include href="revision-history.xml" />
 </book>

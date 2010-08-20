@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<chapter version="5.0" xml:id="commons-base" 
-         xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
-         xmlns:ns4="http://www.w3.org/2000/svg"
-         xmlns:ns3="http://www.w3.org/1999/xhtml"
-         xmlns:ns="http://docbook.org/ns/docbook">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+]>
+<chapter xml:id="commons-base" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Commons Base</title>
     
     <section xml:id="commons-base-overview">
@@ -15,24 +12,24 @@
         Apache Commons adding some features that are useful for developing. </para>
         <para><emphasis role="bold">Commons Base</emphasis> can be divided in:
         </para>
-        <ns:itemizedlist>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Functors
-            </ns:emphasis>: objects that encapsulates functional logic.</ns:para></ns:listitem>            
-            <ns:listitem><ns:para><ns:emphasis role="bold">Exceptions
-            </ns:emphasis>: Most used exceptions.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">General Purpose Classes
-            </ns:emphasis>: Handling ordering and paging in 
-            collections and rankeable results.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Secret Handling
-            </ns:emphasis>: Secret's generation (generated random value for 
-            unique secure actions).</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Resources
-            </ns:emphasis>: Abstractions for resources.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Collections
-            </ns:emphasis>: Handling collections.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Other utils
-            </ns:emphasis>: Date, String and Password Encoders utils.</ns:para></ns:listitem>
-        </ns:itemizedlist>          
+        <itemizedlist>
+            <listitem><para><emphasis role="bold">Functors
+            </emphasis>: objects that encapsulates functional logic.</para></listitem>            
+            <listitem><para><emphasis role="bold">Exceptions
+            </emphasis>: Most used exceptions.</para></listitem>
+            <listitem><para><emphasis role="bold">General Purpose Classes
+            </emphasis>: Handling ordering and paging in 
+            collections and rankeable results.</para></listitem>
+            <listitem><para><emphasis role="bold">Secret Handling
+            </emphasis>: Secret's generation (generated random value for 
+            unique secure actions).</para></listitem>
+            <listitem><para><emphasis role="bold">Resources
+            </emphasis>: Abstractions for resources.</para></listitem>
+            <listitem><para><emphasis role="bold">Collections
+            </emphasis>: Handling collections.</para></listitem>
+            <listitem><para><emphasis role="bold">Other utils
+            </emphasis>: Date, String and Password Encoders utils.</para></listitem>
+        </itemizedlist>          
  
     </section>
 
@@ -47,21 +44,21 @@
         a lot of satisfying, concise explanations of what a functor can do; in 
         the abstract, anything that performs an operation or function could be 
         considered a functor, and the process of drawing divisions between 
-        <ns:emphasis role="bold"> what should and should not be implemented with 
-        functors becomes a matter of personal preference</ns:emphasis>. Functors 
+        <emphasis role="bold"> what should and should not be implemented with 
+        functors becomes a matter of personal preference</emphasis>. Functors 
         are less of an impressive new technology and are more of 
-        <ns:emphasis role="bold">an approach to programming</ns:emphasis>. Even 
+        <emphasis role="bold">an approach to programming</emphasis>. Even 
         if you are unfamiliar with the term, you've likely used functors without 
         realizing it; two functors in common usage are <code>Comparator</code> 
         and <code>Iterator</code>. </para>
         <para>This small pieces of logic can be considered as 
         <link xlink:href="http://www.lego.com/">lego</link> blocks. A simple
         block of lego is useless but combined you can do interesting stuff. In 
-        <ns:emphasis role="bold">Zauber Commons</ns:emphasis> we can find 
+        <emphasis role="bold">Zauber Commons</emphasis> we can find 
         <code>Predicate</code>, <code>Transformer</code> and <code>Closure</code> 
-        functors which were taken from <ns:emphasis role="bold">Apache Commons</ns:emphasis> 
+        functors which were taken from <emphasis role="bold">Apache Commons</emphasis> 
         adding types to their definitions (making use of Java Generics). </para>
-        <para>Another important thing to say is that <ns:emphasis role="bold">Zauber Commons Base</ns:emphasis> 
+        <para>Another important thing to say is that <emphasis role="bold">Zauber Commons Base</emphasis> 
         has no dependencies like Spring or other mayor technologies.</para>
         
         <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-simple-pred.html-->
@@ -129,9 +126,9 @@ if( name.equals( "Shirley" ) ) {
 }</programlisting>
 
                 <para>Predicate instances capture an if statement in an object, 
-                and if you are going to <ns:emphasis role="bold">constantly change the behavior of your 
+                and if you are going to <emphasis role="bold">constantly change the behavior of your 
                 application, you might want to consider placing conditional expressions 
-                in <code>Predicate</code> instances</ns:emphasis>. For example, if a system is designed to 
+                in <code>Predicate</code> instances</emphasis>. For example, if a system is designed to 
                 classify a storm as being a hurricane, you may want to capture 
                 all of your classification criteria in an XML file—parsing this 
                 file at runtime and creating a series of Predicate objects. A 
@@ -144,7 +141,7 @@ if( name.equals( "Shirley" ) ) {
                 encapsulated in an instance of Predicate.
                 </para>
                 
-                <para><ns:emphasis role="bold">Zauber Commons Base</ns:emphasis> 
+                <para><emphasis role="bold">Zauber Commons Base</emphasis> 
                 provides a number of basic predicates for common situations. 
                 Table 5.1 lists a number of simple 
                 <code>Predicate</code> implementations.</para>
@@ -345,7 +342,7 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                 Like the <code>Transformer</code> and <code>Predicate</code> interfaces, 
                 there are a number of <code>Closure</code> implementations that 
                 can be used to chain and combine <code>Closure</code> instances.</para>
-                <para>The following table shows <ns:emphasis role="bold">Zauber Commons</ns:emphasis> 
+                <para>The following table shows <emphasis role="bold">Zauber Commons</emphasis> 
                 implementations for <code>Closure</code></para>
                 <table frame='hsides'>
                     <title>Closure implementations</title>
@@ -442,7 +439,7 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
     
     <section xml:id="commons-base-exception">
         <title>Useful Exceptions</title>
-        <ns:para>The following table shows the most frequently used exceptions</ns:para>
+        <para>The following table shows the most frequently used exceptions</para>
         <!-- TODO making a paragraph to talk about the TriggeredExceptionBuilder -->
         <!-- Use javadoc and https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto21 -->        
         <table frame='hsides'>
@@ -527,13 +524,13 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
 	        secure. Here it is where <code>SecretMap</code> comes in.</para>
 	        
         </section>
-        <ns:section xml:id="commons-base-secret-solution">
+        <section xml:id="commons-base-secret-solution">
             <title>Solution</title>
             <para>We need some class that handles a relationship between 
             my user and a secret code. <code>SecretMap</code> is fulfilling that 
             role. Also this class provides a way to determine the date of expiration
             for that secret to be used. Some methods defined on <code>SecretMap</code> interface are:</para>
-            <ns:programlisting>
+            <programlisting language="Java">
 public interface SecretsMap&lt;T&gt; {
 
     // Creates a new secret for object T. If object T had a previus secret, it
@@ -568,7 +565,7 @@ public interface SecretsMap&lt;T&gt; {
      
     // Removes secrets that has expired.
     void cleanup();
-}</ns:programlisting>
+}</programlisting>
             <para>Now, we have an interface to ask for secrets and 
             retrieving the user associated with them. In our example we want to 
             verify an user's email address. First, we should register the user in our 
@@ -576,9 +573,9 @@ public interface SecretsMap&lt;T&gt; {
             that secret as a url parameter. Then, our controller should take 
             that secret, retrieve the user, verify him and remove the entry from 
             the map.</para>
-        </ns:section>
-        <ns:section xml:id="commons-base-secret-implementation">
-            <ns:title>Implementation</ns:title>
+        </section>
+        <section xml:id="commons-base-secret-implementation">
+            <title>Implementation</title>
             <para>For secret handling also we need to determine how secrets 
             will be generated and their's expiration policy. For these purposes 
             there are three more interfaces <code>SecretGenerator</code>, 
@@ -634,11 +631,11 @@ public interface SecretsMap&lt;T&gt; {
 	        <code>JavaUtilMapSecretsMap</code> or have our own, by extending 
 	        <code>AbstractSecretsMap</code> which already has logic for this
 	        purpose.</para>
-	        <ns:section>
-	           <ns:title>Simple code example</ns:title>
+	        <section>
+	           <title>Simple code example</title>
 	           <para>First, the secret map generation which should be in some 
 	           service.</para>
-<ns:programlisting>// Defining the secuence that should be used for secret's generation
+<programlisting language="Java">// Defining the secuence that should be used for secret's generation
 SecretGenerator sg = new SecureRandomSecretGenerator(new SecureRandom());
 
 // Map for registering secrets in asociation with our system's user
@@ -656,19 +653,19 @@ ExpirationDateValidator edv = new CurrentTimeExpirationDateValidator();
 // Creation of secret map
 SecretMap sm = 
     new JavaUtilMapSecretsMap(sg, secretsMap, expirationDateMap, edp, edv);
-</ns:programlisting>
+</programlisting>
                 <para>Second, logic for storing requests on email verification.</para>
-<ns:programlisting>User user = getUser();
+<programlisting language="Java">User user = getUser();
 
 // Register the user's request for email verification in the map 
 String secretId = sm.register(user);
 
 //Send to the email with the secure action id
 sendEmailWithLink("http://www.mysite.com?secret=" + secretId);
-</ns:programlisting>
+</programlisting>
                 <para>Finally, we are retrieving the user with the secret given 
                 as parameter and set as a verified user.</para>
-<ns:programlisting>User user = null;
+<programlisting language="Java">User user = null;
 String secret = request.getParameter("secret");
 
 try {
@@ -676,9 +673,9 @@ try {
     user.setVerified(true);
 } catch (NoSuchEntityException exc) {
     //Some logic
-}</ns:programlisting>
-	        </ns:section>
-        </ns:section>
+}</programlisting>
+	        </section>
+        </section>
         <!-- TODO maybe a complex example with spring integration -->
         
         
@@ -692,38 +689,38 @@ try {
         <section xml:id="commons-base-utils-date">
             <title>Date Utils</title>
 
-            <para>There are two main classes in <ns:emphasis role="bold">Zauber Commons</ns:emphasis> 
+            <para>There are two main classes in <emphasis role="bold">Zauber Commons</emphasis> 
             to help using Java <code>Date</code>. The first is <code>ISODateUtils</code>
             which is a helpful class for handling ISO format dates: parsing from strings, 
             retrieving ISO formaters or making an ISO formated date string from 
             a <code>Date</code> object. The second is not a helper class, but 
-            an interface to be extended. <ns:code>DateProvider</ns:code> 
+            an interface to be extended. <code>DateProvider</code> 
             provides a <code>Date</code> object depending on the implementation
             This interface is defined:
             </para>
 
-<ns:programlisting language="java">
+<programlisting language="Java">
 public interface DateProvider {
     // Provides a date
     Date getDate();
-}</ns:programlisting>
+}</programlisting>
 
 	        <para>Actually, there are three implementations of <code>DateProvider</code>:</para>
 	
-	        <ns:itemizedlist>
-	            <ns:listitem><ns:para><ns:emphasis role="bold">CurrentDateProvider
-	            </ns:emphasis>: Returns the current date.</ns:para></ns:listitem>            
-	            <ns:listitem><ns:para><ns:emphasis role="bold">InmutableDateProvider
-	            </ns:emphasis>: Returns a new <ns:code>Date</ns:code> with same value 
-	            as the inmutable date passed as parameter.</ns:para></ns:listitem>
-	            <ns:listitem><ns:para><ns:emphasis role="bold">SignificantDateProvider
-	            </ns:emphasis>: Cut the date after the last significant digit. E.x: 
-	            2010-03-03 19:54:22 returns 2010-03-03 00:00:00.</ns:para></ns:listitem>
-	        </ns:itemizedlist>       
+	        <itemizedlist>
+	            <listitem><para><emphasis role="bold">CurrentDateProvider
+	            </emphasis>: Returns the current date.</para></listitem>            
+	            <listitem><para><emphasis role="bold">InmutableDateProvider
+	            </emphasis>: Returns a new <code>Date</code> with same value 
+	            as the inmutable date passed as parameter.</para></listitem>
+	            <listitem><para><emphasis role="bold">SignificantDateProvider
+	            </emphasis>: Cut the date after the last significant digit. E.x: 
+	            2010-03-03 19:54:22 returns 2010-03-03 00:00:00.</para></listitem>
+	        </itemizedlist>       
         </section>
         <section xml:id="commons-base-utils-string">
             <title>Latin String Utils</title>
-            <para><ns:code>LatinStringUtils</ns:code> is a helper class that 
+            <para><code>LatinStringUtils</code> is a helper class that 
             provides a method for removing accents from characters.</para>
         </section>
         <section xml:id="commons-base-utils-password">
@@ -774,8 +771,8 @@ public interface DateProvider {
         </section>
         <section xml:id="commons-base-utils-validate">
             <title>Validation</title>
-            <para><code>Validate</code> in <ns:emphasis role="bold">Zauber Commons</ns:emphasis>
-            is an extension from <ns:emphasis>Apache's Validate</ns:emphasis>. 
+            <para><code>Validate</code> in <emphasis role="bold">Zauber Commons</emphasis>
+            is an extension from <emphasis>Apache's Validate</emphasis>. 
             Incorporates variable arguments to methods <code>notNull()</code> and
             <code>notBlank()</code>. Following this, also adds ways of retrieving
             which object has returned the error.</para>
@@ -786,13 +783,13 @@ public interface DateProvider {
     <section xml:id="commons-base-resource">
         <title>Resource</title>
         <para>Resource is an attempt to replace 
-        <ns:emphasis>Spring</ns:emphasis>'s <code>Resource</code> class
+        <emphasis>Spring</emphasis>'s <code>Resource</code> class
         which purpose is to abstract from the actual type of underlying resource, 
         such as a file or class path resource. Actually there are two implementations
         of <code>Resource</code>: <code>ClasspathResource</code> and <code>StringResource</code>.
         The <code>Resource</code> interface is defined:
         </para>  
-        <ns:programlisting>
+        <programlisting>
 public interface Resource {
 
     // Resource Name
@@ -803,32 +800,32 @@ public interface Resource {
 
     // Last-modified timestamp for this resource.
     Date getLastModified();
-}</ns:programlisting>
+}</programlisting>
     </section>    
 
     <section xml:id="commons-base-collections">
         <title>Collections</title>
         This section introduces utilities for handling collections. There are four classes in this package:
-        <ns:itemizedlist>
-            <ns:listitem><ns:para><ns:code>DistinctIterator
-            </ns:code>: Iterator implementation that eliminates consecutive 
-            repeated elements.</ns:para></ns:listitem>            
-            <ns:listitem><ns:para><ns:code>DynamicSortedCollection
-            </ns:code>: Collection whose order can change dynamically by setting a
-            new comparator and it is reordered.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:code>OnModificationProxyCollection
-            </ns:code>: Abstract class that let us define preprocessing and 
-            postprocessing methods on add and remove collection functionallity.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:code>OnModificationProxyList
-            </ns:code>: Same as above but using lists</ns:para></ns:listitem>
-        </ns:itemizedlist>            
+        <itemizedlist>
+            <listitem><para><code>DistinctIterator
+            </code>: Iterator implementation that eliminates consecutive 
+            repeated elements.</para></listitem>            
+            <listitem><para><code>DynamicSortedCollection
+            </code>: Collection whose order can change dynamically by setting a
+            new comparator and it is reordered.</para></listitem>
+            <listitem><para><code>OnModificationProxyCollection
+            </code>: Abstract class that let us define preprocessing and 
+            postprocessing methods on add and remove collection functionallity.</para></listitem>
+            <listitem><para><code>OnModificationProxyList
+            </code>: Same as above but using lists</para></listitem>
+        </itemizedlist>            
     </section>    
     
     <section xml:id="commons-base-page-and-order">
         <title>Other general purpose classes</title>
         
         <section xml:id="commons-base-general-purpose-order">
-            <ns:title>Ordering</ns:title>
+            <title>Ordering</title>
             <!-- Taken from javadoc and -->
             <!-- https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto17 -->
             <para>There are classes defined to handle the order in Collections. 
@@ -841,43 +838,43 @@ public interface Resource {
             case by username, then descending by points and finally descending 
             ignoring case by foo, we had to do:</para>
             
-            <ns:programlisting language="Java">
+            <programlisting language="Java">
 final Ordering expected = new Ordering(
            new Order("name"), 
            new Order("username", true, true),
            new Order("points", false), 
-           new Order("foo", false, true));</ns:programlisting>
+           new Order("foo", false, true));</programlisting>
                                  
             <para>Now this can be done, using builder pattern, by doing: </para>
             
-           <ns:programlisting language="Java">
+           <programlisting language="Java">
 final Ordering ordering = Ordering.builder()
           .asc("name")
           .ascIgnoringCase("username")
           .desc("points")
           .descIgnoringCase("foo")
-          .ordering();</ns:programlisting>
+          .ordering();</programlisting>
         </section>
         <section xml:id="commons-base-general-purpose-paging">
-            <ns:title>Paging</ns:title>
+            <title>Paging</title>
 	        <para>Class that keeps information related to paging. There are two 
 	        constructors that can be used: </para>
-            <ns:itemizedlist>
-                <ns:listitem><ns:para><code>Paging(Integer pageNumber, 
-                Integer resultsPerPage)</code></ns:para></ns:listitem>
-                <ns:listitem><ns:para><code>Paging(Integer pageNumber, Integer 
-                resultsPerPage, boolean loadResultSize)</code></ns:para></ns:listitem>
-            </ns:itemizedlist>
+            <itemizedlist>
+                <listitem><para><code>Paging(Integer pageNumber, 
+                Integer resultsPerPage)</code></para></listitem>
+                <listitem><para><code>Paging(Integer pageNumber, Integer 
+                resultsPerPage, boolean loadResultSize)</code></para></listitem>
+            </itemizedlist>
             <para>We should use the first one if we want to use <code>loadResultSize</code> 
             default value (which is true). Parameters should be understood:</para>  	        
-	        <ns:itemizedlist>
-	            <ns:listitem><ns:para><ns:emphasis role="bold">pageNumber
-	            </ns:emphasis>: Current page number.</ns:para></ns:listitem>            
-	            <ns:listitem><ns:para><ns:emphasis role="bold">resultsPerPage
-	            </ns:emphasis>: Results that are shown by page.</ns:para></ns:listitem>
-	            <ns:listitem><ns:para><ns:emphasis role="bold">loadResultSize
-	            </ns:emphasis>: Load result size.</ns:para></ns:listitem>
-	        </ns:itemizedlist>   	        
+	        <itemizedlist>
+	            <listitem><para><emphasis role="bold">pageNumber
+	            </emphasis>: Current page number.</para></listitem>            
+	            <listitem><para><emphasis role="bold">resultsPerPage
+	            </emphasis>: Results that are shown by page.</para></listitem>
+	            <listitem><para><emphasis role="bold">loadResultSize
+	            </emphasis>: Load result size.</para></listitem>
+	        </itemizedlist>   	        
 
         <para>No much more to mention about the <code>Paging</code> object. 
         You should use it instead of passing values between classes.
@@ -885,8 +882,8 @@ final Ordering ordering = Ordering.builder()
         </section>
 	    <section xml:id="commons-base-general-purpose-rankeable">
 	        <title>Rankeable Result</title>
-	        <ns:para><code>RankeableResult</code> purpose is to represent a search 
-	        result which has an associated ranking. </ns:para>
+	        <para><code>RankeableResult</code> purpose is to represent a search 
+	        result which has an associated ranking. </para>
 	    </section>            
         
                     

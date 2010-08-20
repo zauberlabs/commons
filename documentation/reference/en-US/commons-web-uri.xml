@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<chapter version="5.0" xml:id="commons-web-uri"
-         xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
-         xmlns:ns4="http://www.w3.org/2000/svg"
-         xmlns:ns3="http://www.w3.org/1999/xhtml"
-         xmlns:ns="http://docbook.org/ns/docbook">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+]>
+<chapter xml:id="commons-web-uri"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Commons Web Uri</title>
 
   <para>Commons Web Uri provides complete control over the site internal
@@ -40,7 +38,7 @@
     <para><code>UriFactory</code> build URIs dynamically, given a key and some optional
     arguments it returns an URI or an URI reference.</para>
 
-    <programlisting>
+    <programlisting language="Java">
 public interface UriFactory {
   String buildUri(final String uriKey, final Object... expArgs);
 }</programlisting>
@@ -252,7 +250,7 @@ example/file.txt?v=version_number</programlisting></entry>
         <code>PrefixUriFactory</code> and <code>ServletPathUriFactory</code>
         in general are not compatible. Spring configuration Example:</para>
 
-        <programlisting>&lt;bean class="ar.com.zauber.commons.web.uri.factory.ConfigurableUriFactoryFactoryBean"&gt;
+        <programlisting  language="XML" >&lt;bean class="ar.com.zauber.commons.web.uri.factory.ConfigurableUriFactoryFactoryBean"&gt;
     &lt;constructor-arg index="0"&gt;
         &lt;bean class="ar.com.zauber.commons.web.uri.factory.IdentityUriFactory"/&gt;
     &lt;/constructor-arg&gt;

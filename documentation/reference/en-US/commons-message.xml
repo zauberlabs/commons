@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<chapter version="5.0" xml:id="commons-message" 
-         xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
-         xmlns:ns4="http://www.w3.org/2000/svg"
-         xmlns:ns3="http://www.w3.org/1999/xhtml"
-         xmlns:ns="http://docbook.org/ns/docbook">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+]>
+<chapter xml:id="commons-message" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Commons Message</title>
   <!--
     <para>Commons Message provides a notification system for a site.</para>
@@ -17,16 +14,16 @@
         of notification. We can use <emphasis>Message</emphasis> in order to send 
         email, jabber or rich text notifications for instance. </para>
         <para>Also there are multiple 
-        benefits in order to start using <ns:emphasis>Message API</ns:emphasis>:
+        benefits in order to start using <emphasis>Message API</emphasis>:
         </para>
-        <ns:itemizedlist>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Multicast
-            </ns:emphasis>: Send to multiple addresses a message.</ns:para></ns:listitem>            
-            <ns:listitem><ns:para><ns:emphasis role="bold">Auditoring
-            </ns:emphasis>: Store messages in a database.</ns:para></ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Changing between implementations
-            </ns:emphasis>: Easy change between ways of notification.</ns:para></ns:listitem>
-        </ns:itemizedlist>          
+        <itemizedlist>
+            <listitem><para><emphasis role="bold">Multicast
+            </emphasis>: Send to multiple addresses a message.</para></listitem>            
+            <listitem><para><emphasis role="bold">Auditoring
+            </emphasis>: Store messages in a database.</para></listitem>
+            <listitem><para><emphasis role="bold">Changing between implementations
+            </emphasis>: Easy change between ways of notification.</para></listitem>
+        </itemizedlist>          
  
     </section>
     
@@ -177,8 +174,8 @@
 	<section xml:id="commons-message-implementations">    
         <title>Available implementations</title>
         
-        <para>Now, we will introduce the implementations of <ns:emphasis role="bold">
-        Message</ns:emphasis> and how to use them in a spring development 
+        <para>Now, we will introduce the implementations of <emphasis role="bold">
+        Message</emphasis> and how to use them in a spring development 
         environment.</para>
         
         <section xml:id="commons-message-implementations-mail">
@@ -235,7 +232,7 @@
 
 		        <para>Now we have our message factory. In case you didn't notice, now we 
 		        are able to make a typical personalized mail with the opening greeting 
-		        <ns:emphasis>"Dear $user"</ns:emphasis> where <code>$user</code> will be 
+		        <emphasis>"Dear $user"</emphasis> where <code>$user</code> will be 
 		        prepopulated by the some value passed by our model. The model is a map where 
 		        keys will be the variables to be prepopulated and its values will be the 
 		        injected ones on the email.</para>
@@ -393,7 +390,7 @@
                 <section xml:id="commons-message-implementations-mail-complete">
                     <title>Complete configuration example</title>
                     <para>Here there is a complete configuration example.</para>
-                    <para><ns:emphasis role="bold">Properties file</ns:emphasis>:</para>
+                    <para><emphasis role="bold">Properties file</emphasis>:</para>
                     <programlisting>
 mail.mock=true
 mail.host=mail.test
@@ -410,7 +407,7 @@ mail.replyto=noreply@zaubersoftware.com
 
 mail.accountVerification.subject=Welcome to Zauber Software - Account Verification              
                     </programlisting>
-                    <para>Our spring message <ns:emphasis role="bold">bean definition file</ns:emphasis>:</para>
+                    <para>Our spring message <emphasis role="bold">bean definition file</emphasis>:</para>
                     <programlisting><![CDATA[
     <bean id="emailFromAddress" 
             class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress">
@@ -501,7 +498,7 @@ mail.accountVerification.subject=Welcome to Zauber Software - Account Verificati
         class="ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddressFactory"/>    
 	]]>
                     </programlisting>
-                    <para><ns:emphasis role="bold">Velocity template</ns:emphasis>:</para>
+                    <para><emphasis role="bold">Velocity template</emphasis>:</para>
                     <programlisting>
 Hello $user.name,
 
@@ -511,7 +508,7 @@ You have just registered an account on zaubersoftware.com!
 Zauber Software
 www.zaubersoftware.com
                     </programlisting>
-                    <para><ns:emphasis role="bold">Code example</ns:emphasis></para>
+                    <para><emphasis role="bold">Code example</emphasis></para>
                     <programlisting><![CDATA[
 class Foo {
     @Autowired
@@ -538,9 +535,9 @@ class Foo {
             <para>After seeing a full example for email notifications, jabber 
             notifications are not very different. We only need to add an entry 
             in <code>messageFactory</code> for each notification template in our 
-            jabber notifications: </para>
+            jabber notificatio </para>
             
-            <ns:programlisting><![CDATA[
+            <programlisting><![CDATA[
 <entry key="observation/update">
     <bean class="ar.com.zauber.commons.xmpp.message.XMPPMessageTemplate">
         <!-- Message default context -->
@@ -556,7 +553,7 @@ class Foo {
         <constructor-arg value="iso-8859-1"/>
     </bean>
 </entry>]]>
-            </ns:programlisting>
+            </programlisting>
             
         </section>
         
@@ -567,8 +564,8 @@ class Foo {
             This implementation add suport for plain or html text (Using  
             <link xlink:href="http://en.wikipedia.org/wiki/MIME#Multipart_messages">multipart messages</link>. 
             </para>
-            <para><ns:emphasis>Code example</ns:emphasis></para>
-            <ns:programlisting><![CDATA[
+            <para><emphasis>Code example</emphasis></para>
+            <programlisting><![CDATA[
 final PartTemplate templatePlain = new VelocityMessagePartTemplate(
         "text/plain", new StringResource("hey! $you"));
 final PartTemplate templateHtml = new VelocityMessagePartTemplate(
@@ -593,7 +590,7 @@ assertEquals("hey! you", partPlain.getContent());
 assertEquals("<html><h1>hey!</h1> <h2>you</h2></html>", 
         partHtml.getContent());
 assertEquals("hi me", msg.getSubject());]]>
-            </ns:programlisting>
+            </programlisting>
         </section>
         
         <section xml:id="commons-message-implementations-null">
@@ -603,22 +600,22 @@ assertEquals("hi me", msg.getSubject());]]>
         
         <section xml:id="commons-message-implementations-limitations">
             <title>Limitations</title>
-            <ns:itemizedlist>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Bounces</ns:emphasis>: 
-            Handling for messages that failed to be delivered.</ns:para>
-            </ns:listitem>
-            <ns:listitem><ns:para><ns:emphasis role="bold">Templating for subjects</ns:emphasis>: 
-            Posibility to have a subject template.</ns:para>
-            </ns:listitem>            
-            <ns:listitem><ns:para><ns:emphasis role="bold">Hibernate</ns:emphasis>: 
-            Lack of <ns:code>MailSender</ns:code> for Hibernate without using 
-            repository.</ns:para>
-            </ns:listitem>            
-            <ns:listitem><ns:para><ns:emphasis role="bold">Multipart Messages</ns:emphasis>: 
-            No support for inline resources like images, css, etc.</ns:para>
-            </ns:listitem>            
+            <itemizedlist>
+            <listitem><para><emphasis role="bold">Bounces</emphasis>: 
+            Handling for messages that failed to be delivered.</para>
+            </listitem>
+            <listitem><para><emphasis role="bold">Templating for subjects</emphasis>: 
+            Posibility to have a subject template.</para>
+            </listitem>            
+            <listitem><para><emphasis role="bold">Hibernate</emphasis>: 
+            Lack of <code>MailSender</code> for Hibernate without using 
+            repository.</para>
+            </listitem>            
+            <listitem><para><emphasis role="bold">Multipart Messages</emphasis>: 
+            No support for inline resources like images, css, etc.</para>
+            </listitem>            
 
-            </ns:itemizedlist>
+            </itemizedlist>
         </section>        
         
     </section>
