@@ -27,6 +27,16 @@ import ar.com.zauber.commons.dao.Closure;
 public class MutableClosure<T> implements Closure<T> {
     private Closure<T> target;
     
+    /** constructor */
+    public MutableClosure() {
+        
+    }
+    
+    /** constructor */
+    public MutableClosure(final Closure<T> closure) {
+        setTarget(closure);
+    }
+    
     /** @see Closure#execute(Object) */
     public final void execute(final T t) {
         if(target != null) {
