@@ -48,4 +48,8 @@ public class MutableClosure<T> implements Closure<T> {
     public final void setTarget(final Closure<T> target) {
         this.target = target;
     }
+    
+    public final Closure<T> getTarget() {
+        return target;
+    }
 }
