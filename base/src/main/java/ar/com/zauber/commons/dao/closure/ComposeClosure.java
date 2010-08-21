@@ -30,13 +30,26 @@ import ar.com.zauber.commons.dao.Closure;
  */
 public class ComposeClosure<T> implements Closure<T> {
     private final Iterable<Closure<T>> closures;
-    private Logger logger = LoggerFactory.getLogger(ComposeClosure.class);
+    private final Closure<Throwable> errorClosure;
     
     /** Creates the ComposeClosure. */
     public ComposeClosure(final Iterable<Closure<T>> closures) {
+        this(closures, new Closure<Throwable>() {
+            private Logger logger = LoggerFactory.getLogger(ComposeClosure.class);
+            public void execute(final Throwable e) {
+                logger.error("executing closure...ignoring", e);
+            }
+        });
+    }
+    
+    /** Creates the ComposeClosure. */
+    public ComposeClosure(final Iterable<Closure<T>> closures, 
+            final Closure<Throwable> errorClosure) {
         Validate.notNull(closures);
+        Validate.notNull(errorClosure);
         
         this.closures = closures;
+        this.errorClosure = errorClosure;
     }
     
     /** @see Closure#execute(Object) */
@@ -45,9 +58,16 @@ public class ComposeClosure<T> implements Closure<T> {
             try {
                 closure.execute(t);
             } catch(final Throwable e) {
-                logger.error("executing closure...ignoring", e);
+                errorClosure.execute(e);
             }
         }
     }
 
+    public final Iterable<Closure<T>> getClosures() {
+        return closures;
+    }
+
+    public final Closure<Throwable> getErrorClosure() {
+        return errorClosure;
+    }
 }
