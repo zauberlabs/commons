@@ -1,0 +1,89 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+
+default namespace = "http://code.zaubersoftware.com/ns/2010/08/commons/spring"
+namespace beans = "http://www.springframework.org/schema/beans"
+
+bean = element beans:bean{ text}
+
+closure = null-closure | compose-closure | list-closure | error-logger-wrapper-closure | 
+          executor-closure |  mutable-closure | bean
+
+predicate = true-predicate | false-predicate | and-predicate | not-predicate | throws-max-predicate | bean
+
+########## closures #############
+## NullClosure
+null-closure = element null-closure {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+
+}
+
+## ComposeClosure
+compose-closure = element compose-closure {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    closure+
+}
+
+## ListClosure
+list-closure = element list-closure {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+} 
+
+error-logger-wrapper-closure = element error-logger-wrapper-closure {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    closure
+}
+
+executor-closure = element executor-closure {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    attribute executor-ref { xsd:IDREF}?,
+    
+    closure
+}
+
+mutable-closure = element mutable-closure {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    closure?
+}
+
+filtered-closure = element filtered-closure {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    predicate, closure
+}
+ 
+
+########## predicate #############
+true-predicate = element true-predicate {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+}
+
+false-predicate = element false-predicate {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+}
+
+and-predicate = element and-predicate {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    
+    predicate+
+}
+
+not-predicate = element not-predicate {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    predicate
+} 
+
+throws-max-predicate = element throws-max-predicate {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    attribute max { xsd:positiveInteger}
+} 

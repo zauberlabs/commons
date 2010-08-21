@@ -1,0 +1,2 @@
+http\://buenosaires.gob.ar/ns/gigapixel/0.0=ar.gob.buenosaires.gigapixel.config.schema.spring.GigapixleNamespaceHandler
+http\://code.zaubersoftware.com/ns/2010/08/commons/spring=ar.com.zauber.spring.taglib.CommonsTaglibNamespaceHandler

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://code.zaubersoftware.com/ns/2010/08/commons/spring" xmlns:spring="http://code.zaubersoftware.com/ns/2010/08/commons/spring" xmlns:beans="http://www.springframework.org/schema/beans">
+  <xs:import namespace="http://www.springframework.org/schema/beans" schemaLocation="beans.xsd"/>
+  <xs:group name="closure">
+    <xs:choice>
+      <xs:element ref="spring:null-closure"/>
+      <xs:element ref="spring:compose-closure"/>
+      <xs:element ref="spring:list-closure"/>
+      <xs:element ref="spring:error-logger-wrapper-closure"/>
+      <xs:element ref="spring:executor-closure"/>
+      <xs:element ref="spring:mutable-closure"/>
+      <xs:element ref="beans:bean"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="predicate">
+    <xs:choice>
+      <xs:element ref="spring:true-predicate"/>
+      <xs:element ref="spring:false-predicate"/>
+      <xs:element ref="spring:and-predicate"/>
+      <xs:element ref="spring:not-predicate"/>
+      <xs:element ref="spring:throws-max-predicate"/>
+      <xs:element ref="beans:bean"/>
+    </xs:choice>
+  </xs:group>
+  <xs:element name="null-closure">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="compose-closure">
+    <xs:complexType>
+      <xs:group maxOccurs="unbounded" ref="spring:closure"/>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="list-closure">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="error-logger-wrapper-closure">
+    <xs:complexType>
+      <xs:group ref="spring:closure"/>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="executor-closure">
+    <xs:complexType>
+      <xs:group ref="spring:closure"/>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="executor-ref" type="xs:IDREF"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mutable-closure">
+    <xs:complexType>
+      <xs:group minOccurs="0" ref="spring:closure"/>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="filtered-closure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="spring:predicate"/>
+        <xs:group ref="spring:closure"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="true-predicate">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="false-predicate">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="and-predicate">
+    <xs:complexType>
+      <xs:group maxOccurs="unbounded" ref="spring:predicate"/>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="not-predicate">
+    <xs:complexType>
+      <xs:group ref="spring:predicate"/>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="throws-max-predicate">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="max" use="required" type="xs:positiveInteger"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns="http://code.zaubersoftware.com/ns/2010/08/commons/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://code.zaubersoftware.com/ns/2010/08/commons/spring http://code.zaubersoftware.com/ns/2010/08/commons/spring.xsd
+       ">
+       
+     <null-closure id="nullClosure" />
+     
+     <compose-closure id="composeClosure">
+         <null-closure/>
+         <null-closure/>
+     </compose-closure>
+     
+     <list-closure id="listClosure"/>
+     
+     <error-logger-wrapper-closure id="errorLoggerWrapperClosure">
+        <null-closure/>
+     </error-logger-wrapper-closure>
+     
+     <executor-closure id="executorClosure" executor-ref="executor">
+           <null-closure />
+     </executor-closure>
+     <beans:bean id="executor" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <beans:property name="staticMethod" value="java.util.concurrent.Executors.newSingleThreadExecutor"/>
+     </beans:bean>
+     
+     <mutable-closure id="mutableClosure1"/>
+     <mutable-closure id="mutableClosure2">
+        <null-closure/>
+     </mutable-closure>
+     
+     <true-predicate id="truePredicate"/>
+     <false-predicate id="falsePredicate"/>
+     <and-predicate id="andPredicate">
+         <true-predicate/>
+         <not-predicate>
+            <false-predicate/>
+         </not-predicate>
+     </and-predicate>
+     
+     <throws-max-predicate id="throwsMaxPredicate" max="5" />
+     <not-predicate id="notPredicateFoo">
+        <beans:bean class="ar.com.zauber.commons.dao.predicate.EqualsPredicate">
+            <beans:constructor-arg value="foo"/>
+        </beans:bean>
+     </not-predicate>
+     
+    <filtered-closure id="filteredClosure">
+            <true-predicate/> <null-closure/>
+    </filtered-closure>     
+</beans:beans>
