@@ -49,15 +49,8 @@ public class ListClosure<T> implements Closure<T> {
     public final void execute(final T t)  {
         ret.add(t);
     }
-    
-    /**
-     * Returns the ret.
-     * 
-     * @return <code>List</code> with the ret.
-     */
+
     public final List<T> getList() {
         return ret;
     }
-
-    
 }
