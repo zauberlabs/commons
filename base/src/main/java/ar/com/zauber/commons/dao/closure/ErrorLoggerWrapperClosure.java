@@ -33,14 +33,28 @@ import ar.com.zauber.commons.dao.Closure;
  * @param <T> Type
  */
 public class ErrorLoggerWrapperClosure<T> implements Closure<T> {
-    private final Logger logger = LoggerFactory.getLogger(ErrorLoggerWrapperClosure.class);
     private final Closure<T> target;
+    private final Closure<Throwable> errorClosure;
     
     /** Creates the WrapperClosure. */
     public ErrorLoggerWrapperClosure(final Closure<T> target) {
+        this(target, new Closure<Throwable>() {
+            private final Logger logger = LoggerFactory.getLogger(
+                    ErrorLoggerWrapperClosure.class);
+            public void execute(final Throwable e) {
+                logger.error("processing closure", e);
+                throw new UnhandledException(e);    
+            }
+        });
+    }
+    /** Creates the WrapperClosure. */
+    public ErrorLoggerWrapperClosure(final Closure<T> target, 
+            final Closure<Throwable> errorClosure) {
         Validate.notNull(target);
+        Validate.notNull(errorClosure);
         
         this.target = target;
+        this.errorClosure = errorClosure;
     }
     
     /** @see Closure#execute(Object) */
@@ -48,9 +62,7 @@ public class ErrorLoggerWrapperClosure<T> implements Closure<T> {
         try {
             target.execute(t);
         } catch(final Throwable e) {
-            logger.error("procesando request ", e);
-            throw new UnhandledException(e);
+            errorClosure.execute(e);
         }
     }
-
 }
