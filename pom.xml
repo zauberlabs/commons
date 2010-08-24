@@ -88,6 +88,7 @@
     <module>persistence</module>
     <module>clustering</module>
     <module>spring</module>
+    <module>spring-taglib</module>
     <module>auth</module>
     <module>message</module>
     <module>image</module>
@@ -153,6 +154,10 @@
             <include>**/test/**</include>
           </includes>
           <excludes>
+            <exclude>documentation/**</exclude>
+            <exclude>**/*.xsd</exclude>
+            <exclude>**/spring.schemas</exclude>
+            <exclude>**/spring.handlers</exclude>
             <exclude>**/passwd/UnixCrypt.java</exclude>
             <exclude>**/words.spanish.latin1</exclude>
             <exclude>**/doxia/**</exclude>
@@ -169,6 +174,8 @@
             <exclude>**/Makefile*</exclude>
             <exclude>src/docbkx/**</exclude>
             <exclude>src/site/**</exclude>
+            <exclude>*.css</exclude>
+            <exclude>*.svg</exclude>
           </excludes>
           <useDefaultExcludes>true</useDefaultExcludes>
           <useDefaultMapping>true</useDefaultMapping>
