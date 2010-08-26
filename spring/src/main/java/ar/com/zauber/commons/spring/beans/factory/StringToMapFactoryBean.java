@@ -23,18 +23,21 @@ import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * {@link FactoryBean} que arma un {@link Map} de claves String y valores
- * String, a partir de un único String. Se deben especificar en el constructor
- * el separador de clave-valor y el separador de elementos. Ejemplo de uso:
+ * {@link FactoryBean} that creates a {@link Map} with String keys and String
+ * values, from a single String. Ex:
  * 
  * <pre>
  * &lt;bean class="ar.com.terra.stream.util.StringToMapFactoryBean"&gt;
  *    &lt;constructor-arg index="0" value="1=uno,2=dos,3=tres" /&gt;
- *    &lt;constructor-arg index="1" value="=" /&gt;
- *    &lt;constructor-arg index="2" value="," /&gt;
  * &lt;/bean&gt;
  * </pre>
- * 
+ * <p>Creates a Map with three entries: 1=uno, 2=dos and 3=tres.
+ * <p>
+ * Properties:
+ * <ul>
+ * <li><b>keyValueSeparatorRegex</b>: default is <code>"="</code>.
+ * <li><b>elementSeparatorRegex</b>: default is <code>","</code>.
+ * </ul>
  * 
  * @author Francisco J. González Costanzó
  * @since May 3, 2010
@@ -42,10 +45,20 @@ import org.springframework.beans.factory.FactoryBean;
 public class StringToMapFactoryBean implements FactoryBean<Map<String, String>> {
 
     private final String property;
-    private final String keyValueSeparatorRegex;
-    private final String elementSeparatorRegex;
+    private String keyValueSeparatorRegex = "=";
+    private String elementSeparatorRegex = ",";
 
     private Map<String, String> instance;
+    
+    /**
+     * Creates the StringToMapFactoryBean.
+     * 
+     * @param property
+     */
+    public StringToMapFactoryBean(final String property) {
+        Validate.notNull(property);
+        this.property = property;
+    }    
 
     /**
      * Creates the StringToMapFactoryBean.
@@ -110,6 +123,16 @@ public class StringToMapFactoryBean implements FactoryBean<Map<String, String>> 
     /** @see org.springframework.beans.factory.FactoryBean#isSingleton() */
     public final boolean isSingleton() {
         return true;
+    }
+    
+    public final void setElementSeparatorRegex(
+            final String elementSeparatorRegex) {
+        this.elementSeparatorRegex = elementSeparatorRegex;
+    }
+
+    public final void setKeyValueSeparatorRegex(
+            final String keyValueSeparatorRegex) {
+        this.keyValueSeparatorRegex = keyValueSeparatorRegex;
     }
 
 }
