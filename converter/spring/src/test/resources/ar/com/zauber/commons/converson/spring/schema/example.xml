@@ -12,6 +12,21 @@
         <complex-property-field target="otherClassName" converter-ref="classNameConverter"/>
     </configurable-converter>
 
+    <identity-converter           id="identityConverter"/>
+    <identity-converter           id="identityConverter2"/>
+    <first-element-converter      id="firstElementConverter" />
+    <collection-to-list-converter id="listConverter" element-converter-ref="identityConverter" />
+    <collection-to-set-converter  id="setConverter">
+        <identity-converter  />
+    </collection-to-set-converter>
+    <collection-to-size-converter id="sizeConverter" />
+
+    <composite-converter id="composite-converter">
+        <identity-converter  />
+        <identity-converter  />
+    </composite-converter>
+    
+    <property-extractor-converter id="propConverter" property="foo" />    
     <beans:bean id="plusOneConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.PlusOneConverter" />
     <beans:bean id="classNameConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.ClassNameConverter" />
 

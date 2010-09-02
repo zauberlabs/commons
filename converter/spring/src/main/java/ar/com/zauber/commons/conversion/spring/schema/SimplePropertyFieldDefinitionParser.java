@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.conversion.spring.schema;
 
+import java.util.List;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSimpleBeanDefinitionParser;
@@ -64,22 +66,25 @@ public class SimplePropertyFieldDefinitionParser extends
             sourcePropertyName =  targetPropertyName;
         }
         
-                
-        if (element.hasAttribute("converter-ref")) {
-            BeanDefinition bd = BeanDefinitionBuilder
+        final List<?> l = parserContext.getDelegate().parseListElement(
+                element, bean.getBeanDefinition());
+        final BeanDefinitionBuilder bdb = BeanDefinitionBuilder
             .rootBeanDefinition(SinglePropertyConverter.class)
-            .addConstructorArgValue(sourcePropertyName)
-            .addConstructorArgReference(element.getAttribute("converter-ref"))
-            .getBeanDefinition();
-            bean.addConstructorArgValue(bd);
+            .addConstructorArgValue(sourcePropertyName);
+        
+        if (element.hasAttribute("converter-ref")) {
+            bean.addConstructorArgValue(
+               bdb.addConstructorArgReference(element.getAttribute("converter-ref"))
+               .getBeanDefinition());
+        } else if (l.size() == 1) {
+            bean.addConstructorArgValue(
+                    bdb.addConstructorArgValue(l.iterator().next())
+                    .getBeanDefinition());
         } else {
             converter = new IdentityConverter();
             bean.addConstructorArgValue(
                     new SinglePropertyConverter(sourcePropertyName, converter));
         }
-        
-        
-        
     }
     
 }

@@ -15,7 +15,26 @@
  */
 package ar.com.zauber.commons.conversion.spring.schema;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.xml.AbstractSimpleBeanDefinitionParser;
+import org.springframework.beans.factory.xml.BeanDefinitionParser;
+import org.springframework.beans.factory.xml.NamespaceHandler;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
+import org.springframework.beans.factory.xml.ParserContext;
+import org.w3c.dom.Element;
+
+import ar.com.zauber.commons.conversion.Converter;
+import ar.com.zauber.commons.conversion.util.CollectionToListConverter;
+import ar.com.zauber.commons.conversion.util.CollectionToSetConverter;
+import ar.com.zauber.commons.conversion.util.CollectionToSizeConverter;
+import ar.com.zauber.commons.conversion.util.CompositeConverter;
+import ar.com.zauber.commons.conversion.util.FirstElementConverter;
+import ar.com.zauber.commons.conversion.util.IdentityConverter;
+import ar.com.zauber.commons.conversion.util.PropertyExtractorConverter;
 
 /**
  * 
@@ -25,9 +44,8 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * @since Nov 17, 2009
  */
 public class ConversionNamespaceHandler extends NamespaceHandlerSupport {
-
     
-    /** @see org.springframework.beans.factory.xml.NamespaceHandler#init() */
+    /** @see NamespaceHandler#init() */
     public final void init() {
         registerBeanDefinitionParser("configurable-converter",
                 new ConfigurableConverterBeanDefinitionParser());
@@ -37,6 +55,102 @@ public class ConversionNamespaceHandler extends NamespaceHandlerSupport {
         
         registerBeanDefinitionParser("complex-property-field",
                 new ComplexPropertyFieldDefinitionParser());
+        
+        registerBeanDefinitionParser("identity-converter", 
+             new DefaultConstructorBeanDefinitionParser(IdentityConverter.class));
+        registerBeanDefinitionParser("first-element-converter",
+                new DefaultConstructorBeanDefinitionParser(
+                        FirstElementConverter.class));
+        registerBeanDefinitionParser("collection-to-size-converter",
+                new DefaultConstructorBeanDefinitionParser(
+                        CollectionToSizeConverter.class));
+        registerBeanDefinitionParser("collection-to-list-converter", 
+                new ConverterConstructorBeanDefinitionParser(
+                        CollectionToListConverter.class));
+        registerBeanDefinitionParser("collection-to-set-converter",
+                new ConverterConstructorBeanDefinitionParser(
+                        CollectionToSetConverter.class));
+        registerBeanDefinitionParser("composite-converter",
+                new AbstractSimpleBeanDefinitionParser() {
+            @Override
+            protected Class<?> getBeanClass(final Element element) {
+                return CompositeConverter.class;
+            }
+            @Override
+            protected void doParse(final Element element,
+                    final ParserContext parserContext,
+                    final BeanDefinitionBuilder builder) {
+                final List<?> l = parserContext.getDelegate().parseListElement(
+                        element, builder.getBeanDefinition());
+                builder.addConstructorArgValue(l.get(0));
+                builder.addConstructorArgValue(l.get(1));
+            }
+        });
+        registerBeanDefinitionParser("property-extractor-converter", 
+                new AbstractSimpleBeanDefinitionParser() {
+            @Override
+            protected Class<?> getBeanClass(final Element element) {
+                return PropertyExtractorConverter.class;
+            }
+            @Override
+            protected void doParse(final Element element,
+                    final ParserContext parserContext,
+                    final BeanDefinitionBuilder builder) {
+                builder.addConstructorArgValue(element.getAttribute("property"));
+            }
+        });
     }
+}
 
+/** default contructor {@link BeanDefinitionParser} */
+class DefaultConstructorBeanDefinitionParser 
+  extends AbstractSimpleBeanDefinitionParser {
+    private final Class<?> clazz;
+
+    /** Creates the DefaultConstructorBeanDefinitionParser. */
+    public DefaultConstructorBeanDefinitionParser(final Class<?> clazz) {
+        Validate.notNull(clazz);
+        
+        this.clazz = clazz;
+    }
+    
+    @Override
+    protected Class<?> getBeanClass(final Element element) {
+        return clazz;
+    }
+} 
+
+/** default contructor {@link BeanDefinitionParser} */
+class ConverterConstructorBeanDefinitionParser 
+  extends AbstractSimpleBeanDefinitionParser {
+    private final Class<?> clazz;
+
+    /** Creates the DefaultConstructorBeanDefinitionParser. */
+    public ConverterConstructorBeanDefinitionParser(final Class<?> clazz) {
+        Validate.notNull(clazz);
+        
+        this.clazz = clazz;
+    }
+    
+    @Override
+    protected Class<?> getBeanClass(final Element element) {
+        return clazz;
+    }
+    
+    @Override
+    protected void doParse(final Element element, final ParserContext parserContext,
+            final BeanDefinitionBuilder builder) {
+        final String ref = element.getAttribute("element-converter-ref");
+        if(StringUtils.isEmpty(ref)) {
+            final List<?> l = parserContext.getDelegate().parseListElement(
+                    element, builder.getBeanDefinition());
+            if(l.size() != 1) {
+                throw new IllegalStateException("Se esperaba un solo converter."
+                        + " Se especificaron " + l.size());
+            }
+            builder.addConstructorArgValue(l.iterator().next());
+        } else {
+            builder.addConstructorArgReference(ref);
+        }
+    }
 }

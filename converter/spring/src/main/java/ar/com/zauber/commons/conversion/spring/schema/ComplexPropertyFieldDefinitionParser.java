@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.conversion.spring.schema;
 
+import java.util.List;
+
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSimpleBeanDefinitionParser;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
@@ -47,8 +49,15 @@ public class ComplexPropertyFieldDefinitionParser extends
             final ParserContext parserContext,
             final BeanDefinitionBuilder bean) {
 
+        final List<?> l = parserContext.getDelegate().parseListElement(
+                element, bean.getBeanDefinition());
+        
         bean.addConstructorArgValue(element.getAttribute("target"));
-        bean.addConstructorArgReference(element.getAttribute("converter-ref"));
+        if(element.hasAttribute("converter-ref")) {
+            bean.addConstructorArgReference(element.getAttribute("converter-ref"));
+        } else if(l.size() == 1) {
+            bean.addConstructorArgValue(l.iterator().next());    
+        }
     
     }
 }

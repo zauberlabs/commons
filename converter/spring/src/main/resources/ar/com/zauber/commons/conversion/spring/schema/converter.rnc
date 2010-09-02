@@ -14,13 +14,65 @@ start = element configurable-converter {
     element simple-property-field {
         attribute target { xsd:string },
         attribute source { xsd:string }?,
-        attribute converter-ref { xsd:string }?
+        attribute converter-ref {xsd:string}?,
+        converter?
     }*,
     
     ## Field to be converted from possibly many fields from the source object's properties.
     element complex-property-field {
         attribute target { xsd:string },
-        attribute converter-ref { xsd:string }
+        attribute converter-ref {xsd:string}?,
+        converter?
     }*
 }
 
+converter = identity-converter | first-element-converter | collection-to-list-converter | 
+             collection-to-set-converter| collection-to-size-converter |
+             composite-converter
+
+identity-converter = element identity-converter   {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+}
+
+first-element-converter = element first-element-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+}
+
+collection-to-list-converter = element collection-to-list-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    (attribute element-converter-ref {xsd:string}?| converter?)
+}
+
+collection-to-set-converter = element collection-to-set-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    (attribute element-converter-ref {xsd:string}?| converter?)
+}
+
+## Converter que convierte una Collectionen su tamaño
+collection-to-size-converter = element collection-to-size-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    (attribute element-converter-ref {xsd:string}?| converter?)
+}
+
+## Composes two conversions, based on two internal converters. It is constructed
+## with a boolean value that tells whether or not to propagate null
+## values in the conversion. If set to true, a null
+## result from the first conversion will be used as parameter for the second.
+##  Otherwise, null is returned directly.
+composite-converter = element composite-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    converter, converter
+} 
+
+## Extracts a property value from an object
+property-extractor-converter = element property-extractor-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    attribute property {xsd:string}
+} 

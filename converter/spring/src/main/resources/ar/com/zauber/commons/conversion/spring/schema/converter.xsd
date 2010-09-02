@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (c) 2005-2010 Zauber S.A. <http://www.zauber.com.ar/>
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0" xmlns:conversion="http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0">
   <xs:element name="configurable-converter">
     <xs:complexType>
@@ -40,6 +23,9 @@
       <xs:documentation>Field to be converted from one of the source object's properties. </xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="conversion:converter"/>
+      </xs:sequence>
       <xs:attribute name="target" use="required" type="xs:string"/>
       <xs:attribute name="source" type="xs:string"/>
       <xs:attribute name="converter-ref" type="xs:string"/>
@@ -50,8 +36,92 @@
       <xs:documentation>Field to be converted from possibly many fields from the source object's properties.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="conversion:converter"/>
+      </xs:sequence>
       <xs:attribute name="target" use="required" type="xs:string"/>
-      <xs:attribute name="converter-ref" use="required" type="xs:string"/>
+      <xs:attribute name="converter-ref" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="converter" abstract="true"/>
+  <xs:element name="identity-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="first-element-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="collection-to-list-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="conversion:converter"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="element-converter-ref" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="collection-to-set-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="conversion:converter"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="element-converter-ref" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="collection-to-size-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="conversion:converter"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="element-converter-ref" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="composite-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="conversion:converter"/>
+        <xs:element ref="conversion:converter"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="property-extractor-converter">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="property" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>
