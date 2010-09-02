@@ -26,7 +26,9 @@
         <identity-converter  />
     </composite-converter>
     <expression-extractor-converter id="foo" expression="toString()"/>
-        
+    <date-to-long-converter id="datetolong"/>
+    <long-to-date-converter id="longtodate"/>
+            
     <property-extractor-converter id="propConverter" property="foo" />    
     <beans:bean id="plusOneConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.PlusOneConverter" />
     <beans:bean id="classNameConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.ClassNameConverter" />

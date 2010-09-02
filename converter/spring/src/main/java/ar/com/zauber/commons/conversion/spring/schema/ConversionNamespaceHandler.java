@@ -33,9 +33,11 @@ import ar.com.zauber.commons.conversion.util.CollectionToListConverter;
 import ar.com.zauber.commons.conversion.util.CollectionToSetConverter;
 import ar.com.zauber.commons.conversion.util.CollectionToSizeConverter;
 import ar.com.zauber.commons.conversion.util.CompositeConverter;
+import ar.com.zauber.commons.conversion.util.DateToLongConverter;
 import ar.com.zauber.commons.conversion.util.ExpressionExtractorConverter;
 import ar.com.zauber.commons.conversion.util.FirstElementConverter;
 import ar.com.zauber.commons.conversion.util.IdentityConverter;
+import ar.com.zauber.commons.conversion.util.LongToDateConverter;
 import ar.com.zauber.commons.conversion.util.PropertyExtractorConverter;
 
 /**
@@ -66,12 +68,21 @@ public class ConversionNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("collection-to-size-converter",
                 new DefaultConstructorBeanDefinitionParser(
                         CollectionToSizeConverter.class));
+        registerBeanDefinitionParser("date-to-long-converter",
+                new DefaultConstructorBeanDefinitionParser(
+                        DateToLongConverter.class));
+        registerBeanDefinitionParser("long-to-date-converter",
+                new DefaultConstructorBeanDefinitionParser(
+                        LongToDateConverter.class));
+        
         registerBeanDefinitionParser("collection-to-list-converter", 
                 new ConverterConstructorBeanDefinitionParser(
                         CollectionToListConverter.class));
         registerBeanDefinitionParser("collection-to-set-converter",
                 new ConverterConstructorBeanDefinitionParser(
                         CollectionToSetConverter.class));
+        
+        
         registerBeanDefinitionParser("composite-converter",
                 new AbstractSimpleBeanDefinitionParser() {
             @Override

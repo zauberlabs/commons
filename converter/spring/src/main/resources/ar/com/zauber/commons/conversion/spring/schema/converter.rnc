@@ -7,7 +7,9 @@ default namespace = "http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0"
 converter =  configurable-converter |identity-converter | first-element-converter |
              collection-to-list-converter | collection-to-set-converter | 
              collection-to-size-converter | composite-converter |
-             property-extractor-converter | expression-extractor-converter
+             property-extractor-converter | expression-extractor-converter |
+             date-to-long-converter | long-to-date-converter
+             
 
 configurable-converter = element configurable-converter {
     ## Bean's id.
@@ -33,7 +35,6 @@ configurable-converter = element configurable-converter {
         converter?
     }*
 }
-
 
 identity-converter = element identity-converter   {
     ## bean id (optional, except on top level)
@@ -87,3 +88,14 @@ expression-extractor-converter = element expression-extractor-converter {
     attribute id { xsd:ID}?,
     attribute expression {xsd:string}
 } 
+
+
+date-to-long-converter  = element date-to-long-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+}
+
+long-to-date-converter = element long-to-date-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?
+}

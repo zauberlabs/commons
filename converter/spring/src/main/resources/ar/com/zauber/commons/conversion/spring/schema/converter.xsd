@@ -150,4 +150,22 @@
       <xs:attribute name="expression" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
+  <xs:element name="date-to-long-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="long-to-date-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
