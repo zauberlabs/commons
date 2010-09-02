@@ -20,12 +20,14 @@ import org.apache.commons.lang.UnhandledException;
 import ar.com.zauber.commons.conversion.config.ConversionConfig;
 
 /**
- * <code>Converter</code> that can be configured using a <code>ConversionConfig</code>
- * describing which properties of the target class will be populated and how
+ * <code>Converter</code> that can be configured using a 
+ * <code>ConversionConfig</code> describing which properties of the target class 
+ * will be populated and how
  * to obtain their values from the source object.
  * It is constructed using a class that must have a default empty constructor. 
  * 
- * 
+ * @param <S> source type
+ * @param <T> target type
  * @author Juan Edi
  * @since Nov 16, 2009
  */
@@ -42,17 +44,17 @@ public class ConfigurableJavaBeanConverter<S, T> extends
      * @param clazz
      *              The class of the object to be returned.
      */
-    public ConfigurableJavaBeanConverter(Class<T> clazz) {
+    public ConfigurableJavaBeanConverter(final Class<T> clazz) {
         super(new ConversionConfig<S>());
         this.clazz = clazz;
     }
 
 
-    /** @see Converter#convert(java.lang.Object, ConversionContext) */
-    public T convert(S source, ConversionContext ctx) {
+    /** @see Converter#convert(Object, ConversionContext) */
+    public final T convert(final S source, final ConversionContext ctx) {
         try {
             T targetInstance = this.clazz.newInstance();
-            this.map(source, targetInstance, ctx);
+            map(source, targetInstance, ctx);
             return targetInstance;
         } catch (InstantiationException e) {
             throw new UnhandledException(e);
@@ -62,14 +64,7 @@ public class ConfigurableJavaBeanConverter<S, T> extends
     }
 
 
-    /**
-     * Returns the clazz.
-     * 
-     * @return <code>Class<T></code> with the clazz.
-     */
-    public Class<T> getClazz() {
+    public final Class<T> getClazz() {
         return clazz;
     }
-
-    
 }
