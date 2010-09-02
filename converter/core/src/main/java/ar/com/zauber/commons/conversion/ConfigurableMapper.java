@@ -42,8 +42,6 @@ public class ConfigurableMapper<S, T> implements Mapper<S, T> {
     private ConversionConfig<S> config;
 
     /**
-     * Creates the Mapper.
-     * 
      * @param config
      */
     public ConfigurableMapper(final ConversionConfig<S> config) {
@@ -52,11 +50,6 @@ public class ConfigurableMapper<S, T> implements Mapper<S, T> {
         this.config = config;
     }
 
-    /**
-     * Returns the config.
-     * 
-     * @return <code>ConversionConfig</code> with the config.
-     */
     public final ConversionConfig<S> getConfig() {
         return config;
     }
@@ -67,15 +60,14 @@ public class ConfigurableMapper<S, T> implements Mapper<S, T> {
         Validate.notNull(source);
         Validate.notNull(target);
 
-        BeanWrapper wTarget = new BeanWrapperImpl(target);
+        final BeanWrapper wTarget = new BeanWrapperImpl(target);
         
-        for (ConversionField<? super S, ?> conversionField : config
+        for (final ConversionField<? super S, ?> conversionField : config
                 .getFields()) {
-            Object value = conversionField.getConverter().convert(source,
+            final Object value = conversionField.getConverter().convert(source,
                     ctx);
-            String targetName = conversionField.getTargetFieldName();
+            final  String targetName = conversionField.getTargetFieldName();
             wTarget.setPropertyValue(targetName, value);
         }
     }
-
 }
