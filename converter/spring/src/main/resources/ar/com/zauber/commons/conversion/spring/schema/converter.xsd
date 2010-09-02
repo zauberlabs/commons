@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0" xmlns:conversion="http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0">
-  <xs:element name="configurable-converter">
+  <xs:element name="converter" abstract="true"/>
+  <xs:element name="configurable-converter" substitutionGroup="conversion:converter">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="conversion:simple-property-field"/>
@@ -26,6 +27,14 @@
       <xs:sequence>
         <xs:element minOccurs="0" ref="conversion:converter"/>
       </xs:sequence>
+      <xs:attribute name="setter">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="setter"/>
+            <xs:enumeration value="collection-add"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
       <xs:attribute name="target" use="required" type="xs:string"/>
       <xs:attribute name="source" type="xs:string"/>
       <xs:attribute name="converter-ref" type="xs:string"/>
@@ -39,11 +48,18 @@
       <xs:sequence>
         <xs:element minOccurs="0" ref="conversion:converter"/>
       </xs:sequence>
+      <xs:attribute name="setter">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="setter"/>
+            <xs:enumeration value="collection-add"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
       <xs:attribute name="target" use="required" type="xs:string"/>
       <xs:attribute name="converter-ref" type="xs:string"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="converter" abstract="true"/>
   <xs:element name="identity-converter" substitutionGroup="conversion:converter">
     <xs:complexType>
       <xs:attribute name="id" type="xs:ID">
@@ -114,7 +130,7 @@
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  <xs:element name="property-extractor-converter">
+  <xs:element name="property-extractor-converter" substitutionGroup="conversion:converter">
     <xs:complexType>
       <xs:attribute name="id" type="xs:ID">
         <xs:annotation>
@@ -122,6 +138,16 @@
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="property" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="expression-extractor-converter" substitutionGroup="conversion:converter">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>bean id (optional, except on top level)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="expression" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

@@ -60,14 +60,16 @@ public class ConfigurableMapper<S, T> implements Mapper<S, T> {
         Validate.notNull(source);
         Validate.notNull(target);
 
-        final BeanWrapper wTarget = new BeanWrapperImpl(target);
+        final BeanWrapper bean = new BeanWrapperImpl(target);
         
         for (final ConversionField<? super S, ?> conversionField : config
                 .getFields()) {
             final Object value = conversionField.getConverter().convert(source,
                     ctx);
             final  String targetName = conversionField.getTargetFieldName();
-            wTarget.setPropertyValue(targetName, value);
+            conversionField.getSetterStrategy().setProperty(bean, targetName, 
+                    value);
         }
     }
 }
+

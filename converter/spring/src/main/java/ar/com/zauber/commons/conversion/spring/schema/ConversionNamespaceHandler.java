@@ -25,6 +25,7 @@ import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.NamespaceHandler;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 import org.springframework.beans.factory.xml.ParserContext;
+import org.springframework.expression.Expression;
 import org.w3c.dom.Element;
 
 import ar.com.zauber.commons.conversion.Converter;
@@ -32,6 +33,7 @@ import ar.com.zauber.commons.conversion.util.CollectionToListConverter;
 import ar.com.zauber.commons.conversion.util.CollectionToSetConverter;
 import ar.com.zauber.commons.conversion.util.CollectionToSizeConverter;
 import ar.com.zauber.commons.conversion.util.CompositeConverter;
+import ar.com.zauber.commons.conversion.util.ExpressionExtractorConverter;
 import ar.com.zauber.commons.conversion.util.FirstElementConverter;
 import ar.com.zauber.commons.conversion.util.IdentityConverter;
 import ar.com.zauber.commons.conversion.util.PropertyExtractorConverter;
@@ -97,6 +99,19 @@ public class ConversionNamespaceHandler extends NamespaceHandlerSupport {
                     final ParserContext parserContext,
                     final BeanDefinitionBuilder builder) {
                 builder.addConstructorArgValue(element.getAttribute("property"));
+            }
+        });
+        registerBeanDefinitionParser("expression-extractor-converter", 
+                new AbstractSimpleBeanDefinitionParser() {
+            @Override
+            protected Class<?> getBeanClass(final Element element) {
+                return ExpressionExtractorConverter.class;
+            }
+            @Override
+            protected void doParse(final Element element,
+                    final ParserContext parserContext,
+                    final BeanDefinitionBuilder builder) {
+                builder.addConstructorArgValue(element.getAttribute("expression"));
             }
         });
     }

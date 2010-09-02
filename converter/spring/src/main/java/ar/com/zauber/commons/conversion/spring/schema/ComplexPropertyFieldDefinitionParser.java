@@ -58,6 +58,6 @@ public class ComplexPropertyFieldDefinitionParser extends
         } else if(l.size() == 1) {
             bean.addConstructorArgValue(l.iterator().next());    
         }
-    
+        SimplePropertyFieldDefinitionParser.configureSetter(bean, element);    
     }
 }

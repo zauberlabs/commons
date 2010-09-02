@@ -6,7 +6,7 @@
                         http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0 http://labs.zauber.com.ar/ns/commons/conversion/0.0.xsd">
 
     <configurable-converter id="configurableConverter" target-class="ar.com.zauber.commons.conversion.spring.schema.testClasses.B">
-        <simple-property-field  target="integerField"/>
+        <simple-property-field  target="integerField" setter="setter"/>
         <simple-property-field  target="anotherNameIntegerField" source="integerField" />
         <simple-property-field  target="plusOneIntegerField" source="integerField"  converter-ref="plusOneConverter" />
         <complex-property-field target="otherClassName" converter-ref="classNameConverter"/>
@@ -25,7 +25,8 @@
         <identity-converter  />
         <identity-converter  />
     </composite-converter>
-    
+    <expression-extractor-converter id="foo" expression="toString()"/>
+        
     <property-extractor-converter id="propConverter" property="foo" />    
     <beans:bean id="plusOneConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.PlusOneConverter" />
     <beans:bean id="classNameConverter" class="ar.com.zauber.commons.conversion.spring.schema.testClasses.ClassNameConverter" />

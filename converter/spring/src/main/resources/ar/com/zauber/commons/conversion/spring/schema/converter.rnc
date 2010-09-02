@@ -3,7 +3,13 @@ datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
 default namespace = "http://labs.zauber.com.ar/ns/2009/11/commons/conversion/0"
 
 
-start = element configurable-converter {
+
+converter =  configurable-converter |identity-converter | first-element-converter |
+             collection-to-list-converter | collection-to-set-converter | 
+             collection-to-size-converter | composite-converter |
+             property-extractor-converter | expression-extractor-converter
+
+configurable-converter = element configurable-converter {
     ## Bean's id.
     attribute id {xsd:string }?,
     
@@ -12,6 +18,7 @@ start = element configurable-converter {
     
     ## Field to be converted from one of the source object's properties. 
     element simple-property-field {
+        attribute setter {'setter' | 'collection-add'}?,
         attribute target { xsd:string },
         attribute source { xsd:string }?,
         attribute converter-ref {xsd:string}?,
@@ -20,15 +27,13 @@ start = element configurable-converter {
     
     ## Field to be converted from possibly many fields from the source object's properties.
     element complex-property-field {
+        attribute setter {'setter' | 'collection-add'}?,
         attribute target { xsd:string },
         attribute converter-ref {xsd:string}?,
         converter?
     }*
 }
 
-converter = identity-converter | first-element-converter | collection-to-list-converter | 
-             collection-to-set-converter| collection-to-size-converter |
-             composite-converter
 
 identity-converter = element identity-converter   {
     ## bean id (optional, except on top level)
@@ -75,4 +80,10 @@ property-extractor-converter = element property-extractor-converter {
     ## bean id (optional, except on top level)
     attribute id { xsd:ID}?,
     attribute property {xsd:string}
+} 
+
+expression-extractor-converter = element expression-extractor-converter {
+    ## bean id (optional, except on top level)
+    attribute id { xsd:ID}?,
+    attribute expression {xsd:string}
 } 

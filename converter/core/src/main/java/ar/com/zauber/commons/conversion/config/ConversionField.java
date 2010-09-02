@@ -18,6 +18,8 @@ package ar.com.zauber.commons.conversion.config;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.conversion.Converter;
+import ar.com.zauber.commons.conversion.FieldSetterStrategy;
+import ar.com.zauber.commons.conversion.setters.FieldSetterStrategies;
 
 
 /**
@@ -32,45 +34,54 @@ import ar.com.zauber.commons.conversion.Converter;
  * @since Nov 4, 2009
  */
 public class ConversionField<S, T> {
-
     private final String targetName;
     private final Converter<S, T> converter;
-
-    /**
-     * Creates the SimpleConversionField.
-     */
+    private final FieldSetterStrategy fieldStrategy;
+    
+    /** Creates the SimpleConversionField. */
     public ConversionField(final String targetName,
             final Converter<S, T> converter) {
+        this(targetName, converter, FieldSetterStrategies.FIELD_SETTER_STRATEGY);
+    }
+    
+    /** Creates the SimpleConversionField. */
+    public ConversionField(final String targetName,
+            final Converter<S, T> converter,
+            final FieldSetterStrategy fieldStrategy) {
         Validate.notNull(targetName);
         Validate.notNull(converter);
+        Validate.notNull(fieldStrategy);
+        
         this.targetName = targetName;
         this.converter = converter;
-
+        this.fieldStrategy = fieldStrategy;
     }
 
-    /**
-     * Internal converter used to get the final property value. 
-     */
+    /** Internal converter used to get the final property value. */
     public final Converter<S, T> getConverter() {
         return this.converter;
     }
 
-    /**
-     * Target's field name to be populated in the conversion.  
-     */
+    /** Target's field name to be populated in the conversion. */
     public final String getTargetFieldName() {
         return this.targetName;
     }
 
-    /** @see java.lang.Object#toString() */
     @Override
     public final String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("[Field: ");
-        buffer.append(this.targetName);
+        buffer.append(targetName);
         buffer.append(" with: ");
-        buffer.append(this.converter);
+        buffer.append(converter);
+        buffer.append(" using strategy: ");
+        buffer.append(fieldStrategy);
         buffer.append(" ]");
         return buffer.toString();
+    }
+
+    /** estrategia de seteos */
+    public final FieldSetterStrategy getSetterStrategy() {
+        return fieldStrategy;
     }
 }

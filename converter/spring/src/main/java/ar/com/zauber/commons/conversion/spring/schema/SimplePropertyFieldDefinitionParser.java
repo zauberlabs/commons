@@ -17,7 +17,6 @@ package ar.com.zauber.commons.conversion.spring.schema;
 
 import java.util.List;
 
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSimpleBeanDefinitionParser;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
@@ -25,9 +24,10 @@ import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-
 import ar.com.zauber.commons.conversion.Converter;
 import ar.com.zauber.commons.conversion.config.ConversionField;
+import ar.com.zauber.commons.conversion.setters.FieldSetSetterStrategy;
+import ar.com.zauber.commons.conversion.setters.FieldSetterStrategies;
 import ar.com.zauber.commons.conversion.util.IdentityConverter;
 import ar.com.zauber.commons.conversion.util.SinglePropertyConverter;
 
@@ -54,7 +54,7 @@ public class SimplePropertyFieldDefinitionParser extends
             final ParserContext parserContext,
             final BeanDefinitionBuilder bean) {
 
-        String targetPropertyName =  element.getAttribute("target");
+        final String targetPropertyName =  element.getAttribute("target");
         String sourcePropertyName;
         Converter converter;
 
@@ -85,6 +85,23 @@ public class SimplePropertyFieldDefinitionParser extends
             bean.addConstructorArgValue(
                     new SinglePropertyConverter(sourcePropertyName, converter));
         }
+        configureSetter(bean, element);
     }
     
+    /** agrega el constructor del {@link FieldSetSetterStrategy} */
+    static void configureSetter(final BeanDefinitionBuilder bean, 
+            final Element element) {
+        if(element.hasAttribute("setter")) {
+            final String s = element.getAttribute("setter");
+            if(s.equals("setter")) {
+                bean.addConstructorArgValue(
+                        FieldSetterStrategies.FIELD_SETTER_STRATEGY);
+            } else if (s.equals("collection-add")) {
+                bean.addConstructorArgValue(
+                        FieldSetterStrategies.COLLECTION_ADD_STRATEGY);
+            } else {
+                throw new IllegalStateException("Unknown setter named " + s);
+            }
+        }    
+    }
 }
