@@ -88,7 +88,8 @@ public class ExpressionMapUriFactory implements UriFactory {
     public final String buildUri(final String uriKey, final Object... expArgs) {
         Validate.notNull(uriKey);
         Validate.noNullElements(expArgs);
-        Validate.isTrue(this.uriMap.containsKey(uriKey));
+        Validate.isTrue(uriMap.containsKey(uriKey), "No key named `" + uriKey
+                + "'");
         
         final StandardEvaluationContext ctx = new StandardEvaluationContext(expArgs);
         ctx.registerFunction("encode", encodeMethod);
