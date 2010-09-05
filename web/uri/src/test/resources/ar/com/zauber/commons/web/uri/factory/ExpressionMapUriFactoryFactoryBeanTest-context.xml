@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean class="ar.com.zauber.commons.web.uri.factory.AnnotationExpressionMapUriFactoryFactoryBean">
+        <property name="packages">
+            <list>
+                <value>ar.com.zauber.commons.web.uri.factory</value>
+            </list>
+        </property>
+        <property name="extraUris">
+            <map>
+                <entry key="root" value="/"/>
+            </map>
+        </property>
+        <property name="expressionTemplateFactory">
+            <bean class="ar.com.zauber.commons.web.uri.factory.ExpressionMapUriFactory.UriTemplateExpressionFactory"/>
+        </property>
+    </bean>
+</beans>
