@@ -15,6 +15,7 @@
  */
 package ar.com.zauber.commons.web.uri.factory;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -35,6 +36,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 public class ExpressionMapUriFactoryTest {
 
     private ExpressionMapUriFactory expMapUriFactory;
+    private ExpressionMapUriFactory uriTemplateMapUriFactory;
 
     /** set up */
     @Before
@@ -50,6 +52,12 @@ public class ExpressionMapUriFactoryTest {
                 "/hola/que/tal/{#encode(#root[0].propB)}");
         expMapUriFactory = new ExpressionMapUriFactory(
                 new SpelExpressionParser(), uris);
+        
+        final Map<String, String> turis = new HashMap<String, String>();
+        turis.put("usuario", "/v1/u/{username}/empresas/");
+        turis.put("foo", "bar");
+        uriTemplateMapUriFactory = new ExpressionMapUriFactory(turis, 
+                ExpressionMapUriFactory.Type.URITEMPLATE);
     }
 
     /** test */
@@ -83,6 +91,26 @@ public class ExpressionMapUriFactoryTest {
         assertEquals("/hola/que/tal/hola%20como%20va%3F%3A%20bien%2Bvos%3F", uri);
     }
 
+    /** Test de ..*/
+    @Test
+    public final void uriTemplateWithParam() {
+        assertEquals("/v1/u/juan/empresas/", 
+                uriTemplateMapUriFactory.buildUri("usuario", "juan"));
+    }
+    
+    /** Test de ..*/
+    @Test(expected = IllegalArgumentException.class)
+    public final void uriTemplateWithParamMissing() {
+        assertEquals("/v1/u/juan/empresas/", 
+                uriTemplateMapUriFactory.buildUri("usuario"));
+    }
+    
+    /** Test de ..*/
+    @Test
+    public final void uriTemplateNoParam() {
+        assertEquals("bar", uriTemplateMapUriFactory.buildUri("foo"));
+    }
+    
     /** Test Stub */
     private static class Stub {
         private String propA = "hola";
