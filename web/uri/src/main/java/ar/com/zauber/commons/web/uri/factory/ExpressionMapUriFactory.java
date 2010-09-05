@@ -60,6 +60,7 @@ import org.springframework.web.util.UriTemplate;
  * para encoding utf-8.
  * 
  * @author Mariano Cortesi
+ * @author Juan F. Codagnone (uri template support)
  * @since Jan 29, 2010
  */
 public class ExpressionMapUriFactory implements UriFactory {
@@ -84,6 +85,11 @@ public class ExpressionMapUriFactory implements UriFactory {
         String resolveUri(Object ...params);
     }
     
+    /** crea expressiones en base a strings */
+    public static interface ExpressionTemplateFactory {
+        /** crea expresiones */
+        ExpressionTemplate create(String expression);
+    }
     
     /** @see Expression */
     public static class SpringExpressionTemplate implements ExpressionTemplate {
@@ -108,6 +114,25 @@ public class ExpressionMapUriFactory implements UriFactory {
         }
     }
     
+    /** create {@link ExpressionTemplateFactory} */
+    public static  class SpringExpressionTemplateFactory 
+              implements ExpressionTemplateFactory {
+        private final ExpressionParser parser;
+        private final TemplateParserContext ctx = 
+            new TemplateParserContext("{", "}");
+        /** */
+        public SpringExpressionTemplateFactory(final ExpressionParser parser) {
+            Validate.notNull(parser);
+            
+            this.parser = parser;
+            
+        }
+        /** @see ExpressionTemplateFactory#create(String) */
+        public final ExpressionTemplate create(final String expr) {
+            return new SpringExpressionTemplate(parser.parseExpression(expr, ctx));
+        }
+    }
+    
     /** Utiliza {@link UriTemplate} para hidratar las uris */
     public static class UriTemplateExpression implements ExpressionTemplate {
         private final UriTemplate uriTemplate;
@@ -128,9 +153,16 @@ public class ExpressionMapUriFactory implements UriFactory {
         public final String resolveUri(final Object... params) {
             return uriTemplate.expand(params).toString();
         }
-        
     }
-    
+
+    /** crea {@link UriTemplateExpression} */
+    public static class UriTemplateExpressionFactory 
+             implements ExpressionTemplateFactory {
+        /** @see ExpressionTemplateFactory#create(String) */
+        public final ExpressionTemplate create(final String expression) {
+            return new UriTemplateExpression(new UriTemplate(expression));
+        }
+    }
     /** Describe una expresión */
     public static class UriExpression {
         /** expresion */
@@ -182,7 +214,7 @@ public class ExpressionMapUriFactory implements UriFactory {
     /** Construye un UriFactor utilizando Spring expression Language */
     public ExpressionMapUriFactory(final ExpressionParser parser, 
             final Map<String, String> uris) {
-        this(createSpelUriExpression(parser, uris));
+        this(createUriExpression(new SpringExpressionTemplateFactory(parser), uris));
     }
     
     /** Construye un UriFactor */
@@ -194,38 +226,23 @@ public class ExpressionMapUriFactory implements UriFactory {
     /** construye en base a string {@link UriExpression} */
     private static Map<String, UriExpression> createUriExpression(
             final Map<String, String> uris, final Type type) {
-        return type == Type.SPEL 
-              ? createSpelUriExpression(new SpelExpressionParser(), uris)
-              : createUriTemplateUriExpression(uris);
-                
-        
+        return createUriExpression(type == Type.SPEL 
+                ? new SpringExpressionTemplateFactory(new SpelExpressionParser())
+                : new UriTemplateExpressionFactory(), uris);
     }
+    
     /** create expression map */
-    private static Map<String, UriExpression> createSpelUriExpression(
-            final ExpressionParser parser, final Map<String, String> uris) {
-        final ParserContext parserContext = new TemplateParserContext("{", "}");
-        
+    private static Map<String, UriExpression> createUriExpression(
+            final ExpressionTemplateFactory factory, 
+            final Map<String, String> uris) {
         final Map<String, UriExpression> map = new HashMap<String, UriExpression>();
         for (final  Map.Entry<String, String> uriConf : uris.entrySet()) {
-            map.put(uriConf.getKey(), 
-                new UriExpression(new SpringExpressionTemplate(
-                        parser.parseExpression(uriConf.getValue(), parserContext))));
+            map.put(uriConf.getKey(),
+                new UriExpression(factory.create(uriConf.getValue())));
         }
         return map;
     }
     
-    /** create expression map */
-    private static Map<String, UriExpression> createUriTemplateUriExpression(
-            final Map<String, String> uris) {
-        final Map<String, UriExpression> map = new HashMap<String, UriExpression>();
-        
-        for (final  Map.Entry<String, String> uriConf : uris.entrySet()) {
-            map.put(uriConf.getKey(),  new UriExpression(new UriTemplateExpression(
-                    new UriTemplate(uriConf.getValue()))));
-        }
-        return map;
-    }
-
     /****************** METODO DE SERVICIO ***********************************/
     
     /** @see UriFactory#buildUri(String, Object) */
