@@ -68,7 +68,7 @@ public class UriJspFunctionsTest extends AbstractWebUriMockitoTest {
     
     /** Test que prueba si el pedido es en el mismo segmento ..*/
     @Test
-    public final void buildUriWithContext(){
+    public final void buildUriWithContext() {
         setException(true);
         PageContext ctx = getPc();
         HttpServletRequest req = getReq();

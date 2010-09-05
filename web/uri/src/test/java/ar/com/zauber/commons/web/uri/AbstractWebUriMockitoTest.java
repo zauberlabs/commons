@@ -23,7 +23,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @since Jul 8, 2010
  */
 public abstract class AbstractWebUriMockitoTest 
-    extends AbstractJUnit4SpringContextTests{
+    extends AbstractJUnit4SpringContextTests {
 
     /** contexto de la pagina mockeado para testear tags */
     private PageContext pc;

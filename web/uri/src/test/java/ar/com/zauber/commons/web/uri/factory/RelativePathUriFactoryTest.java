@@ -55,12 +55,13 @@ public class RelativePathUriFactoryTest  {
     
     /** Test que revisa si el request esta dado en el mismo segmento */
     @Test
-    public final void testRequestOnContext(){
+    public final void testRequestOnContext() {
         request.setRequestURI("/search?q='hola'");
         Assert.assertEquals("./foo", uriFactory.buildUri("foo", request));
         Assert.assertEquals("./foo", uriFactory.buildUri("/foo", request));
 
         request.setRequestURI("/linea/search?q='hola'");
-        Assert.assertEquals("../linea/foo", uriFactory.buildUri("/linea/foo", request));        
+        Assert.assertEquals("../linea/foo", uriFactory.buildUri(
+                "/linea/foo", request));        
     }
 }
