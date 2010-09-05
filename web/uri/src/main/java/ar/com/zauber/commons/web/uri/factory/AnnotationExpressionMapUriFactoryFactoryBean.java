@@ -86,10 +86,12 @@ public class AnnotationExpressionMapUriFactoryFactoryBean
                 for(final MethodMetadata meta : metas) {
                     final Map<String, Object> attrs = 
                         meta.getAnnotationAttributes(TYPE);
+                    final String description = (String) attrs.get("description");
                     uris.put(attrs.get("name").toString(),
                             new ExpressionMapUriFactory.UriExpression(
                                 expressionTemplateFactory.create(
-                                        attrs.get("value").toString())));
+                                        attrs.get("value").toString()),
+                                        description));
                 }
             }
         }
