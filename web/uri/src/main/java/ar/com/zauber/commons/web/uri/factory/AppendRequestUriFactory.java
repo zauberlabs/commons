@@ -11,7 +11,8 @@ import org.apache.commons.lang.Validate;
 
 /**
  * {@link UriFactory} que agrega como ultimo parametro el request si es que no
- * está configurado. Util para usar en conjunto con el {@link RelativePathUriFactory}. 
+ * está configurado. Util para usar en conjunto con el 
+ * {@link RelativePathUriFactory}. 
  * 
  * @author Juan F. Codagnone
  * @since Sep 4, 2010
@@ -33,7 +34,10 @@ public class AppendRequestUriFactory implements UriFactory {
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
         final Object [] params;
-        if(expArgs[expArgs.length - 1] instanceof ServletRequest) {
+        if(expArgs.length == 0) {
+            params = new Object[1];
+            params[0] = requestProvider.getRequest();
+        } else if(expArgs[expArgs.length - 1] instanceof ServletRequest) {
             params = expArgs;
         } else {
             params = Arrays.copyOf(expArgs, expArgs.length + 1);
