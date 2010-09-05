@@ -42,6 +42,5 @@ public abstract class AssetModel {
     }
 
     /** Transforms the {@link AssetModel} into the proper HTML include tag */
-    public abstract String toHtml(UriFactory uriFactory, 
-            final ServletRequest request);
+    public abstract String toHtml(UriFactory uriFactory);
 }

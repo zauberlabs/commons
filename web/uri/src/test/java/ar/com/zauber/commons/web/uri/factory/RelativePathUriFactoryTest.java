@@ -15,26 +15,23 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @since Jul 7, 2010
  */
 public class RelativePathUriFactoryTest  {
-    
-    
     private RelativePathUriFactory uriFactory;
     private MockHttpServletRequest request;
     
     
-    /**
-     * 
-     */
+    /** */
     @Before
     public final void initialize() {
         request = new MockHttpServletRequest();
-        uriFactory = new RelativePathUriFactory(new IdentityUriFactory());
-        
+        uriFactory = new RelativePathUriFactory(new IdentityUriFactory(),
+                "utf-8", new MutableRequestProvider(request));
     }
     
     /** Test de inicializacion */
-    @Test
+    @Before
     public final void setUp() throws Exception {
-        new RelativePathUriFactory(new IdentityUriFactory(), "utf-8");
+        new RelativePathUriFactory(new IdentityUriFactory(), "utf-8",
+                new MutableRequestProvider(new MockHttpServletRequest("GET", "/")));
     }
     
     /** Test de construccion de uri */

@@ -57,7 +57,7 @@ public class PrintTag extends AbstractSpringTag {
         final JspWriter out = pageContext.getOut();
         try {
             for(final AssetModel asset : repository.getSet(set)) {
-                out.write(asset.toHtml(uriFactory, pageContext.getRequest()));
+                out.write(asset.toHtml(uriFactory));
             }
         } catch (final IOException e) {
             throw new JspException(e);

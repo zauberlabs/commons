@@ -87,7 +87,7 @@ public final class UriJspFunctions {
             }
         }
 
-        return uriFactory.buildUri(uriKey, ArrayUtils.add(params, request));
+        return uriFactory.buildUri(uriKey, params);
     }
     
 

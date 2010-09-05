@@ -26,26 +26,30 @@ import org.apache.commons.lang.Validate;
 public class RelativePathUriFactory implements UriFactory {
 
     private final UriFactory callback;
-    private String defaultEncoding;
+    private final RequestProvider requestProvider;
+    private final String defaultEncoding;
 
     /** Creates a new {@link RelativePathUriFactory} */
-    public RelativePathUriFactory(final UriFactory callback, final String encoding) {
+    public RelativePathUriFactory(final UriFactory callback, final String encoding,
+            final RequestProvider requestProvider) {
         Validate.notNull(callback);
         Validate.notNull(encoding);
+        Validate.notNull(requestProvider);
         Validate.isTrue(Charset.isSupported(encoding), "Encoding no soportado");
         
         defaultEncoding = encoding;
         this.callback = callback;
+        this.requestProvider = requestProvider;
     }
     
     /** Creates a new {@link RelativePathUriFactory} */
     public RelativePathUriFactory(final UriFactory callback) {
-        this(callback, "utf-8");
+        this(callback, "utf-8", new ContextListenerRequestProvider());
     }
 
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
-        final HttpServletRequest request = getRequest(expArgs);
+        final HttpServletRequest request = requestProvider.getRequest();
         final String ret = generarPath(request);
         String uri = callback.buildUri(uriKey, expArgs);
         if(!uri.startsWith("/")) {
@@ -99,22 +103,4 @@ public class RelativePathUriFactory implements UriFactory {
             throw new UnhandledException(e);
         }
     }
-
-    /**
-     * Obtiene el requeste entre los argumentos de buildUri.
-     * @param expArgs
-     * @return request
-     */
-    private HttpServletRequest getRequest(final Object... expArgs) {
-        HttpServletRequest request = null;
-        if (expArgs.length > 0 
-                && expArgs[expArgs.length - 1] instanceof HttpServletRequest) {
-            request = (HttpServletRequest) expArgs[expArgs.length - 1];
-        } else {
-            throw new IllegalStateException(
-            "Can not reach request. Expected Request as last argument.");
-        }
-        return request;
-    }
-
 }
