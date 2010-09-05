@@ -5,6 +5,8 @@ package ar.com.zauber.commons.web.uri.factory;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.Validate;
+
 /**
  * Implementacion util para tests
  * 
@@ -13,6 +15,18 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class MutableRequestProvider implements RequestProvider {
     private HttpServletRequest request;
+    
+    /** construct */
+    public MutableRequestProvider() {
+        // void
+    }
+    
+    /** construct */
+    public MutableRequestProvider(final HttpServletRequest request) {
+        Validate.notNull(request);
+        
+        this.request = request;
+    }
     
     /** @see RequestProvider#getRequest() */
     public final HttpServletRequest getRequest() {
