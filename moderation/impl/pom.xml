@@ -2,7 +2,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>ar.com.zauber.commons.moderation</groupId>
-    <version>3.36-SNAPSHOT</version>
+    <version>3.36</version>
   </parent>
   <name>Zauber::Commons::Moderation::Implementation</name>
   <modelVersion>4.0.0</modelVersion>

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>commons-web-parent</artifactId>
     <groupId>ar.com.zauber.commons.web</groupId>
-    <version>3.36-SNAPSHOT</version>
+    <version>3.36</version>
   </parent>
   <name>Zauber::Commons::Web::Uri</name>
   <artifactId>commons-web-uri</artifactId>
