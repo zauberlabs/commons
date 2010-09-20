@@ -12,6 +12,7 @@
   <modules>
   	<module>oauth</module>
   	<module>facebook</module>  	
+  	<module>twitter</module>
   	<module>openid</module>  	  	
   </modules>
   
