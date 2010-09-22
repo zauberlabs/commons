@@ -147,6 +147,7 @@ public abstract class AbstractSpringTag extends TagSupport {
      *     - If there is one configured  in the context we use that
      *     - if not we create one and put it in the PageContext.
      */
+    @SuppressWarnings("unchecked")
     protected final <T> T resolve(final Class<T> clazz, final String beanName,
             final String requestBean, final String requestWarn, 
             final ServiceFactory<T> factory, final int scope) {

@@ -3,8 +3,6 @@
  */
 package ar.com.zauber.commons.web.uri.factory;
 
-import static org.junit.Assert.*;
-
 import javax.annotation.Resource;
 
 import org.junit.Assert;

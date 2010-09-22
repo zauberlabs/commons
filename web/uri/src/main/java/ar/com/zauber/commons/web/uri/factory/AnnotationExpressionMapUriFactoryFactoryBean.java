@@ -4,13 +4,12 @@
 package ar.com.zauber.commons.web.uri.factory;
 
 import java.io.IOException;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.FactoryBean;
@@ -22,11 +21,10 @@ import org.springframework.core.type.MethodMetadata;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.web.util.UriTemplate;
 
 import ar.com.zauber.commons.web.uri.UriExpression;
-import static ar.com.zauber.commons.web.uri.factory.ExpressionMapUriFactory.*;
+import ar.com.zauber.commons.web.uri.factory.ExpressionMapUriFactory.ExpressionTemplateFactory;
+import ar.com.zauber.commons.web.uri.factory.ExpressionMapUriFactory.UriTemplateExpressionFactory;
 
 /**
  * Crea un {@link ExpressionMapUriFactory} buscando anotaciones {@link UriExpression}

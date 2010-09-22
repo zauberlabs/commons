@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;

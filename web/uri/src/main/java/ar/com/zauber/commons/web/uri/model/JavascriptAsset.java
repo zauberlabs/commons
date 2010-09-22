@@ -15,8 +15,6 @@
  */
 package ar.com.zauber.commons.web.uri.model;
 
-import javax.servlet.ServletRequest;
-
 import ar.com.zauber.commons.web.uri.factory.UriFactory;
 
 /**
