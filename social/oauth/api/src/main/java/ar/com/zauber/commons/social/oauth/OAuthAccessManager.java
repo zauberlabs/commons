@@ -24,51 +24,92 @@ import javax.servlet.http.HttpServletRequest;
  * 
  * <p>
  * <ol>
- *  <li>User asks for login (clicks oauth login button).</li>
- *  <li>Implementation redirects the user to a new authentication or authorization URL.</li>
- *  <li>User logins at the OAuth provider site and is redirected back.</li>
- *  <li>TODO:</li>
+ * <li>User asks for login (clicks oauth login button).</li>
+ * <li>Implementation generates a {@link OAuthRequestToken}, stores it temporaly
+ * for later use, and redirects the user to a new authentication or
+ * authorization URL.</li>
+ * <li>User logins at the OAuth provider site and is redirected back to a
+ * <em>callback url</em>.</li>
+ * <li>Implementation obtains the {@link OAuthAccessToken} from the OAuth
+ * provider, using the oauth token sent with the user redirect.</li>
+ * 
+ * <p>
+ * These methods are based on Twitter's implementation of OAuth. Check <a
+ * href="http://dev.twitter.com/pages/auth#intro">Twitter Documentation</a> for
+ * a detailed guide to OAuth.
  * 
  * @author Francisco J. González Costanzó
  * @since Feb 4, 2010
  */
 public interface OAuthAccessManager {
 
-    /** @return la authUrl para autenticar un usuario mediante OAuth */
+    /**
+     * Creates and returns a new URL where the user has to be redirected to
+     * perform authentication. The user should be prompted for password only if
+     * he has not authorized the app before. Otherwise, he should redirected
+     * inmediately.
+     * 
+     * @return the URL
+     */
     String getAuthenticationUrl() throws OAuthAccessException;
 
     /**
-     * @return la authUrl para autenticar un usuario mediante OAuth, con la url
-     *         callback indicada
+     * Creates and returns a new URL where the user has to be redirected to
+     * perform authentication. After authenticating the user is redirected to
+     * <em>callbackUrl</em> by the OAuth provider.
+     * <p>
+     * The user should be prompted for password only if he has not authorized
+     * the app before. Otherwise, he should redirected inmediately.
+     * 
+     * @return the URL
      */
     String getAuthenticationUrl(String callbackUrl) throws OAuthAccessException;
 
-    /** @return la authUrl para autenticar un usuario mediante OAuth */
+    /**
+     * Creates and returns a new URL where the user has to be redirected to
+     * perform authorization. The user should prompted for password even tough
+     * he has already authorized the application before.
+     * 
+     * @return the URL
+     */
     String getAuthorizationUrl() throws OAuthAccessException;
 
     /**
-     * @return la authUrl para autenticar un usuario mediante OAuth, con la url
-     *         callback indicada
+     * Creates and returns a new URL where the user has to be redirected to
+     * perform authorization. After authenticating the user is redirected to
+     * <em>callbackUrl</em> by the OAuth provider.
+     * <p>
+     * The user should prompted for password even tough he has already
+     * authorized the application before.
+     * 
+     * @return the URL
      */
     String getAuthorizationUrl(String callbackUrl) throws OAuthAccessException;
 
-    /** @return el {@link OAuthAccessToken} para el oauthToken indicado */
+    /**
+     * Returns the {@link OAuthAccessToken} asociated with a user that
+     * previously requested an authorization or authentication URL.
+     * 
+     * @return the {@link OAuthAccessToken}
+     */
     OAuthAccessToken getAccessToken(String oauthToken)
             throws OAuthAccessException;
 
     /**
-     * @return el {@link OAuthAccessToken} para el oauthToken indicado,
-     *         utilizando el oauthVerifier recibido en el callback
+     * Returns the {@link OAuthAccessToken} asociated with a user that
+     * previously requested an authorization or authentication URL.
+     * 
+     * @return the {@link OAuthAccessToken}
      */
     OAuthAccessToken getAccessToken(String oauthToken, String oauthVerifier)
             throws OAuthAccessException;
 
     /**
-     * Este método obtiene el {@link OAuthAccessToken} del request hecho por
-     * Twitter como callback. Este request debe ser de tipo GET y tener el
-     * parámetro oauth_token.
+     * Returns the {@link OAuthAccessToken} for the callback
+     * {@link HttpServletRequest} made from the OAuth provider. The request must
+     * be a GET and have the parameter <em>oauth_token</em> setted.
      * 
-     * @return el {@link OAuthAccessToken} para el request indicado
+     * @return the {@link OAuthAccessToken}
      */
     OAuthAccessToken getAccessToken(HttpServletRequest request)
             throws OAuthAccessException;
