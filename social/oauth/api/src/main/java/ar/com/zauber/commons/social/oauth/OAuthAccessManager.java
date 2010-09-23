@@ -18,8 +18,16 @@ package ar.com.zauber.commons.social.oauth;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Manager de login mediante OAuth. Pensado para administrar los
- * {@link OAuthRequestToken} y sus {@link OAuthAccessToken}.
+ * OAuth login manager. Manages {@link OAuthRequestToken}'s and
+ * {@link OAuthAccessToken}'s. When OAuth login is required the worlflow is the
+ * following:
+ * 
+ * <p>
+ * <ol>
+ *  <li>User asks for login (clicks oauth login button).</li>
+ *  <li>Implementation redirects the user to a new authentication or authorization URL.</li>
+ *  <li>User logins at the OAuth provider site and is redirected back.</li>
+ *  <li>TODO:</li>
  * 
  * @author Francisco J. González Costanzó
  * @since Feb 4, 2010

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.0.xsd"
+    default-lazy-init="true">
+
+    <http auto-config='false' entry-point-ref="authenticationEntryPoint" servlet-api-provision="false">
+        <intercept-url pattern="/" access="ROLE_ANONYMOUS,ROLE_USER" />
+        <intercept-url pattern="/api/login/**" access="ROLE_ANONYMOUS,ROLE_USER" />
+        <intercept-url pattern="**" access="ROLE_USER" />
+        <anonymous granted-authority="ROLE_ANONYMOUS" />
+        <logout logout-url="/api/logout/" />
+        <custom-filter position="FORM_LOGIN_FILTER" ref="twitterAuthenticationProcessingFilter" />
+    </http>
+    
+    <beans:bean id="webSecurityExpressionHandler"
+        class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="twitterAuthenticationProvider" />
+    </authentication-manager>
+
+    <beans:bean id="authenticationEntryPoint"
+        class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/" />
+    </beans:bean>
+    
+    <beans:bean id="authenticationSuccessHandler" 
+        class="ar.com.zauber.commons.social.oauth.examples.services.ExampleAuthenticationSuccessHandler">
+    </beans:bean>
+    
+    <beans:bean id="userDetailsService" 
+        class="ar.com.zauber.commons.social.oauth.examples.services.ExampleUserDetailsService">
+        <beans:constructor-arg ref="userDao" />
+    </beans:bean>
+    
+    <!-- BEGIN: Twitter Authentication -->
+    <beans:bean id="twitterAuthenticationProvider" 
+       class="ar.com.zauber.commons.social.oauth.twitter.security.TwitterAuthenticationProvider">
+       <beans:constructor-arg index="0" ref="userDetailsService" />
+       <beans:constructor-arg index="1" ref="twitterAccessManager" />
+    </beans:bean>
+
+	<!-- The URL Twitter redirects to after the user logs in. This is injected
+		to TwitterLoginController -->
+	<beans:bean id="twitterCallbackURL" class="java.lang.String">
+		<beans:constructor-arg value="/api/twitter/callback/" />
+	</beans:bean>
+    
+    <beans:bean id="twitterAuthenticationProcessingFilter" 
+       class="ar.com.zauber.commons.social.oauth.twitter.security.TwitterAuthenticationProcessingFilter">
+       <beans:constructor-arg ref="twitterCallbackURL" />
+       <beans:property name="authenticationManager" ref="authenticationManager" />
+       <beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
+    </beans:bean>
+    <!-- END: Twitter Authentication -->
+    
+</beans:beans>
+

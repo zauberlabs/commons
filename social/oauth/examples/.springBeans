@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[2.3.0.200912170948-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>src/main/resources/ar/com/zauber/commons/social/oauth/examples/web/config/context-examples-oauth-spring.xml</config>
+		<config>src/main/resources/ar/com/zauber/commons/social/oauth/examples/web/config/properties-examples-oauth-spring.xml</config>
+		<config>src/main/resources/ar/com/zauber/commons/social/oauth/examples/web/config/security-examples-oauth-spring.xml</config>
+		<config>src/main/resources/ar/com/zauber/commons/social/oauth/examples/web/config/servlets-examples-oauth-spring.xml</config>
+		<config>src/main/webapp/WEB-INF/api-servlet.xml</config>
+	</configs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

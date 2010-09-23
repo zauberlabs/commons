@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+    default-lazy-init="true">
+
+    <!-- BEGIN: Twitter API -->
+    <bean id="oauthConsumer" class="ar.com.zauber.commons.social.oauth.twitter.OAuthConsumerImpl">
+        <constructor-arg index="0" value="${twitter.oauth.consumer.key}" />
+        <constructor-arg index="1" value="${twitter.oauth.consumer.secret}" />
+    </bean>
+    
+    <bean id="twitterAccessManager"
+        class="ar.com.zauber.commons.social.oauth.twitter.Twitter4JOAuthAccessManager">
+        <constructor-arg index="0" ref="twitterFactory" />
+        <constructor-arg index="1">
+            <bean class="ar.com.zauber.commons.social.oauth.twitter.MemoryOAuthRequestTokenRepository" />
+        </constructor-arg>
+        <constructor-arg index="2" ref="oauthConsumer" />
+    </bean>
+    
+    <bean id="twitterPublishManager"
+        class="ar.com.zauber.commons.social.oauth.twitter.Twitter4JOAuthPublishManager">
+        <constructor-arg index="0" ref="twitterFactory" />
+        <constructor-arg index="1" ref="oauthConsumer" />
+    </bean>
+
+    <bean name="twitterFactory" class="twitter4j.TwitterFactory" />
+    <!-- END: Twitter API -->   
+    	
+</beans>
+

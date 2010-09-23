@@ -16,7 +16,7 @@
 package ar.com.zauber.commons.social.oauth;
 
 /**
- * {@link RuntimeException} lanzada al producirse un problema en el login.
+ * {@link RuntimeException} thrown on login problems.
  * 
  * @author Francisco J. González Costanzó
  * @since Feb 4, 2010
