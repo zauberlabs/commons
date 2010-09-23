@@ -22,7 +22,7 @@ import ar.com.zauber.commons.social.oauth.OAuthRequestToken;
 import ar.com.zauber.commons.social.oauth.OAuthRequestTokenRepository;
 
 /**
- * Implementación en memoria de {@link OAuthRequestTokenRepository}
+ * {@link OAuthRequestTokenRepository} that persists tokens in a {@link Map}.
  * 
  * @author Francisco J. González Costanzó
  * @since Feb 10, 2010

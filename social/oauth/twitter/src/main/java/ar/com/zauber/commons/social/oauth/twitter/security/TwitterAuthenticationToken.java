@@ -25,7 +25,7 @@ import org.springframework.security.core.GrantedAuthority;
 import ar.com.zauber.commons.social.oauth.OAuthAccessToken;
 
 /**
- * {@link Authentication} para OAuth de Twitter
+ * {@link Authentication} for Twitter OAuth.
  * 
  * @author Mariano Cortesi
  * @since Feb 3, 2010

@@ -28,9 +28,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 /**
- * Authentication Processing Filter para login por Twitter.</br> </br> Este
- * filtro debe capturar el callback llamado por Twitter después de que el
- * usuario se loguea.
+ * Authentication Processing Filter for Twitter OAuth login.
+ * <p>
+ * This filter must capture the callback where the user is redirected to after
+ * logging in.
  * 
  * @author Mariano Cortesi
  * @since Feb 3, 2010

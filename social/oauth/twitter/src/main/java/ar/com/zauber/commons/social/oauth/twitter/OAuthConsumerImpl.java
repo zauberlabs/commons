@@ -20,7 +20,7 @@ import org.apache.commons.lang.Validate;
 import ar.com.zauber.commons.social.oauth.OAuthConsumer;
 
 /**
- * Implementación simple de {@link OAuthConsumer}
+ * Simple Implementation of {@link OAuthConsumer}
  * 
  * @author Francisco J. González Costanzó
  * @since Jan 15, 2010

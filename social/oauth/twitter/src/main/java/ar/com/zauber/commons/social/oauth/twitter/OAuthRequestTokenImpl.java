@@ -20,7 +20,7 @@ import java.io.Serializable;
 import ar.com.zauber.commons.social.oauth.OAuthRequestToken;
 
 /**
- * Implementación simple de {@link OAuthRequestToken}
+ * Simple implementation of {@link OAuthRequestToken}.
  * 
  * @author Francisco J. González Costanzó
  * @since Jan 15, 2010

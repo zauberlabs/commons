@@ -27,7 +27,7 @@ import ar.com.zauber.commons.social.oauth.OAuthAccessManager;
 import ar.com.zauber.commons.social.oauth.OAuthAccessToken;
 
 /**
- * {@link AuthenticationProvider} para OAuth de Twitter
+ * {@link AuthenticationProvider} for Twitter OAuth.
  * 
  * @author Mariano Cortesi
  * @since Feb 3, 2010
