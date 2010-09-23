@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.zauber.commons.social.oauth.twitter.security;
+package ar.com.zauber.commons.social.twitter.security;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.security.authentication.AuthenticationProvider;

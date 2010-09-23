@@ -15,6 +15,11 @@
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons-base</artifactId>
     </dependency>
+    <dependency>
+        <groupId>ar.com.zauber.commons.social.oauth</groupId>
+        <artifactId>commons-social-oauth-twitter</artifactId>
+        <version>${pom.version}</version>
+    </dependency>
     
     <!-- BEGIN: Twitter4J -->        
 	<dependency>
@@ -45,6 +50,26 @@
       <scope>test</scope>
     </dependency>
     <!-- END: Spring Framework -->
+    <!-- BEGIN: Spring Security Framework -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <!-- END: Spring Security Framework -->
+    <!-- BEGIN: J2EE Servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <!-- END: J2EE Servlet -->
     <!-- BEGIN: Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
