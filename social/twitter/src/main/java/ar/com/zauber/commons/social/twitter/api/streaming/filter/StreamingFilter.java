@@ -16,17 +16,17 @@ public interface StreamingFilter {
     int getPreviousStatuses();
 
     /**
-     * The users id to receive public tweets from.
+     * The users id to receive public tweets from. Never returns null.
      */
     int[] getUserIds();
 
     /**
-     * Keywords to track.
+     * Keywords to track. Never returns null.
      */
     String[] getKeywords();
 
     /**
-     * Geographical bounding boxes to track.
+     * Geographical bounding boxes to track. Never returns null.
      */
     BoundingBox[] getBoxes();
 
