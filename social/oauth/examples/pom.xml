@@ -28,8 +28,8 @@
     <dependencies>
 
         <dependency>
-            <groupId>ar.com.zauber.commons.social.oauth</groupId>
-            <artifactId>commons-social-oauth-twitter</artifactId>
+            <groupId>ar.com.zauber.commons.social.twitter</groupId>
+            <artifactId>commons-social-twitter</artifactId>
             <version>${pom.version}</version>
         </dependency>
         

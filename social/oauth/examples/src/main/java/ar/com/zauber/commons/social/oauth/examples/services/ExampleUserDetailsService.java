@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import ar.com.zauber.commons.social.oauth.OAuthAccessToken;
-import ar.com.zauber.commons.social.oauth.twitter.security.TwitterUserDetailsService;
+import ar.com.zauber.commons.social.twitter.security.TwitterUserDetailsService;
 
 /**
  * Exmaple {@link UserDetailsService} that loads users by username, or by
