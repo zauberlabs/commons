@@ -883,8 +883,59 @@ final Ordering ordering = Ordering.builder()
 	    <section xml:id="commons-base-general-purpose-rankeable">
 	        <title>Rankeable Result</title>
 	        <para><code>RankeableResult</code> purpose is to represent a search 
-	        result which has an associated ranking. </para>
-	    </section>            
+		result which has an associated ranking. It's basically an entry of a result list like the following where, e.g. each user has an associated rank of points:</para>
+		<programlisting>
+John  120 
+Peter 100
+...
+Mary 10</programlisting>
+		<para>In order to create it, you must specify the entity to wrap and the number of hits or rank:</para>
+		<itemizedlist>
+		 	<listitem><para><code>public InmutableRankeableResult(final Number hits, final T result);</code></para> </listitem>
+ 		</itemizedlist>
+		<para><emphasis>Tip:</emphasis> This entity is very useful when representing each result list's entry found by a hibernate query which uses aggregators. The rank or number of hits should be taken from the chosen aggregator. The result entity acts as a lazy-proxy with its minimum information, ready to complete the load if any other methods are called.</para>
+	    </section>
+	    <section xml:id="commons-base-general-purpose-iterableMerger">
+	        <title>Iterable Merger</title>
+	        <para><code>Iterable Merger</code>, as the name implies, merges 2 Iterable objects aplying a Closure to each element priorizing the elements from the first Iterable object received as parameter. In the following example we explain how you can create and invoke Iterable Merger:</para>
+<programlisting language="Java">//Create two iterable objects with numbers
+Iterable&lt;Integer&gt; iterableLeft = Arrays.asList(52, 64, 79);
+Iterable&lt;Integer&gt; iterableRight = Arrays.asList(33, 21, 15);
+
+//Create the list in which the results will be stored
+final List&lt;Integer&gt; ret = new LinkedList&lt;Integer&gt;();
+
+//Create a simple Closure that will complete the list with results
+Closure&lt;Integer&gt; target = new Closure&lt;Integer&gt;() {
+        public void execute(final Integer t) {
+                ret.add(t);
+        }
+ };
+
+//The numbers will be compared and ordered by the closest to fifty
+Comparator&lt;Integer&gt; comparator = new Comparator&lt;Integer&gt;() {
+        public int compare(final Integer o1, final Integer o2) {
+                Integer d1 = Math.abs(50 - o1);
+                Integer d2 = Math.abs(50 - o2);
+                return d1.compareTo(d2);
+        }
+};
+
+//Merging
+new IterableMerger&lt;Integer&gt;(comparator, target)
+            .merge(iterableLeft, iterableRight);
+</programlisting>
+<para>Here's the merged expected result:</para>
+<programlisting>
+Number  Distance to 50
+52      2
+64      14
+33      17
+79      29
+21      29
+15      35
+</programlisting>
+	    </section>               
         
                     
     </section>    
