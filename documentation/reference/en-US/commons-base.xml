@@ -936,9 +936,122 @@ Number  Distance to 50
 15      35
 </programlisting>
 	    </section>               
-        
                     
     </section>    
+    <section xml:id="commons-base-storage">
+	<title>Storage</title>
+	<section xml:id="commons-base-storage-problem">
+		<title>Problem</title>
+		<para>Let's say you've got different information containers organized/ordered in levels and you'd like to search an specific entity/value/information identified by a key which is in one of them. First you should need something to represent the information container in which to search and store. Then, there must an entity that has the logic to search within the different levels and save the information fetched. </para>
+	</section> 
+	<section xml:id="commons-base-storage-solution">	
+		<title>Solution</title>
+		<para>There 2 entities that helps you resolve this problem. The first one is the Storage entity that represents the basic model of this solution:</para>
+<programlisting language="Java">public interface Storage&lt;K, V&gt; {
     
+    /** Saves the value for the key specified */
+    void store(K key, V value);
     
+}
+</programlisting>
+		<para>As you can see the Storage entity will save the pair (key, value) in the concrete structure it implements.</para>
+
+		<para>The other entity specifies the strategy for saving the pair, this is the ChainedStorageFetcher which uses the Composite Pattern. Its purpose is to chain different Storage entities searching the key passed as a parameter in the StorageChainedFetcher it contains. This should be recursive until the information is found or the chain is over. If the fetcher succeeds, it finally should save the information in the Storage passed as a parameter.</para>
+<programlisting language="Java">/**
+ * This interface lets chain {@link Storage} checking whether a
+ * {@link Storage} has the pair belonging to the specified key. 
+ * If this is not the case, it calls the method
+ * {@link #fetch(Object, Storage)} from a contained {@link ChainedStorageFetcher} 
+ * passing itself as a parameter in order for its original method 
+ * {@link #store(Object, Object)} to be called if the pair is found.
+ * 
+ * @param &lt;K&gt; identifier type
+ * @param &lt;V&gt; information type
+ * 
+ */
+public interface ChainedStorageFetcher&lt;K, V&gt; extends Storage&lt;K, V&gt; {
+    /**
+     * Chained search. If found, calls
+     * {@link #store(Object, Object)} from the parent.
+     * 
+     * @param parentStorage
+     *            a {@link Storage} used as a container for the information found.
+     * @throws IllegalArgumentException
+     *            if the parentStorage is null
+     */
+    void fetch(K key, Storage&lt;K, V&gt; parentStorage);
+}
+</programlisting>
+	</section>
+	<section xml:id="commons-base-storage-implementation">	
+		<title>Implementation</title>
+		<para>You can find an abstract implementation that can be very useful. It provides a basic 'fetch' method implementation using another contained child StorageChainedFetcher for searching the information associated with the specified key. When found, the value is saved in the Storage entity passed as a parameter when fetching (called parent) and in the fetcher itself:</para>
+<programlisting language="Java">public abstract class AbstractChainedStorageFetcher&lt;K, V&gt; 
+    implements ChainedStorageFetcher&lt;K, V&gt; {
+    private final ChainedStorageFetcher&lt;K, V&gt; child;
+    private Storage&lt;K, V&gt; parent;
+
+    /** Creates the AbstractChainedStorageFetcher. */
+    public AbstractChainedStorageFetcher(final ChainedStorageFetcher&lt;K, V&gt; child) {
+        Validate.notNull(child);
+        this.child = child;
+    }
+
+    /** @see ChainedStorageFetcher#fetch(Object, Storage) */
+    public final void fetch(final K key, final Storage&lt;K, V&gt; parentStorage) {
+        Validate.notNull(parentStorage);
+        this.parent = parentStorage;
+
+        V value = this.get(key);
+        if (value != null) {
+            this.parent.store(key, value);
+        } else {
+            child.fetch(key, this);
+        }
+    }
+
+    /** @see Storage#publish(Object) */
+    public final void store(final K key, final V value) {
+        this.put(key, value);
+        this.parent.store(key, value);
+    }
+
+    /** Get the value for the specified key */
+    protected abstract V get(K key);
+
+    /** Save the pair key, value */
+    protected abstract void put(K key, V value);
+}
+</programlisting>
+		<para>We also provide a concrete implementation which extends the abstract described above. It defines the structure for saving the pair (key, value) as a memory map:</para>
+<programlisting language="Java">public class MapBasedChainedStorageFetcher&lt;K, V&gt; extends
+        AbstractChainedStorageFetcher&lt;K, V&gt; {
+
+    private final Map&lt;K, V&gt; repository;
+
+    /** Creates the MapBasedChainedStorageFetcher. */
+    public MapBasedChainedStorageFetcher(
+            final ChainedStorageFetcher&lt;K, V&gt; child, final Map&lt;K, V&gt; initialMap) {
+        super(child);
+        repository = initialMap;
+    }
+
+    /** @see AbstractChainedStorageFetcher#get(Object) */
+    @Override
+    protected final V get(final K input) {
+        return repository.get(input);
+    }
+
+    /** @see AbstractChainedStorageFetcher#put(Object, Object) */
+    @Override
+    protected final void put(final K input, final V output) {
+        this.repository.put(input, output);
+    }
+}
+</programlisting>
+	</section>
+	<section xml:id="commons-base-storage-example">	
+       		<title>Example</title> 
+	</section>    
+</section> 
 </chapter>
