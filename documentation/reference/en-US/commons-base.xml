@@ -29,6 +29,8 @@
             </emphasis>: Handling collections.</para></listitem>
             <listitem><para><emphasis role="bold">Other utils
             </emphasis>: Date, String and Password Encoders utils.</para></listitem>
+	    <listitem><para><emphasis role="bold">Storage
+            </emphasis>: searching and fetching information</para></listitem>
         </itemizedlist>          
  
     </section>
@@ -942,7 +944,7 @@ Number  Distance to 50
 	<title>Storage</title>
 	<section xml:id="commons-base-storage-problem">
 		<title>Problem</title>
-		<para>Let's say you've got different information containers organized/ordered in levels and you'd like to search an specific entity/value/information identified by a key which is in one of them. First you should need something to represent the information container in which to search and store. Then, there must an entity that has the logic to search within the different levels and save the information fetched. </para>
+		<para>Let's say you've got different types of information containers and you'd like to search an specific entity/value/information identified by a key which is in one or many of them but you need the search to be asyncronic. First you should need something to represent the information container in which to search and store. Then, there must be an entity that has the logic to search within the different levels and save the information fetched returning the control to the original context when it had finished. </para>
 	</section> 
 	<section xml:id="commons-base-storage-solution">	
 		<title>Solution</title>
@@ -956,7 +958,7 @@ Number  Distance to 50
 </programlisting>
 		<para>As you can see the Storage entity will save the pair (key, value) in the concrete structure it implements.</para>
 
-		<para>The other entity specifies the strategy for saving the pair, this is the ChainedStorageFetcher which uses the Composite Pattern. Its purpose is to chain different Storage entities searching the key passed as a parameter in the StorageChainedFetcher it contains. This should be recursive until the information is found or the chain is over. If the fetcher succeeds, it finally should save the information in the Storage passed as a parameter.</para>
+		<para>The other entity specifies the strategy for saving the pair, this is the ChainedStorageFetcher which uses the Composite Pattern. Its purpose is to chain different Storage entities searching the key passed as a parameter in the StorageChainedFetcher it contains. This should be recursive until the information is found or the chain is over. If the fetcher succeeds, it finally should save the information in the Storage passed as a parameter. Because the original context is always present in every fetch, the control can always be returned to it.</para>
 <programlisting language="Java">/**
  * This interface lets chain {@link Storage} checking whether a
  * {@link Storage} has the pair belonging to the specified key. 
@@ -1049,9 +1051,38 @@ public interface ChainedStorageFetcher&lt;K, V&gt; extends Storage&lt;K, V&gt; {
     }
 }
 </programlisting>
+<para>Finally, we created an implementation that mixes Closure with Storage. It delegates the fetching to its contained fetcher but instead of saving the information found, it executes the closure with which it was constructed passing the information as a parameter:</para>
+<programlisting language="Java">
+public class ChainedStorageTransformerClosure&lt;K, V&gt; implements Storage&lt;K, V&gt;,
+        Closure&lt;K&gt; {
+
+    private final ChainedStorageFetcher&lt;K, V&gt; child;
+    private final Closure&lt;V&gt; target;
+
+    /** Creates the ChainedStorageTransformerClosure. */
+    public ChainedStorageTransformerClosure(
+            final ChainedStorageFetcher&lt;K, V&gt; child, final Closure&lt;V&gt; target) {
+        super();
+        Validate.notNull(target);
+        Validate.notNull(child);
+        this.child = child;
+        this.target = target;
+    }
+
+    /** @see Closure#execute(Object) */
+    public final void execute(final K key) {
+        child.fetch(key, this);
+    }
+
+    /** @see Storage#store(Object, Object) */
+    public final void store(final K key, final V value) {
+        target.execute(value);
+    }
+}
+</programlisting>
 	</section>
 	<section xml:id="commons-base-storage-example">	
-       		<title>Example</title> 
+       		<title>Example</title>
 	</section>    
 </section> 
 </chapter>
