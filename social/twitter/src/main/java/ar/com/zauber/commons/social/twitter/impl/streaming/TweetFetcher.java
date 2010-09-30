@@ -30,10 +30,10 @@ public class TweetFetcher {
             .getLogger(TweetFetcher.class);
 
     private final TwitterStream stream;
-    private final StreamingFilter filter;
     private final Transformer<Status, Tweet> transformer;
     private final Closure<Tweet> closure;
-
+    
+    private StreamingFilter filter;
     private boolean streamStarted = false;
 
     /** Creates the TweetFetcher. */
@@ -50,7 +50,7 @@ public class TweetFetcher {
     }
 
     /**
-     * Crea el {@link TwitterStream}
+     * Creates the {@link TwitterStream}
      * 
      * @param user
      * @param password
@@ -91,7 +91,7 @@ public class TweetFetcher {
     }
 
     /**
-     * Abre el Twitter Stream
+     * Opens the Twitter Stream.
      */
     public final void openStream() {
         if (!streamStarted) {
@@ -138,7 +138,7 @@ public class TweetFetcher {
     }
 
     /**
-     * Cierra el stream.
+     * Closes the stream.
      */
     public final void closeStream() {
         if (streamStarted) {
@@ -148,6 +148,17 @@ public class TweetFetcher {
         } else {
             logger.warn("Stream is already closed!");
         }
+    }
+    
+    /**
+     * Updates the stream filter. This implies closing and reopening the stream.
+     * 
+     * @param filter
+     */
+    public final void updateFilter(StreamingFilter filter) {
+        this.closeStream();
+        this.filter = filter;
+        this.openStream();
     }
 
 }
