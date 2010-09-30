@@ -15,10 +15,12 @@
         <itemizedlist>
             <listitem><para><emphasis role="bold">Api:
             </emphasis>uselful interfaces when persisting an object.</para></listitem>    
-	    <listitem><para><emphasis role="bold">Utils:
-            </emphasis>utility persistence classes</para></listitem>
 	    <listitem><para><emphasis role="bold">Closures:
-            </emphasis>handling transactions by theyself executing a closure in between</para></listitem>      
+            </emphasis>handling transactions by theyself executing a closure in between</para></listitem>
+	    <listitem><para><emphasis role="bold">Interceptors:
+            </emphasis>adding functionality to the existents from Spring like logging</para></listitem>
+	    <listitem><para><emphasis role="bold">Utils:
+            </emphasis>utility persistence classes</para></listitem>  
         </itemizedlist>          
     </section>
         
@@ -129,32 +131,6 @@
 
 </section>
     
-    <!-- 
-    Clases de utils
-    ScrollableResultsIterator
-    -->
-<section xml:id="commons-persistence-utils">
-	<title>Utils</title>
-	<para>We introduce some utils classes related to object persistence. By now, we only have the following:</para>
-
-        <itemizedlist>
-            <listitem><para><emphasis role="bold"><code>ScrollableResultIterator:</code>
-            </emphasis>an iterator that works with Hibernate <code>ScrollableResult</code>.</para>
-<itemizedlist>
-<listitem>
-<para><code>next</code> returns the actual element and advances next element after that to prepare the following actual element (the constructor initializes the actual element with the first in ScrollableResult). It evicts from Hibernate session the next element to return at the following next if there's any. If there're no more elements, method next assigns the actual element null and in the following called returns <code>NoSuchElementException</code>.</para>
-</listitem>
-<listitem>
-<para><code>hasNext</code> returns whether the actual element poped out from the ScrollableResult is null. </para>
-</listitem>
-<listitem>
-<para><code>remove</code> is not implemented by now.</para>
-</listitem>
-</itemizedlist>
-	    </listitem>            
-        </itemizedlist>    
-</section>
-
     <!--**Closures -> Tienen que ver con el Open Session in view
     Donde spring abre la sesion (cuando le llega el request mediante un interceptor
     y dps la cierra)
@@ -192,8 +168,8 @@
 	</listitem>
         </itemizedlist>
 </section>
+
     <!--**Utils -> 
-    AnonymousAuthenticationUserMapper
 
     ConfigurableHibernatePersistence -> recibe un interceptor
 
@@ -208,5 +184,61 @@
     https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto35
     https://wiki.zaubersoftware.com/intra/bin/view/Commons/AboutRepository
      -->
+
+<section xml:id="commons-persistence-interceptors">
+<title>Interceptors</title>
+</section>
+
+    <!-- 
+    Clases de utils
+    ScrollableResultsIterator
+    AnonymousAuthenticationUserMapper
+    URIUserType
+    -->
+<section xml:id="commons-persistence-utils">
+	<title>Utils</title>
+	<para>We introduce some utils classes related to object persistence:</para>
+
+        <itemizedlist>
+            <listitem><para><emphasis role="bold"><code>ScrollableResultIterator:</code>
+            </emphasis>an iterator that works with Hibernate <code>ScrollableResult</code>.</para>
+<itemizedlist>
+<listitem>
+<para><code>next</code> returns the actual element and advances next element after that to prepare the following actual element (the constructor initializes the actual element with the first in ScrollableResult). It evicts from Hibernate session the next element to return at the following next if there's any. If there're no more elements, method next assigns the actual element null and in the following called returns <code>NoSuchElementException</code>.</para>
+</listitem>
+<listitem>
+<para><code>hasNext</code> returns whether the actual element poped out from the ScrollableResult is null. </para>
+</listitem>
+<listitem>
+<para><code>remove</code> is not implemented by now.</para>
+</listitem>
+</itemizedlist>
+	    </listitem>
+<listitem><para><emphasis role="bold"><code>AnonymousAuthenticationUserMapper:</code></emphasis> does not depend from commons-auth, so users are not managed by Acegi. Therefore, It's used for testing and batch context where there's no need to have users. It has no roles, anonymous is set to false and it only sets the name passed as a parameter when the entity is created.</para>
+	    </listitem>
+<listitem><para><emphasis role="bold"><code>URIUserType: </code></emphasis> knows how to serialize URI's as text columns. You only have to specify this when you map the uri with Hibernate. Here's an example of declaration:</para>
+<programlisting language="Java">@Entity
+@Table(name = "RESTAURANTS")
+public class Restaurant {
+    @Id
+    @GeneratedValue(generator = "GC_SEQ_RESTAURANTS")
+    @SequenceGenerator(name = "GC_SEQ_RESTAURANTS", 
+               sequenceName = "GC_SEQ_RESTAURANTS")
+    @Column(nullable = false, name = "RESTAURANTS_ID")
+    private Long id;
     
+    @Column(nullable = false, updatable = true, name = "RESTAURANTS_NAME")
+    private String name;
+
+    @Column(nullable = false, name = "RESTAURANTS_URI")
+    @Type(type = "ar.com.zauber.commons.repository.utils.URIUserType")
+    private URI webpage;
+    
+    ...
+}
+</programlisting>
+	    </listitem>         
+        </itemizedlist>
+    
+</section>
 </chapter>
