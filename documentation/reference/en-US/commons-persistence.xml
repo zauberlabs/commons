@@ -16,11 +16,11 @@
             <listitem><para><emphasis role="bold">Api:
             </emphasis>uselful interfaces when persisting an object.</para></listitem>    
 	    <listitem><para><emphasis role="bold">Closures:
-            </emphasis>handling transactions by theyself executing a closure in between</para></listitem>
+            </emphasis>handling transactions by themselves executing a closure in between</para></listitem>
 	    <listitem><para><emphasis role="bold">Interceptors:
-            </emphasis>adding functionality to the existents from Spring like logging</para></listitem>
+            </emphasis>adding functionality to the Spring existents like logging</para></listitem>
 	    <listitem><para><emphasis role="bold">Utils:
-            </emphasis>utility persistence classes</para></listitem>  
+            </emphasis>utility persistence classes</para></listitem>
         </itemizedlist>          
     </section>
         
@@ -187,6 +187,53 @@
 
 <section xml:id="commons-persistence-interceptors">
 <title>Interceptors</title>
+<section xml:id="commons-persistence-interceptors-loggers">
+<title>Loggers</title>
+<para>We provide some interceptors that act as loggers in important operations such as save, load spring context, etc.</para>
+<itemizedlist>
+<listitem>
+<para><code>HibernateAuditLoggerInterceptor: </code>logs save operations and when an object is detected to be dirty, during a flush</para>
+</listitem>
+<listitem>
+<para><code>SpringInjectionHibernateAuditLoggerInterceptor: </code>logs onLoad operations, called just before an object is initialized.</para>
+</listitem>
+<listitem>
+<para><code>MockHibernateAuditLogger: </code>was intended for testing environment but right now is deprecated, you should use directly Hibernate <code>EmptyInterceptor</code></para>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="commons-persistence-interceptors-injection">
+<title>Spring Injection</title>
+<para><code>SpringInjectionInterceptor</code> lets you inject dependencies from a spring context to achieve a Domain Driven Design. So if you have to inject an entity from your domain model which needs other domain model dependencies in the context, using this interceptor is the solution. Here's and example on how you should declare your class model in order to achieve the injection. The classes wishing being injected with this interceptor, must be annotated with the annotation <code>{@link Configurable}</code>. And each field that will be injected must be transient and annotated with <code>{@link Qualifier}</code>. The qualifier name can be used to set the bean name (else it uses the field name)</para>
+<programlisting language="Java">@Entity
+@Configurable
+public class DomainEntityExample implements Persistible {
+     @Id
+     private Long id;
+      
+     @Qualifier(value = "someService")
+     private transient SomeService service;
+     @Qualifier
+     private transient SomeService someService;
+    
+     public final SomeService getService() {
+         return service;
+     }
+     public final SomeService getSomeService() {
+         return someService;
+     }
+     ....
+}
+</programlisting>
+</section>
+<section xml:id="commons-persistence-interceptors-configurable">
+<title>Configurating Hibernate Persistence</title>
+<para>In order to use the above interceptors you'll need a new configuration persistence entity to inject them in the context. This is why we created <code>ConfigurableHibernatePersistence</code> that receives any interceptor as a property set and injects it as post process configuration.</para>
+<programlisting language="Java">public final void setInterceptor(final Interceptor interceptor) {
+        this.interceptor = interceptor;
+    }
+</programlisting>
+</section>
 </section>
 
     <!-- 
