@@ -1052,8 +1052,7 @@ public interface ChainedStorageFetcher&lt;K, V&gt; extends Storage&lt;K, V&gt; {
 }
 </programlisting>
 <para>Finally, we created an implementation that mixes Closure with Storage. It delegates the fetching to its contained fetcher but instead of saving the information found, it executes the closure with which it was constructed passing the information as a parameter:</para>
-<programlisting language="Java">
-public class ChainedStorageTransformerClosure&lt;K, V&gt; implements Storage&lt;K, V&gt;,
+<programlisting language="Java">public class ChainedStorageTransformerClosure&lt;K, V&gt; implements Storage&lt;K, V&gt;,
         Closure&lt;K&gt; {
 
     private final ChainedStorageFetcher&lt;K, V&gt; child;
@@ -1083,6 +1082,66 @@ public class ChainedStorageTransformerClosure&lt;K, V&gt; implements Storage&lt;
 	</section>
 	<section xml:id="commons-base-storage-example">	
        		<title>Example</title>
+<para>We show a simple example on how to create some of the fetcher entities and the expected results:</para>
+<programlisting language="Java">/*Creating result list with information fetched*/        
+final List&lt;String&gt; result = new LinkedList&lt;String&gt;();
+
+/*Creating closure that will be executed when the fetcher finds the information.*/
+/*It adds the result in the list above*/
+final Closure&lt;String&gt; c = new Closure&lt;String&gt;() {
+
+    @Override
+    public void execute(String t) {
+        result.add(t);
+    }
+    
+};
+
+/*Defining fetcher default called if no information is found in the parent fetcher.*/
+/*It stores the word 'default' no matter if the key is found*/
+final ChainedStorageFetcher&lt;Integer, String&gt; defaultFetcher = new
+ChainedStorageFetcher&lt;Integer, String&gt;() {
+
+    private Storage&lt;Integer, String&gt; parentStorage;
+    
+    @Override
+    public void fetch(Integer key,
+            Storage&lt;Integer, String&gt; parentStorage) {
+        this.parentStorage = parentStorage;
+        parentStorage.store(key, "default");
+    }
+
+    @Override
+    public void store(Integer key, String value) {
+        this.parentStorage.store(key, value);
+    }
+};
+
+/*Creating basic repository with keys, information associated*/
+final Map&lt;Integer, String&gt; map = new HashMap&lt;Integer, String&gt;();
+map.put(1, "example");
+map.put(2, "nice");
+
+/*Creating map based fetcher that will search the information required*/
+final MapBasedChainedStorageFetcher&lt;Integer, String&gt; mapFetcher =
+    new MapBasedChainedStorageFetcher&lt;Integer, String&gt;(defaultFetcher, map);
+
+/*Executing the Closure Fetcher searching the value with key 1*/
+new ChainedStorageTransformerClosure&lt;Integer, String&gt;(mapFetcher, c).execute(1);
+</programlisting>
+<para>We are searching for value with key 1 so the result list is:</para>
+<programlisting>
+Position Value
+0	 example
+</programlisting>
+<para>Now suppose we execute the closure searching for an inexistent key</para>
+<programlisting language="Java">new ChainedStorageTransformerClosure&lt;Integer, String&gt;(mapFetcher, c).execute(3);
+</programlisting>
+<para>The result list would be:</para>
+<programlisting>
+Position Value
+0	 default
+</programlisting>
 	</section>    
 </section> 
 </chapter>

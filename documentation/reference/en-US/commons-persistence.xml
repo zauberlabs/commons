@@ -85,7 +85,7 @@
 
     /**
      * @return object version
-     */<para><code>Remove</code> is not implemented by now.</para>
+     */
     Long getVersion();
     
     /**
@@ -190,17 +190,40 @@
 <section xml:id="commons-persistence-interceptors-loggers">
 <title>Loggers</title>
 <para>We provide some interceptors that act as loggers in important operations such as save, load spring context, etc.</para>
-<itemizedlist>
-<listitem>
-<para><code>HibernateAuditLoggerInterceptor: </code>logs save operations and when an object is detected to be dirty, during a flush</para>
-</listitem>
-<listitem>
-<para><code>SpringInjectionHibernateAuditLoggerInterceptor: </code>logs onLoad operations, called just before an object is initialized.</para>
-</listitem>
-<listitem>
-<para><code>MockHibernateAuditLogger: </code>was intended for testing environment but right now is deprecated, you should use directly Hibernate <code>EmptyInterceptor</code></para>
-</listitem>
-</itemizedlist>
+<table frame='hsides'>
+                    <title>Logger Interceptor Implementations</title>
+                
+                    <tgroup cols="2">
+                        <thead>
+                            <row>
+                                <entry align="center">Name</entry>
+                                <entry align="center">Description</entry>
+                            </row>
+                        </thead>
+
+                        <tbody>
+                            <row>
+                                <entry>
+                                    <code>HibernateAuditLoggerInterceptor</code>
+                                </entry>
+                                <entry>Logs save operations and when an object is detected to be dirty, during a flush</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>SpringInjectionHibernateAuditLoggerInterceptor</code>
+                                </entry>
+                                <entry>Logs onLoad operations, called just before an object is initialized.</entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <code>MockHibernateAuditLogger</code>
+                                </entry>
+                                <entry>Was intended for testing environment but right now is deprecated, you should use directly Hibernate <code>EmptyInterceptor</code></entry>
+                            </row>
+                                                   
+                        </tbody>
+                    </tgroup>
+                </table>                
 </section>
 <section xml:id="commons-persistence-interceptors-injection">
 <title>Spring Injection</title>
@@ -231,7 +254,7 @@ public class DomainEntityExample implements Persistible {
 <para>In order to use the above interceptors you'll need a new configuration persistence entity to inject them in the context. This is why we created <code>ConfigurableHibernatePersistence</code> that receives any interceptor as a property set and injects it as post process configuration.</para>
 <programlisting language="Java">public final void setInterceptor(final Interceptor interceptor) {
         this.interceptor = interceptor;
-    }
+}
 </programlisting>
 </section>
 </section>
