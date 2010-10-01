@@ -14,7 +14,7 @@
         </para>
         <itemizedlist>
             <listitem><para><emphasis role="bold">Functors
-            </emphasis>: objects that encapsulates functional logic.</para></listitem>            
+            </emphasis>: Objects that encapsulates functional logic.</para></listitem>            
             <listitem><para><emphasis role="bold">Exceptions
             </emphasis>: Most used exceptions.</para></listitem>
             <listitem><para><emphasis role="bold">General Purpose Classes
@@ -27,10 +27,10 @@
             </emphasis>: Abstractions for resources.</para></listitem>
             <listitem><para><emphasis role="bold">Collections
             </emphasis>: Handling collections.</para></listitem>
+	    <listitem><para><emphasis role="bold">Storage
+            </emphasis>: Searching and fetching information</para></listitem>
             <listitem><para><emphasis role="bold">Other utils
             </emphasis>: Date, String and Password Encoders utils.</para></listitem>
-	    <listitem><para><emphasis role="bold">Storage
-            </emphasis>: searching and fetching information</para></listitem>
         </itemizedlist>          
  
     </section>
@@ -822,124 +822,6 @@ public interface Resource {
             </code>: Same as above but using lists</para></listitem>
         </itemizedlist>            
     </section>    
-    
-    <section xml:id="commons-base-page-and-order">
-        <title>Other general purpose classes</title>
-        
-        <section xml:id="commons-base-general-purpose-order">
-            <title>Ordering</title>
-            <!-- Taken from javadoc and -->
-            <!-- https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto17 -->
-            <para>There are classes defined to handle the order in Collections. 
-            <code>Order</code> class represents an specified order by telling 
-            ascending or descending order and the name of the field (java.util.String).</para>
-            <para><code>Ordering</code> is a class composed by a list of <code>Order</code>
-            to define in each field if it is ascending or descending. 
-            We can make use of <code>OrderingBuilder</code> for a more human use. 
-            Before if we wanted users in ascending orden, then ascending ignoring 
-            case by username, then descending by points and finally descending 
-            ignoring case by foo, we had to do:</para>
-            
-            <programlisting language="Java">
-final Ordering expected = new Ordering(
-           new Order("name"), 
-           new Order("username", true, true),
-           new Order("points", false), 
-           new Order("foo", false, true));</programlisting>
-                                 
-            <para>Now this can be done, using builder pattern, by doing: </para>
-            
-           <programlisting language="Java">
-final Ordering ordering = Ordering.builder()
-          .asc("name")
-          .ascIgnoringCase("username")
-          .desc("points")
-          .descIgnoringCase("foo")
-          .ordering();</programlisting>
-        </section>
-        <section xml:id="commons-base-general-purpose-paging">
-            <title>Paging</title>
-	        <para>Class that keeps information related to paging. There are two 
-	        constructors that can be used: </para>
-            <itemizedlist>
-                <listitem><para><code>Paging(Integer pageNumber, 
-                Integer resultsPerPage)</code></para></listitem>
-                <listitem><para><code>Paging(Integer pageNumber, Integer 
-                resultsPerPage, boolean loadResultSize)</code></para></listitem>
-            </itemizedlist>
-            <para>We should use the first one if we want to use <code>loadResultSize</code> 
-            default value (which is true). Parameters should be understood:</para>  	        
-	        <itemizedlist>
-	            <listitem><para><emphasis role="bold">pageNumber
-	            </emphasis>: Current page number.</para></listitem>            
-	            <listitem><para><emphasis role="bold">resultsPerPage
-	            </emphasis>: Results that are shown by page.</para></listitem>
-	            <listitem><para><emphasis role="bold">loadResultSize
-	            </emphasis>: Load result size.</para></listitem>
-	        </itemizedlist>   	        
-
-        <para>No much more to mention about the <code>Paging</code> object. 
-        You should use it instead of passing values between classes.
-        </para>    
-        </section>
-	    <section xml:id="commons-base-general-purpose-rankeable">
-	        <title>Rankeable Result</title>
-	        <para><code>RankeableResult</code> purpose is to represent a search 
-		result which has an associated ranking. It's basically an entry of a result list like the following where, e.g. each user has an associated rank of points:</para>
-		<programlisting>
-John  120 
-Peter 100
-...
-Mary 10</programlisting>
-		<para>In order to create it, you must specify the entity to wrap and the number of hits or rank:</para>
-		<itemizedlist>
-		 	<listitem><para><code>public InmutableRankeableResult(final Number hits, final T result);</code></para> </listitem>
- 		</itemizedlist>
-		<para><emphasis>Tip:</emphasis> This entity is very useful when representing each result list's entry found by a hibernate query which uses aggregators. The rank or number of hits should be taken from the chosen aggregator. The result entity acts as a lazy-proxy with its minimum information, ready to complete the load if any other methods are called.</para>
-	    </section>
-	    <section xml:id="commons-base-general-purpose-iterableMerger">
-	        <title>Iterable Merger</title>
-	        <para><code>Iterable Merger</code>, as the name implies, merges 2 Iterable objects aplying a Closure to each element priorizing the elements from the first Iterable object received as parameter. In the following example we explain how you can create and invoke Iterable Merger:</para>
-<programlisting language="Java">//Create two iterable objects with numbers
-Iterable&lt;Integer&gt; iterableLeft = Arrays.asList(52, 64, 79);
-Iterable&lt;Integer&gt; iterableRight = Arrays.asList(33, 21, 15);
-
-//Create the list in which the results will be stored
-final List&lt;Integer&gt; ret = new LinkedList&lt;Integer&gt;();
-
-//Create a simple Closure that will complete the list with results
-Closure&lt;Integer&gt; target = new Closure&lt;Integer&gt;() {
-        public void execute(final Integer t) {
-                ret.add(t);
-        }
- };
-
-//The numbers will be compared and ordered by the closest to fifty
-Comparator&lt;Integer&gt; comparator = new Comparator&lt;Integer&gt;() {
-        public int compare(final Integer o1, final Integer o2) {
-                Integer d1 = Math.abs(50 - o1);
-                Integer d2 = Math.abs(50 - o2);
-                return d1.compareTo(d2);
-        }
-};
-
-//Merging
-new IterableMerger&lt;Integer&gt;(comparator, target)
-            .merge(iterableLeft, iterableRight);
-</programlisting>
-<para>Here's the merged expected result:</para>
-<programlisting>
-Number  Distance to 50
-52      2
-64      14
-33      17
-79      29
-21      29
-15      35
-</programlisting>
-	    </section>               
-                    
-    </section>    
     <section xml:id="commons-base-storage">
 	<title>Storage</title>
 	<section xml:id="commons-base-storage-problem">
@@ -1144,4 +1026,121 @@ Position Value
 </programlisting>
 	</section>    
 </section> 
+    <section xml:id="commons-base-page-and-order">
+        <title>Other general purpose classes</title>
+        
+        <section xml:id="commons-base-general-purpose-order">
+            <title>Ordering</title>
+            <!-- Taken from javadoc and -->
+            <!-- https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto17 -->
+            <para>There are classes defined to handle the order in Collections. 
+            <code>Order</code> class represents an specified order by telling 
+            ascending or descending order and the name of the field (java.util.String).</para>
+            <para><code>Ordering</code> is a class composed by a list of <code>Order</code>
+            to define in each field if it is ascending or descending. 
+            We can make use of <code>OrderingBuilder</code> for a more human use. 
+            Before if we wanted users in ascending orden, then ascending ignoring 
+            case by username, then descending by points and finally descending 
+            ignoring case by foo, we had to do:</para>
+            
+            <programlisting language="Java">
+final Ordering expected = new Ordering(
+           new Order("name"), 
+           new Order("username", true, true),
+           new Order("points", false), 
+           new Order("foo", false, true));</programlisting>
+                                 
+            <para>Now this can be done, using builder pattern, by doing: </para>
+            
+           <programlisting language="Java">
+final Ordering ordering = Ordering.builder()
+          .asc("name")
+          .ascIgnoringCase("username")
+          .desc("points")
+          .descIgnoringCase("foo")
+          .ordering();</programlisting>
+        </section>
+        <section xml:id="commons-base-general-purpose-paging">
+            <title>Paging</title>
+	        <para>Class that keeps information related to paging. There are two 
+	        constructors that can be used: </para>
+            <itemizedlist>
+                <listitem><para><code>Paging(Integer pageNumber, 
+                Integer resultsPerPage)</code></para></listitem>
+                <listitem><para><code>Paging(Integer pageNumber, Integer 
+                resultsPerPage, boolean loadResultSize)</code></para></listitem>
+            </itemizedlist>
+            <para>We should use the first one if we want to use <code>loadResultSize</code> 
+            default value (which is true). Parameters should be understood:</para>  	        
+	        <itemizedlist>
+	            <listitem><para><emphasis role="bold">pageNumber
+	            </emphasis>: Current page number.</para></listitem>            
+	            <listitem><para><emphasis role="bold">resultsPerPage
+	            </emphasis>: Results that are shown by page.</para></listitem>
+	            <listitem><para><emphasis role="bold">loadResultSize
+	            </emphasis>: Load result size.</para></listitem>
+	        </itemizedlist>   	        
+
+        <para>No much more to mention about the <code>Paging</code> object. 
+        You should use it instead of passing values between classes.
+        </para>    
+        </section>
+	    <section xml:id="commons-base-general-purpose-rankeable">
+	        <title>Rankeable Result</title>
+	        <para><code>RankeableResult</code> purpose is to represent a search 
+		result which has an associated ranking. It's basically an entry of a result list like the following where, e.g. each user has an associated rank of points:</para>
+		<programlisting>
+John  120 
+Peter 100
+...
+Mary 10</programlisting>
+		<para>In order to create it, you must specify the entity to wrap and the number of hits or rank:</para>
+		<itemizedlist>
+		 	<listitem><para><code>public InmutableRankeableResult(final Number hits, final T result);</code></para> </listitem>
+ 		</itemizedlist>
+		<para><emphasis>Tip:</emphasis> This entity is very useful when representing each result list's entry found by a hibernate query which uses aggregators. The rank or number of hits should be taken from the chosen aggregator. The result entity acts as a lazy-proxy with its minimum information, ready to complete the load if any other methods are called.</para>
+	    </section>
+	    <section xml:id="commons-base-general-purpose-iterableMerger">
+	        <title>Iterable Merger</title>
+	        <para><code>Iterable Merger</code>, as the name implies, merges 2 Iterable objects aplying a Closure to each element priorizing the elements from the first Iterable object received as parameter. In the following example we explain how you can create and invoke Iterable Merger:</para>
+<programlisting language="Java">//Create two iterable objects with numbers
+Iterable&lt;Integer&gt; iterableLeft = Arrays.asList(52, 64, 79);
+Iterable&lt;Integer&gt; iterableRight = Arrays.asList(33, 21, 15);
+
+//Create the list in which the results will be stored
+final List&lt;Integer&gt; ret = new LinkedList&lt;Integer&gt;();
+
+//Create a simple Closure that will complete the list with results
+Closure&lt;Integer&gt; target = new Closure&lt;Integer&gt;() {
+        public void execute(final Integer t) {
+                ret.add(t);
+        }
+ };
+
+//The numbers will be compared and ordered by the closest to fifty
+Comparator&lt;Integer&gt; comparator = new Comparator&lt;Integer&gt;() {
+        public int compare(final Integer o1, final Integer o2) {
+                Integer d1 = Math.abs(50 - o1);
+                Integer d2 = Math.abs(50 - o2);
+                return d1.compareTo(d2);
+        }
+};
+
+//Merging
+new IterableMerger&lt;Integer&gt;(comparator, target)
+            .merge(iterableLeft, iterableRight);
+</programlisting>
+<para>Here's the merged expected result:</para>
+<programlisting>
+Number  Distance to 50
+52      2
+64      14
+33      17
+79      29
+21      29
+15      35
+</programlisting>
+	    </section>               
+                    
+    </section>    
 </chapter>

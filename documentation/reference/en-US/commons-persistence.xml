@@ -14,13 +14,13 @@
         </para>
         <itemizedlist>
             <listitem><para><emphasis role="bold">Api:
-            </emphasis>uselful interfaces when persisting an object.</para></listitem>    
+            </emphasis>Uselful interfaces when persisting an object.</para></listitem>    
 	    <listitem><para><emphasis role="bold">Closures:
-            </emphasis>handling transactions by themselves executing a closure in between</para></listitem>
+            </emphasis>Handling transactions by themselves executing a closure in between</para></listitem>
 	    <listitem><para><emphasis role="bold">Interceptors:
-            </emphasis>adding functionality to the Spring existents like logging</para></listitem>
+            </emphasis>Adding functionality to the Spring existents like logging</para></listitem>
 	    <listitem><para><emphasis role="bold">Utils:
-            </emphasis>utility persistence classes</para></listitem>
+            </emphasis>Utility persistence classes</para></listitem>
         </itemizedlist>          
     </section>
         
