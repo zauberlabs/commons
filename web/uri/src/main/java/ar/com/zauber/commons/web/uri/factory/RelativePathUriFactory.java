@@ -50,12 +50,11 @@ public class RelativePathUriFactory implements UriFactory {
     /** @see UriFactory#buildUri(String, Object[]) */
     public final String buildUri(final String uriKey, final Object... expArgs) {
         final HttpServletRequest request = requestProvider.getRequest();
-        final String ret = generarPath(request);
         String uri = callback.buildUri(uriKey, expArgs);
         if(!uri.startsWith("/")) {
             uri = '/' + uri;
         }
-        return ret + uri;
+        return generarPath(request, uri);
     }
 
     /**
@@ -63,7 +62,8 @@ public class RelativePathUriFactory implements UriFactory {
      * @param request
      * @return path
      */
-    private String generarPath(final HttpServletRequest request) {
+    private String generarPath(final HttpServletRequest request, 
+            final String destination) {
         try {
             String encoding = request.getCharacterEncoding();
             if (StringUtils.isBlank(encoding)) {
@@ -82,6 +82,8 @@ public class RelativePathUriFactory implements UriFactory {
             uri = uri.substring(URLDecoder.decode(request.getContextPath(),
                     encoding).length());
 
+            final String [] ret = comunDenominador(uri, destination);
+            uri = ret[0];
             // cuento los subs
             int slashes = StringUtils.countMatches(uri, "/");
 
@@ -91,16 +93,46 @@ public class RelativePathUriFactory implements UriFactory {
             }
 
             final StringBuilder sb = new StringBuilder();
+            boolean empty = true;
             for (int i = 0; i < slashes; i++) {
+                empty = false;
                 sb.append("..");
                 if (i + 1 < slashes) {
                     sb.append('/');
                 }
             }
-            return (sb.toString().isEmpty()) ? "." : sb.toString();
-
+            if(empty) {
+                sb.append('.');
+            }
+            
+            sb.append(ret[1]);
+            return sb.toString();
         } catch (UnsupportedEncodingException e) {
             throw new UnhandledException(e);
         }
+    }
+
+    /** obtiene el comun denominador a nivel path */
+    public static final String[] comunDenominador(final String p, final String q) {
+        String []ret = null;
+        final int n = Math.min(p.length(), q.length());
+        int i = 0;
+        int lastSlash = -1;
+        for(; i < n; i++) {
+            final char c = p.charAt(i);
+            if(c != q.charAt(i)) {
+                break;
+            }
+            if(c == '/') {
+                lastSlash = i;
+            }
+        }
+        
+        if(lastSlash <= 0) {
+            ret = new String[]{p, q};
+        } else {
+            ret = new String[]{p.substring(lastSlash), q.substring(lastSlash)};
+        }
+        return ret;
     }
 }
