@@ -44,47 +44,29 @@ import ar.com.zauber.commons.dao.Resource;
  * @since Nov 19, 2005
  */
 public abstract class AbstractImage implements Image {
-    /** filename */
     private final String name;
-    /** thumb...*/
     private Resource thumb;
     
-    /**
-     * Creates the AbstractFlyer.
-     *
-     * @param name filename
-     */
+    /** Creates the AbstractFlyer. */
     public AbstractImage(final String name) {
         Validate.notNull(name, "name");
         this.name = name;
     }
     
-    /** @see ar.com.zauber.eventz.domain.event.Flyer#getThumbnail() */
     public final Resource getThumbnail() {
         return thumb;
     }
 
-    /** @see ar.com.zauber.commons.dao.eventz.domain.event.Resource#getName() */
     public final String getName() {
         return name;
     }
 
-    /**
-     * Returns the thumb.
-     * 
-     * @return <code>Resource</code> with the thumb.
-     */
     public final Resource getThumb() {
-        Validate.notNull(thumb);
         return thumb;
     }
 
     
-    /**
-     * Sets the thumb. 
-     *
-     * @param thumb <code>Resource</code> with the thumb.
-     */
+    /** Sets the thumb */
     public final void setThumb(final Resource thumb) {
         Validate.notNull(thumb);
         
@@ -109,9 +91,6 @@ public abstract class AbstractImage implements Image {
                 throw new IllegalArgumentException("don't know how to read "
                         + "that type of images");
             }
-//            final ImageReader reader = (ImageReader)i.next();
-//            reader.setInput(iis);
-//            System.out.println(reader.getHeight(reader.getMinIndex()));
         } finally {
             is.close();
         }
@@ -119,10 +98,7 @@ public abstract class AbstractImage implements Image {
     
     
     /**
-     * utility method. close is and os
-     * 
-     * TODO: tiene que haber una forma de evitar el Graphics2D
-     * TODO: performace
+     * Creates a thumbnail
      * 
      * @param is data source
      * @param os data source
@@ -177,5 +153,4 @@ public abstract class AbstractImage implements Image {
             os.close();
         }
     }
-    
 }
