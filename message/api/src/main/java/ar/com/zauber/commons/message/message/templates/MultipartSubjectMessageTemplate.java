@@ -26,6 +26,7 @@ import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessagePart;
 import ar.com.zauber.commons.message.MessageTemplate;
 import ar.com.zauber.commons.message.NotificationAddress;
+import ar.com.zauber.commons.message.NotificationAddressFactory;
 import ar.com.zauber.commons.message.message.MultipartMessageImpl;
 
 /**
@@ -38,21 +39,25 @@ public class MultipartSubjectMessageTemplate implements MessageTemplate {
     
     private final List<PartTemplate> templates;
     private final PartTemplate subjectTemplate;
-    private final NotificationAddress address;
+    private final NotificationAddressFactory notificationAddressFactory;
+    private final PartTemplate replyToTemplate;
     
-    /** Creates the MultipartVelocitySubjectMessageTemplate. */
+    /** Creates the MultipartSubjectMessageTemplate. */
     public MultipartSubjectMessageTemplate(
             final List<PartTemplate> templates,
-            final PartTemplate subjectTemplate, 
-            final NotificationAddress address) {
+            final PartTemplate subjectTemplate,
+            final NotificationAddressFactory notificationAddressFactory,
+            final PartTemplate replyToTemplate) {
         
         Validate.notEmpty(templates);
         Validate.notNull(subjectTemplate);
-        Validate.notNull(address);
-        
+        Validate.notNull(notificationAddressFactory);
+        Validate.notNull(replyToTemplate);
+
         this.templates = templates;
         this.subjectTemplate = subjectTemplate;
-        this.address = address;
+        this.notificationAddressFactory = notificationAddressFactory;
+        this.replyToTemplate = replyToTemplate;
     }
 
     /** @see MessageTemplate#render(Map) */
@@ -67,7 +72,11 @@ public class MultipartSubjectMessageTemplate implements MessageTemplate {
         final String subject 
             = subjectTemplate.createPart(model).getContent().toString();
         
-        return new MultipartMessageImpl(parts, subject, address);
+        final NotificationAddress replyTo 
+            = notificationAddressFactory.createNotificationAddress(
+                replyToTemplate.createPart(model).getContent().toString());
+        
+        return new MultipartMessageImpl(parts, subject, replyTo);
     }
 
 }

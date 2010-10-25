@@ -27,8 +27,10 @@ import org.junit.Test;
 import ar.com.zauber.commons.dao.resources.StringResource;
 import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageTemplate;
-import ar.com.zauber.commons.message.NotificationAddress;
-import ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress;
+import ar.com.zauber.commons.message.NotificationAddressFactory;
+import ar.com.zauber.commons.message.impl.mail.InvalidEmailAddressFormatException;
+import ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddressFactory;
+import ar.com.zauber.commons.message.message.StringMessagePart;
 import ar.com.zauber.commons.message.message.templates.MultipartSubjectMessageTemplate;
 import ar.com.zauber.commons.message.message.templates.PartTemplate;
 
@@ -47,10 +49,12 @@ public class MultipartSubjectMessageTemplateTest {
             = Arrays.asList(createStringResource("hoy es el cumple de $nombre"));
         final PartTemplate subject 
             = createStringResource("Hola $nombre, Feliz cumple!");
-        final NotificationAddress address = new JavaMailEmailAddress("foo@bar");
+        final PartTemplate replyTo 
+            = new FixedPartTemplate(
+                new StringMessagePart("text/plain", "aaa@bbb.com"));
         final MessageTemplate messageTemplate 
             = new MultipartSubjectMessageTemplate(
-                templates, subject, address);
+                templates, subject, createNotificationAddressFactory(), replyTo);
         
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("nombre", "Dami");
@@ -58,7 +62,48 @@ public class MultipartSubjectMessageTemplateTest {
         
         Assert.assertEquals("Hola Dami, Feliz cumple!", message.getSubject());
         Assert.assertEquals("hoy es el cumple de Dami", message.getContent());
-        Assert.assertEquals(address, message.getReplyToAddress());
+        Assert.assertEquals("aaa@bbb.com", message.getReplyToAddress().toString());
+    }
+    
+    /** replyTo template */
+    @Test
+    public final void testReplyTo() {
+        final List<PartTemplate> templates 
+            = Arrays.asList(createStringResource("$body texto de body"));
+        final PartTemplate subject = createStringResource("Hola $name");
+        final PartTemplate replyTo = createStringResource("$replyTo");
+        final MessageTemplate messageTemplate 
+            = new MultipartSubjectMessageTemplate(
+                templates, subject, createNotificationAddressFactory(), replyTo);
+        
+        //ok
+        final Map<String, Object> model1 = new HashMap<String, Object>();
+        model1.put("name", "Carlos");
+        model1.put("body", "Algun");
+        model1.put("replyTo", "otro@sender.com");
+        final Message message = messageTemplate.render(model1);
+        
+        Assert.assertEquals("Hola Carlos", message.getSubject());
+        Assert.assertEquals("Algun texto de body", message.getContent());
+        Assert.assertEquals("otro@sender.com", 
+                message.getReplyToAddress().toString());
+        
+        //fail
+        final Map<String, Object> model2 = new HashMap<String, Object>();
+        model2.put("nombre", "Carlos");
+        model2.put("body", "Algun");
+        //no replyto
+        try {
+            messageTemplate.render(model2);
+            Assert.fail("no deberia renderear");
+        } catch (InvalidEmailAddressFormatException e) {
+            // ok
+        }
+    }
+
+    /** @return un nuevo {@link JavaMailEmailAddressFactory} */
+    private NotificationAddressFactory createNotificationAddressFactory() {
+        return new JavaMailEmailAddressFactory();
     }
 
     /** @return a {@link PartTemplate} */
