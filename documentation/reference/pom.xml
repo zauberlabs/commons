@@ -4,7 +4,7 @@
   <parent>
      <groupId>ar.com.zauber.commons.documentation</groupId>
      <artifactId>documentation-parent</artifactId>
-     <version>3.39-SNAPSHOT</version>
+     <version>3.40-SNAPSHOT</version>
   </parent>
   <artifactId>commons-documentation-reference</artifactId>
   <version>0.0-SNAPSHOT</version>
@@ -154,7 +154,7 @@
           <dependency>
               <groupId>ar.com.zauber.commons.documentation</groupId>
               <artifactId>commons-jdocbook-style</artifactId>
-              <version>3.39-SNAPSHOT</version>
+              <version>3.40-SNAPSHOT</version>
               <type>jdocbook-style</type>
           </dependency>
         </dependencies>
