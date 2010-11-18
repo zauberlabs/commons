@@ -6,6 +6,7 @@ package ar.com.zauber.commons.web.cache.impl.filter.matchers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.util.UrlPathHelper;
 
 import ar.com.zauber.commons.web.cache.api.filter.MatchData;
 import ar.com.zauber.commons.web.cache.api.filter.RequestMatcher;
@@ -20,6 +21,8 @@ import ar.com.zauber.commons.web.cache.api.filter.RequestMatcher;
 public class AntRequestMatcher implements RequestMatcher {
 
     private AntPathMatcher pathMatcher = new AntPathMatcher();
+    private UrlPathHelper urlPathHelper = new UrlPathHelper();
+
     private final String pattern;
     
     /**
@@ -33,12 +36,20 @@ public class AntRequestMatcher implements RequestMatcher {
 
     /** @see RequestMatcher#matches(HttpServletRequest) */
     public final MatchData matches(final HttpServletRequest request) {
-        final String path = request.getRequestURI();
+        final String path = urlPathHelper.getPathWithinApplication(request);
         if (pathMatcher.match(this.pattern, path)) { 
             return new MatchData(
                     pathMatcher.extractUriTemplateVariables(this.pattern, path));
         }
         return null;
+    }
+    
+    public final void setPathMatcher(final AntPathMatcher pathMatcher) {
+        this.pathMatcher = pathMatcher;
+    }
+    
+    public final void setUrlPathHelper(final UrlPathHelper urlPathHelper) {
+        this.urlPathHelper = urlPathHelper;
     }
 
 }

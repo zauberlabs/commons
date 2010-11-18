@@ -1,68 +1,80 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>commons-web-parent</artifactId>
-    <groupId>ar.com.zauber.commons.web</groupId>
-    <version>3.40-SNAPSHOT</version>
-  </parent>
-  <name>Zauber::Commons::Web::Cache</name>
-  <artifactId>commons-web-cache</artifactId>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>commons-web-parent</artifactId>
+		<groupId>ar.com.zauber.commons.web</groupId>
+		<version>3.40-SNAPSHOT</version>
+	</parent>
+	<name>Zauber::Commons::Web::Cache</name>
+	<artifactId>commons-web-cache</artifactId>
 
-  <dependencies>
-    <!-- BEGIN: Apache Commons -->
-    <dependency>
-      <artifactId>commons-lang</artifactId>
-      <groupId>commons-lang</groupId>
-    </dependency>
-    <!-- END: Apache Commons -->
-    <!-- BEGIN: J2EE Servlet -->
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-    </dependency>
-    <!-- END: J2EE Servlet -->
-    <!-- BEGIN: Spring Framework -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-    </dependency>
-    <!-- END: Spring Framework -->
-    <!-- BEGIN: EhCache -->
-    <dependency>
-      <groupId>net.sf.ehcache</groupId>
-      <artifactId>ehcache-core</artifactId>
-    </dependency>
-    <!-- END: EhCache -->
-    <!-- BEGIN: Hibernate -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-annotations</artifactId>
-    </dependency>
-    <!-- END: Hibernate -->
-    <!-- BEGIN: Json Parsing (Jackson) -->
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-    </dependency>
-    <!-- END: Json Parsing (Jackson) -->
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-server</artifactId>
-      <version>7.1.0.v20100505</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+	<dependencies>
+		<!-- BEGIN: Apache Commons -->
+		<dependency>
+			<artifactId>commons-lang</artifactId>
+			<groupId>commons-lang</groupId>
+		</dependency>
+		<!-- END: Apache Commons -->
+		<!-- BEGIN: J2EE Servlet -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<!-- END: J2EE Servlet -->
+		<!-- BEGIN: Spring Framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		<!-- END: Spring Framework -->
+		<!-- BEGIN: EhCache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+		</dependency>
+		<!-- END: EhCache -->
+		<!-- BEGIN: Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+		</dependency>
+		<!-- END: Hibernate -->
+		<!-- BEGIN: Json Parsing (Jackson) -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<!-- END: Json Parsing (Jackson) -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>7.1.0.v20100505</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- BEGIN: Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- END: Logging -->
+	</dependencies>
 </project>
