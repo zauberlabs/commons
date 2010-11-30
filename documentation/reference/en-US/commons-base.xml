@@ -268,7 +268,7 @@ Status after transformation: Pat T., Soldier</programlisting>
             <title>Closures</title>
             <section xml:id="commons-base-functors-closure-problem">
                 <title>Problem</title>
-                <para>You need a functor that operates on an object.</para>
+                <para>You to operate on an object.</para>
             </section>
             <section xml:id="commons-base-functors-closure-solution">
                 <title>Solution</title>
@@ -315,12 +315,18 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                 <title>Discussion</title>
 
                 <para>A <code>Closure</code> operates on the input object passed 
-                to the <code>execute( )</code> method, while a <code>Transformer</code> 
-                does not alter the object passed to <code>transform( )</code>. 
-                Use <code>Closure</code> if your system needs to act on an object. 
-                Like the <code>Transformer</code> and <code>Predicate</code> interfaces, 
-                there are a number of <code>Closure</code> implementations that 
-                can be used to chain and combine <code>Closure</code> instances.</para>
+                to the <code>execute( )</code> method. There is no need to modify
+                the object but generally that is the case as the method does not 
+                have a return value the only way to give information back to the
+                caller is with the input object.</para>
+                <para>Another common use of this type of object is to pass it 
+                as a <emphasis role="bold">call back object</emphasis>. When we
+                need to do an asyncronous operation we pass a <code>Closure</code>
+                so it is call with the answer of the operation. And as the closures
+                can be composed (as the rest of the functors), the "<code>Closure</code>""
+                could actually be a list of closures working together to obtain 
+                the expected result. </para>
+                 
                 <para>The following table shows <emphasis role="bold">Zauber Commons</emphasis> 
                 implementations for <code>Closure</code></para>
                 <table frame='hsides'>
@@ -339,7 +345,7 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                                 <entry>
                                     <code>NullClosure</code>
                                 </entry>
-                                <entry>Do nothing.</entry>
+                                <entry>Does nothing (nop function).</entry>
                             </row>
                             <row>
                                 <entry>
@@ -352,8 +358,13 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                                 <entry>
                                     <code>ErrorLoggerWrapperClosure</code>
                                 </entry>
-                                <entry>Log exceptions. Useful for beeing an outer 
-                                closure in a threadpool.</entry>
+                                <entry>
+                                Wraps the execution of another closure and
+                                it the inner closure throws an exception this
+                                closure catches logs it and rethrows it wrapped
+                                in an <code>UnhandledException</code>. 
+                                Useful for beeing an outer closure in a threadpool.
+                                </entry>
                             </row>
                             <row>
                                 <entry>
@@ -384,8 +395,9 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                                 <entry>
                                     <code>MutableClosure</code>
                                 </entry>
-                                <entry>Closure behavior can be changed using 
-                                method <code>setTarget()</code> and passing a new
+                                <entry>Wrapper closure that delegates into another
+                                closure that can be change on using method 
+                                <code>setTarget()</code> and passing a new
                                 <code>Closure</code>.</entry>
                             </row>
                             <row>
@@ -394,8 +406,11 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                                 </entry>
                                 <entry>Takes a list of <code>PredicateClosureEntry</code> 
                                 (entries with predicates as keys and closures as values) 
-                                via constructor and executes closures with asociated 
-                                keys evaluated as true.</entry>
+                                via constructor and on the <code>execute</code> call 
+                                goes through the list evaluating the input object
+                                with the Predicates executing closure associated
+                                with the first <code>Predicate</code> that
+                                evaluates to true.</entry>
                             </row>     
                             <row>
                                 <entry>
