@@ -8,8 +8,11 @@
     <section xml:id="commons-base-overview">
         <title>Overview</title>
         
-        <para><emphasis role="bold">Commons Base</emphasis> aims to be an adaptation of 
-        Apache Commons adding some features that are useful for developing. </para>
+        <para>This module was inspired by the Apache Commons project. It's initial 
+        intention was to adapt and complement it (for example by adding some 
+        generic features to the collections classes). As time has gone by  it
+        grew and we added some features that we found useful for developing.  
+        </para>
         <para><emphasis role="bold">Commons Base</emphasis> can be divided in:
         </para>
         <itemizedlist>
@@ -27,12 +30,17 @@
             </emphasis>: Abstractions for resources.</para></listitem>
             <listitem><para><emphasis role="bold">Collections
             </emphasis>: Handling collections.</para></listitem>
-	    <listitem><para><emphasis role="bold">Storage
+	        <listitem><para><emphasis role="bold">Storage
             </emphasis>: Searching and fetching information</para></listitem>
             <listitem><para><emphasis role="bold">Other utils
-            </emphasis>: Date, String and Password Encoders utils.</para></listitem>
-        </itemizedlist>          
- 
+            </emphasis>: Validation, Date, String and Password Encoders utils.</para></listitem>
+        </itemizedlist>
+        
+        <note>
+	        <title>Dependencies</title>
+	        <para><emphasis role="bold">Commons Base</emphasis>
+	            has no dependencies like Spring or other mayor technologies.</para>
+        </note>
     </section>
 
     <section xml:id="commons-base-functors">
@@ -41,27 +49,20 @@
         <!-- basado de http://www.discursive.com/books/cjcook/reference/functors.html-->
         
         <!-- TODO Change this, almost verbatim -->
-        <para>A functor is an object that encapsulates functional logic. So with 
-        a definition as abstract as "something that does stuff," you won't find 
-        a lot of satisfying, concise explanations of what a functor can do; in 
-        the abstract, anything that performs an operation or function could be 
-        considered a functor, and the process of drawing divisions between 
-        <emphasis role="bold"> what should and should not be implemented with 
-        functors becomes a matter of personal preference</emphasis>. Functors 
-        are less of an impressive new technology and are more of 
-        <emphasis role="bold">an approach to programming</emphasis>. Even 
-        if you are unfamiliar with the term, you've likely used functors without 
-        realizing it; two functors in common usage are <code>Comparator</code> 
-        and <code>Iterator</code>. </para>
-        <para>This small pieces of logic can be considered as 
-        <link xlink:href="http://www.lego.com/">lego</link> blocks. A simple
-        block of lego is useless but combined you can do interesting stuff. In 
-        <emphasis role="bold">Zauber Commons</emphasis> we can find 
+        
+        <para>A functor is an object that performs an operation or function or
+        "something that does stuff". As it's definition is so vague, it can be
+        made to fit almost everything. The important thing about a functor is
+        that encapsulates "functional logic", a gives us the posibility
+        to approach programming with a set of small components that can be use 
+        and combined as needed. So if we need to go through every element in 
+        a collection we obtain an <code>Iterator</code> of this collection. 
+        Then if we also have to perform an action on every element we add a 
+        <code>Closure</code> to do it and so on.</para>
+        <para>In <emphasis role="bold">Zauber Commons</emphasis> we can find 
         <code>Predicate</code>, <code>Transformer</code> and <code>Closure</code> 
         functors which were taken from <emphasis role="bold">Apache Commons</emphasis> 
         adding types to their definitions (making use of Java Generics). </para>
-        <para>Another important thing to say is that <emphasis role="bold">Zauber Commons Base</emphasis> 
-        has no dependencies like Spring or other mayor technologies.</para>
         
         <!-- Based on: http://www.discursive.com/books/cjcook/reference/functors-sect-simple-pred.html-->
         <section xml:id="commons-base-functors-predicate">
@@ -76,9 +77,7 @@
                 <title>Solution</title>
                 <para>Use a <code>Predicate</code> to evaluate a criteria or a condition. A 
                 <code>Predicate</code> is an object that evaluates another object and returns 
-                true or false; predicates are commonly used with collections 
-                for filtering, selecting, and validating 
-                their contents. This code demonstrates the use of 
+                true or false. This code demonstrates the use of 
                 simple predicates to test the type and contents of an object:</para>
 
                 <programlisting language="Java">
@@ -106,41 +105,22 @@ Is Name Shirley?: true</programlisting>
             </section>
             
             <section xml:id="commons-base-functors-predicate-discussion">
-
                 <title>Discussion</title>
-
-                <para>The <code>Predicate</code> interface is central to a number of 
-                utilities related with collections. To implement Predicate, 
-                define an <code>evaluate()</code> method that returns a boolean; a Predicate  
-                is a function object (or functor) that captures a criteria in an 
-                object that can be created and altered at runtime. Creating and 
-                evaluating a Predicate is just as valid as writing an if statement; 
-                for example, the code in the Solution of this recipe could have 
-                been implemented as a series of if statements:</para>
-
-                <programlisting language="Java">
-String name = "Shirley";
-if( name.equals( "Emma" ) ) {
-        System.out.println( "The name is Emma." );
-}
-if( name.equals( "Shirley" ) ) {
-        System.out.println( "The name is Shirley." );
-}</programlisting>
-
-                <para>Predicate instances capture an if statement in an object, 
-                and if you are going to <emphasis role="bold">constantly change the behavior of your 
-                application, you might want to consider placing conditional expressions 
-                in <code>Predicate</code> instances</emphasis>. For example, if a system is designed to 
-                classify a storm as being a hurricane, you may want to capture 
-                all of your classification criteria in an XML file—parsing this 
-                file at runtime and creating a series of Predicate objects. A 
-                storm is a hurricane when the winds exceed a certain value, and 
-                the barometric pressure falls below a certain point. But, in a 
-                few years those criteria might change to involve a new, or more 
-                complex, set of measurements. If your decision logic is encapsulated 
-                in a Predicate object, it will be easier to upgrade the program 
-                to take new criteria into account; all of this logic will be 
-                encapsulated in an instance of Predicate.
+                <para>A Predicate is a function object (or functor) that captures a 
+                criteria in an object that can be created and altered at runtime.
+                </para>
+                <para>The <code>Predicate</code> interface define an 
+                <code>evaluate(value)</code> method that returns a boolean. 
+                This boolean is obtained by evaluating the <code>value</code> 
+                with the <code>Predicate</code>'s criteria. A client class can 
+                use and object defined by this interface and in runtime determine
+                the actual implementation and even changing it thus changing 
+                the evaluation criteria on runtime.
+                </para>
+                <para>This interface is central to a number of utilities related 
+                with collections like filtering, selecting, and validating. But 
+                also is helpfull in any number of situation where the behaviuor
+                of the applications changes a lot.
                 </para>
                 
                 <para><emphasis role="bold">Zauber Commons Base</emphasis> 
@@ -162,8 +142,8 @@ if( name.equals( "Shirley" ) ) {
                         <tbody>
                             <row>
                                 <entry><code>EqualsPredicate</code></entry>
-                                <entry>Compares each object to an object passed via a 
-                                constructor—returning true if the two are equal.</entry>
+                                <entry>Compares the object to an object passed via a 
+                                constructor, returning true if the two are equal.</entry>
                             </row>
 							<row>
 								<entry>
@@ -239,8 +219,7 @@ if( name.equals( "Shirley" ) ) {
             <section xml:id="commons-base-functors-transformer-solution">
                 <title>Solution</title>
                 
-                <para>Implement the Transformer interface. A Transformer takes 
-                an object and returns a new object instance. The following example 
+                <para>Implement the Transformer interface.  The following example 
                 demonstrates the joinArmy <code>Transformer</code>; the <code>transform( )</code> 
                 method takes a <code>Recruit</code> object instance and returns a 
                 <code>Soldier</code> object:</para>
@@ -259,10 +238,8 @@ System.out.println( "Status before transformation: " + recruit );
 Soldier soldier1 = joinArmy.transform( recruit1 );
 System.out.println( "Status after transformation: " + soldier );</programlisting>
 
-                <para>A <code>Recruit</code> object is passed to the <code>joinArmy.transform( )</code> 
-                method, and a <code>Soldier</code> object is returned. The state of the recruit 
-                and soldier instances are printed before and after the 
-                transformation:</para>
+                <para>The state of the recruit and soldier instances are printed 
+                before and after the transformation:</para>
 
 <programlisting language="Java">
 Status before transformation: Pat T., Recruit
