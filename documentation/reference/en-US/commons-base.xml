@@ -406,8 +406,8 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                                 </entry>
                                 <entry>Takes a list of <code>PredicateClosureEntry</code> 
                                 (entries with predicates as keys and closures as values) 
-                                via constructor and on the <code>execute</code> call 
-                                goes through the list evaluating the input object
+                                via constructor. On the <code>execute</code> call 
+                                goes through the list of entries evaluating the input object
                                 with the Predicates executing closure associated
                                 with the first <code>Predicate</code> that
                                 evaluates to true.</entry>
@@ -423,7 +423,21 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                             </row>                                 
                         </tbody>
                     </tgroup>
-                </table>                
+                </table>
+                
+                <note>
+                    <title>Wrappers</title>
+                    <para>
+                        The <code>ClosureWrapperFactory</code> helps to make 
+                        the <code>Closure</code> composition. By providing the
+                        <code>decorate(closure)</code> method that takes the
+                        closure and wraps it with another <code>Closure</code>
+                        (wich type depends on the implementation)
+	                    For example <code>ErrorLoggerWrapperClosure</code>
+	                    wraps in a ErrorLoggerWrapperClosure the closure that
+	                    receives.
+                    </para>
+                </note>                
                 
             </section>   
             <!-- TODO Closure Processors -->         
