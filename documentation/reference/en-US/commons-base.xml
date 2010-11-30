@@ -447,8 +447,28 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
     
     <section xml:id="commons-base-exception">
         <title>Useful Exceptions</title>
-        <para>The following table shows the most frequently used exceptions</para>
-        <!-- TODO making a paragraph to talk about the TriggeredExceptionBuilder -->
+        <para>This are a set of useful exception that were needed for this module.
+            All of them extend <code>RuntimeException</code> so they are unchecked
+        </para>
+        <para>
+            One particular case is the <code>TriggeredExceptionBuilder</code>, that
+            was created for the particular case when we have to perform an opertation
+            and retry it if it gave error until certain condition.
+        </para>
+        <para>
+            The <code>TriggeredExceptionBuilder</code> receives a <code>Predicate</code>
+            and we each exception we call the <code>add(exception)</code>.
+            The builder adds it to a Collection and calls the <code>Predicate</code>
+            with it and if the predicate evaluates to true it throws a 
+            <code>TriggeredException</code>.
+        </para>
+        <para>
+            An example could be adding a <code>Predicate</code> that checks if 
+            the size of the collection is 5. So we will be able to make 5 retries
+            before the application actually throws the exception and cuts 
+            the execution.
+        </para>
+        
         <!-- Use javadoc and https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto21 -->        
         <table frame='hsides'>
             <title>Exceptions</title>
@@ -466,11 +486,11 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
                         <entry>
                             <code>AbstractEntityException</code>
                         </entry>
-                        <!-- Taken from javadoc -->
-                        <entry> It is designed to be extended. It may be rare only 
-                        extend the class to change the semantic but not its behavior. 
-                        This is much better than having an enum in the constructor. 
-                        This solution is most elegant.</entry>
+                        <entry>
+                            Gives an base for the rest of the EntityExceptions. 
+                            It has the functionality so all the childs only exists
+                            just for semantics. 
+                        </entry>
                     </row>
                     <!-- TODO the next two exceptions are not following 
                     the Exception ending convention -->
