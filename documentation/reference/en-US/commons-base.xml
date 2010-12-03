@@ -451,26 +451,51 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
             All of them extend <code>RuntimeException</code> so they are unchecked
         </para>
         <para>
-            One particular case is the <code>TriggeredExceptionBuilder</code>, that
-            was created for the particular case when we have to perform an opertation
-            and retry it if it gave error until certain condition.
-        </para>
-        <para>
-            The <code>TriggeredExceptionBuilder</code> receives a <code>Predicate</code>
-            and we each exception we call the <code>add(exception)</code>.
-            The builder adds it to a Collection and calls the <code>Predicate</code>
-            with it and if the predicate evaluates to true it throws a 
-            <code>TriggeredException</code>.
+            One interesting case is the <code>TriggeredExceptionBuilder</code> 
+            that receives a <code>Predicate</code>  and when an <code>Exception</code> 
+            occurs we call the <code>add(exceotion)</code> method.
+            The builder adds the exception to a Collection and calls 
+            the <code>Predicate</code>  with it and if the predicate evaluates 
+            to true it throws a <code>TriggeredException</code>.
         </para>
         <para>
             An example could be adding a <code>Predicate</code> that checks if 
-            the size of the collection is 5. So we will be able to make 5 retries
-            before the application actually throws the exception and cuts 
-            the execution.
+            the amount of exception excedes 3 a <code>TriggeredException</code>
+            (efectivelly allowing 3 retries of the action before cutting the execution).
         </para>
-        
+        <programlisting language="Java">
+    public void testThrowableMaxAmountPredicate(){        
+        final int maxElements = 3;
+        Predicate&lt;Collection&lt;Throwable&gt;&gt; condition = 
+            new ThrowableMaxAmountPredicate(maxElements);
+        TriggeredExceptionBuilder builder = new TriggeredExceptionBuilder(condition);
+        for(int x = 0; x &lt; maxElements; x++) {
+            builder.add(new IllegalArgumentException());
+        }
+        try {
+            builder.add(new IllegalArgumentException());
+            Assert.fail();
+        } catch(TriggeredException e) {
+            Assert.assertEquals(maxElements + 1, builder.getThrowablesOcurred()
+                    .size());
+        }
+    }        
+        </programlisting>
+        <para>
+            One common use of this example is when we try to connect to a remote
+            service, sometimes an error happens on the transport or because the
+            service can't answer in the instant we call it. So we retry a few 
+            more times. If one of them comes back with an answer we go on 
+            and discard those errors  as "ocassional" (probably log them to know), 
+            but if after those retries still there is still, an error we can say 
+            "ok the service has a real problem" so let's act accordingly   
+        </para>
+        <para>
+            The following table shows <emphasis role="bold">Zauber Commons</emphasis> 
+            implementations for <code>Exception</code>
+        </para>
         <!-- Use javadoc and https://wiki.zaubersoftware.com/intra/bin/view/Commons/ReleasesNotes3Punto21 -->        
-        <table frame='hsides'>
+        <table frame='hsides' >
             <title>Exceptions</title>
         
             <tgroup cols="2">
