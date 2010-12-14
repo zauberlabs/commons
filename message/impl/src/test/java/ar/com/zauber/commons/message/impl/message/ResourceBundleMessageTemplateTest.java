@@ -46,7 +46,7 @@ public class ResourceBundleMessageTemplateTest extends TestCase {
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", "juan");
         final MessageTemplate template  = new ResourceBundleMessageTemplate(
-                "body", "hola", address, source);
+                "body", "hola", address, source, "UTF-8");
         final Message msg = template.render(model); 
         assertEquals("body", msg.getContent());
         assertEquals("hola juan", msg.getSubject());
@@ -56,7 +56,7 @@ public class ResourceBundleMessageTemplateTest extends TestCase {
     public final void testRenderSubjectWithOutModel() {
         final Map<String, Object> model = new HashMap<String, Object>();
         final MessageTemplate template  = new ResourceBundleMessageTemplate(
-                "body", "hola", address, source);
+                "body", "hola", address, source, "UTF-8");
         final Message msg = template.render(model);
         
         assertEquals("body", msg.getContent());
@@ -67,7 +67,7 @@ public class ResourceBundleMessageTemplateTest extends TestCase {
     public final void testRenderBodyWithOutModel() {
         final Map<String, Object> model = new HashMap<String, Object>();
         final MessageTemplate template  = new ResourceBundleMessageTemplate(
-                "hola", "subject", address, source);
+                "hola", "subject", address, source, "UTF-8");
         final Message msg = template.render(model);
         
         assertEquals("hola {0}", msg.getContent());

@@ -35,10 +35,11 @@ import ar.com.zauber.commons.message.message.templates.PartTemplate;
  */
 public class VelocityMessagePartTemplate 
     extends AbstractMessagePartTemplate implements PartTemplate {
+
     /** Creates the VelocityMessageTemplate. */
     public VelocityMessagePartTemplate(final String contentType, 
-            final Resource resource) {
-        super(resource, contentType);
+            final Resource resource, final String charset) {
+        super(resource, contentType, charset);
     }
 
     /** @see AbstractTemplate#renderString(java.lang.String, java.util.Map) */

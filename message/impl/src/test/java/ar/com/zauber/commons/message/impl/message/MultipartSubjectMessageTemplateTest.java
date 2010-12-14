@@ -110,6 +110,6 @@ public class MultipartSubjectMessageTemplateTest {
     private PartTemplate createStringResource(final String template) {
         return new VelocityMessagePartTemplate(
             "text/plain",
-            new StringResource(template));
+            new StringResource(template), "UTF-8");
     }
 }

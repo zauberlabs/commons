@@ -41,11 +41,12 @@ public class MultipartMessageTest extends TestCase {
      * @throws Exception
      */
     public final void testMultipartMessage() throws Exception {
+        final String charset = "UTF-8";
         final PartTemplate templatePlain = new VelocityMessagePartTemplate(
-                "text/plain", new StringResource("hey! $you"));
+                "text/plain", new StringResource("hey! $you"), charset);
         final PartTemplate templateHtml = new VelocityMessagePartTemplate(
                 "text/html", new StringResource("<html><h1>hey!</h1> "
-                        + "<h2>$you</h2></html>"));
+                        + "<h2>$you</h2></html>"), charset);
         final MessageTemplate template = new MultipartMessageTemplate(
                 Arrays.asList(new PartTemplate[]{templatePlain, templateHtml}), 
                 "hi me", address);

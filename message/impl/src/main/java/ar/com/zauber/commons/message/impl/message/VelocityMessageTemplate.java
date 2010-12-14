@@ -38,15 +38,9 @@ import ar.com.zauber.commons.message.message.templates.AbstractMessageTemplate;
 public class VelocityMessageTemplate extends AbstractMessageTemplate {
     
     /** Creates the VelocityMessageTemplate. */
-    public VelocityMessageTemplate(final String content, final String subject,
-            final NotificationAddress address) {
-        super(content, subject, address);
-    }
-
-    /** Creates the VelocityMessageTemplate. */
     public VelocityMessageTemplate(final Resource resource, final String subject,
-            final NotificationAddress address) {
-        super(resource, subject, address);
+            final NotificationAddress address, final String charset) {
+        super(resource, subject, address, charset);
     }
     
     static {

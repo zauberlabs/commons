@@ -27,6 +27,7 @@ import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
+import ar.com.zauber.commons.dao.resources.StringResource;
 import ar.com.zauber.commons.message.MessageFactory;
 import ar.com.zauber.commons.message.NotificationAddress;
 import ar.com.zauber.commons.message.message.templates.AbstractMessageTemplate;
@@ -40,17 +41,15 @@ import ar.com.zauber.commons.message.message.templates.AbstractMessageTemplate;
  */
 public class ResourceBundleMessageTemplate extends AbstractMessageTemplate {
     private final ResourceBundleMessageSource resourceBundleMessageSource;
-    
-    /** 
-     * @see AbstractMessageTemplate#AbstractMessageTemplate(String, String, 
-     * NotificationAddress)
-     */
+
+    /** Creates the ResourceBundleMessageTemplate. */
     public ResourceBundleMessageTemplate(final String content, final String subject,
             final NotificationAddress address,
-            final ResourceBundleMessageSource resourceBundleMessageSource) {
-        super(content, subject, address);
+            final ResourceBundleMessageSource resourceBundleMessageSource,
+            final String charset) {
+        super(new StringResource(content), subject, address, charset);
         this.resourceBundleMessageSource = resourceBundleMessageSource;
-    }
+    }    
 
     /** 
      * @see MessageFactory#renderString(java.lang.String, java.util.Map)

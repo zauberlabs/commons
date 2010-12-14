@@ -16,9 +16,12 @@
 package ar.com.zauber.commons.message.message.templates;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.Resource;
@@ -40,21 +43,19 @@ public abstract class AbstractMessageTemplate
     private final String subject;
     private final NotificationAddress address;
     
-    /** @deprecated Use the other constructor */
-    public AbstractMessageTemplate(final String content, final String subject,
-            final NotificationAddress address) {
-        this(new StringResource(content), subject, address);
-    }
-
     /** Creates the AbstractMessageTemplate. */
     public AbstractMessageTemplate(final Resource content, final String subject,
-            final NotificationAddress address) {
+            final NotificationAddress address, final String charset) {
         Validate.notNull(content);
         Validate.notNull(subject);
         Validate.notNull(address);
         
         final ByteArrayOutputStream os = copyResource(content);
-        this.content = os.toString();
+        try {
+            this.content = os.toString(charset);
+        } catch (UnsupportedEncodingException e) {
+            throw new UnhandledException(e);
+        }
         this.subject = subject;
         this.address = address;
     }

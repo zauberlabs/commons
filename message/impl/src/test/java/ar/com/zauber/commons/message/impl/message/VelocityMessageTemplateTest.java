@@ -38,7 +38,7 @@ public class VelocityMessageTemplateTest extends TestCase {
     /** unit test */
     public final void testRenderSubjectWithModel() {
         final MessageTemplate template = new VelocityMessageTemplate(
-                "body", "hola ${user}", address);
+                new StringResource("body"), "hola ${user}", address, "UTF-8");
         
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", "juan");
@@ -52,7 +52,7 @@ public class VelocityMessageTemplateTest extends TestCase {
     public final void testRenderSubjectWithOutModel() {
         final Map<String, Object> model = new HashMap<String, Object>();
         final MessageTemplate template = new VelocityMessageTemplate(
-                "body", "hola ${user}", address);
+                new StringResource("body"), "hola ${user}", address, "UTF-8");
         final Message msg = template.render(model);
         
         assertEquals("body", msg.getContent());
@@ -63,7 +63,7 @@ public class VelocityMessageTemplateTest extends TestCase {
     public final void testRenderBodyWithOutModel() {
         final Map<String, Object> model = new HashMap<String, Object>();
         final MessageTemplate template = new VelocityMessageTemplate(
-                "hola ${user}", "subject", address);
+                new StringResource("hola ${user}"), "subject", address, "UTF-8");
         final Message msg = template.render(model);
         
         assertEquals("hola ${user}", msg.getContent());
@@ -75,7 +75,7 @@ public class VelocityMessageTemplateTest extends TestCase {
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", "juan");
         final MessageTemplate template = new VelocityMessageTemplate(
-                "hola ${user}", "subject", address);
+                new StringResource("hola ${user}"), "subject", address, "UTF-8");
         final Message msg = template.render(model);
         assertEquals("hola juan", msg.getContent());
         assertEquals("subject", msg.getSubject());
@@ -86,7 +86,7 @@ public class VelocityMessageTemplateTest extends TestCase {
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", "juan");
         final MessageTemplate template = new VelocityMessageTemplate(
-                new StringResource("hola ${user}"), "subject", address);
+                new StringResource("hola ${user}"), "subject", address, "UTF-8");
         final Message msg = template.render(model);
         assertEquals("hola juan", msg.getContent());
         assertEquals("subject", msg.getSubject());

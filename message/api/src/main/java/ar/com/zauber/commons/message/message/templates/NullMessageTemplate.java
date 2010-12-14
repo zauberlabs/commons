@@ -15,7 +15,6 @@
  */
 package ar.com.zauber.commons.message.message.templates;
 
-import java.io.InputStream;
 import java.util.Map;
 
 import ar.com.zauber.commons.dao.Resource;
@@ -30,17 +29,11 @@ import ar.com.zauber.commons.message.NotificationAddress;
  * @since Mar 15, 2006
  */
 public class NullMessageTemplate extends AbstractMessageTemplate {
-
-    /** @deprecated use the other constructor */
-    public NullMessageTemplate(final String content, final String subject,
-            final NotificationAddress address) {
-        super(content, subject, address);
-    }
     
     /** constructor */
     public NullMessageTemplate(final Resource content, final String subject,
-            final NotificationAddress address) {
-        super(content, subject, address);
+            final NotificationAddress address, final String charset) {
+        super(content, subject, address, charset);
     }
 
     /** @see MessageFactory#renderString(String, Map) */

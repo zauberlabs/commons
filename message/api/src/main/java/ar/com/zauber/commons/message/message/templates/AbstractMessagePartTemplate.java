@@ -16,9 +16,11 @@
 package ar.com.zauber.commons.message.message.templates;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.Resource;
@@ -35,18 +37,21 @@ public abstract class AbstractMessagePartTemplate
     extends AbstractTemplate implements PartTemplate {
     private final String content;
     private final String contentType;
-    
-    /** Creates the AbstractMessageTemplate. */
-    public AbstractMessagePartTemplate(final Resource content, 
-            final String contentType) {
+
+    /** Creates the AbstractMessagePartTemplate. */
+    public AbstractMessagePartTemplate(final Resource content,
+            final String contentType, final String charset) {
         Validate.notNull(content);
         Validate.notEmpty(contentType);
-        
+
         final ByteArrayOutputStream os = copyResource(content);
-        this.content = os.toString();
+        try {
+            this.content = os.toString(charset);
+        } catch (UnsupportedEncodingException e) {
+            throw new UnhandledException(e);
+        }
         this.contentType = contentType;
     }
-
     
     /** @see MessageTemplate#render(Map) */
     public final MessagePart createPart(final Map<String, Object> model) {
