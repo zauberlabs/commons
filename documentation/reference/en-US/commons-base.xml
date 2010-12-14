@@ -48,8 +48,6 @@
         
         <!-- basado de http://www.discursive.com/books/cjcook/reference/functors.html-->
         
-        <!-- TODO Change this, almost verbatim -->
-        
         <para>A functor is an object that performs an operation or function or
         "something that does stuff". As it's definition is so vague, it can be
         made to fit almost everything. The important thing about a functor is
@@ -572,17 +570,29 @@ Shoes after 3 discounts: Fancy Shoes for $87.48</programlisting>
             
 	        <para>Let's assume that we need to verify user's email address in some 
 	        web project. For these we will send him an email to the unverified email 
-	        account with a link to our system in order to confirm the address. 
-	        Obviously we will need some kind of code for this unique action to be 
-	        secure. Here it is where <code>SecretMap</code> comes in.</para>
+	        account with a link to our system in order to confirm the address.
+	        As this is a verification we need to have some sort of security, for
+	        example by sending something (a token), that allows us to determine
+	        the user that ask the verification, and of course this token 
+	        (or <code>Secret</code>) should not be comprehensible by the user.
+	        </para>
 	        
         </section>
         <section xml:id="commons-base-secret-solution">
             <title>Solution</title>
             <para>We need some class that handles a relationship between 
-            my user and a secret code. <code>SecretMap</code> is fulfilling that 
-            role. Also this class provides a way to determine the date of expiration
-            for that secret to be used. Some methods defined on <code>SecretMap</code> interface are:</para>
+            the user (or entity) and the secret code. <code>SecretMap</code> was 
+            made to fulfill this role. This interfaz is parametrized so the entity
+            related to the secret can be selected by the implementation. 
+            It provides methods to register(create), check and unregister secrets 
+            for an entity, and from the secret retrieve the entity or unregister.
+            Also it provides we the posibility to add an important feature:
+            expiration dates for the secret.
+            </para>
+            <para>
+                The following listing shows the complete 
+                <code>SecretsMap</code> interface:
+            </para>
             <programlisting language="Java">
 public interface SecretsMap&lt;T&gt; {
 
@@ -619,23 +629,26 @@ public interface SecretsMap&lt;T&gt; {
     // Removes secrets that has expired.
     void cleanup();
 }</programlisting>
-            <para>Now, we have an interface to ask for secrets and 
-            retrieving the user associated with them. In our example we want to 
-            verify an user's email address. First, we should register the user in our 
-            <code>SecretMap</code> and send him the email with some link including 
-            that secret as a url parameter. Then, our controller should take 
-            that secret, retrieve the user, verify him and remove the entry from 
-            the map.</para>
+
+            <para>
+            Haivng this interface the flow would be to create the secret
+            for the user and send it to the client (by mail, or other messagine system).
+            And when the users sends back the secret obtain the entity related 
+            do as needed with it, and then unregister the secret.
+            </para>
+            <para>We will see an example of this in the next section.</para>
         </section>
         <section xml:id="commons-base-secret-implementation">
             <title>Implementation</title>
-            <para>For secret handling also we need to determine how secrets 
-            will be generated and their's expiration policy. For these purposes 
-            there are three more interfaces <code>SecretGenerator</code>, 
-            <code>ExpirationDatePolicy</code> and <code>ExpirationDateValidator</code>.
-            Knowing their function and available implementations of each one 
-            should be sufficient for complete understanding of secret customization 
-            and future additions or modifications in the API.</para>
+            <para>
+            To have full controll of <code>secret</code> creation we need to control
+            how this secrets are generated, and how the expiration dates are created
+            and validated.
+            </para>
+            <para>
+               The next listing shows the interfaces create to solve this issues,
+               and the implementations we provide.
+            </para>
 	        <table frame='hsides'>
 	            <title>Interfaces involved</title>
 	        
@@ -653,8 +666,7 @@ public interface SecretsMap&lt;T&gt; {
 	                        <entry>
 	                            <code>SecretGenerator</code>
 	                        </entry>
-	                        <entry>Determines how a secret will be generated. 
-	                        This involves the sequence of strings to be generated.</entry>
+	                        <entry>Determines how a secret will be generated.</entry>
 	                        <entry><code>SecuencialSecretGenerator</code>, 
 	                        <code>SecureRandomSecretGenerator</code></entry>
 	                    </row>
@@ -662,16 +674,17 @@ public interface SecretsMap&lt;T&gt; {
                             <entry>
                                 <code>ExpirationDatePolicy</code>
                             </entry>
-                            <entry>Policy of expiration dates. Policy of time 
-                            in which the secrets expire.</entry>
-                            <entry><code>CurrentTimeExpirationDatePolicy</code>
+                            <entry>Policy that dictates when a generated secret 
+                            will expire.</entry>
+                            <entry>
+                                <code>DaysExpirationDatePolicy</code>
                             </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>ExpirationDateValidator</code>
                             </entry>
-                            <entry>Validates that dates didn't expired.</entry>
+                            <entry>Policy that knows when a secret has expired.</entry>
                             <entry><code>DaysExpirationDatePolicy</code></entry>
                         </row>                        
 	                </tbody>
