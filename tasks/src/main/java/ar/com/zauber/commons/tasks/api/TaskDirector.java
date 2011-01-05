@@ -42,6 +42,9 @@ public interface TaskDirector {
      * @see Task#getName()
      */
     void launch(final String taskName) throws IllegalArgumentException;
+    
+    /** Launches all configured {@link Task}s */
+    void launchAll() ;
    
     /**
      * Configures the {@link TaskStateObserver} for every task launched within

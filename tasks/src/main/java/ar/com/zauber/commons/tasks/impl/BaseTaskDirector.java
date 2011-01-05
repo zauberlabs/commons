@@ -43,6 +43,13 @@ public abstract class BaseTaskDirector implements TaskDirector {
         }
         this.doLaunch(task, taskStateObserver);
     }
+    
+    @Override
+    public final void launchAll() {
+        for (Task task : this.tasksMap.values()) {
+            this.doLaunch(task, taskStateObserver);
+        }
+    }
 
     /**
      * Performs the actual task launch for a given {@link Task} using a given
