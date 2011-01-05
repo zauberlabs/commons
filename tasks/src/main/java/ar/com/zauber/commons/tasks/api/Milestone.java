@@ -20,7 +20,7 @@ import java.util.Date;
 import ar.com.zauber.commons.validate.Validate;
 
 /**
- * ValueObject para representar a un milestone una {@link Task}
+ * ValueObject representing a milestone of a {@link Task}
  * 
  * @author Mariano A Cortesi
  * @since Dec 14, 2010

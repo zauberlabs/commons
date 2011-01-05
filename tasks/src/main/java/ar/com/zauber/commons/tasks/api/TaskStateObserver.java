@@ -16,20 +16,20 @@
 package ar.com.zauber.commons.tasks.api;
 
 /**
- * Modela a un observer para un {@link TaskState}
+ * Models an observer for a {@link TaskState}
  * 
  * @author Mariano A Cortesi
  * @since Dec 14, 2010
  */
 public interface TaskStateObserver {
 
-    /** Evento que indica que se ha alcanzado un milestone */
+    /** Events that indicates that a milestone has been reached */
     void milestoneReached(TaskState taskState, Milestone milestone);
 
-    /** Evento que indica que ha finalizado la {@link Task} */
+    /** Events that indicates that a {@link Task} has finished */
     void finishedOk(TaskState taskState, Milestone milestone);
 
-    /** Evento que indica que ha finalizado la {@link Task} con errores */ 
+    /** Events that indicates that a {@link Task} has finished with errors */
     void finishedWithError(TaskState taskState, Milestone milestone, Throwable e);
 
 }

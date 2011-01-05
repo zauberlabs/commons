@@ -20,13 +20,20 @@ import ar.com.zauber.commons.tasks.api.TaskState;
 import ar.com.zauber.commons.tasks.api.TaskStateObserver;
 
 /**
- * Observer que funciona como NullObject
+ * {@link TaskStateObserver} implementation to work as a Null Object pattern
  * 
  * @author Mariano A Cortesi
  * @since Dec 14, 2010
  */
 public class NOPStateObserver implements TaskStateObserver {
 
+    public static final NOPStateObserver INSTANCE = new NOPStateObserver();
+    
+    /** Private constructor, use the {@link NOPStateObserver#INSTANCE} singleton */
+    private NOPStateObserver() {
+        // nothing to do
+    }
+    
     @Override
     public void milestoneReached(final TaskState state,
             final Milestone milestone) {

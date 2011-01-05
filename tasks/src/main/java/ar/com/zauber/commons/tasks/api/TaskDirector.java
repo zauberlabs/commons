@@ -16,7 +16,8 @@
 package ar.com.zauber.commons.tasks.api;
 
 /**
- * Se encarga de administrar la actualización del estado interno del adserver
+ * Responsible of lauchings {@link Task}s and managing retries, task logging 
+ * and reporting.
  * 
  * @author Pablo Martin Grigolatto
  * @since Dec 14, 2010
@@ -24,20 +25,29 @@ package ar.com.zauber.commons.tasks.api;
 public interface TaskDirector {
 
     /**
-     * Dispara una tarea
+     * Adds a {@link Task} to the {@link TaskDirector}
+     * 
+     * @throws IllegalArgumentException If a task with the same name already exists
+     * @see Task#getName()
+     */
+    void addTask(final Task task) throws IllegalArgumentException;
+    
+    /**
+     * Launchs a {@link Task} previously known by the {@link TaskDirector}
      * 
      * @param taskName
-     *            nombre de la tarea
+     *            name of the task to be launched
      * @throws IllegalArgumentException
-     *             Si no existe la tarea con el nombre dado
+     *             If task name is not known by the {@link TaskDirector}
+     * @see Task#getName()
      */
     void launch(final String taskName) throws IllegalArgumentException;
-    
-    /** dispara la tarea de reconfiguración */
-    void launchBlackListServiceReconfiguration();
-    /** dispara la tarea de reconfiguración */
-    void launchCountryResolverReconfiguration();
-    /** dispara la tarea de reconfiguración */
-    void launchAdProviderSelectorReconfiguration();
-    
+   
+    /**
+     * Configures the {@link TaskStateObserver} for every task launched within
+     * the {@link TaskDirector}.
+     * 
+     * @param taskObserver observer to use, or <code>null</code> to set none
+     */
+    void setTaskStateObserver(final TaskStateObserver taskObserver);
 }

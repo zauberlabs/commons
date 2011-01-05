@@ -25,7 +25,7 @@ import ar.com.zauber.commons.tasks.impl.NOPStateObserver;
 import ar.com.zauber.commons.validate.Validate;
 
 /**
- * Representa al estado de una {@link Task} y a la historia del mismo.
+ * Represents the state and history of a {@link Task}
  * 
  * @author Mariano A Cortesi
  * @since Dec 14, 2010
@@ -42,7 +42,7 @@ public class TaskState {
 
     /** Creates the TaskState. */
     public TaskState(final String taskName) {
-        this(taskName, new NOPStateObserver(), new CurrentDateProvider());
+        this(taskName, NOPStateObserver.INSTANCE, new CurrentDateProvider());
     }
 
     /** Creates the TaskState. */
@@ -60,7 +60,7 @@ public class TaskState {
         this.addMilestone("started");
     }
     
-    /** Agrega un milestone a la {@link Task}  */
+    /** Reports the reach of a milestone in a {@link Task}  */
     public final void addMilestone(final String milestoneName) {
         if (this.finished) {
             throw new IllegalStateException("task is already finished");
@@ -70,7 +70,7 @@ public class TaskState {
         this.observer.milestoneReached(this, milestone);
     }
 
-    /** Indica que ha terminado la {@link Task} sin errores */
+    /** Reports that the {@link Task} has finished without errors */
     public final void finishedOk() {
         this.finished = true;
         Milestone milestone = new Milestone(dateProvider.getDate(), "finished");
@@ -78,7 +78,7 @@ public class TaskState {
         this.observer.finishedOk(this, milestone);
     }
 
-    /** Indica que ha terminado la {@link Task} con errores */
+    /** Reports that the {@link Task} has finished with errors */
     public final void finishedWithError(final Throwable e) {
         this.finished = true;
         this.error = e;
@@ -87,21 +87,22 @@ public class TaskState {
         this.observer.finishedWithError(this, milestone, e);        
     }
 
-    /** @return <code>true</code> si la task ha finalizado con errores  */
+    /** @return <code>true</code> if no errors were reported  */
     public final boolean hasErrors() {
         return this.error != null;
     }
 
+    /** @return <code>true</code> if the {@link Task} has finished  */
+    public final boolean isFinished() {
+        return finished;
+    }
+    
     public final String getTaskName() {
         return taskName;
     }
     
     public final List<Milestone> getMilestones() {
         return Collections.unmodifiableList(milestones);
-    }
-
-    public final boolean isFinished() {
-        return finished;
     }
 
     @Override

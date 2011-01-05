@@ -16,29 +16,18 @@
 package ar.com.zauber.commons.tasks.api;
 
 /**
- * Modela una tarea que puede ser ejecutada
+ * Models a task that can be executed
  * 
- * @param T Tipo de TaskState
  * @author Pablo Martin Grigolatto
  * @since Dec 13, 2010
  */
 public interface Task {
 
-    /** Dispara la ejecución de la tarea */
+    /** launchs the execution of the {@link Task} */
     void launch(TaskState state);
 
-    /**
-     * @return
-     */
+    /** @return the {@link Task}'s name */
     String getName();
     
-    /*
-    errores en cada paso?
-    
-    task
-        download
-        parse
-        update
-    */
     
 }
