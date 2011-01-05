@@ -103,6 +103,7 @@
     <module>web</module>
     <module>wicket</module>
     <module>test</module>
+    <module>tasks</module>
     <module>moderation</module>
     <module>converter</module>
     <module>social</module>     
