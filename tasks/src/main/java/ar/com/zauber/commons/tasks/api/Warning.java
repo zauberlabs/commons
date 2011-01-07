@@ -20,34 +20,40 @@ import java.util.Date;
 import ar.com.zauber.commons.validate.Validate;
 
 /**
- * ValueObject representing a milestone of a {@link Task}
+ * ValueObject representing a warning of a {@link Task}
  * 
  * @author Mariano A Cortesi
  * @since Dec 14, 2010
  */
-public class Milestone {
+public class Warning {
 
     private final Date timestamp;
-    private final String milestoneName;
+    private final String warningType;
+    private final String description;
 
-    /** Creates the Milestone. */
-    public Milestone(final Date timestamp, final String milestoneName) {
-        Validate.notNull(timestamp, milestoneName);
-        this.timestamp = new Date(timestamp.getTime());
-        this.milestoneName = milestoneName;
+    /** Creates the Warning. */
+    public Warning(final Date date, final String warningName, final String description) {
+        Validate.notNull(date, warningName);
+        this.timestamp = new Date(date.getTime());
+        this.warningType = warningName;
+        this.description = description;
+    }
+
+    public final String getDescription() {
+        return description;
     }
 
     public final Date getTimestamp() {
         return timestamp;
     }
 
-    public final String getMilestoneName() {
-        return milestoneName;
+    public final String getWarningType() {
+        return warningType;
     }
 
     @Override
     public final String toString() {
-        return "Milestone[" + timestamp + ":" + milestoneName + "]";
+        return "Warning[" + timestamp + ":" + warningType + "]";
     }
 
 }

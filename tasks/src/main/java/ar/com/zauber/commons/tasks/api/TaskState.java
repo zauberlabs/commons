@@ -34,6 +34,7 @@ public class TaskState {
 
     private final String taskName;
 
+    private final List<Warning> warnings;
     private final List<Milestone> milestones;
     private final DateProvider dateProvider;
     private final TaskStateObserver observer;
@@ -55,6 +56,7 @@ public class TaskState {
         Validate.notBlank(taskName, observer, dateProvider);
         this.taskName = taskName;
         this.milestones = new ArrayList<Milestone>();
+        this.warnings = new ArrayList<Warning>();
         this.observer = observer;
         this.dateProvider = dateProvider;
         this.addMilestone("started");
@@ -68,6 +70,16 @@ public class TaskState {
         Milestone milestone = new Milestone(dateProvider.getDate(), milestoneName);
         this.milestones.add(milestone);
         this.observer.milestoneReached(this, milestone);
+    }
+    
+    /** Reports a warning in a {@link Task}  */
+    public final void addWarning(final String type, final String description) {
+        if (this.finished) {
+            throw new IllegalStateException("task is already finished");
+        }
+        Warning warning = new Warning(dateProvider.getDate(), type, description);
+        this.warnings.add(warning);
+        this.observer.addWarning(this, warning);
     }
 
     /** Reports that the {@link Task} has finished without errors */

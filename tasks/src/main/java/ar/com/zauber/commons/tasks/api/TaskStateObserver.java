@@ -25,6 +25,9 @@ public interface TaskStateObserver {
 
     /** Events that indicates that a milestone has been reached */
     void milestoneReached(TaskState taskState, Milestone milestone);
+    
+    /** Events that indicates that a warning has been added*/
+    void addWarning(TaskState taskState, Warning warning);
 
     /** Events that indicates that a {@link Task} has finished */
     void finishedOk(TaskState taskState, Milestone milestone);

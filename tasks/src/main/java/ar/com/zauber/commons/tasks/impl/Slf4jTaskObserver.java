@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import ar.com.zauber.commons.tasks.api.Milestone;
 import ar.com.zauber.commons.tasks.api.TaskState;
 import ar.com.zauber.commons.tasks.api.TaskStateObserver;
+import ar.com.zauber.commons.tasks.api.Warning;
 
 /**
  * {@link TaskStateObserver} implementation that logs the messages to
@@ -27,7 +28,20 @@ public class Slf4jTaskObserver implements TaskStateObserver {
             logger.info("task:{} reached milestone:{} at:{}", 
                     new Object[] {taskState.getTaskName(), 
                                   milestone.getMilestoneName(), 
-                                  milestone.getDate()});
+                                  milestone.getTimestamp()});
+            
+        }
+    }
+
+    @Override
+    public final void addWarning(final TaskState taskState, final Warning warning) {
+        if (logger.isWarnEnabled()) {
+            logger.warn("task:{} warning:{} at:{} description:{}", 
+                    new Object[] {taskState.getTaskName(), 
+                    warning.getWarningType(), 
+                    warning.getTimestamp(),
+                    warning.getDescription()
+                    });
             
         }
     }
@@ -38,7 +52,7 @@ public class Slf4jTaskObserver implements TaskStateObserver {
             logger.info("task:{} finished-ok:{} at:{}",
                     new Object[] {taskState.getTaskName(), 
                                   milestone.getMilestoneName(), 
-                                  milestone.getDate()});
+                                  milestone.getTimestamp()});
         }
     }
 
@@ -49,7 +63,7 @@ public class Slf4jTaskObserver implements TaskStateObserver {
             logger.info("task:{} finished-error:{} at:{} error:{}({})", 
                     new Object[] {taskState.getTaskName(), 
                                   milestone.getMilestoneName(), 
-                                  milestone.getDate(), 
+                                  milestone.getTimestamp(), 
                                   e.getClass(), 
                                   e.getMessage()});
 
