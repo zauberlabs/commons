@@ -19,13 +19,19 @@
         <groupId>ar.com.zauber.commons.social.oauth</groupId>
         <artifactId>commons-social-oauth-twitter</artifactId>
         <version>${pom.version}</version>
+        <exclusions>
+            <exclusion>
+	            <groupId>org.twitter4j</groupId>
+                <artifactId>twitter4j-core</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
     
     <!-- BEGIN: Twitter4J -->        
 	<dependency>
 	    <groupId>org.twitter4j</groupId>
 	    <artifactId>twitter4j-core</artifactId>
-	    <version>2.1.4</version>
+	    <version>2.1.10</version>
 	</dependency>
     <!-- END: Twitter4J -->
 

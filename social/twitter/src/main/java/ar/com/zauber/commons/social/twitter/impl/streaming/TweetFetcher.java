@@ -57,8 +57,10 @@ public class TweetFetcher {
      * @return
      */
     private TwitterStream createStream(final String user, final String password) {
-        return new TwitterStreamFactory(new StatusListener() {
+        final TwitterStream stream = new TwitterStreamFactory().getInstance(
+                user, password);
 
+        stream.addListener(new StatusListener() {
             @Override
             public void onStatus(final Status status) {
                 try {
@@ -87,7 +89,14 @@ public class TweetFetcher {
                     final StatusDeletionNotice statusDeletionNotice) {
                 logger.warn("statusDeletionNotice: {}", statusDeletionNotice);
             }
-        }).getInstance(user, password);
+            
+            @Override
+            public void onScrubGeo(int userId, long upToStatusId) {
+                logger.warn("scrubGeo: {} {}", userId, upToStatusId);
+            }
+        });
+        
+        return stream;
     }
 
     /**
@@ -143,7 +152,7 @@ public class TweetFetcher {
     public final void closeStream() {
         if (streamStarted) {
             logger.info("Closing Twitter Stream.");
-            stream.cleanup();
+            stream.cleanUp();
             streamStarted = false;
         } else {
             logger.warn("Stream is already closed!");
