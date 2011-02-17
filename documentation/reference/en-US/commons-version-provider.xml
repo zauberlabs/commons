@@ -177,7 +177,7 @@ public interface VersionProvider {
     common web application.:<orderedlist numeration="arabic">
         <listitem>
           <para>Add the following dependencies to your pom:
-          <code>commons-spring</code> y <code>commons-web-utils</code></para>
+          <code>commons-spring</code> and <code>commons-web-utils</code></para>
         </listitem>
 
         <listitem>
