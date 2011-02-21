@@ -136,7 +136,7 @@ public class TweetFetcher {
                 BoundingBox box = boxes[i];
                 locations[i][0] = box.getSwLong();
                 locations[i][1] = box.getSwLat();
-                locations[i + 1][0] = box.getNeLat();
+                locations[i + 1][0] = box.getNeLong();
                 locations[i + 1][1] = box.getNeLat();
             }
         } else {
