@@ -51,7 +51,7 @@ public final class OpenEntityManagerClosure<T> implements Closure<T> {
         this.dryrun = dryrun;
         
         if(dryrun) {
-            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producción)."
+            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producciï¿½n)."
                     + "Cuidado con el starvation de conexiones jdbc.");
         }
     }
@@ -84,7 +84,11 @@ public final class OpenEntityManagerClosure<T> implements Closure<T> {
             
             try {
                 target.execute(t);
-                transaction.commit();
+                if(transaction.getRollbackOnly()) {
+                	transaction.rollback();
+                }else {
+                	transaction.commit();
+                }
             } catch (final Throwable e) {
                 if (transaction != null && transaction.isActive()) {
                     transaction.rollback();                
