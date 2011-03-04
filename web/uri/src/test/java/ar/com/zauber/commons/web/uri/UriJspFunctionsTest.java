@@ -31,6 +31,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class UriJspFunctionsTest extends AbstractWebUriMockitoTest {
     
     
+    private static final String OTHER_URI_FACTORY = "myUriFactory";
     
     /** recargar jspFunctions en cada test*/
     @Before
@@ -89,4 +90,13 @@ public class UriJspFunctionsTest extends AbstractWebUriMockitoTest {
         Assert.assertEquals("../par/abc", 
                 UriJspFunctions.buildVarArgs(ctx , "/par/abc", ctx.getRequest()));
     }
+    
+    /** Test de ..*/
+    @Test
+    public final void buildUriContextWithBean() throws Exception {
+        String uriKey = "abc";
+        Assert.assertEquals(uriKey, UriJspFunctions.buildVarArgs(getPc(), uriKey, OTHER_URI_FACTORY));
+    }
+    
+    
 }

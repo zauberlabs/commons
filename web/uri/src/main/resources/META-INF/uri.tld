@@ -51,5 +51,50 @@
         </function-signature>
     </function>
     
+    <!-- Con uri bean -->
+    
+    <function>
+        <name>buildWith0</name>
+        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
+        <function-signature>
+          java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.String)
+        </function-signature>
+    </function>
+    <function>
+        <name>buildWith1</name>
+        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
+        <function-signature>
+          java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.String)
+        </function-signature>
+    </function>
+    <function>
+        <name>buildWith2</name>
+        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
+        <function-signature>
+          java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object, java.lang.String)
+        </function-signature>
+    </function>
+    <function>
+        <name>buildWith3</name>
+        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
+        <function-signature>
+          java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.String)
+        </function-signature>
+    </function>
+    <function>
+        <name>buildWith4</name>
+        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
+        <function-signature>
+          java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.String)
+        </function-signature>
+    </function>
+    <function>
+        <name>buildWith5</name>
+        <function-class>ar.com.zauber.commons.web.uri.UriJspFunctions</function-class>
+        <function-signature>
+          java.lang.String build(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.String)
+        </function-signature>
+    </function>
+    
 
 </taglib>

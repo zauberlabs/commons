@@ -51,6 +51,13 @@ public final class UriJspFunctions {
     private static AtomicBoolean initialized = new AtomicBoolean(false);
     private static UriFactory uriFactory;
     private static Logger logger = LoggerFactory.getLogger(UriJspFunctions.class);
+    
+    /** Construye un uri */
+    public static String buildVarArgs(final PageContext ctx,
+            final String uriKey, final String bean, final Object... params) {
+        return buildVarArgs(ctx.getRequest(), uriKey,  bean, params);
+        
+    }
 
     /** Construye un uri */
     public static String buildVarArgs(final PageContext ctx,
@@ -58,6 +65,7 @@ public final class UriJspFunctions {
         return buildVarArgs(ctx.getRequest(), uriKey, params);
         
     }
+    
     /** Construye un uri */
     public static String buildVarArgs(final ServletRequest request,
             final String uriKey, final Object... params) {
@@ -73,8 +81,7 @@ public final class UriJspFunctions {
                 try {
                     uriFactory = appCtx.getBean(SpringBeans.LINK_URIFACTORY_KEY, 
                             UriFactory.class);
-                    logger.info("Using {} UriFactory.", 
-                            SpringBeans.LINK_URIFACTORY_KEY);
+                    logger.info("Using {} UriFactory.", SpringBeans.LINK_URIFACTORY_KEY);
                 } catch (NoSuchBeanDefinitionException e) {
                     logger.info("Using Default UriFactory.");
                     uriFactory = new RelativePathUriFactory(
@@ -87,6 +94,32 @@ public final class UriJspFunctions {
         }
 
         return uriFactory.buildUri(uriKey, params);
+    }
+    
+    /** Construye un uri con el bean factory de UriBean. de no ser posible usa el default*/
+    public static String buildVarArgs(final ServletRequest request,
+            final String uriKey, final String uriBean, final Object... params) {
+        Validate.notNull(uriKey);
+        Validate.notNull(uriBean);
+        Validate.notNull(request);
+        UriFactory uFactory = null;
+        try {
+            logger.info("Resolving Urifactory bean.");
+            WebApplicationContext appCtx = 
+                RequestContextUtils.getWebApplicationContext(request);
+            
+            try {
+                uFactory = appCtx.getBean(uriBean, 
+                        UriFactory.class);
+                logger.info("Using {} UriFactory.", uriBean);
+            } catch (NoSuchBeanDefinitionException e) {
+                return buildVarArgs(request, uriKey, params);
+            }
+        } catch (Throwable e) {
+            throw new UnhandledException("inicializando urifactory", e);
+        }
+        return uFactory.buildUri(uriKey, params);
+        
     }
     
 
@@ -127,5 +160,46 @@ public final class UriJspFunctions {
             final String uriKey, final Object p1, final Object p2,
             final Object p3, final Object p4, final Object p5) {
         return buildVarArgs(ctx, uriKey, p1, p2, p3, p4, p5);
+    }
+    
+    /** Usando un bean */
+    
+    /** Construye un uri a través de un <em>uriKey</em> y un <em>uriBean</em> y parametros */
+    public static String build(final PageContext ctx,
+            final String uriKey, final String uriBean) {
+        return buildVarArgs(ctx, uriKey, uriBean);
+    }
+
+    /** Construye un uri a través de un <em>uriKey</em> y un <em>uriBean</em> y parametros */
+    public static String build(final PageContext ctx,
+            final String uriKey, final Object p1, final String uriBean) {
+        return buildVarArgs(ctx, uriKey, uriBean, p1);
+    }
+
+    /** Construye un uri a través de un <em>uriKey</em> y un <em>uriBean</em> y parametros */
+    public static String build(final PageContext ctx,
+            final String uriKey, final Object p1, final Object p2, final String uriBean) {
+        return buildVarArgs(ctx, uriKey, uriBean, p1, p2);
+    }
+
+    /** Construye un uri a través de un <em>uriKey</em> y un <em>uriBean</em> y parametros */
+    public static String build(final PageContext ctx,
+            final String uriKey, final Object p1, final Object p2,
+            final Object p3, final String uriBean) {
+        return buildVarArgs(ctx, uriKey, uriBean, p1, p2, p3);
+    }
+
+    /** Construye un uri a través de un <em>uriKey</em> y un <em>uriBean</em> y parametros */
+    public static String build(final PageContext ctx,
+            final String uriKey, final Object p1, final Object p2,
+            final Object p3, final Object p4, final String uriBean) {
+        return buildVarArgs(ctx, uriKey, uriBean, p1, p2, p3, p4);
+    }
+
+    /** Construye un uri a través de un <em>uriKey</em> y un <em>uriBean</em> y parametros */
+    public static String build(final PageContext ctx,
+            final String uriKey, final Object p1, final Object p2,
+            final Object p3, final Object p4, final Object p5, final String uriBean) {
+        return buildVarArgs(ctx, uriKey, uriBean, p1, p2, p3, p4, p5);
     }
 }
