@@ -21,47 +21,62 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Clase de utilidad para ISO.
- * 
+ * Utility Class to format and parse ISO Dates.
+ * This utility class is thread-safe (SimpleDateFormat is not thread-safe)
  * 
  * @author Juan F. Codagnone
  * @since May 16, 2009
  */
 public final class ISODateUtils {
 
+    private static ThreadLocal<DateFormat> FORMATTER = new ThreadLocal<DateFormat>();
+    
     /** Creates the ISODateUtils. */
     private ISODateUtils() {
         // utility class
     }
     
-    private static final DateFormat ISO_DATE_FORMATTER = 
-        new SimpleDateFormat("yyyy-MM-dd");
-    
-    static {
-        ISO_DATE_FORMATTER.setLenient(false);
-    };
-
     /**
      * Returns the isoDateFormater.
      * this formatter is not lenient.
      * @return <code>DateFormat</code> with the isoDateFormater.
+     * @deprecated The DateFormat is not thread-safe, and the ISO formatter should only be accessed through
+     *      the utility methods.
      */
+    @Deprecated
     public static DateFormat getIsoDateFormater() {
-        return ISO_DATE_FORMATTER;
+        return getFormatter();
     }
     
     /** Formatea una fecha en YYYY-MM-DD */
     public static String isoDateFormat(final Date date) {
-        return ISO_DATE_FORMATTER.format(date);
+        return getFormatter().format(date);
     }
 
     /** parse a iso date */
     public static Date parseIsoDate(final String string) {
         try {
-            return ISO_DATE_FORMATTER.parse(string);
+            return getFormatter().parse(string);
         } catch (final ParseException e) {
             throw new IllegalArgumentException("`" + string 
                     + "' is not a valid ISO date", e);
         }
+    }
+
+    /** Creates a DateFormat with ISO Format */
+    private static DateFormat createIsoDateFormatter() {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        formatter.setLenient(false);
+        return formatter;
+    }
+    
+    /** Retrieves the {@link DateFormat} for the current Thread */
+    private static DateFormat getFormatter() {
+        DateFormat formatter = FORMATTER.get();
+        if (formatter == null) {
+            formatter = createIsoDateFormatter();
+            FORMATTER.set(formatter);
+        }
+        return formatter;
     }
 }
