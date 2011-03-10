@@ -17,7 +17,6 @@ package ar.com.zauber.commons.message.message.templates;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -25,7 +24,6 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
 import ar.com.zauber.commons.dao.Resource;
-import ar.com.zauber.commons.dao.resources.StringResource;
 import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageTemplate;
 import ar.com.zauber.commons.message.NotificationAddress;
@@ -63,6 +61,7 @@ public abstract class AbstractMessageTemplate
     
     /** @see MessageTemplate#render(Map) */
     public final Message render(final Map<String, Object> model) {
+        Validate.notNull(model);
         for(final Entry<String, Object> entry : getExtraModel().entrySet()) {
             model.put(entry.getKey(), entry.getValue());
         }

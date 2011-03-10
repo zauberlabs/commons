@@ -18,14 +18,13 @@ package ar.com.zauber.commons.message.impl.message;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import junit.framework.TestCase;
 import ar.com.zauber.commons.dao.resources.StringResource;
 import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageTemplate;
 import ar.com.zauber.commons.message.NotificationAddress;
 import ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress;
-
-
 /**
  * Unit test for {@link VelocityMessageResolver}.
  * 
