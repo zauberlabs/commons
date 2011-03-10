@@ -15,12 +15,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.EntityManagerHolder;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import ar.com.zauber.commons.dao.Closure;
 
 /**
- * TODO Descripcion de la clase. Los comenterios van en castellano.
+ * Similar to {@link OpenEntityManagerInViewFilter} but for a closure.
+ * <p>
+ * By default it opens a transaction, but that can be overriden by setting {{@link #setOpenTx(boolean)},
+ * this will be deprecated in next versions of this class. Making <code>false</code> as the default value.
  * 
  * 
  * @author Juan F. Codagnone
@@ -28,9 +32,12 @@ import ar.com.zauber.commons.dao.Closure;
  */
 public final class OpenEntityManagerClosure<T> implements Closure<T> {
 
+    private static boolean warningPrinted = false;
+    
     private final EntityManagerFactory emf;
     private final Closure<T> target;
     private final boolean dryrun;
+    private boolean openTx = true;
     private final Logger logger = LoggerFactory.getLogger(OpenSessionClosure.class);
     
     /** Creates the OpenSessionClosure. */
@@ -56,6 +63,14 @@ public final class OpenEntityManagerClosure<T> implements Closure<T> {
         }
     }
 
+    public final boolean isOpenTx() {
+        return openTx;
+    }
+
+    public final void setOpenTx(boolean openTx) {
+        this.openTx = openTx;
+    }
+
     /** @see Closure#execute(Object) */
     public final void execute(final T t) {
         if(dryrun) {
@@ -71,8 +86,14 @@ public final class OpenEntityManagerClosure<T> implements Closure<T> {
             } else {
                 try {
                     final EntityManager em = emf.createEntityManager();
-                    transaction = em.getTransaction();
-                    transaction.begin();
+                    if (openTx) {
+                        if (!warningPrinted) {
+                            logger.warn("The OpenEntityManagerClosure has Transactions enabled and is not recommended"
+                                    + ". This behaviour will change in the future. Check setOpenTx(), ");
+                        }
+                        transaction = em.getTransaction();
+                        transaction.begin();
+                    }
                     
                     TransactionSynchronizationManager.bindResource(emf, 
                             new EntityManagerHolder(em));
@@ -82,25 +103,39 @@ public final class OpenEntityManagerClosure<T> implements Closure<T> {
                 }
             }
             
-            try {
-                target.execute(t);
-                if(transaction.getRollbackOnly()) {
-                	transaction.rollback();
-                }else {
-                	transaction.commit();
+            if (openTx) {
+                try {
+                    target.execute(t);
+                        if(transaction.getRollbackOnly()) {
+                            transaction.rollback();
+                        }else {
+                            transaction.commit();
+                        }
+                } catch (final Throwable e) {
+                    if (transaction != null && transaction.isActive()) {
+                        transaction.rollback();                
+                    }
+                    throw new UnhandledException(e);
+                } finally {
+                    if (!participate) {
+                        final EntityManagerHolder emHolder = (EntityManagerHolder)
+                                TransactionSynchronizationManager.unbindResource(emf);
+                        EntityManagerFactoryUtils.closeEntityManager(
+                                emHolder.getEntityManager());
+                    }
                 }
-            } catch (final Throwable e) {
-                if (transaction != null && transaction.isActive()) {
-                    transaction.rollback();                
+            } else {
+                try {
+                    target.execute(t);
+                } finally {
+                    if (!participate) {
+                        final EntityManagerHolder emHolder = (EntityManagerHolder)
+                        TransactionSynchronizationManager.unbindResource(emf);
+                        EntityManagerFactoryUtils.closeEntityManager(
+                                emHolder.getEntityManager());
+                    }
                 }
-                throw new UnhandledException(e);
-            } finally {
-                if (!participate) {
-                    final EntityManagerHolder emHolder = (EntityManagerHolder)
-                            TransactionSynchronizationManager.unbindResource(emf);
-                    EntityManagerFactoryUtils.closeEntityManager(
-                            emHolder.getEntityManager());
-                }
+                
             }
         }
     }

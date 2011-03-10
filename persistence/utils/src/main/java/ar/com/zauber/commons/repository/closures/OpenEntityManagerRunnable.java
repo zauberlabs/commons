@@ -14,18 +14,25 @@ import ar.com.zauber.commons.dao.Closure;
  * @since Jul 26, 2010
  */
 public class OpenEntityManagerRunnable implements Runnable {
-    private Closure<?> runnable;
+    private OpenEntityManagerClosure<Object> runnable;
     
     /** constructor */
     public OpenEntityManagerRunnable(final EntityManagerFactory emf,
             final Runnable target) {
-        runnable = new OpenEntityManagerClosure(emf, new Closure() {
+        runnable = new OpenEntityManagerClosure<Object>(emf, new Closure<Object>() {
             /** @see Closure#execute(Object) */
             public void execute(final Object t) {
                 target.run();
             }
         });
     }
+    
+
+    /** @see OpenEntityManagerClosure#setOpenTx(boolean) */
+    public final void setOpenTx(final boolean openTx) {
+        runnable.setOpenTx(openTx);
+    }
+
     /** @see Runnable#run() */
     public final void run() {
         runnable.execute(null);
