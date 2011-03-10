@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.commons.lang.Validate;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import ar.com.zauber.commons.dao.Resource;
 import ar.com.zauber.commons.message.MessageTemplate;
@@ -31,6 +32,16 @@ import ar.com.zauber.commons.message.message.templates.AbstractMessageTemplate;
 public class VelocityEngineMessageTemplate extends AbstractMessageTemplate {
     
     private final VelocityEngine velocityEngine;
+    
+    /**
+     * Creates the VelocityEngineMessageTemplate.
+     */
+    public VelocityEngineMessageTemplate(final String contentType, 
+            final Resource content, final NotificationAddress address, 
+            final String charset, final VelocityEngineFactoryBean velocityEngineFactory) {
+        super(content, contentType, address, charset);
+        this.velocityEngine = velocityEngineFactory.getObject();
+    }
     
     /**
      * Creates the VelocityEngineMessageTemplate.

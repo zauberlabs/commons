@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import ar.com.zauber.commons.dao.Resource;
 import ar.com.zauber.commons.message.message.templates.AbstractMessagePartTemplate;
@@ -31,6 +32,16 @@ public class VelocityEngineMessagePartTemplate
     extends AbstractMessagePartTemplate implements PartTemplate {
 
     private final VelocityEngine velocityEngine;
+    
+    /**
+     * Creates the VelocityEngineMessageTemplate.
+     */
+    public VelocityEngineMessagePartTemplate(final String contentType, 
+            final Resource content, final String charset,
+            final VelocityEngineFactoryBean velocityEngineFactory) {
+        super(content, contentType, charset);
+        this.velocityEngine = velocityEngineFactory.getObject();
+    }
     
     /**
      * Creates the VelocityEngineMessageTemplate.
