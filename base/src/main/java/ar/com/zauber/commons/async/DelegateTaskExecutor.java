@@ -12,7 +12,7 @@ import org.apache.commons.lang.Validate;
  * @author Juan F. Codagnone
  * @since Mar 11, 2011
  */
-class DelegateTaskExecutor extends AbstractAsyncTaskExecutor implements WaitableExecutor {
+public class DelegateTaskExecutor extends AbstractAsyncTaskExecutor implements WaitableExecutor {
     private final ExecutorService executorService;
 
     /**
