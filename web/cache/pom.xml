@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>commons-web-parent</artifactId>
 		<groupId>ar.com.zauber.commons.web</groupId>
-		<version>3.44-SNAPSHOT</version>
+		<version>3.45-SNAPSHOT</version>
 	</parent>
 	<name>Zauber::Commons::Web::Cache</name>
 	<artifactId>commons-web-cache</artifactId>
