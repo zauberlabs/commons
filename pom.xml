@@ -4,7 +4,7 @@
   <parent>
     <artifactId>bare</artifactId>
     <groupId>ar.com.zauber.maven.poms</groupId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
   </parent>
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
