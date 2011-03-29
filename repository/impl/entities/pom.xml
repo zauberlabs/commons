@@ -12,7 +12,7 @@
     <dependency>
   	<artifactId>commons-repository-api</artifactId>
   	<groupId>ar.com.zauber.commons.repository</groupId>
-	<version>${pom.version}</version>
+	<version>${project.version}</version>
     </dependency>
     <dependency>
          <groupId>org.hibernate.javax.persistence</groupId> 

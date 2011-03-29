@@ -30,7 +30,7 @@
         <dependency>
             <groupId>ar.com.zauber.commons.social.twitter</groupId>
             <artifactId>commons-social-twitter</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         
         <!-- BEGIN: Spring Framework -->

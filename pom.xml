@@ -123,6 +123,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
+        <version>2.1.2</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -135,6 +136,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
         <configuration>
           <encoding>ISO-8859-1</encoding>
           <source>1.6</source>
@@ -144,7 +146,9 @@
       </plugin>
  
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
+        <version>2.1</version>
         <configuration>
           <tagBase>https://code.zaubersoftware.com/repos/sandbox/components/commons/code/releases/</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
@@ -154,6 +158,7 @@
       <plugin>
         <groupId>com.google.code.maven-license-plugin</groupId>
         <artifactId>maven-license-plugin</artifactId>
+        <version>1.4.0</version>
         <inherited>false</inherited>
         <configuration>
           <quiet>false</quiet>
@@ -415,87 +420,87 @@
       <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons-base</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons</groupId>
         <artifactId>commons-spring</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.auth</groupId>
         <artifactId>commons-auth-api</artifactId> 
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.auth</groupId>
         <artifactId>commons-auth-impl</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.image</groupId>
         <artifactId>commons-image-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.message</groupId>
         <artifactId>commons-message-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.moderation</groupId>
         <artifactId>commons-moderation-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.web</groupId>
         <artifactId>commons-web-utils</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.web</groupId>
         <artifactId>commons-web-proxy</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.web</groupId>
         <artifactId>commons-web-version</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.persistence</groupId>
         <artifactId>commons-persistence-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.persistence</groupId>
         <artifactId>commons-persistence-utils</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.repository</groupId>
         <artifactId>commons-repository-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.repository.impl</groupId>
         <artifactId>commons-repository-impl-entities</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.repository.impl</groupId>
         <artifactId>commons-repository-impl-springhbm</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>ar.com.zauber.commons.social.oauth</groupId>
         <artifactId>commons-social-oauth-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <!-- END: Zauber Commons -->
       <!-- BEGIN: Hibernate -->
@@ -810,35 +815,4 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-changes-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>changes-report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <!--plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-javadoc-plugin</artifactId>
-      <version>2.2</version>
-      <configuration>
-        <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-        <docletArtifact>
-          <groupId>gr.spinellis</groupId>
-          <artifactId>UmlGraph</artifactId>
-          <version>4.4</version>
-        </docletArtifact>
-        <additionalparam>
-          -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9 -nodefontpackagesize 7
-        </additionalparam>
-      </configuration>
-      </plugin-->
-    </plugins>
-  </reporting>
 </project>

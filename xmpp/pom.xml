@@ -35,7 +35,7 @@
     <dependency>
       <groupId>ar.com.zauber.commons.message</groupId>
       <artifactId>commons-message-api</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
     </dependency>
     
     <dependency>

@@ -18,7 +18,7 @@
     <dependency>
         <groupId>ar.com.zauber.commons.social.oauth</groupId>
         <artifactId>commons-social-oauth-twitter</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
         <exclusions>
             <exclusion>
 	            <groupId>org.twitter4j</groupId>
