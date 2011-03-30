@@ -115,7 +115,7 @@ public final class OpenEntityManagerClosure<T> implements Closure<T> {
                 }
             }
             
-            if (openTx) {
+            if (transaction != null) {
                 try {
                     target.execute(t);
                         if(transaction.getRollbackOnly()) {
