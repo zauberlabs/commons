@@ -109,7 +109,9 @@ public abstract class AbstractImage implements Image {
                                        final int target)
             throws IOException {
         final float compression = 0.85F;
-        
+        ImageWriter writer = null;
+        MemoryCacheImageOutputStream mos = null;
+        Graphics2D graphics2D = null;
         try {
             final BufferedImage bi = ImageIO.read(is);
             final Iterator<ImageWriter> iter = 
@@ -134,21 +136,29 @@ public abstract class AbstractImage implements Image {
             // scale it to the new size on-the-fly
             final BufferedImage thumbImage = new BufferedImage(w, h,
               BufferedImage.TYPE_INT_RGB);
-            final Graphics2D graphics2D = thumbImage.createGraphics();
+            graphics2D = thumbImage.createGraphics();
             graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
               RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             graphics2D.drawImage(bi, 0, 0, w, h, null);
             
             
-            final ImageWriter writer = (ImageWriter)iter.next();
+            writer = (ImageWriter)iter.next();
             final ImageWriteParam iwp = writer.getDefaultWriteParam();
             iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
             iwp.setCompressionQuality(compression);
-            final MemoryCacheImageOutputStream mos =
-                new MemoryCacheImageOutputStream(os);
+            mos = new MemoryCacheImageOutputStream(os);
             writer.setOutput(mos);
             writer.write(null,  new IIOImage(thumbImage, null, null), iwp);
         } finally {
+            if (writer != null) {
+                writer.dispose();
+            } 
+            if (mos != null) {
+                mos.close();
+            }
+            if (graphics2D != null) {
+                graphics2D.dispose();
+            }
             is.close();
             os.close();
         }
