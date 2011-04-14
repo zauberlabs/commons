@@ -9,7 +9,7 @@
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
-  <version>3.45-SNAPSHOT</version>
+  <version>3.45</version>
   <packaging>pom</packaging>
 
   <scm>
