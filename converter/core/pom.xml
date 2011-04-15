@@ -3,7 +3,7 @@
   <parent>
     <groupId>ar.com.zauber.commons</groupId>
     <artifactId>commons-conversion-parent</artifactId>
-    <version>3.46</version>
+    <version>3.47-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Conversion::Core</name>
   <artifactId>commons-conversion-core</artifactId>
