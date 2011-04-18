@@ -13,7 +13,7 @@
   <packaging>pom</packaging>
 
   <scm>
-    <connection>scm:git:git@github.com:jcodagnone/commons.git</connection>
+    <connection>scm:git:git@github.com:zaubersoftware/commons.git</connection>
     <url>scm:git:git@github.com:zaubersoftware/commons.git</url>
     <developerConnection>scm:git:git@github.com:zaubersoftware/commons.git</developerConnection>
   </scm>
