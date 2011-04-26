@@ -123,6 +123,7 @@ public interface Joiner<T, F> {
      * <p>
      * The returned joined objects are the objects that were joined at the moment of the method call. 
      * The order of the collection is given by the order in which the {@link Joiner} was notified.
+     * A new collection is created each time this method is called.
      * </p>
      * 
      * @return A {@link Collection} of joined objects.
@@ -135,6 +136,7 @@ public interface Joiner<T, F> {
      * <p>
      * The returned failed tasks are the ones that were notified at the moment of the method call. 
      * The order of the collection is given by the order in which the {@link Joiner} was notified.
+     * A new collection is created each time this method is called.
      * </p>
      * 
      * @return A {@link Collection} of joined objects.

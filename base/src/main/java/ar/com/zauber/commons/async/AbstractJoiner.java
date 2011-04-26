@@ -81,6 +81,7 @@ public abstract class AbstractJoiner<T, F> implements Joiner<T, F> {
                 "All the expected notification have been received.");
         succededObjects.add(object);
         onSuccessNotification(object);
+        notificationHandler();
     }
 
     @Override
@@ -89,6 +90,7 @@ public abstract class AbstractJoiner<T, F> implements Joiner<T, F> {
         "All the expected notification have been received.");
         ++failureNotifications;
         onFailureNotification(null, null);
+        notificationHandler();
     }
 
     @Override
@@ -104,6 +106,7 @@ public abstract class AbstractJoiner<T, F> implements Joiner<T, F> {
         failedTasks.add(new DefaultFailedTask<F>(failedTask, t));
         ++failureNotifications;
         onFailureNotification(failedTask, t);
+        notificationHandler();
     }
 
     @Override
@@ -162,12 +165,27 @@ public abstract class AbstractJoiner<T, F> implements Joiner<T, F> {
     protected abstract void onFailureNotification(final F failedTask, final Throwable t);
     
     /**
+     * Template method that will be called when all the notification have been received. 
+     */
+    protected abstract void onAllNotificationsReceived();
+    
+    /**
+     * Commons actions that need to be done when a notification has been received are
+     * handled by this method. 
+     */
+    private void notificationHandler() {
+        if (!isWaitingForNotifications()) {
+            onAllNotificationsReceived();
+        }
+    }
+    
+    /**
      * Default immutable implementation of {@link FailedTask}
      * 
      * @author Guido Marucci Blas
      * @since Apr 20, 2011
      */
-    private static class DefaultFailedTask<F> implements FailedTask<F> {
+    protected static final class DefaultFailedTask<F> implements FailedTask<F> {
 
         private final F failedTask;
         private final Throwable t;
