@@ -1,1 +1,0 @@
-<message id="0"><subject>titulo</subject><body></body><x xmlns="jabber:x:data" type="form"><title>Observaciones</title><instructions>bla</instructions><field var="date" type="hidden"><desc>fecha que se esta observando</desc><value>2009-06-20</value></field></x></message>

@@ -66,27 +66,13 @@
   <modules>
     <module>base</module>
     <module>persistence</module>
-    <module>clustering</module>
     <module>spring</module>
     <module>spring-taglib</module>
     <module>auth</module>
     <module>message</module>
     <module>image</module>
-    <module>fts</module>
-    <module>gis</module>
-    <module>doxia</module>
-    <module>jetty-launcher</module>
     <module>repository</module>
-    <module>exception</module>
-    <module>facebook</module>
-    <module>xmpp</module>
     <module>web</module>
-    <module>wicket</module>
-    <module>test</module>
-    <module>tasks</module>
-    <module>moderation</module>
-    <module>converter</module>
-    <module>social</module>     
   </modules>
   
   <build>
