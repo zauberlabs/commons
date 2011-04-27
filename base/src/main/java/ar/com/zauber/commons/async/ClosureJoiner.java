@@ -21,31 +21,51 @@ public final class ClosureJoiner<T, F> extends AbstractJoiner<T, F> {
 
     private final Closure<T> onSuccessNotificationClosure;
     private final Closure<FailedTask<F>> onFailureNotificationClosure;
-    
+    private final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure;
+
     /**
      * Creates the ClosureJoiner.
      *
      * @param expectedNotifications
+     * @param onAllNotificationsReceivedClosure
      * @param onSuccessNotificationClosure
      * @param onFailureNotificationClosure
      */
     public ClosureJoiner(
             final int expectedNotifications,
+            final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure,
             final Closure<T> onSuccessNotificationClosure,
             final Closure<FailedTask<F>> onFailureNotificationClosure) {
-        this(expectedNotifications, null, null, onSuccessNotificationClosure, onFailureNotificationClosure);
+        this(expectedNotifications, null, null, onAllNotificationsReceivedClosure, 
+                onSuccessNotificationClosure, onFailureNotificationClosure);
     }
 
     /**
      * Creates the ClosureJoiner.
      *
      * @param expectedNotifications
+     * @param onAllNotificationsReceivedClosure
+     */
+    public ClosureJoiner(
+            final int expectedNotifications,
+            final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure) {
+        this(expectedNotifications, null, null, onAllNotificationsReceivedClosure, null, null);
+    }
+    
+
+    /**
+     * Creates the ClosureJoiner.
+     *
+     * @param expectedNotifications
+     * @param onAllNotificationsReceivedClosure
      * @param onSuccessNotificationClosure
      */
     public ClosureJoiner(
             final int expectedNotifications,
+            final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure,
             final Closure<T> onSuccessNotificationClosure) {
-        this(expectedNotifications, null, null, onSuccessNotificationClosure, null);
+        this(expectedNotifications, null, null, onAllNotificationsReceivedClosure, 
+                onSuccessNotificationClosure, null);
     }
     
     /**
@@ -53,23 +73,27 @@ public final class ClosureJoiner<T, F> extends AbstractJoiner<T, F> {
      *
      * @param expectedNotifications
      * @param succededObjects
+     * @param onAllNotificationsReceivedClosure
      * @param failedTasks
      * @param onSuccessNotificationClosure
      */
     public ClosureJoiner(
             final int expectedNotifications, 
             final Collection<T> succededObjects,
+            final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure,
             final Collection<FailedTask<F>> failedTasks,
             final Closure<T> onSuccessNotificationClosure) {
-        this(expectedNotifications, succededObjects, failedTasks, onSuccessNotificationClosure, null);
+        this(expectedNotifications, succededObjects, failedTasks, onAllNotificationsReceivedClosure, 
+                onSuccessNotificationClosure, null);
     }
-    
+
     /**
      * Creates the ClosureJoiner.
      *
      * @param expectedNotifications
      * @param succededObjects
      * @param failedTasks
+     * @param onAllNotificationsReceivedClosure
      * @param onSuccessNotificationClosure
      * @param onFailureNotificationClosure
      */
@@ -77,10 +101,13 @@ public final class ClosureJoiner<T, F> extends AbstractJoiner<T, F> {
             final int expectedNotifications, 
             final Collection<T> succededObjects,
             final Collection<FailedTask<F>> failedTasks,
+            final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure,
             final Closure<T> onSuccessNotificationClosure,
             final Closure<FailedTask<F>> onFailureNotificationClosure) {
         super(expectedNotifications, succededObjects, failedTasks);
-        Validate.notNull(onSuccessNotificationClosure);
+        Validate.notNull(onAllNotificationsReceivedClosure);
+        
+        this.onAllNotificationsReceivedClosure = onAllNotificationsReceivedClosure;
         this.onSuccessNotificationClosure = onSuccessNotificationClosure;
         this.onFailureNotificationClosure = onFailureNotificationClosure;
     }
@@ -90,37 +117,43 @@ public final class ClosureJoiner<T, F> extends AbstractJoiner<T, F> {
      *
      * @param expectedNotifications
      * @param succededObjects
+     * @param onAllNotificationsReceivedClosure
      * @param onSuccessNotificationClosure
      * @param onFailureNotificationClosure
      */
     public ClosureJoiner(
             final int expectedNotifications, 
             final Collection<T> succededObjects,
+            final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure,
             final Closure<T> onSuccessNotificationClosure,
             final Closure<FailedTask<F>> onFailureNotificationClosure) {
-        this(expectedNotifications, succededObjects, null, onSuccessNotificationClosure, 
-                onFailureNotificationClosure);
+        this(expectedNotifications, succededObjects, null, onAllNotificationsReceivedClosure, 
+                onSuccessNotificationClosure, onFailureNotificationClosure);
     }
     
-
     /**
      * Creates the ClosureJoiner.
      *
      * @param expectedNotifications
      * @param succededObjects
+     * @param onAllNotificationsReceivedClosure
      * @param onSuccessNotificationClosure
      */
     public ClosureJoiner(
             final int expectedNotifications, 
             final Collection<T> succededObjects,
+            final Closure<Joiner<T, F>> onAllNotificationsReceivedClosure,
             final Closure<T> onSuccessNotificationClosure) {
-        this(expectedNotifications, succededObjects, onSuccessNotificationClosure, null);
+        this(expectedNotifications, succededObjects, onAllNotificationsReceivedClosure, 
+                onSuccessNotificationClosure, null);
     }
 
 
     @Override
     protected void onSuccessNotification(final T object) {
-        onSuccessNotificationClosure.execute(object);
+        if (onSuccessNotificationClosure != null) {
+            onSuccessNotificationClosure.execute(object);
+        }
     }
 
     @Override
@@ -132,6 +165,6 @@ public final class ClosureJoiner<T, F> extends AbstractJoiner<T, F> {
 
     @Override
     protected void onAllNotificationsReceived() {
-        
+        onAllNotificationsReceivedClosure.execute(this);
     }
 }
