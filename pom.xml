@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bare</artifactId>
-    <groupId>ar.com.zauber.maven.poms</groupId>
-    <version>1.0.8</version>
+    <groupId>com.zaubersoftware.maven.poms</groupId>
+    <version>1.0.9</version>
   </parent>
   <name>Zauber::Commons</name>
   <groupId>ar.com.zauber.commons</groupId>
@@ -85,19 +85,6 @@
             <include>**/*Test.java</include>
           </includes>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>2.1.2</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -275,10 +262,8 @@
                </entities>
            </configuration>
        </plugin>
-
     </plugins>
   </build>
-
   <dependencies>
     <dependency>
       <artifactId>junit</artifactId>
