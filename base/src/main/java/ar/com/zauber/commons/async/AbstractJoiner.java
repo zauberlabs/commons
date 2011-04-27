@@ -77,8 +77,9 @@ public abstract class AbstractJoiner<T, F> implements Joiner<T, F> {
     @Override
     public final synchronized void notifySuccess(final T object) {
         Validate.notNull(object, "The object to be joined cannot be null");
-        Validate.isTrue(getRemainingNotificationsCount() == 0, 
-                "All the expected notification have been received.");
+        if (getRemainingNotificationsCount() == 0) {
+               throw new IllegalStateException("All the expected notification have been received.");
+        }
         succededObjects.add(object);
         onSuccessNotification(object);
         notificationHandler();
@@ -86,8 +87,9 @@ public abstract class AbstractJoiner<T, F> implements Joiner<T, F> {
 
     @Override
     public final synchronized void notifyFailure() {
-        Validate.isTrue(getRemainingNotificationsCount() == 0, 
-        "All the expected notification have been received.");
+        if (getRemainingNotificationsCount() == 0) {
+            throw new IllegalStateException("All the expected notification have been received.");
+        }
         ++failureNotifications;
         onFailureNotification(null, null);
         notificationHandler();
@@ -101,8 +103,9 @@ public abstract class AbstractJoiner<T, F> implements Joiner<T, F> {
     @Override
     public final synchronized void notifyFailure(final F failedTask, final Throwable t) {
         Validate.notNull(t, "The failed task cannot be null");
-        Validate.isTrue(getRemainingNotificationsCount() == 0, 
-            "All the expected notification have been received.");
+        if (getRemainingNotificationsCount() == 0) {
+            throw new IllegalStateException("All the expected notification have been received.");
+        }
         failedTasks.add(new DefaultFailedTask<F>(failedTask, t));
         ++failureNotifications;
         onFailureNotification(failedTask, t);
