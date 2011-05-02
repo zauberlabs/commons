@@ -12,6 +12,11 @@
   <version>3.48-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+   <description>
+       Zauber Commons is a set of component reused in most of Zauber apps. 
+       Contains components to make easy mailing, creating links, and much more.
+  </description>
+  <url>https://code.zaubersoftware.com/commons/reference/current/html/</url>
   <scm>
     <connection>scm:git:git@github.com:zaubersoftware/commons.git</connection>
     <url>scm:git:git@github.com:zaubersoftware/commons.git</url>
@@ -44,24 +49,65 @@
     </repository>
   </repositories>
 
+
   <distributionManagement>
-    <repository>
-      <id>zauber-code-releases</id>
-      <name>Zauber Code Releases</name>
-      <url>https://repo1.zaubersoftware.com/zauber/code/releases</url>
-    </repository>
+     <repository> 
+       <id>sonatype-nexus-staging</id> 
+      <name>Nexus Release Repository</name> 
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url> 
+    </repository> 
     <snapshotRepository>
       <id>zauber-code-snapshots</id>
       <name>Zauber Code Snapshots</name>
       <url>https://repo1.zaubersoftware.com/zauber/code/snapshots</url>
     </snapshotRepository>
-    <site>
-       <id>zauber-code-releases</id>
-       <name>Zauber Site Stage</name>
-      <url>file:///tmp/commons-site</url>
-    </site>
-
   </distributionManagement>
+
+
+  <developers>
+     <developer>
+        <id>juan</id>
+        <name>Juan F. Codagnone</name>
+        <url>http://juan.zaubersoftware.com/</url>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>architect</role>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+     <developer>
+        <id>mariano</id>
+        <name>Mariano Cortesi</name>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+     <developer>
+        <id>marcelo</id>
+        <name>Marcelo Turrin</name>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+     <developer>
+        <id>christian</id>
+        <name>Christian Nardi</name>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+  </developers>
 
   <modules>
     <module>base</module>
