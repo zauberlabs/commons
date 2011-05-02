@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>parent</artifactId>
-    <groupId>ar.com.zauber.commons.auth</groupId>
+    <groupId>com.zaubersoftware.commons.auth</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <artifactId>commons-auth-api</artifactId>

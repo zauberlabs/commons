@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>parent</artifactId>
-    <groupId>ar.com.zauber.commons.image</groupId>
+    <groupId>com.zaubersoftware.commons.image</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Image::API</name>
@@ -11,7 +11,7 @@
   
   <dependencies>
     <dependency>
-      <groupId>ar.com.zauber.commons</groupId>
+      <groupId>com.zaubersoftware.commons</groupId>
       <artifactId>commons-base</artifactId>
     </dependency>
   </dependencies>

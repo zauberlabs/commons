@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>commons-web-parent</artifactId>
-    <groupId>ar.com.zauber.commons.web</groupId>
+    <groupId>com.zaubersoftware.commons.web</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Web::Utils</name>
@@ -16,11 +16,11 @@
      </dependency>
     <dependency>
        <artifactId>commons-persistence-api</artifactId>
-       <groupId>ar.com.zauber.commons.persistence</groupId>
+       <groupId>com.zaubersoftware.commons.persistence</groupId>
      </dependency>
      <dependency>
        <artifactId>commons-base</artifactId>
-       <groupId>ar.com.zauber.commons</groupId>
+       <groupId>com.zaubersoftware.commons</groupId>
      </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

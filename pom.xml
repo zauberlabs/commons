@@ -7,7 +7,7 @@
     <version>1.0.9</version>
   </parent>
   <name>Zauber::Commons</name>
-  <groupId>ar.com.zauber.commons</groupId>
+  <groupId>com.zaubersoftware.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
   <version>3.48-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -385,87 +385,87 @@
       <!-- END: Apache Commons -->
       <!-- BEGIN: Zauber Commons -->
       <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
+        <groupId>com.zaubersoftware.commons</groupId>
         <artifactId>commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
+        <groupId>com.zaubersoftware.commons</groupId>
         <artifactId>commons-base</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
+        <groupId>com.zaubersoftware.commons</groupId>
         <artifactId>commons-spring</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.auth</groupId>
+        <groupId>com.zaubersoftware.commons.auth</groupId>
         <artifactId>commons-auth-api</artifactId> 
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.auth</groupId>
+        <groupId>com.zaubersoftware.commons.auth</groupId>
         <artifactId>commons-auth-impl</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.image</groupId>
+        <groupId>com.zaubersoftware.commons.image</groupId>
         <artifactId>commons-image-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.message</groupId>
+        <groupId>com.zaubersoftware.commons.message</groupId>
         <artifactId>commons-message-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.moderation</groupId>
+        <groupId>com.zaubersoftware.commons.moderation</groupId>
         <artifactId>commons-moderation-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.web</groupId>
+        <groupId>com.zaubersoftware.commons.web</groupId>
         <artifactId>commons-web-utils</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.web</groupId>
+        <groupId>com.zaubersoftware.commons.web</groupId>
         <artifactId>commons-web-proxy</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.web</groupId>
+        <groupId>com.zaubersoftware.commons.web</groupId>
         <artifactId>commons-web-version</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.persistence</groupId>
+        <groupId>com.zaubersoftware.commons.persistence</groupId>
         <artifactId>commons-persistence-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.persistence</groupId>
+        <groupId>com.zaubersoftware.commons.persistence</groupId>
         <artifactId>commons-persistence-utils</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.repository</groupId>
+        <groupId>com.zaubersoftware.commons.repository</groupId>
         <artifactId>commons-repository-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.repository.impl</groupId>
+        <groupId>com.zaubersoftware.commons.repository.impl</groupId>
         <artifactId>commons-repository-impl-entities</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.repository.impl</groupId>
+        <groupId>com.zaubersoftware.commons.repository.impl</groupId>
         <artifactId>commons-repository-impl-springhbm</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.social.oauth</groupId>
+        <groupId>com.zaubersoftware.commons.social.oauth</groupId>
         <artifactId>commons-social-oauth-api</artifactId>
         <version>${project.version}</version>
       </dependency>

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>parent</artifactId>
-    <groupId>ar.com.zauber.commons.auth</groupId>
+    <groupId>com.zaubersoftware.commons.auth</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Auth::Implementation</name>
@@ -11,11 +11,11 @@
   <dependencies>
     <!-- BEGIN: Zauber Commons -->
     <dependency>
-      <groupId>ar.com.zauber.commons</groupId>
+      <groupId>com.zaubersoftware.commons</groupId>
       <artifactId>commons-base</artifactId> 
     </dependency>
     <dependency>
-      <groupId>ar.com.zauber.commons.auth</groupId>
+      <groupId>com.zaubersoftware.commons.auth</groupId>
       <artifactId>commons-auth-api</artifactId> 
     </dependency>
     <!-- END: Zauber Commons -->

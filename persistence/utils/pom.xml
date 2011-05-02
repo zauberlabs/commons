@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>commons-persistence-parent</artifactId>
-    <groupId>ar.com.zauber.commons.persistence</groupId>
+    <groupId>com.zaubersoftware.commons.persistence</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Persistence::Utils</name>
@@ -13,15 +13,15 @@
     <!-- BEGIN: Zauber Commons -->
     <dependency>
       <artifactId>commons-persistence-api</artifactId>
-      <groupId>ar.com.zauber.commons.persistence</groupId>
+      <groupId>com.zaubersoftware.commons.persistence</groupId>
     </dependency>
     <dependency>
       <artifactId>commons-auth-api</artifactId>
-      <groupId>ar.com.zauber.commons.auth</groupId>
+      <groupId>com.zaubersoftware.commons.auth</groupId>
     </dependency>
     <dependency>
       <artifactId>commons-base</artifactId>
-      <groupId>ar.com.zauber.commons</groupId>
+      <groupId>com.zaubersoftware.commons</groupId>
   </dependency>
     <!-- BEGIN: Spring Framework -->
     <dependency>

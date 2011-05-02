@@ -2,11 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
      <artifactId>zauber-commons-parent</artifactId>
-     <groupId>ar.com.zauber.commons</groupId>
+     <groupId>com.zaubersoftware.commons</groupId>
      <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Message</name>
-  <groupId>ar.com.zauber.commons.message</groupId>
+  <groupId>com.zaubersoftware.commons.message</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
   <modules>
