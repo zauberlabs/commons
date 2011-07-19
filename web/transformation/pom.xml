@@ -17,12 +17,11 @@
         <artifactId>commons-io</artifactId>
         <groupId>commons-io</groupId>
      </dependency>
-    
-     <dependency>
-        <artifactId>jtidy</artifactId>
-        <groupId>jtidy</groupId>
-     </dependency>
-
+	<dependency>
+	    <groupId>net.sf.jtidy</groupId>
+	    <artifactId>jtidy</artifactId>
+	    <version>r938</version>
+	</dependency>
     <dependency>
        <artifactId>spring-beans</artifactId>
        <groupId>org.springframework</groupId>

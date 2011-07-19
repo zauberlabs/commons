@@ -628,11 +628,6 @@
         <scope>test</scope>
       </dependency>
       <!-- END: Testing -->
-      <dependency>
-        <artifactId>jtidy</artifactId>
-        <groupId>jtidy</groupId>
-        <version>4aug2000r7-dev</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 </project>

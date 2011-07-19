@@ -23,6 +23,7 @@ import javax.xml.transform.dom.DOMSource;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.FactoryBean;
+import org.w3c.tidy.Tidy;
 import org.xml.sax.InputSource;
 
 import ar.com.zauber.commons.web.transformation.processors.DocumentProvider;
@@ -49,7 +50,7 @@ public class TidyScrapperFactoryBean implements FactoryBean<TidyScrapper> {
     
     /** Creates the TidyScrapperFactoryBean. */
     public TidyScrapperFactoryBean(final String path, 
-            final DocumentProvider jtidy, final DocumentProvider xml) {
+            final Tidy jtidy, final DocumentProvider xml) {
         Validate.notNull(jtidy);
         Validate.notNull(xml);
 

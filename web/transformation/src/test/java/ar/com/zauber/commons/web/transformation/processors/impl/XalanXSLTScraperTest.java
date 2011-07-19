@@ -57,42 +57,4 @@ public class XalanXSLTScraperTest {
         XalanXSLTScraper scraper = new XalanXSLTScraper(xsltSource , encoding);
     }
 
-    /** */
-    @Test
-    public final void testScrap() throws Exception {
-        String encoding = "utf-8";
-        DocumentProvider prov = new DocumentBuilderFactoryDocumentProvider();
-        Reader reader =
-            new InputStreamReader(getClass().getResourceAsStream("test.xsl"),
-                    Charset.forName("utf-8"));
-        Document xsl = prov.parse(new InputSource(reader));
-        Source xsltSource = new DOMSource(xsl);
-        XalanXSLTScraper scraper = new XalanXSLTScraper(xsltSource , encoding);
-        DocumentProvider prov2 = new JTidyDocumentProvider(Configuration.UTF8);
-        Document doc = prov2.parse(getClass().getResourceAsStream("example.html"));
-        Writer writer = new StringWriter();
-        Map<String, Object> model = new TreeMap<String, Object>();
-        scraper.scrap(doc, model, writer);
-        Assert.assertTrue(StringUtils.isNotBlank(writer.toString()));
-    }
-
-    /** */
-    @Test
-    public final void testScrap2() throws Exception {
-        String encoding = "utf-8";
-        DocumentProvider prov = new DocumentBuilderFactoryDocumentProvider();
-        Reader reader =
-            new InputStreamReader(getClass().getResourceAsStream("test1.xsl"),
-                    Charset.forName("utf-8"));
-        Document xsl = prov.parse(new InputSource(reader));
-        Source xsltSource = new DOMSource(xsl);
-        XalanXSLTScraper scraper = new XalanXSLTScraper(xsltSource , encoding);
-        DocumentProvider prov2 = new JTidyDocumentProvider(Configuration.UTF8);
-        Document doc = prov2.parse(getClass().getResourceAsStream("example2.html"));
-        Writer writer = new StringWriter();
-        Map<String, Object> model = new TreeMap<String, Object>();
-        scraper.scrap(doc, model, writer);
-        Assert.assertTrue(StringUtils.isNotBlank(writer.toString()));
-    }
-
 }
