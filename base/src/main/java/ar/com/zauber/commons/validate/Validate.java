@@ -54,6 +54,48 @@ public class Validate extends org.apache.commons.lang.Validate {
         }
     }
 
+    /**
+     * <p>Validate that the argument condition is <code>true</code>; otherwise 
+     * throwing an exception with the specified message. This method is useful when
+     * validating according to an arbitrary boolean expression, such as validating an 
+     * object or using your own custom validation expression.</p>
+     *
+     * <pre>Validate.isTrue(myValue >= arg, "myValue(%s) should be >= arg (%s).", myValue, arg);</pre>
+     *
+     * @param expression the boolean expression to check 
+     * @param format the exception message format if invalid
+     * @param args the arguments to append to the message format when invalid
+     * @throws IllegalArgumentException if expression is <code>false</code>
+     */
+    public static void isTrue(final boolean expression, final String format, final Object... args) {
+        if (!expression) {
+            final String message = (format != null) ? String.format(format, args)
+                    : "The validated expression is false";
+            throw new IllegalArgumentException(message);
+        }
+    }
+    
+    /**
+     * <p>Validate that the argument condition is <code>false</code>; otherwise 
+     * throwing an exception with the specified message. This method is useful when
+     * validating according to an arbitrary boolean expression, such as validating an 
+     * object or using your own custom validation expression.</p>
+     *
+     * <pre>Validate.isFalse(myValue >= arg, "myValue(%s) should not be >= arg (%s).", myValue, arg);</pre>
+     *
+     * @param expression the boolean expression to check 
+     * @param format the exception message format if invalid
+     * @param args the arguments to append to the message format when invalid
+     * @throws IllegalArgumentException if expression is <code>true</code>
+     */
+    public static void isFalse(final boolean expression, final String format, final Object... args) {
+        if (expression) {
+            final String message = (format != null) ? String.format(format, args)
+                    : "The validated expression is true";
+            throw new IllegalArgumentException(message);
+        }
+    }
+    
     /** @return el mensaje de error para validación por blank*/
     private static String blankMessage(final int i) {
         return errorMessage(i, "blank"); 

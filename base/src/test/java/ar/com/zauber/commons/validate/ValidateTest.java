@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.validate;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 /**
@@ -73,4 +75,49 @@ public class ValidateTest {
         Validate.notBlank(STRING, "  ", DOUBLE);
     }
     
+    /** true expression */
+    @Test
+    public final void testIsTrueWithTrueExpression() throws Exception {
+        Validate.isTrue(3 > 2, "%d > %d", 3, 2);
+    }
+    
+    /** false expression with format message */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testIsTrueWithFalseExpressionAndMessage() throws Exception {
+        try {
+            Validate.isTrue(2 > 3, "%d > %d", 2, 3);
+        } catch (final IllegalArgumentException e) {
+            assertEquals("2 > 3", e.getMessage());
+            throw e;
+        }
+    }
+    
+    /** false expression with null format message */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testIsTrueWithFalseExpressionAndNullMessage() throws Exception {
+            Validate.isTrue(2 > 3, null);
+    }
+    
+    /** false expression */
+    @Test
+    public final void testIsFalseWithFalseExpression() throws Exception {
+        Validate.isFalse(2 > 3, "%d > %d", 2, 3);
+    }
+    
+    /** true expression with format message */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testIsFalseWithTrueExpressionAndMessage() throws Exception {
+        try {
+            Validate.isFalse(3 > 2, "%d > %d", 3, 2);
+        } catch (final IllegalArgumentException e) {
+            assertEquals("3 > 2", e.getMessage());
+            throw e;
+        }
+    }
+    
+    /** true expression with null format message */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testIsFalseWithTrueExpressionAndNullMessage() throws Exception {
+            Validate.isFalse(3 > 2, null);
+    }
 }
