@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>repository-parent</artifactId>
-    <groupId>ar.com.zauber.commons.repository</groupId>
+    <groupId>com.zaubersoftware.commons.repository</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::Implementations</name>
   <artifactId>impl-repository-parent</artifactId>
-  <groupId>ar.com.zauber.commons.repository.impl</groupId>
+  <groupId>com.zaubersoftware.commons.repository.impl</groupId>
   <packaging>pom</packaging>
   <modules>
   	<module>spring-hbm</module>
@@ -16,7 +16,7 @@
   <dependencies>
     <dependency>
       <artifactId>commons-repository-api</artifactId>
-      <groupId>ar.com.zauber.commons.repository</groupId>
+      <groupId>com.zaubersoftware.commons.repository</groupId>
     </dependency>
   </dependencies>
 </project>

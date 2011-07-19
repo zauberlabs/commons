@@ -37,7 +37,7 @@ import ar.com.zauber.commons.message.impl.mail.JavaMailEmailAddress;
  */
 public class VelocityEngineMessageTemplateTest {
 
-    private VelocityEngineMessageTemplate velocityEngineTemplate;
+    private VelocityMessageTemplate velocityEngineTemplate;
     private final NotificationAddress address = new JavaMailEmailAddress("foo@bar");  
     private VelocityEngine velocityEngine; 
     
@@ -54,7 +54,7 @@ public class VelocityEngineMessageTemplateTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public final void testNullModel() {
-        velocityEngineTemplate = new VelocityEngineMessageTemplate(
+        velocityEngineTemplate = new VelocityMessageTemplate(
                 new StringResource("body"), "hola ${user}", address, "UTF-8", velocityEngine);
         velocityEngineTemplate.render(null);
     }
@@ -64,7 +64,7 @@ public class VelocityEngineMessageTemplateTest {
      */
     @Test
     public final void testEmptyModel() {
-        velocityEngineTemplate = new VelocityEngineMessageTemplate(
+        velocityEngineTemplate = new VelocityMessageTemplate(
                 new StringResource("body"), "hola ${user}", address, "UTF-8", velocityEngine);
         final Message message = velocityEngineTemplate.render(new HashMap<String, Object>());
         assertEquals("hola ${user}", message.getSubject());
@@ -76,7 +76,7 @@ public class VelocityEngineMessageTemplateTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public final void testNullVelocityEngine() {
-        velocityEngineTemplate = new VelocityEngineMessageTemplate(
+        velocityEngineTemplate = new VelocityMessageTemplate(
                 new StringResource("body"), "hola ${user}", address, "UTF-8", null);
     }
     
@@ -87,7 +87,7 @@ public class VelocityEngineMessageTemplateTest {
     public final void testReplaceBody() {
         final Map<String, Object> map = new HashMap<String, Object>();
         map.put("user", "ceci");
-        velocityEngineTemplate = new VelocityEngineMessageTemplate(
+        velocityEngineTemplate = new VelocityMessageTemplate(
                 new StringResource("body"), "hola ${user}", address, "UTF-8", velocityEngine);
         final Message message = velocityEngineTemplate.render(map);
         assertEquals("hola ceci", message.getSubject());
@@ -104,7 +104,7 @@ public class VelocityEngineMessageTemplateTest {
     public final void testReplaceSubject() {
         final Map<String, Object> map = new HashMap<String, Object>();
         map.put("user", "ceci");
-        velocityEngineTemplate = new VelocityEngineMessageTemplate(
+        velocityEngineTemplate = new VelocityMessageTemplate(
                 new StringResource("hola ${user}"), "subject", address, "UTF-8", velocityEngine);
         final Message message = velocityEngineTemplate.render(map);
         assertEquals("hola ceci", message.getContent());

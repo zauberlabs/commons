@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>repository-parent</artifactId>
-    <groupId>ar.com.zauber.commons.repository</groupId>
+    <groupId>com.zaubersoftware.commons.repository</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::API</name>
@@ -10,11 +10,11 @@
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
-      <groupId>ar.com.zauber.commons.persistence</groupId>
+      <groupId>com.zaubersoftware.commons.persistence</groupId>
       <artifactId>commons-persistence-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>ar.com.zauber.commons</groupId>
+      <groupId>com.zaubersoftware.commons</groupId>
       <artifactId>commons-base</artifactId>
     </dependency>
   </dependencies>

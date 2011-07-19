@@ -2,17 +2,17 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>impl-repository-parent</artifactId>
-    <groupId>ar.com.zauber.commons.repository.impl</groupId>
+    <groupId>com.zaubersoftware.commons.repository.impl</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::Spring HBM implementation</name>
   <artifactId>commons-repository-impl-springhbm</artifactId>
-  <groupId>ar.com.zauber.commons.repository.impl</groupId>
+  <groupId>com.zaubersoftware.commons.repository.impl</groupId>
   <dependencies>
     <!-- BEGIN: Zauber Commons -->
     <!-- BEGIN: Apache Commons -->
     <dependency>
-      <groupId>ar.com.zauber.commons.persistence</groupId>
+      <groupId>com.zaubersoftware.commons.persistence</groupId>
       <artifactId>commons-persistence-utils</artifactId>
     </dependency>
     <dependency>

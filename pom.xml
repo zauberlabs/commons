@@ -7,11 +7,16 @@
     <version>1.0.9</version>
   </parent>
   <name>Zauber::Commons</name>
-  <groupId>ar.com.zauber.commons</groupId>
+  <groupId>com.zaubersoftware.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
   <version>3.48-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+   <description>
+       Zauber Commons is a set of component reused in most of Zauber apps. 
+       Contains components to make easy mailing, creating links, and much more.
+  </description>
+  <url>https://code.zaubersoftware.com/commons/reference/current/html/</url>
   <scm>
     <connection>scm:git:git@github.com:zaubersoftware/commons.git</connection>
     <url>scm:git:git@github.com:zaubersoftware/commons.git</url>
@@ -44,24 +49,65 @@
     </repository>
   </repositories>
 
+
   <distributionManagement>
-    <repository>
-      <id>zauber-code-releases</id>
-      <name>Zauber Code Releases</name>
-      <url>https://repo1.zaubersoftware.com/zauber/code/releases</url>
-    </repository>
+     <repository> 
+       <id>sonatype-nexus-staging</id> 
+      <name>Nexus Release Repository</name> 
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url> 
+    </repository> 
     <snapshotRepository>
       <id>zauber-code-snapshots</id>
       <name>Zauber Code Snapshots</name>
       <url>https://repo1.zaubersoftware.com/zauber/code/snapshots</url>
     </snapshotRepository>
-    <site>
-       <id>zauber-code-releases</id>
-       <name>Zauber Site Stage</name>
-      <url>file:///tmp/commons-site</url>
-    </site>
-
   </distributionManagement>
+
+
+  <developers>
+     <developer>
+        <id>juan</id>
+        <name>Juan F. Codagnone</name>
+        <url>http://juan.zaubersoftware.com/</url>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>architect</role>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+     <developer>
+        <id>mariano</id>
+        <name>Mariano Cortesi</name>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+     <developer>
+        <id>marcelo</id>
+        <name>Marcelo Turrin</name>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+     <developer>
+        <id>christian</id>
+        <name>Christian Nardi</name>
+        <organization>Zauber S.A.</organization>
+        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <roles>
+            <role>developer</role>
+          </roles>
+          <timezone>-3</timezone>
+     </developer>
+  </developers>
 
   <modules>
     <module>base</module>
@@ -133,135 +179,6 @@
                 </execution>
             </executions>
         </plugin>
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>2.1.1</version>
-          <dependencies>
-              <dependency>
-                  <groupId>org.apache.maven.doxia</groupId>
-                  <artifactId>doxia-module-twiki</artifactId>
-                  <version>1.1.3</version>
-              </dependency>
-          </dependencies>
-
-       </plugin>
-
-       <!-- DocBook (with thanks to Spring Batch's config!) -->
-       <plugin>
-           <groupId>com.agilejava.docbkx</groupId>
-           <artifactId>docbkx-maven-plugin</artifactId>
-           <version>2.0.8</version>
-           <executions>
-               <execution>
-                   <id>single-page</id>
-                   <goals>
-                       <goal>generate-html</goal>
-                   </goals>
-                   <configuration>
-                       <htmlCustomization>${basedir}/src/docbkx/resources/xsl/html.xsl</htmlCustomization>
-                       <postProcess>
-                           <move todir="${basedir}/target/site/reference/html-single">
-                               <fileset dir="${basedir}/target/docbkx/html">
-                                   <include name="index.html" />
-                               </fileset>
-                           </move>
-                           <copy todir="${basedir}/target/site/reference/html-single">
-                               <fileset dir="${basedir}/src/docbkx/resources">
-                                   <include name="**/*.css" />
-                                   <include name="**/*.png" />
-                                   <include name="**/*.gif" />
-                                   <include name="**/*.jpg" />
-                               </fileset>
-                           </copy>
-                           <copy todir="${basedir}/target/site/reference/html-single">
-                               <fileset dir="${basedir}/src/site/docbook/reference">
-                                   <include name="**/*.png" />
-                                   <include name="**/*.gif" />
-                                   <include name="**/*.jpg" />
-                               </fileset>
-                           </copy>
-                       </postProcess>
-                   </configuration>
-                   <phase>pre-site</phase>
-               </execution>
-               <execution>
-                   <id>single-pdf</id>
-                   <goals>
-                       <goal>generate-pdf</goal>
-                   </goals>
-                   <configuration>
-                       <imgSrcPath>src/site/docbook/reference/</imgSrcPath>
-                       <admonGraphicsPath>src/docbkx/resources/images/</admonGraphicsPath>
-                       <postProcess>
-                           <copy file="${basedir}/target/docbkx/pdf/index.pdf" tofile="${basedir}/target/site/reference/pdf/zauber-commons-docs.pdf" failonerror="false" />
-                       </postProcess>
-                   </configuration>
-                   <phase>pre-site</phase>
-               </execution>
-               <execution>
-                   <id>multi-page</id>
-                   <goals>
-                       <goal>generate-html</goal>
-                   </goals>
-                   <configuration>
-                       <chunkedOutput>true</chunkedOutput>
-                       <htmlCustomization>${basedir}/src/docbkx/resources/xsl/html_chunk.xsl</htmlCustomization>
-                       <postProcess>
-                           <move todir="${basedir}/target/site/reference">
-                               <fileset dir="${basedir}/target/docbkx">
-                                   <include name="**/*.html" />
-                               </fileset>
-                           </move>
-                           <copy todir="${basedir}/target/site/reference/html">
-                               <fileset dir="${basedir}/src/docbkx/resources">
-                                   <include name="**/*.css" />
-                                   <include name="**/*.png" />
-                                   <include name="**/*.gif" />
-                                   <include name="**/*.jpg" />
-                               </fileset>
-                           </copy>
-                           <copy todir="${basedir}/target/site/reference/html">
-                               <fileset dir="${basedir}/src/site/docbook/reference">
-                                   <include name="**/*.png" />
-                                   <include name="**/*.gif" />
-                                   <include name="**/*.jpg" />
-                               </fileset>
-                           </copy>
-                       </postProcess>
-                   </configuration>
-                   <phase>pre-site</phase>
-               </execution>
-           </executions>
-           <dependencies>
-               <dependency>
-                   <groupId>org.docbook</groupId>
-                   <artifactId>docbook-xml</artifactId>
-                   <version>4.4</version>
-                   <scope>runtime</scope>
-               </dependency>
-               <dependency>
-                   <groupId>org.apache.xmlgraphics</groupId>
-                   <artifactId>fop</artifactId>
-                   <version>0.93</version>
-               </dependency>
-           </dependencies>
-           <configuration>
-               <includes>index.xml</includes>
-               <chunkedOutput>false</chunkedOutput>
-               <draftWatermarkImage />
-               <htmlStylesheet>css/html.css</htmlStylesheet>
-               <sourceDirectory>${basedir}/src/site/docbook/reference</sourceDirectory>
-               <foCustomization>${basedir}/src/docbkx/resources/xsl/fopdf.xsl</foCustomization>
-               <xincludeSupported>true</xincludeSupported>
-               <entities>
-                   <entity>
-                       <name>version</name>
-                       <value>${project.version}</value>
-                   </entity>
-               </entities>
-           </configuration>
-       </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -282,7 +199,6 @@
     <hibernate.version>3.5.1-Final</hibernate.version>
     <doxia.version>1.1</doxia.version>
     <jetty.version>6.1.9</jetty.version>
-    <leviathan.version>0.0</leviathan.version>
     <slf4j.version>1.6.1</slf4j.version>
 
     <sonar.mantis.id>44</sonar.mantis.id>
@@ -340,87 +256,87 @@
       <!-- END: Apache Commons -->
       <!-- BEGIN: Zauber Commons -->
       <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
+        <groupId>com.zaubersoftware.commons</groupId>
         <artifactId>commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
+        <groupId>com.zaubersoftware.commons</groupId>
         <artifactId>commons-base</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons</groupId>
+        <groupId>com.zaubersoftware.commons</groupId>
         <artifactId>commons-spring</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.auth</groupId>
+        <groupId>com.zaubersoftware.commons.auth</groupId>
         <artifactId>commons-auth-api</artifactId> 
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.auth</groupId>
+        <groupId>com.zaubersoftware.commons.auth</groupId>
         <artifactId>commons-auth-impl</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.image</groupId>
+        <groupId>com.zaubersoftware.commons.image</groupId>
         <artifactId>commons-image-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.message</groupId>
+        <groupId>com.zaubersoftware.commons.message</groupId>
         <artifactId>commons-message-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.moderation</groupId>
+        <groupId>com.zaubersoftware.commons.moderation</groupId>
         <artifactId>commons-moderation-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.web</groupId>
+        <groupId>com.zaubersoftware.commons.web</groupId>
         <artifactId>commons-web-utils</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.web</groupId>
+        <groupId>com.zaubersoftware.commons.web</groupId>
         <artifactId>commons-web-proxy</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.web</groupId>
+        <groupId>com.zaubersoftware.commons.web</groupId>
         <artifactId>commons-web-version</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.persistence</groupId>
+        <groupId>com.zaubersoftware.commons.persistence</groupId>
         <artifactId>commons-persistence-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.persistence</groupId>
+        <groupId>com.zaubersoftware.commons.persistence</groupId>
         <artifactId>commons-persistence-utils</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.repository</groupId>
+        <groupId>com.zaubersoftware.commons.repository</groupId>
         <artifactId>commons-repository-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.repository.impl</groupId>
+        <groupId>com.zaubersoftware.commons.repository.impl</groupId>
         <artifactId>commons-repository-impl-entities</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.repository.impl</groupId>
+        <groupId>com.zaubersoftware.commons.repository.impl</groupId>
         <artifactId>commons-repository-impl-springhbm</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>ar.com.zauber.commons.social.oauth</groupId>
+        <groupId>com.zaubersoftware.commons.social.oauth</groupId>
         <artifactId>commons-social-oauth-api</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -622,30 +538,6 @@
         <scope>provided</scope>
       </dependency>
       <!-- END: J2EE Servlet -->
-      <!-- BEGIN: Leviathan -->
-      <dependency>
-        <groupId>ar.com.zauber.leviathan</groupId>
-        <artifactId>leviathan-api</artifactId>
-        <version>${leviathan.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>ar.com.zauber.leviathan</groupId>
-        <artifactId>leviathan-api-httpclient</artifactId>
-        <version>${leviathan.version}</version>
-        <scope>runtime</scope>
-      </dependency>
-      <dependency>
-        <groupId>ar.com.zauber.leviathan</groupId>
-        <artifactId>leviathan-api-common</artifactId>
-        <version>${leviathan.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>ar.com.zauber.leviathan</groupId>
-        <artifactId>leviathan-api-ehcache</artifactId>
-        <version>${leviathan.version}</version>
-        <scope>runtime</scope>
-      </dependency>
-      <!-- END: Leviathan -->
       <!-- BEGIN: EhCache -->
       <dependency>
         <groupId>net.sf.ehcache</groupId>

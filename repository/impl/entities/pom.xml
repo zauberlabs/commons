@@ -2,16 +2,16 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>impl-repository-parent</artifactId>
-    <groupId>ar.com.zauber.commons.repository.impl</groupId>
+    <groupId>com.zaubersoftware.commons.repository.impl</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Repository::Entities </name>
   <artifactId>commons-repository-impl-entities</artifactId>
-  <groupId>ar.com.zauber.commons.repository.impl</groupId>
+  <groupId>com.zaubersoftware.commons.repository.impl</groupId>
   <dependencies>
     <dependency>
   	<artifactId>commons-repository-api</artifactId>
-  	<groupId>ar.com.zauber.commons.repository</groupId>
+  	<groupId>com.zaubersoftware.commons.repository</groupId>
 	<version>${project.version}</version>
     </dependency>
     <dependency>

@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>zauber-commons-parent</artifactId>
-    <groupId>ar.com.zauber.commons</groupId>
+    <groupId>com.zaubersoftware.commons</groupId>
     <version>3.48-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Persistence</name>
   <artifactId>commons-persistence-parent</artifactId>
-  <groupId>ar.com.zauber.commons.persistence</groupId>
+  <groupId>com.zaubersoftware.commons.persistence</groupId>
   <packaging>pom</packaging>
   <modules>
   	<module>api</module>

@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
 
 import ar.com.zauber.commons.dao.Resource;
 import ar.com.zauber.commons.message.message.templates.AbstractMessagePartTemplate;
@@ -28,28 +29,50 @@ import ar.com.zauber.commons.message.message.templates.AbstractTemplate;
 import ar.com.zauber.commons.message.message.templates.PartTemplate;
 
 /**
- * {@link PartTemplate} that uses Velocity
+ * {@link PartTemplate} that could use Velocity Engine for rendering. The difference
+ * between Velocity Singleton usage and VelocityEngine is that with this 
+ * implementation you can create an instance of VelocityEngine on your own and 
+ * inject it as a configurable bean (this lets you configure the 
+ * velocity.properties as you wish instead of using the default one). 
+ * If you chose not to inject your own velocity engine, 
+ * it uses a default one provided by Velocity framework.
  * 
  * @author Christian Nardi
+ * @author Cecilia Hagge 
  * @since Dec 28, 2009
  */
 public class VelocityMessagePartTemplate 
     extends AbstractMessagePartTemplate implements PartTemplate {
 
-    /** Creates the VelocityMessageTemplate. */
+    private final VelocityEngine velocityEngine;
+    
+    
+    /** Creates the VelocityMessagePartTemplate. */
     public VelocityMessagePartTemplate(final String contentType, 
             final Resource resource, final String charset) {
-        super(resource, contentType, charset);
+        this(contentType, resource, charset, null);
     }
 
+    /** Creates the VelocityMessagePartTemplate. */
+    public VelocityMessagePartTemplate(final String contentType, 
+            final Resource resource, final String charset, final VelocityEngine velocityEngine) {
+        super(resource, contentType, charset);
+        
+        this.velocityEngine = velocityEngine;
+    }
+    
+    
     /** @see AbstractTemplate#renderString(java.lang.String, java.util.Map) */
     @Override
-    protected final String renderString(final String message, 
-            final Map<String, Object> model) {
+    protected final String renderString(final String message, final Map<String, Object> model) {
         final StringWriter writer = new StringWriter();
         final VelocityContext context = new VelocityContext(model);
         try {
-            Velocity.evaluate(context, writer, "message", new StringReader(message));
+            if(velocityEngine != null) {
+                velocityEngine.evaluate(context, writer, "message", new StringReader(message));
+            } else {
+                Velocity.evaluate(context, writer, "message", new StringReader(message));
+            }
         } catch(final Exception e) {
             throw new RuntimeException(e);
         }
