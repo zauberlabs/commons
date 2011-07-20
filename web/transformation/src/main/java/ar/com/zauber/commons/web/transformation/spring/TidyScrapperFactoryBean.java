@@ -64,6 +64,22 @@ public class TidyScrapperFactoryBean implements FactoryBean<TidyScrapper> {
         }
     }
     
+    /** Creates the TidyScrapperFactoryBean. */
+    public TidyScrapperFactoryBean(final String path, 
+            final DocumentProvider documentProvider, final DocumentProvider xml) {
+        Validate.notNull(documentProvider);
+        Validate.notNull(xml);
+
+        final InputStream is = getClass().getClassLoader().getResourceAsStream(path);
+        try {
+            final Source s1 =
+                new DOMSource(xml.parse(new InputSource(is)));
+            tidyScrapper = new TidyScrapper(documentProvider, new XalanXSLTScraper(s1));
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+    }    
+    
     /** @see FactoryBean#getObject() */
     public final TidyScrapper getObject() throws Exception {
         return tidyScrapper;

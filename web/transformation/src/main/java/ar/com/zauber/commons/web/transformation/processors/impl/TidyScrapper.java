@@ -27,6 +27,7 @@ import org.w3c.tidy.Tidy;
 import org.xml.sax.InputSource;
 
 import ar.com.zauber.commons.web.transformation.processors.DOMScraper;
+import ar.com.zauber.commons.web.transformation.processors.DocumentProvider;
 
 /**
  * Scrapper que aplica tidy y deja el contenido en un writer
@@ -39,20 +40,33 @@ import ar.com.zauber.commons.web.transformation.processors.DOMScraper;
  */
 public class TidyScrapper {
     private final Tidy tidy;
+    private final DocumentProvider documentProvider;
     private final DOMScraper scraper;
     
-    /** Creates the CLNResultsClosure. */
+    /** Creates the TidyScrapper. */
     public TidyScrapper(
             final Tidy tidy,
             final DOMScraper scraper) {
         Validate.notNull(tidy);
         Validate.notNull(scraper);
 
-
         this.tidy = tidy;
+        this.documentProvider = null;
         this.scraper = scraper;
     }
 
+    /** Creates the TidyScrapper. */
+    public TidyScrapper(
+            final DocumentProvider documentProvider,
+            final DOMScraper scraper) {
+        Validate.notNull(documentProvider);
+        Validate.notNull(scraper);
+
+        this.tidy = null;
+        this.documentProvider = documentProvider;
+        this.scraper = scraper;
+    }
+    
     /** @see  */
     public final void scrap(final Reader content,  
             final Writer writer, final Map<String, Object> map) {
@@ -61,7 +75,13 @@ public class TidyScrapper {
             Validate.notNull(content);
             
             try {
-                final Document doc = tidy.parseDOM(content, new NullWriter());
+                final Document doc;
+                
+                if(tidy != null) {
+                    doc = tidy.parseDOM(content, new NullWriter());
+                } else {
+                    doc = documentProvider.parse(new InputSource(content));
+                }
                 scraper.scrap(doc, map, writer);
             } finally {
                 IOUtils.closeQuietly(content);
