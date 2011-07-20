@@ -2,7 +2,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>com.zaubersoftware.commons.message</groupId>
-    <version>3.48-SNAPSHOT</version>
+    <version>3.48</version>
   </parent>
   <name>Zauber::Commons::Message::Implementation</name>
   <modelVersion>4.0.0</modelVersion>

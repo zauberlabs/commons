@@ -3,7 +3,7 @@
   <parent>
     <artifactId>commons-web-parent</artifactId>
     <groupId>com.zaubersoftware.commons.web</groupId>
-    <version>3.48-SNAPSHOT</version>
+    <version>3.48</version>
   </parent>
   <name>Zauber::Commons::Web::XML Transformation</name>
   <artifactId>commons-web-transformation</artifactId>

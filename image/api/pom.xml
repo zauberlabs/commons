@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>com.zaubersoftware.commons.image</groupId>
-    <version>3.48-SNAPSHOT</version>
+    <version>3.48</version>
   </parent>
   <name>Zauber::Commons::Image::API</name>
   <artifactId>commons-image-api</artifactId>
