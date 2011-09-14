@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.Validate;
 
@@ -26,6 +27,7 @@ import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessagePart;
 import ar.com.zauber.commons.message.MessageTemplate;
 import ar.com.zauber.commons.message.NotificationAddress;
+import ar.com.zauber.commons.message.message.ExtendedMultipartMessageImpl;
 import ar.com.zauber.commons.message.message.MultipartMessageImpl;
 
 /**
@@ -38,6 +40,7 @@ public class MultipartMessageTemplate implements MessageTemplate {
     private final List<PartTemplate> templates;
     private final String subject;
     private final NotificationAddress address;
+    private final Map<String, String> headers;
     
     
     /**
@@ -47,10 +50,25 @@ public class MultipartMessageTemplate implements MessageTemplate {
      */
     public MultipartMessageTemplate(final List<PartTemplate> templates,
             final String subject, final NotificationAddress address) {
+        this(templates, subject, address, new ConcurrentHashMap<String, String>());
+    }
+    
+    /**
+     * Creates the MultipartMessageTemplate.
+     *
+     * @param headers for the messages created
+     */
+    public MultipartMessageTemplate(
+            final List<PartTemplate> templates,
+            final String subject, final NotificationAddress address,
+            final Map<String, String> headers) {
         super();
         Validate.notEmpty(templates);
         Validate.notEmpty(subject);
         Validate.notNull(address);
+        Validate.notNull(headers);
+        
+        this.headers = headers;
         this.templates = templates;
         this.subject = subject;
         this.address = address;
@@ -64,7 +82,11 @@ public class MultipartMessageTemplate implements MessageTemplate {
         for (PartTemplate template : templates) {
             parts.add(template.createPart(model));
         }
-        return new MultipartMessageImpl(parts, subject, address);
+        if(headers.size() > 0) {
+            return new ExtendedMultipartMessageImpl(parts, subject, address, headers);
+        } else {
+            return new MultipartMessageImpl(parts, subject, address);
+        }
     }
 
 }

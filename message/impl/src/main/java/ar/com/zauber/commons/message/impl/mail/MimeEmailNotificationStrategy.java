@@ -15,8 +15,13 @@
  */
 package ar.com.zauber.commons.message.impl.mail;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import javax.persistence.Entity;
 
 import org.springframework.mail.MailSender;
@@ -24,6 +29,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+import ar.com.zauber.commons.message.HeaderMessage;
 import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessagePart;
 import ar.com.zauber.commons.message.MultipartMessage;
@@ -75,6 +81,7 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
                 helper.setReplyTo(getEmailAddress(message.getReplyToAddress()));
                 helper.setSubject(message.getSubject());
                 setContent(helper, (MultipartMessage) message);
+                addHeaders(message, mail);
                 javaMailSender.send(mail);
             } else {
                 final SimpleMailMessage mail = new SimpleMailMessage();
@@ -87,8 +94,27 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
             }
         } catch (final MessagingException e) {
             throw new RuntimeException("Could not send message", e);
+        } catch (final UnsupportedEncodingException e) {
+            throw new RuntimeException("Could not send message", e);
         }
 
+    }
+
+    /**
+     * If message is a {@link HeaderMessage}, adds headers to the {@link MimeMessage}
+     * @param message
+     * @param mail
+     * @throws UnsupportedEncodingException 
+     * @throws MessagingException 
+     */
+    private void addHeaders(final Message message, final MimeMessage mail)
+        throws MessagingException, UnsupportedEncodingException {
+        if(message instanceof HeaderMessage) {
+            final Map<String, String> headers = ((HeaderMessage)message).getHeaders();
+            for (final Entry<String, String> entry : headers.entrySet()) {
+                mail.addHeader(entry.getKey(), MimeUtility.encodeText(entry.getValue()));
+            }
+        }
     }
 
     /**

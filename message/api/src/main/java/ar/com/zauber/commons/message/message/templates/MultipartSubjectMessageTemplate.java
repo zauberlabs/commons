@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.Validate;
 
@@ -27,6 +28,7 @@ import ar.com.zauber.commons.message.MessagePart;
 import ar.com.zauber.commons.message.MessageTemplate;
 import ar.com.zauber.commons.message.NotificationAddress;
 import ar.com.zauber.commons.message.NotificationAddressFactory;
+import ar.com.zauber.commons.message.message.ExtendedMultipartMessageImpl;
 import ar.com.zauber.commons.message.message.MultipartMessageImpl;
 
 /**
@@ -41,23 +43,41 @@ public class MultipartSubjectMessageTemplate implements MessageTemplate {
     private final PartTemplate subjectTemplate;
     private final NotificationAddressFactory notificationAddressFactory;
     private final PartTemplate replyToTemplate;
+    private final Map<String, String> headers;
     
-    /** Creates the MultipartSubjectMessageTemplate. */
+    /**
+     * Creates the MultipartSubjectMessageTemplate.
+     * 
+     * @param headers for the messages created
+     * */
     public MultipartSubjectMessageTemplate(
             final List<PartTemplate> templates,
             final PartTemplate subjectTemplate,
             final NotificationAddressFactory notificationAddressFactory,
-            final PartTemplate replyToTemplate) {
+            final PartTemplate replyToTemplate,
+            final Map<String, String> headers) {
         
         Validate.notEmpty(templates);
         Validate.notNull(subjectTemplate);
         Validate.notNull(notificationAddressFactory);
         Validate.notNull(replyToTemplate);
+        Validate.notNull(headers);
 
+        this.headers = headers;
         this.templates = templates;
         this.subjectTemplate = subjectTemplate;
         this.notificationAddressFactory = notificationAddressFactory;
         this.replyToTemplate = replyToTemplate;
+    }
+    
+    /**Creates the MultipartSubjectMessageTemplate.*/
+    public MultipartSubjectMessageTemplate(
+            final List<PartTemplate> templates,
+            final PartTemplate subjectTemplate,
+            final NotificationAddressFactory notificationAddressFactory,
+            final PartTemplate replyToTemplate) {
+        this(templates, subjectTemplate, notificationAddressFactory, replyToTemplate,
+                new ConcurrentHashMap<String, String>());
     }
 
     /** @see MessageTemplate#render(Map) */
@@ -75,8 +95,11 @@ public class MultipartSubjectMessageTemplate implements MessageTemplate {
         final NotificationAddress replyTo 
             = notificationAddressFactory.createNotificationAddress(
                 replyToTemplate.createPart(model).getContent().toString());
-        
-        return new MultipartMessageImpl(parts, subject, replyTo);
+        if(headers.size() > 0) {
+            return new ExtendedMultipartMessageImpl(parts, subject, replyTo, headers);
+        } else {
+            return new MultipartMessageImpl(parts, subject, replyTo);
+        }
     }
 
 }
