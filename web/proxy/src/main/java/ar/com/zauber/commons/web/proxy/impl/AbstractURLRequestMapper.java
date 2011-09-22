@@ -56,7 +56,7 @@ public abstract class AbstractURLRequestMapper implements URLRequestMapper {
 
     /** optionaly strips the context path, and the servlet path */
     protected final String getRequestURI(final HttpServletRequest request) {
-        String uri = request.getRequestURI();
+		String uri = getCompleteUri(request);
         if (stripContextPath) {
             uri = uri.substring(request.getContextPath().length());
 
@@ -67,4 +67,10 @@ public abstract class AbstractURLRequestMapper implements URLRequestMapper {
 
         return uri;
     }
+
+	private String getCompleteUri(final HttpServletRequest request) {
+		return request.getQueryString() != null 
+				? request.getRequestURI() + '?' + request.getQueryString() 
+				: request.getRequestURI();
+	}
 }

@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.web.proxy.impl;
 
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import junit.framework.TestCase;
@@ -91,4 +92,22 @@ public class PathBasedURLRequestMapperTest extends TestCase {
         
         assertFalse(mapper.getProxiedURLFromRequest(request).hasResult());
     }
+    
+    
+    
+	/** test */
+	public final void testProxiedUrlsIncludeQueryStrings() throws Exception {
+		MockHttpServletRequest request = 
+			new MockHttpServletRequest("GET", "/foo") {{
+				setQueryString("foo=bar");
+			}};
+			
+		assertEquals("http://www.zauber.com.ar//foo?foo=bar", 
+			redirectTo("http://www.zauber.com.ar/").getProxiedURLFromRequest(request).getURL().toString());
+	}
+
+	private PathBasedURLRequestMapper redirectTo(String spec)
+			throws MalformedURLException {
+		return new PathBasedURLRequestMapper(new InmutableURLRequestMapper(new InmutableURLResult(new URL(spec))));
+	}
 }
