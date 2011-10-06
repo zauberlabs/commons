@@ -281,6 +281,10 @@ public class HttpClientRequestProxy {
         } else {
             throw new NotImplementedException("i accept patches :)");
         }
+        
+        if (request.getQueryString() != null) {
+            ret.setQueryString(request.getQueryString());
+        }
 
         return ret;
     }
