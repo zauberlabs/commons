@@ -32,37 +32,6 @@
   </licenses>
 
 
-  <repositories>
-    <repository>
-      <releases><enabled>true</enabled></releases>
-      <snapshots><enabled>false</enabled></snapshots>
-      <id>zauber-code-releases</id>
-      <name>Zauber Code Releases</name>
-      <url>https://repo1.zaubersoftware.com/zauber/code/releases</url>
-    </repository>
-    <repository>
-      <releases><enabled>false</enabled></releases>
-      <snapshots><enabled>true</enabled></snapshots>
-      <id>zauber-code-snapshots</id>
-      <name>Zauber Code Snapshots</name>
-      <url>https://repo1.zaubersoftware.com/zauber/code/snapshots</url>
-    </repository>
-  </repositories>
-
-
-  <distributionManagement>
-     <repository> 
-       <id>sonatype-nexus-staging</id> 
-      <name>Nexus Release Repository</name> 
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url> 
-    </repository> 
-    <snapshotRepository>
-      <id>zauber-code-snapshots</id>
-      <name>Zauber Code Snapshots</name>
-      <url>https://repo1.zaubersoftware.com/zauber/code/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-
 
   <developers>
      <developer>
