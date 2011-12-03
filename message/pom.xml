@@ -3,7 +3,7 @@
   <parent>
      <artifactId>zauber-commons-parent</artifactId>
      <groupId>com.zaubersoftware.commons</groupId>
-     <version>3.49</version>
+     <version>3.50-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Message</name>
   <groupId>com.zaubersoftware.commons.message</groupId>

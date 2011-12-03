@@ -3,7 +3,7 @@
   <parent>
     <artifactId>commons-persistence-parent</artifactId>
     <groupId>com.zaubersoftware.commons.persistence</groupId>
-    <version>3.49</version>
+    <version>3.50-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Persistence::Utils</name>
   <artifactId>commons-persistence-utils</artifactId>
