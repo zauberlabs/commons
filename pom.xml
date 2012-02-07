@@ -4,7 +4,7 @@
   <parent>
     <artifactId>bare</artifactId>
     <groupId>com.zaubersoftware.maven.poms</groupId>
-    <version>1.0.10</version>
+    <version>1.0.11</version>
   </parent>
   <name>Zauber::Commons</name>
   <groupId>com.zaubersoftware.commons</groupId>
@@ -18,9 +18,9 @@
   </description>
   <url>https://code.zaubersoftware.com/commons/reference/current/html/</url>
   <scm>
-    <connection>scm:git:git@github.com:zaubersoftware/commons.git</connection>
-    <url>scm:git:git@github.com:zaubersoftware/commons.git</url>
-    <developerConnection>scm:git:git@github.com:zaubersoftware/commons.git</developerConnection>
+    <connection>scm:git:git@github.com:zauberlabs/commons.git</connection>
+    <url>scm:git:git@github.com:zauberlabs/commons.git</url>
+    <developerConnection>scm:git:git@github.com:zauberlabs/commons.git</developerConnection>
   </scm>
 
   <licenses>
@@ -39,7 +39,7 @@
         <name>Juan F. Codagnone</name>
         <url>http://juan.zaubersoftware.com/</url>
         <organization>Zauber S.A.</organization>
-        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <organizationUrl>http://www.zauberlabs.com/</organizationUrl>
         <roles>
             <role>architect</role>
             <role>developer</role>
@@ -50,7 +50,7 @@
         <id>mariano</id>
         <name>Mariano Cortesi</name>
         <organization>Zauber S.A.</organization>
-        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <organizationUrl>http://www.zauberlabs.com/</organizationUrl>
         <roles>
             <role>developer</role>
           </roles>
@@ -60,7 +60,7 @@
         <id>marcelo</id>
         <name>Marcelo Turrin</name>
         <organization>Zauber S.A.</organization>
-        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <organizationUrl>http://www.zauberlabs.com/</organizationUrl>
         <roles>
             <role>developer</role>
           </roles>
@@ -70,7 +70,7 @@
         <id>christian</id>
         <name>Christian Nardi</name>
         <organization>Zauber S.A.</organization>
-        <organizationUrl>http://www.zaubersoftware.com/</organizationUrl>
+        <organizationUrl>http://www.zauberlabs.com/</organizationUrl>
         <roles>
             <role>developer</role>
           </roles>
