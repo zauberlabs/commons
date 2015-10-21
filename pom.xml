@@ -163,6 +163,7 @@
     </dependency>
   </dependencies>
   <properties>
+    <additionalparam>-Xdoclint:none</additionalparam>
     <spring.version>3.0.6.RELEASE</spring.version>
     <spring.security.version>3.0.3.RELEASE</spring.security.version>
     <hibernate.version>3.5.1-Final</hibernate.version>
