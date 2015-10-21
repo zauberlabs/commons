@@ -15,7 +15,10 @@
  */
 package ar.com.zauber.commons.dao.closure.processors;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang.Validate;
 
@@ -55,7 +58,13 @@ public class OneWayMergeClosureProcessor<T extends Comparable<T>>
 
     /** @see ClosureProcessor#process(Closure) */
     public final void process(final Closure<MergeResult<T>> closure) {
-        new RosterSync().process(closure);
+        new RosterSync().process(closure, null);
+    }
+    
+    /** @see ClosureProcessor#process(Closure) */
+    public final void process(final Closure<MergeResult<T>> closure,
+            final Consumer<List<T>> keepClosure) {
+        new RosterSync().process(closure, keepClosure);
     }
     
     /**
@@ -68,8 +77,9 @@ public class OneWayMergeClosureProcessor<T extends Comparable<T>>
         private T l = null;
         private T r = null;
         
-        /** se encarga de sincronizar las listas */
-        public final void process(final Closure<MergeResult<T>> closure) {
+        /** se encarga de sincronizar las listas 
+         * @param keepClosure */
+        public final void process(final Closure<MergeResult<T>> closure, final Consumer<List<T>> keepClosure) {
             forwardLeft();
             forwardRight();
             
@@ -79,7 +89,7 @@ public class OneWayMergeClosureProcessor<T extends Comparable<T>>
                     notifyAdd(closure);
                     forwardLeft();
                 } else if(i == 0) {
-                    notifyKeep(closure);
+                    notifyKeep(closure, keepClosure);
                     forwardLeft();
                     forwardRight();
                 } else if(i > 0) {
@@ -110,8 +120,15 @@ public class OneWayMergeClosureProcessor<T extends Comparable<T>>
         }
         
         /** notifica que no se debe hacer nada con un contexto */
-        protected void notifyKeep(final Closure<MergeResult<T>> closure) {
+        protected void notifyKeep(final Closure<MergeResult<T>> closure,
+                                  final Consumer<List<T>> keepClosure) {
             closure.execute(new InmutableMergeResult<T>(Operation.KEEP, l));
+            if(keepClosure != null) {
+                final List<T> ret = new ArrayList<>(2);
+                ret.add(r);
+                ret.add(l);
+                keepClosure.accept(ret);
+            }
         }
 
         /** avanza el puntero del iterador de la izquierda */
