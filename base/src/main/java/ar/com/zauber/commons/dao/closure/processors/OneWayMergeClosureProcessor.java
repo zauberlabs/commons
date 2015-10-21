@@ -100,17 +100,17 @@ public class OneWayMergeClosureProcessor<T extends Comparable<T>>
         }
 
         /** notifica que se debe remover un contexto */
-        private void notifyRemove(final Closure<MergeResult<T>> closure) {
+        protected void notifyRemove(final Closure<MergeResult<T>> closure) {
             closure.execute(new InmutableMergeResult<T>(Operation.REMOVE, r));
         }
 
         /** notifica que se debe agregar un contexto */
-        private void notifyAdd(final Closure<MergeResult<T>> closure) {
+        protected void notifyAdd(final Closure<MergeResult<T>> closure) {
             closure.execute(new InmutableMergeResult<T>(Operation.ADD, l));
         }
         
         /** notifica que no se debe hacer nada con un contexto */
-        private void notifyKeep(final Closure<MergeResult<T>> closure) {
+        protected void notifyKeep(final Closure<MergeResult<T>> closure) {
             closure.execute(new InmutableMergeResult<T>(Operation.KEEP, l));
         }
 
