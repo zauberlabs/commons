@@ -22,7 +22,13 @@ package ar.com.zauber.commons.dao;
  * @since Jul 12, 2008
  * @param <T> type
  */
-public interface Predicate<T> {
+@FunctionalInterface
+public interface Predicate<T> extends java.util.function.Predicate<T> {
     /** @return true if the predicate is true */
     boolean evaluate(T value);
+    
+    
+    default boolean test(T t) {
+        return evaluate(t);
+    }
 }

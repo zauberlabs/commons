@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.dao;
 
+import java.util.function.Consumer;
+
 /**
  * Like the one in commons-collections but with generic support.
  * 
@@ -33,8 +35,14 @@ package ar.com.zauber.commons.dao;
  * @since Apr 2, 2006
  * @param <T> generic type
  */
-public interface Closure<T> {
+@FunctionalInterface
+public interface Closure<T> extends Consumer<T> {
     
     /**  closure */
     void execute(T t);
+    
+    @Override
+    default void accept(final T t) {
+        execute(t);
+    }
 }

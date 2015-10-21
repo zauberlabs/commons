@@ -15,6 +15,8 @@
  */
 package ar.com.zauber.commons.dao;
 
+import java.util.function.Function;
+
 /**
  * An object capable of transforming an input object into some output object.
  * 
@@ -24,10 +26,15 @@ package ar.com.zauber.commons.dao;
  * @param <I> Input entity class
  * @param <O> Output entity class
  */
-public interface Transformer<I, O> {
+@FunctionalInterface
+public interface Transformer<I, O>  extends Function<I, O> {
 
     /** Transforms the input object (leaving it unchanged) into some output object.
      * @return the transformation of the input object to the output object
      */
    O transform(I input);
+   
+   default O apply(I input) {
+       return transform(input);
+   }
 }
