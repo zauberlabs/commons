@@ -16,17 +16,17 @@
 package ar.com.zauber.commons.repository;
 
 /**
- * Representa una entidad que admite borrado lógico
+ * Representa una entidad que admite borrado lÃ³gico
  * 
  * @author Pablo Grigolatto
  * @since Jul 20, 2009
  */
 public interface LogicallyDeleteable {
     
-    /** indica que la entidad se encuentra borrada lógicamente */
+    /** indica que la entidad se encuentra borrada lÃ³gicamente */
     void setLogicallyDeleted(boolean logicallyDeleted);
     
-    /** @return true si la entidad esta borrada lógicamente  */
+    /** @return true si la entidad esta borrada lÃ³gicamente  */
     boolean isLogicallyDeleted(); 
     
 }

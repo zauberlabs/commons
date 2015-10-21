@@ -23,10 +23,10 @@ package ar.com.zauber.commons.dao;
  * A Closure represents a block of code which is executed from inside some 
  * block, function or iteration. It operates an input object.
  * </p><p>
- * Es una excelente elección para los metodos que retornan datos.
+ * Es una excelente elecciÃ³n para los metodos que retornan datos.
  * En vez de retornar una coleccion, pasarle como parametro un closure. 
  * Da mayor flexibilidad (si se quiere evitar se puede evitar
- * el uso de memoria que acarrea una colección).
+ * el uso de memoria que acarrea una colecciÃ³n).
  * 
  * </p>
  * @author Juan F. Codagnone

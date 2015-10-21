@@ -19,7 +19,7 @@ package ar.com.zauber.commons.repository.query;
 /**
  * Interface for query translators
  * 
- * @author Gabriel V. Baños
+ * @author Gabriel V. BaÃ±os
  * @since 20/06/2005
  */
 public interface Translator {

@@ -25,7 +25,7 @@ import org.apache.commons.lang.Validate;
  * DTO for {@link EmailService}.
  * 
  * 
- * @author Andrés Moratti
+ * @author AndrÃ©s Moratti
  * @since Jan 26, 2011
  */
 public class SendEmailDTO implements Serializable {

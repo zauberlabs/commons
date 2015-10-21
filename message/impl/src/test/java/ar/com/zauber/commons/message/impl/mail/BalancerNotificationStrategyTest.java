@@ -25,7 +25,7 @@ import ar.com.zauber.commons.message.NotificationStrategy;
  * Test for {@link BalancerNotificationStrategy}.
  * 
  * 
- * @author Andrés Moratti
+ * @author AndrÃ©s Moratti
  * @since Jan 27, 2011
  */
 public class BalancerNotificationStrategyTest {

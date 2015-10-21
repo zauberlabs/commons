@@ -24,28 +24,28 @@ import ar.com.zauber.commons.dao.exception.InvalidPassword;
 import ar.com.zauber.commons.passwd.PasswordValidator;
 
 /**
- * Validador de password que se fija en algun lado que contenga las contraseÒas
- * pasadas hasheadas, a ver si el usuario est· reusando alguna.
+ * Validador de password que se fija en algun lado que contenga las contrase√±as
+ * pasadas hasheadas, a ver si el usuario est√° reusando alguna.
  * 
  * @param <T> clase del usuario 
  * @author Juan F. Codagnone
  * @since Apr 30, 2008
  */
 public class AlreadyExistsPasswordValidator<T> implements PasswordValidator {
-    /** encuentra contraseÒas para un usuario*/
+    /** encuentra contrase√±as para un usuario*/
     public static interface PasswordDAO<T> {
         /**
-         * Busca los hash de las contraseÒas historicas de un usuario. 
-         * De estos hash no es posible obtener las contraseÒa pero si
+         * Busca los hash de las contrase√±as historicas de un usuario. 
+         * De estos hash no es posible obtener las contrase√±a pero si
          * se hashea con el mismo algoritmo la clave que se quiere verificar
          * deberia dar un hash equivalente.
          *  
-         * @param user el usuario al que se le buscar· sus contraseÒas pasadas 
-         * @param passwordClosure closure de contraseÒas
+         * @param user el usuario al que se le buscar√° sus contrase√±as pasadas 
+         * @param passwordClosure closure de contrase√±as
          */
         void getPasswords(T user, Closure<String> passwordClosure);
         
-        /** guarda una contraseÒ */
+        /** guarda una contrase√± */
         void registerPassword(T user, String codedPassword);
     }
 

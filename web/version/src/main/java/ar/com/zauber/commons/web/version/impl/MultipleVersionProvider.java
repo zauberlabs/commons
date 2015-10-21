@@ -23,7 +23,7 @@ import ar.com.zauber.commons.web.version.VersionProvider;
 
 /**
  * Encadena varias estrategias de {@link VersionProvider}. Si una falla
- * o no devuelve una versión, sigue con la siguiente.
+ * o no devuelve una versiÃ³n, sigue con la siguiente.
  * 
  * @author Juan F. Codagnone
  * @since Jul 19, 2008

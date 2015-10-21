@@ -16,7 +16,7 @@
 package ar.com.zauber.commons.web.uri.factory;
 
 /**
- * Constructor de URIs en forma din·mica.
+ * Constructor de URIs en forma din√°mica.
  * 
  * @author Mariano Cortesi
  * @since Apr 23, 2010
@@ -29,7 +29,7 @@ public interface UriFactory {
      * @param uriKey
      *            Clave del Uri
      * @param expArgs
-     *            Parametros de la expresiÛn referida por el uriKey.
+     *            Parametros de la expresi√≥n referida por el uriKey.
      * @return uri generado.
      */
     String buildUri(final String uriKey, final Object... expArgs);

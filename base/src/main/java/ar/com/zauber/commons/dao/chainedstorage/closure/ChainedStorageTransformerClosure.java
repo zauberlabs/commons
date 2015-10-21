@@ -23,14 +23,14 @@ import ar.com.zauber.commons.dao.chainedstorage.Storage;
 
 /**
  * {@link Closure} que se encarga de convertir un dato en otro buscando,
- * delegando la búsqueda en una serie de {@link ChainedStorageFetcher}. 
- * Cuando la búsqueda está terminada y la cadena devuelve el dato 
+ * delegando la bÃºsqueda en una serie de {@link ChainedStorageFetcher}. 
+ * Cuando la bÃºsqueda estÃ¡ terminada y la cadena devuelve el dato 
  * (mediante el llamado a {@link #store(K, V)} de esta instancia) 
  * se continua la cadena de {@link Closure} 
- * llamando a aquel que se pasó por constructor
+ * llamando a aquel que se pasÃ³ por constructor
  * 
  * @param <K> el tipo de dato de los identificadores
- * @param <V> el tipo de dato de la información
+ * @param <V> el tipo de dato de la informaciÃ³n
  *  
  * @author Pablo Grigolatto, Marcelo Turrin
  * @since Jun 18, 2010

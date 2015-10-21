@@ -28,7 +28,7 @@ import ar.com.zauber.common.image.services.ImageRetriver;
  * Trae imagenes de otros sitios, de forma segura.
  *  
  * @author Juan F. Codagnoe
- * @author Gabriel V. BaÒos
+ * @author Gabriel V. Ba√±os
  * @since 03/07/2006
  */
 public class JREImageRetriver implements ImageRetriver {
@@ -68,7 +68,7 @@ public class JREImageRetriver implements ImageRetriver {
                         "la URL no parece apuntar a una imagen ");
             }
             if(huc.getContentLength() > maxBytes) {
-                throw new RuntimeException("la imagen pesa m·s de "
+                throw new RuntimeException("la imagen pesa m√°s de "
                         + maxBytes);
             } 
             final InputStream is = uc.getInputStream();

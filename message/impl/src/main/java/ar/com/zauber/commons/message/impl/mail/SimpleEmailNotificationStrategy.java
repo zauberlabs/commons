@@ -99,7 +99,7 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     static String [] getEmailAddresses(
             final NotificationAddress []notificationAddresses) {
         
-        // TODO Podríamos usar una lista + toArray()
+        // TODO PodrÃ­amos usar una lista + toArray()
         final String [] mailsAddress = new String[notificationAddresses.length];
         int i = 0;
         for(final NotificationAddress address : notificationAddresses) {

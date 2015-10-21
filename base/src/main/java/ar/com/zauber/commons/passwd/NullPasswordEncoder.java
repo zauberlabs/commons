@@ -17,7 +17,7 @@ package ar.com.zauber.commons.passwd;
 
 
 /**
- * Implementación nula de {@link PasswordEncoder}. Retorna la 
+ * ImplementaciÃ³n nula de {@link PasswordEncoder}. Retorna la 
  * misma password que se le pasa.
  * 
  * @author Juan F. Codagnone

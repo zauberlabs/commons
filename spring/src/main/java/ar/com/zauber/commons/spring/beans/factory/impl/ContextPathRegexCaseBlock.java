@@ -27,8 +27,8 @@ import ar.com.zauber.commons.spring.beans.factory.CaseBlock;
 
 
 /**
- * Implementación de {@link CaseBlock} que permite preguntar por donde 
- * está desplegada la apliación. Ej:
+ * ImplementaciÃ³n de {@link CaseBlock} que permite preguntar por donde 
+ * estÃ¡ desplegada la apliaciÃ³n. Ej:
  * 
  * <pre>
  * <bean name="test1"

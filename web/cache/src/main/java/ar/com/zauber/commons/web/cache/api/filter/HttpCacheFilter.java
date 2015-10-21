@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * {@link Filter} that manages http cache
  * 
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since Mar 23, 2010
  */
 public class HttpCacheFilter implements Filter {

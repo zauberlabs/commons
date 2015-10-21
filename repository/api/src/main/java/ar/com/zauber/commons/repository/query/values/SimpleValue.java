@@ -18,8 +18,8 @@ package ar.com.zauber.commons.repository.query.values;
 
 /**
  * Valor simple donde el mismo representa un parametro que se usa directamente
- * dentro del filtro (a diferencia de un valor complejo donde puede haber m·s
- * procesamiento y traducciÛn.
+ * dentro del filtro (a diferencia de un valor complejo donde puede haber m√°s
+ * procesamiento y traducci√≥n.
  * 
  * @author Martin A. Marquez
  * @since Sep 24, 2007

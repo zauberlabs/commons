@@ -35,8 +35,8 @@ import ar.com.zauber.commons.repository.query.aggreate.SumPropertyAggregateFunct
 import ar.com.zauber.commons.repository.query.visitor.CriteriaFilterVisitor;
 
 /**
- * Implementación de {@link AggregateFunctionVisitor} para Hibernate.
- * Sigue el diseño de {@link CriteriaFilterVisitor}.
+ * ImplementaciÃ³n de {@link AggregateFunctionVisitor} para Hibernate.
+ * Sigue el diseÃ±o de {@link CriteriaFilterVisitor}.
  *
  * @author Juan F. Codagnone
  * @since Jun 7, 2008

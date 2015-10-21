@@ -33,7 +33,7 @@ import ar.com.zauber.commons.auth.AuthenticationUserMapper;
 
 
 /**
- * Implementación de {@link AuthenticationUserMapper} para usar
+ * ImplementaciÃ³n de {@link AuthenticationUserMapper} para usar
  * en arquitecturas que usan acegi.
  * 
  * @author Juan F. Codagnone

@@ -38,7 +38,7 @@ import ar.com.zauber.commons.message.mail.SendEmailDTO;
  * sending on {@link EmailService}
  * 
  * 
- * @author Andrés Moratti
+ * @author AndrÃ©s Moratti
  * @since Jan 26, 2011
  */
 public class BufferedServiceEmailNotificationStrategy 

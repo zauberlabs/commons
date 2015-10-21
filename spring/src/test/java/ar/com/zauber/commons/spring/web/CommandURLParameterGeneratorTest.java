@@ -37,7 +37,7 @@ public class CommandURLParameterGeneratorTest extends TestCase {
     public final void testSomething() throws Exception {
         final Set<Object> set = new HashSet<Object>();
         set.add(new URL("http://www.zauber.com.ar/"));
-        set.add("¿hola mundo?");
+        set.add("Â¿hola mundo?");
         set.add(TestEnum.BAR);
         
         final String ret =  CommandURLParameterGenerator.getURLParameter(

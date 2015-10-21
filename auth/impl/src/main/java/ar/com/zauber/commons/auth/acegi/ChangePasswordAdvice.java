@@ -25,12 +25,12 @@ import org.springframework.security.core.userdetails.memory.InMemoryDaoImpl;
 
 
 /**
- * Este advice est· pensado para atrapar los llamados al mÈtodo  
+ * Este advice est√° pensado para atrapar los llamados al m√©todo  
  * {@link ar.com.zauber.eventz.services.UserService#changePassword(String, 
  *  String)}, y reflejar los cambios necesarios en el
- *  ProvederDao del sistema de autenticaciÛn acegis. De esta manera el 
- *  dominio queda desacoplado sobre el sistema de autenticaciÛn. (el sistema
- *  de autenticacion suele depender de la implementaciÛn de la aplicaciÛn y no
+ *  ProvederDao del sistema de autenticaci√≥n acegis. De esta manera el 
+ *  dominio queda desacoplado sobre el sistema de autenticaci√≥n. (el sistema
+ *  de autenticacion suele depender de la implementaci√≥n de la aplicaci√≥n y no
  *  deberia depender del negocio)
  *
  * @author Juan F. Codagnone

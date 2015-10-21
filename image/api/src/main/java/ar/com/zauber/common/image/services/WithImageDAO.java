@@ -26,7 +26,7 @@ import ar.com.zauber.common.image.model.WithImage;
  * 
  * TODO Detail
  * 
- * @author Gabriel V. Baños
+ * @author Gabriel V. BaÃ±os
  * @since 28/06/2006
  */
 public interface WithImageDAO {

@@ -34,7 +34,7 @@ import ar.com.zauber.commons.validate.Validate;
  * Content-Type.
  * 
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @author Pablo Martin Grigolatto
  * @since Jul 7, 2010
  */
@@ -60,7 +60,7 @@ public class HeaderBasedStatusSimpleMappingExceptionHandler extends
     private final String accept;
 
     /**
-     * Nombre de la clave bajo la cual se envia la excepciÛn.
+     * Nombre de la clave bajo la cual se envia la excepci√≥n.
      */
     private String messageKey = "exception";
 

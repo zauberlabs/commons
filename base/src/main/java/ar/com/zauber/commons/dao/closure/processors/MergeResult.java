@@ -16,7 +16,7 @@
 package ar.com.zauber.commons.dao.closure.processors;
 
 /**
- * Resultado de la sincronización. Dice lo que decidió el sincronizador. 
+ * Resultado de la sincronizaciÃ³n. Dice lo que decidiÃ³ el sincronizador. 
  * 
  * @author Juan F. Codagnone
  * @since Jun 18, 2009
@@ -27,7 +27,7 @@ public interface MergeResult<T> {
     /** @return la entidad procesada */
     T getEntity();
     
-    /** @return la operación a realizarse determinada por el sincronizador */
+    /** @return la operaciÃ³n a realizarse determinada por el sincronizador */
     Operation getOperation();
     
     /** Accion a realizar determinada para el resultado. */

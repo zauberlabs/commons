@@ -22,7 +22,7 @@ import java.util.List;
  * Sends emails. Best used with remoting.
  * 
  * 
- * @author Andrés Moratti
+ * @author AndrÃ©s Moratti
  * @since Jan 26, 2011
  */
 public interface EmailService {

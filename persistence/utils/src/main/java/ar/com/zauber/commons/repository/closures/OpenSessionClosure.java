@@ -30,7 +30,7 @@ import ar.com.zauber.commons.dao.Closure;
 
 /**
  * {@link Closure} que permite bindear una sesion al thread donde se corre el
- * mismo y ejecuta el target dentro de dicha sesi�n
+ * mismo y ejecuta el target dentro de dicha sesiï¿½n
  * 
  * @author Pablo Grigolatto
  * @param <T>
@@ -56,7 +56,7 @@ public class OpenSessionClosure<T> implements Closure<T> {
         this.dryrun = dryrun;
         
         if(dryrun) {
-            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producci�n)."
+            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producción)."
                     + "Cuidado con el starvation de conexiones jdbc.");
         }
     }

@@ -18,7 +18,7 @@ package ar.com.zauber.commons.repository.query.aggreate;
 import org.apache.commons.lang.Validate;
 
 /**
- * Funcion de agregación que recibe una propiedad como parametro. Por ejemplo:
+ * Funcion de agregaciÃ³n que recibe una propiedad como parametro. Por ejemplo:
  *  avg("peso"), max("edad"), ..
  * 
  * @author Juan F. Codagnone

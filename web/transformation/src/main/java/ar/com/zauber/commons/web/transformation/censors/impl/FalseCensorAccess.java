@@ -19,7 +19,7 @@ package ar.com.zauber.commons.web.transformation.censors.impl;
 /**
  * {@link CensorAccess} que siempre retorna <code>false</code>.
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Oct 31, 2008
  */
 public class FalseCensorAccess extends AbstractCensorAccess {

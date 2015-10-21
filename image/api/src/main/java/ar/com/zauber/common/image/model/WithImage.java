@@ -22,7 +22,7 @@ package ar.com.zauber.common.image.model;
  * 
  * TODO Detail
  * 
- * @author Gabriel V. Baños
+ * @author Gabriel V. BaÃ±os
  * @since 28/06/2006
  */
 public interface WithImage {

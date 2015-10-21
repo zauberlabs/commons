@@ -20,7 +20,7 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Crea http servlets requests para tests de controladores dada una definición.
+ * Crea http servlets requests para tests de controladores dada una definiciÃ³n.
  * 
  * @author Juan F. Codagnone
  * @since Apr 22, 2008

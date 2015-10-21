@@ -52,8 +52,8 @@ public class SimpleAssetsRepository implements AssetRepository {
         List<AssetModel> result = this.assets.get(set);
         if(result == null) {
             result = Collections.emptyList();
-            this.logger.warn("Se pidió un Set de assets vacio (probablemente se"
-                    + " llamó a printTag sin haber agregado un asset)");
+            this.logger.warn("Se pidiÃ³ un Set de assets vacio (probablemente se"
+                    + " llamÃ³ a printTag sin haber agregado un asset)");
         }
         return Collections.unmodifiableList(result);
     }

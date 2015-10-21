@@ -25,7 +25,7 @@ import ar.com.zauber.commons.web.transformation.censors.CensorAccess;
 /**
  * Clase base para implementaciones de {@link CensorAccess}.
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Nov 11, 2008
  */
 public abstract class AbstractCensorAccess implements CensorAccess {

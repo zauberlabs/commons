@@ -87,7 +87,7 @@ public interface Repository {
    <T extends Persistible> int count(Query<T> criteria);
 
    /**
-    * Aplica funciones de agregación a una consulta
+    * Aplica funciones de agregaciÃ³n a una consulta
     */
    <R, T extends Persistible> R aggregate(Query<T> criteria, 
            AggregateFunction aggregateFunction, 

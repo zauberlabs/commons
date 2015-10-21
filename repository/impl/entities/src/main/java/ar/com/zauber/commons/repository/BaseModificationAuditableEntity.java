@@ -20,9 +20,9 @@ import java.util.Date;
 import javax.persistence.MappedSuperclass;
 
 /**
- * Clase base para entidades que necesiten auditoria de modificación.
+ * Clase base para entidades que necesiten auditoria de modificaciÃ³n.
  * 
- * @author Martín Andrés Márquez
+ * @author MartÃ­n AndrÃ©s MÃ¡rquez
  * @since Nov 12, 2007
  */
 @MappedSuperclass

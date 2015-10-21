@@ -30,12 +30,12 @@ import ar.com.zauber.commons.dao.exception.NoSuchEntityException;
 import ar.com.zauber.commons.secret.SecretsMap;
 
 /**
- * Controlador pensado para la ejecuci髇 asincronica de comandos. 
- * La ejecuci髇 tiene un n鷐ero de pedido (secret). Tipicamente esto
+ * Controlador pensado para la ejecuci贸n asincronica de comandos. 
+ * La ejecuci贸n tiene un n煤mero de pedido (secret). Tipicamente esto
  * sirve para validacion de direcciones de correo electronico, recover de 
  * password, etc.
  * <p>
- * La ejecuci髇 se puede confirmar (realizar) o cancelar (reject).
+ * La ejecuci贸n se puede confirmar (realizar) o cancelar (reject).
  * </p>
  *
  * @author Juan F. Codagnone
@@ -92,7 +92,7 @@ public abstract class AbstractConfirmationController<T extends Runnable>
         this.preRejectView = preRejectView;
     }
    
-    /** @see la aceptacion de la confirmaci髇 */
+    /** @see la aceptacion de la confirmaci贸n */
     public final ModelAndView postconfirm(final HttpServletRequest request,
             final HttpServletResponse response) {
         if(!request.getMethod().equalsIgnoreCase("post")) {

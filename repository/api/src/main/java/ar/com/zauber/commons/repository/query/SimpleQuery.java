@@ -23,7 +23,7 @@ import ar.com.zauber.commons.dao.Paging;
 import ar.com.zauber.commons.repository.query.filters.Filter;
 
 /**
- * ImplementaciÛn tonta de {@link Query}.
+ * Implementaci√≥n tonta de {@link Query}.
  *
  * @author Martin A. Marquez
  * @since Sep 21, 2007
@@ -40,7 +40,7 @@ public class SimpleQuery<T> implements Query<T> {
     /**
      * Crea el/la SimpleQuery.
      *
-     * @param clazz  clase que se est· buscando.
+     * @param clazz  clase que se est√° buscando.
      * @param filter filter no puede ser null
      * @param paging objeto de pagina. parece que puede ser null.
      * @param ordering parece que puede ser null.

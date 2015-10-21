@@ -25,7 +25,7 @@ public interface AttributeValueValidator {
     
     /**
      * @param attributeValue
-     * @return Si el attributeValue es v·lido.
+     * @return Si el attributeValue es v√°lido.
      */
     boolean isAttributeValueValid(String attributeValue);
 }

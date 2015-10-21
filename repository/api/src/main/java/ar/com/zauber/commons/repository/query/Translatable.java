@@ -22,7 +22,7 @@ package ar.com.zauber.commons.repository.query;
  * Classes implementing this interface would be subject to being "visited"
  * by a Translator
  * 
- * @author Gabriel V. Baños
+ * @author Gabriel V. BaÃ±os
  * @since 20/06/2005
  */
 public interface Translatable {

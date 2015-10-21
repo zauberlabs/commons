@@ -24,7 +24,7 @@ import org.hibernate.Session;
 
 /**
  * Iterator que engloba los ScrollableResults de Hibernate para trabajar 
- * genéricamente con ObservationWorkingDayHoursProvider. Se usa de acuerdo
+ * genÃ©ricamente con ObservationWorkingDayHoursProvider. Se usa de acuerdo
  * al algoritmo de este Provider, es decir que el hasNext avanza el scroll
  * y el next devuelve el elemento cargado.
  * 

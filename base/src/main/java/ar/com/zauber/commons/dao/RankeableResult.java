@@ -16,11 +16,11 @@
 package ar.com.zauber.commons.dao;
 
 /**
- * Un resultado a una búsqueda, donde el resultado viene acompañado por 
- * la cantidad de cosas que hacen referencia a él.
+ * Un resultado a una bÃºsqueda, donde el resultado viene acompaÃ±ado por 
+ * la cantidad de cosas que hacen referencia a Ã©l.
  * 
- * Por ejemplo podría tener Usuarios, y querer mostrar un ranking de usuarios
- * ordenado por algún puntaje.
+ * Por ejemplo podrÃ­a tener Usuarios, y querer mostrar un ranking de usuarios
+ * ordenado por algÃºn puntaje.
  * <verbatim>
  *    juan  120 
  *    ...
@@ -28,9 +28,9 @@ package ar.com.zauber.commons.dao;
  * </verbatim>
  * 
  * Si se usa hibernate, esta clase se suele devolver recorriendo los resultados
- * de una consulta que usa funciones de agregación (de donde segurmanete sale
- * el ranking), y la entidad suele ser un lazy-proxy con la información minima 
- * de la entidad, lista para que se si llama  a otro métodos se carge la entidad
+ * de una consulta que usa funciones de agregaciÃ³n (de donde segurmanete sale
+ * el ranking), y la entidad suele ser un lazy-proxy con la informaciÃ³n minima 
+ * de la entidad, lista para que se si llama  a otro mÃ©todos se carge la entidad
  * completa.
  * 
  * @author Juan F. Codagnone

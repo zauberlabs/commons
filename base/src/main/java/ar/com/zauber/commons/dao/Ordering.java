@@ -23,7 +23,7 @@ import org.apache.commons.lang.Validate;
         
 
 /**
- * Representa un orden. Est· compuesto  por un listado de <code>Order</code>
+ * Representa un orden. Est√° compuesto  por un listado de <code>Order</code>
  * con el fin de definir en cada caso cual es la propiedad y si es ascendente
  * o descendente.
  * 

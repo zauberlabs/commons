@@ -19,7 +19,7 @@ import java.util.Date;
 
 
 /**
- * Política de duración de fechas de vencimiento
+ * PolÃ­tica de duraciÃ³n de fechas de vencimiento
  * 
  * @author Juan F. Codagnone
  * @since Jun 19, 2005

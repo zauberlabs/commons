@@ -19,10 +19,10 @@ import org.w3c.dom.Document;
 
 /**
  * Estrategia para procesar un arbol DOM. Por ejemplo
- * se puede utilizar para remover partes del árbol, o 
+ * se puede utilizar para remover partes del Ã¡rbol, o 
  * cambiar algunos atributos.
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Oct 22, 2008
  */
 public interface DOMProcessor {

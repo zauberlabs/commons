@@ -39,7 +39,7 @@ import org.springframework.beans.factory.FactoryBean;
  * <li><b>elementSeparatorRegex</b>: default is <code>","</code>.
  * </ul>
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since May 3, 2010
  */
 public class StringToMapFactoryBean implements FactoryBean<Map<String, String>> {

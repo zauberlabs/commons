@@ -23,7 +23,7 @@ import ar.com.zauber.commons.message.MessagePart;
 import ar.com.zauber.commons.message.message.templates.PartTemplate;
 
 /**
- * {@link PartTemplate} que no realiza ninguna transformación
+ * {@link PartTemplate} que no realiza ninguna transformaciÃ³n
  * 
  * @author Pablo Martin Grigolatto
  * @since Oct 25, 2010

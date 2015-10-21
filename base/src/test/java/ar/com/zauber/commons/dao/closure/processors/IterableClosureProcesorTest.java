@@ -27,7 +27,7 @@ import ar.com.zauber.commons.dao.closure.ListClosure;
 /**
  * Tests for {@link IterableClosureProcesor}.
  * 
- * @author Matías G. Tito
+ * @author MatÃ­as G. Tito
  * @since Sep 29, 2009
  */
 public class IterableClosureProcesorTest {

@@ -21,7 +21,7 @@ import org.apache.commons.lang.Validate;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * Implementación de {@link TransactionStrategy} que retorna siempre 
+ * ImplementaciÃ³n de {@link TransactionStrategy} que retorna siempre 
  * el mismo {@link TransactionTemplate} 
  * 
  * @author Pablo Grigolatto

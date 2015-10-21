@@ -33,7 +33,7 @@ import org.springframework.web.servlet.view.AbstractView;
 /**
  * Test for {@link HeaderBasedStatusSimpleMappingExceptionHandler}.
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since Jul 7, 2010
  */
 public class HeaderBasedStatusSimpleMappingExceptionHandlerTest extends

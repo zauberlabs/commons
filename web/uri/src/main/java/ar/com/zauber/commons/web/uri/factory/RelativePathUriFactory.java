@@ -26,8 +26,8 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.Validate;
 
 /**
- * UriFactory que dado un un uri relativo al root de la aplicación, este
- * {@link UriFactory} genera el path relativo al root de la aplicación y se lo
+ * UriFactory que dado un un uri relativo al root de la aplicaciÃ³n, este
+ * {@link UriFactory} genera el path relativo al root de la aplicaciÃ³n y se lo
  * agrega al principio del URI.
  * 
  * Requiere tener <code>scope="request"</code>
@@ -70,7 +70,7 @@ public class RelativePathUriFactory implements UriFactory {
     }
 
     /**
-     * Genera el path hasta la ruta de la aplicación.
+     * Genera el path hasta la ruta de la aplicaciÃ³n.
      * @param request
      * @return path
      */

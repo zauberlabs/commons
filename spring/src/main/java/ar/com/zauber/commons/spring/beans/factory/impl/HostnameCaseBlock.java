@@ -21,8 +21,8 @@ import ar.com.zauber.commons.spring.beans.factory.CaseBlock;
 
 
 /**
- * ImplementaciÛn de {@link CaseBlock} que permite diferenciar entre
- * hosts segun el hostname de la maquina donde se est· ejecutando.
+ * Implementaci√≥n de {@link CaseBlock} que permite diferenciar entre
+ * hosts segun el hostname de la maquina donde se est√° ejecutando.
  * 
  * @author Juan F. Codagnone
  * @since Aug 5, 2006

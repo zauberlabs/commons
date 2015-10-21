@@ -26,7 +26,7 @@ package ar.com.zauber.commons.repository;
  *    }
  * </pre>
  * 
- * @author Martín A. Márquez
+ * @author MartÃ­n A. MÃ¡rquez
  * @since Jul 3, 2008
  * @deprecated Se recomienda usar el EntityManager de JPA2
  */

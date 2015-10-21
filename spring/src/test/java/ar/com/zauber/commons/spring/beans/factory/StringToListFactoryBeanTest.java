@@ -25,7 +25,7 @@ import org.junit.Test;
  * Tests for {@link StringToListFactoryBean}
  * 
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since May 3, 2010
  */
 public class StringToListFactoryBeanTest {

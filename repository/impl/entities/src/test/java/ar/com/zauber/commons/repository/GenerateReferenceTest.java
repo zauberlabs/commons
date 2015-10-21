@@ -59,7 +59,7 @@ public class GenerateReferenceTest {
     }
     
     
-    /** Implementación para prueba */
+    /** ImplementaciÃ³n para prueba */
     class MockBaseEntity extends BaseEntity {
         private Long id;
         
@@ -72,7 +72,7 @@ public class GenerateReferenceTest {
         }
     }
     
-    /** Implementación para prueba */
+    /** ImplementaciÃ³n para prueba */
     class MockBaseModifiableEntity extends BaseModifiableEntity {
         private Long id;
         

@@ -27,7 +27,7 @@ import ar.com.zauber.commons.message.NotificationStrategy;
  * Balanced (2) {@link NotificationStrategy}.
  * 
  * 
- * @author Andrés Moratti
+ * @author AndrÃ©s Moratti
  * @since Jan 27, 2011
  */
 public class BalancerNotificationStrategy implements NotificationStrategy {

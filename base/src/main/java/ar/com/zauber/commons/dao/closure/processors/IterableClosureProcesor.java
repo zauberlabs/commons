@@ -24,7 +24,7 @@ import ar.com.zauber.commons.dao.ClosureProcessor;
  * {@link ClosureProcessor} que obtiene todos los elementos a procesar de un
  * iterable. Es muy util para pruebas. 
  * 
- * @author Matías G. Tito
+ * @author MatÃ­as G. Tito
  * @since Sep 29, 2009
  * @param <T> Tipo de entidad
  */

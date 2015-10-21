@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Esqueleto que ayuda a llevar la cuenta de tareas que se est·n ejecutando de forma asincronica
+ * Esqueleto que ayuda a llevar la cuenta de tareas que se est√°n ejecutando de forma asincronica
  * y a esperar que todas terminen.
  * 
  * @author Juan F. Codagnone
@@ -43,7 +43,7 @@ public abstract class AbstractAsyncTaskExecutor {
      * Esto significa que no hay trabajos en las colas internas, y que todos
      * se ejecutaron todas las tareas.
      * 
-     * Si una tarea que se est· ejecutnado pone a ejecutar otras tareas (recursivamente)
+     * Si una tarea que se est√° ejecutnado pone a ejecutar otras tareas (recursivamente)
      * entonces  {@link #awaitIdleness()} asegura que se termino de procesar todo.
      * 
      * @throws InterruptedException
@@ -82,7 +82,7 @@ public abstract class AbstractAsyncTaskExecutor {
 
     /** 
      *  decrementa la cantidad de trabajos activos y notifica a quien 
-     *  este esperando por idleness si se llegÛ a 0.
+     *  este esperando por idleness si se lleg√≥ a 0.
      */
     protected final void decrementActiveJobs() {
         lock.lock();

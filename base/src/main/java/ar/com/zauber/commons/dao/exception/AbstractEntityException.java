@@ -19,9 +19,9 @@ package ar.com.zauber.commons.dao.exception;
 /**
  * Base class for Entity exceptions. 
  * 
- * Est· pensada para ser extendida. Tal vez resulte raro extender la clase
- * para sÛlamente cambiar la semantica (y no el comportamiento!). Es esto o
- * tener un enum en el constructor. Creemos en la elegancia de est· solucion
+ * Est√° pensada para ser extendida. Tal vez resulte raro extender la clase
+ * para s√≥lamente cambiar la semantica (y no el comportamiento!). Es esto o
+ * tener un enum en el constructor. Creemos en la elegancia de est√° solucion
  * 
  * TODO comentario a ingles, y mas detallado
  * 

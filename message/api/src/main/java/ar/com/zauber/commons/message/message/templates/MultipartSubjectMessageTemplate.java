@@ -34,7 +34,7 @@ import ar.com.zauber.commons.message.message.MultipartMessageImpl;
 /**
  * Como {@link MultipartMessageTemplate} pero renderea el subject con Velocity.
  * 
- * @author Andrés Moratti, Pablo Grigolatto
+ * @author AndrÃ©s Moratti, Pablo Grigolatto
  * @since Sep 27, 2010
  */
 public class MultipartSubjectMessageTemplate implements MessageTemplate {

@@ -18,7 +18,7 @@ package ar.com.zauber.commons.repository.query;
 /**
  * Marker interface for queries
  * 
- * @author Gabriel V. Baños
+ * @author Gabriel V. BaÃ±os
  * @since 19/06/2005
  * @param <T> entity class
  */

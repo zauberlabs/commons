@@ -22,7 +22,7 @@ import org.apache.commons.lang.Validate;
 import ar.com.zauber.commons.date.DateProvider;
 
 /**
- * Implementación de {@link DateProvider} que retorna 
+ * ImplementaciÃ³n de {@link DateProvider} que retorna 
  * siempre la misma fecha inmutable
  * 
  * @author Pablo Grigolatto

@@ -17,7 +17,7 @@ package ar.com.zauber.commons.repository.query.aggreate;
 
 
 /**
- * Función de agregación sobre algun campo de la clase.
+ * FunciÃ³n de agregaciÃ³n sobre algun campo de la clase.
  * Ej: count(), average("peso"), max("peso"), min("peso"),
  * 
  * @author Juan F. Codagnone

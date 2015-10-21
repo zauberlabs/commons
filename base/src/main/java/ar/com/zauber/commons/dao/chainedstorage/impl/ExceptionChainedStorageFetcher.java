@@ -20,12 +20,12 @@ import ar.com.zauber.commons.dao.chainedstorage.Storage;
 
 /**
  * Clase utilitaria que implementa {@link ChainedStorageFetcher} que sirve para
- * colocar al final de una cadena cuando se supone que debería terminar antes.
+ * colocar al final de una cadena cuando se supone que deberÃ­a terminar antes.
  * Si se llega a una instancia de esta clase, esta tira
  * {@link UnsupportedOperationException} para avisar del fracaso.
  * 
  * @param <K> el tipo de dato de los identificadores
- * @param <V> el tipo de dato de la información
+ * @param <V> el tipo de dato de la informaciÃ³n
  * 
  * @author Pablo Grigolatto, Marcelo Turrin
  * @since Jun 18, 2010

@@ -19,16 +19,16 @@ import java.util.Date;
 
 /**
  * Interfaz que deben implementar aquellos objetos que requieran auditoria
- * en la creación de los mismos
+ * en la creaciÃ³n de los mismos
  * 
  * 
- * @author Martín Andrés Márquez
+ * @author MartÃ­n AndrÃ©s MÃ¡rquez
  * @since Nov 12, 2007
  */
 public interface CreationAuditable {
 
     /**
-     * @return quien es el responsable de la creación del objeto. 
+     * @return quien es el responsable de la creaciÃ³n del objeto. 
      */
     String getCreatedBy();
     

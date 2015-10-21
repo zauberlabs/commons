@@ -31,10 +31,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface UriExpression {
 
-    /** el nombre de la expressión */
+    /** el nombre de la expressiÃ³n */
     String name();
-    /** la uri de la expresión */
+    /** la uri de la expresiÃ³n */
     String value();
-    /** una descripción opcional */
+    /** una descripciÃ³n opcional */
     String description()  default "";
 }

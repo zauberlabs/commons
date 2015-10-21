@@ -37,7 +37,7 @@ import ar.com.zauber.commons.web.transformation.processors.DOMScraper;
 
 /**
  * {@link DOMScraper} que utiliza un template XSLT para extraer y formar la
- * nueva representación de la entidad.
+ * nueva representaciÃ³n de la entidad.
  *
  * @author Juan F. Codagnone
  * @since May 30, 2009

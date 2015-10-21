@@ -28,7 +28,7 @@ import ar.com.zauber.commons.web.transformation.processors.DOMProcessor;
  * expresion regular para saber si actual
  * 
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Nov 12, 2008
  */
 public abstract class AbstractAcceptDOMProcessor implements DOMProcessor {

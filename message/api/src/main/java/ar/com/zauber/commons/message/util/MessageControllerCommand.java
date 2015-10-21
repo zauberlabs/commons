@@ -25,7 +25,7 @@ import ar.com.zauber.commons.message.NotificationStrategy;
 
 
 /**
- * Contiene toda la información necesaria para que un controlador web envie un
+ * Contiene toda la informaciÃ³n necesaria para que un controlador web envie un
  * mensaje. Ahorra el pasaje de multiples parametros al constructor del 
  * controlador.
  *

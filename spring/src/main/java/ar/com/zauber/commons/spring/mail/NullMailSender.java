@@ -22,7 +22,7 @@ import org.springframework.mail.SimpleMailMessage;
 /**
  * MailSender que no hace nada
  *
- * @author Matías Arciprete
+ * @author MatÃ­as Arciprete
  * @since 06/01/2009
  */
 public class NullMailSender implements MailSender {

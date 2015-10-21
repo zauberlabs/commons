@@ -28,7 +28,7 @@ import org.junit.Test;
  */
 public class AbsolutePathUriFactoryTest {
 
-    /** test de construcción. */
+    /** test de construcciÃ³n. */
     @Test
     public final void setUp() throws Exception {
         new AbsolutePathUriFactory(new PrefixUriFactory("foo:", 

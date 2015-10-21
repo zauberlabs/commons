@@ -43,7 +43,7 @@ public class ProxyFactoryBeanTest  extends  AbstractJUnit4SpringContextTests {
     @Resource private DateTestInterface mutableDateBean;
     
     /** Test que prueba que obtengo la instancia que le setee al invocacion 
-     * handler a través del factory bean*/
+     * handler a travÃ©s del factory bean*/
     @Test
     public final void getObject() {
         final DateInvocationHandler ih = new DateInvocationHandler();

@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 
 /**
- * Clase base que provee la generación de una referencia y el metodo de
+ * Clase base que provee la generaciÃ³n de una referencia y el metodo de
  * equals para comparar entidades persistentes.
  * 
  * En esta clase no se define el Id ya que el mismo es responsabilidad de las
@@ -61,10 +61,10 @@ public abstract class BaseEntity implements Persistible {
                 try {
                     equalsBuilder.append(field.get(this), field.get(obj));
                 } catch (final IllegalArgumentException e) {
-                    // Este código no deberia alcanzarse nunca.
+                    // Este cÃ³digo no deberia alcanzarse nunca.
                     throw new IllegalStateException(e);
                 } catch (final IllegalAccessException e) {
-                 // Este código no deberia alcanzarse nunca.
+                 // Este cÃ³digo no deberia alcanzarse nunca.
                     throw new IllegalStateException(e);
                 }
                 

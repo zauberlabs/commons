@@ -35,7 +35,7 @@ public class CracklibPasswordValidatorTestDriver extends TestCase {
                 "http://localhost:9097/RPC2", "password.check");
     }
     /**
-     * testea una palabra de diccionario español
+     * testea una palabra de diccionario espaÃ±ol
      * @throws Exception
      */
     public final void testPasswordValidatorDiccionario() throws Exception {

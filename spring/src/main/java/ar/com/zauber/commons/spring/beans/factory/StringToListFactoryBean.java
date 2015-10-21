@@ -42,7 +42,7 @@ import ar.com.zauber.commons.validate.Validate;
  * </ul>
  * 
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since May 3, 2010
  */
 public class StringToListFactoryBean implements FactoryBean<List<String>> {

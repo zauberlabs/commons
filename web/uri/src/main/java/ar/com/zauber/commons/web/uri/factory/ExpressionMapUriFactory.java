@@ -37,8 +37,8 @@ import org.springframework.web.util.UriTemplate;
  * Factory para generar uris.
  * 
  * <p>
- * Cada uri tiene una clave, y una expresi髇 que al ser evaluada construye la
- * URI. La expresi髇 se evalua con un {@link ExpressionParser}. Un ejemplo de
+ * Cada uri tiene una clave, y una expresi贸n que al ser evaluada construye la
+ * URI. La expresi贸n se evalua con un {@link ExpressionParser}. Un ejemplo de
  * este es el {@link SpelExpressionParser}.
  * 
  * <p>
@@ -54,8 +54,8 @@ import org.springframework.web.util.UriTemplate;
  * <p>
  * El contenido entre los <code>{}</code> es evaluado por el lenguaje. La
  * variable <code>#root</code> refiere al array de argumentos que se pasan al
- * m閠odo {@link ExpressionMapUriFactory#buildUri(String, Object...)}.
- * Adem醩 puede invocarse a la funci髇 #encode que llama a URLEncoder#encode(...)
+ * m茅todo {@link ExpressionMapUriFactory#buildUri(String, Object...)}.
+ * Adem谩s puede invocarse a la funci贸n #encode que llama a URLEncoder#encode(...)
  * para encoding utf-8.
  * 
  * @author Mariano Cortesi
@@ -75,7 +75,7 @@ public class ExpressionMapUriFactory implements UriFactory {
         }
     }
     
-    /** tipo  de expressi髇 */
+    /** tipo  de expressi贸n */
     public static interface ExpressionTemplate {
         /** @return an human representation for the expression */
         String getExpressionString();
@@ -162,11 +162,11 @@ public class ExpressionMapUriFactory implements UriFactory {
             return new UriTemplateExpression(new UriTemplate(expression));
         }
     }
-    /** Describe una expresi髇 */
+    /** Describe una expresi贸n */
     public static class UriExpression {
         /** expresion */
         public final ExpressionTemplate expression;
-        /** descripcion del recurso al que apunta la expresi髇 (opcional) */
+        /** descripcion del recurso al que apunta la expresi贸n (opcional) */
         public final String description;
         
         /** Creates the ExpressionMapUriFactory.UriExpression. */
@@ -256,8 +256,8 @@ public class ExpressionMapUriFactory implements UriFactory {
     }
     
     /**
-     * Esta funci髇 se usa para ser registrada en el contexto de evaluaci髇 por
-     * reflexi髇.
+     * Esta funci贸n se usa para ser registrada en el contexto de evaluaci贸n por
+     * reflexi贸n.
      * @return la url codificada usando utf-8.
      * @throws UnsupportedEncodingException 
      */

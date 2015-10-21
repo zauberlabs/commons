@@ -52,7 +52,7 @@ public class NetworkAwareUserMapper implements AuthenticationUserMapper<String> 
     }
 
     
-    /** intenta dar el hostname m·s especifico */
+    /** intenta dar el hostname m√°s especifico */
     private static String getHostname() {
         String ret = null;
         try {

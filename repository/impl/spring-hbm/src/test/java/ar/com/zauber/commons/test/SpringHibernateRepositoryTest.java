@@ -544,7 +544,7 @@ public class SpringHibernateRepositoryTest extends
          assertEquals(5678, row[2]);
     }
     
-    /** Prueba los aggregate con orden verificando explícitamente que se haga 
+    /** Prueba los aggregate con orden verificando explÃ­citamente que se haga 
      * dicho order by probando tanto las posibilidades desc como asc. 
      **/
     @SuppressWarnings("unchecked")
@@ -616,7 +616,7 @@ public class SpringHibernateRepositoryTest extends
     }
     
     /** Prueba el caso en que se desea hacer un count de un campo y se 
-     * hace también order by sin group by
+     * hace tambiÃ©n order by sin group by
      */
     @SuppressWarnings("unchecked")
     public final void testCountOrderBy() {

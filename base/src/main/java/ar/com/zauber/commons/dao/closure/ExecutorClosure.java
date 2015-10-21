@@ -22,7 +22,7 @@ import org.apache.commons.lang.Validate;
 import ar.com.zauber.commons.dao.Closure;
 
 /**
- * Closure que delega la ejecución en un {@link Executor}; posiblemente
+ * Closure que delega la ejecuciÃ³n en un {@link Executor}; posiblemente
  * en otro thread. 
  * 
  * @author Juan F. Codagnone

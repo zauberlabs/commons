@@ -36,7 +36,7 @@ import ar.com.zauber.commons.message.message.templates.AbstractMessageTemplate;
 /**
  * A Message factory that renders the messages using velocity
  *
- * @author Martín Andrés Márquez
+ * @author MartÃ­n AndrÃ©s MÃ¡rquez
  * @since Dic 12, 2007
  */
 public class ResourceBundleMessageTemplate extends AbstractMessageTemplate {

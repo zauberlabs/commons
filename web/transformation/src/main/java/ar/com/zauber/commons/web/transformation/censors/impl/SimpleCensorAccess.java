@@ -22,10 +22,10 @@ import org.apache.commons.lang.Validate;
 import ar.com.zauber.commons.web.transformation.censors.CensorAccess;
 
 /**
- * Implementación tonta de {@link CensorAccess} que recibe un listado
+ * ImplementaciÃ³n tonta de {@link CensorAccess} que recibe un listado
  * fijo de uris para censurar.
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Oct 22, 2008
  */
 public class SimpleCensorAccess extends AbstractCensorAccess  {

@@ -35,7 +35,7 @@ import ar.com.zauber.commons.web.cache.api.repo.StringEntityKey;
  * through EhCache.
  * 
  * @author Mariano A. Cortesi
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since Mar 22, 2010
  */
 public class EhCacheLastModifiedRepository implements

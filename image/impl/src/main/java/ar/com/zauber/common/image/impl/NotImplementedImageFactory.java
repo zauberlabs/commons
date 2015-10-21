@@ -31,7 +31,7 @@ import ar.com.zauber.common.image.services.ImageFactory;
  * 
  * Useful for testing purposes
  * 
- * @author Gabriel V. Baños
+ * @author Gabriel V. BaÃ±os
  * @since 03/07/2006
  */
 public class NotImplementedImageFactory implements ImageFactory {

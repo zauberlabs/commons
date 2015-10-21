@@ -19,21 +19,21 @@ import java.util.Date;
 
 /**
  * Interfaz que deben implementar aquellos objetos que requieran auditoria
- * en la creación de los mismos
+ * en la creaciÃ³n de los mismos
  * 
  * 
- * @author Martín Andrés Márquez
+ * @author MartÃ­n AndrÃ©s MÃ¡rquez
  * @since Nov 12, 2007
  */
 public interface ModificationAuditable extends Modifiable {
 
     /**
-     * @return quien es el responsable de la última modificación. 
+     * @return quien es el responsable de la Ãºltima modificaciÃ³n. 
      */
     String getModifiedBy();
     
     /**
-     * @return cuando fue modificado por última vez.
+     * @return cuando fue modificado por Ãºltima vez.
      */
     Date getModifiedAt();
         

@@ -19,9 +19,9 @@ import org.apache.commons.lang.Validate;
 
 
 /**
- * Mantiene información relativa al paginado.
+ * Mantiene informaciÃ³n relativa al paginado.
  * 
- * @author Andrés Moratti
+ * @author AndrÃ©s Moratti
  * @since Mar 21, 2006
  */
 public class Paging {
@@ -57,8 +57,8 @@ public class Paging {
         Validate.notNull(resultsPerPage);
         
         if(pageNumber <= 0 || resultsPerPage <= 0) {
-            throw new IllegalArgumentException("El número de página y los " 
-                    + "resultados por página deben ser mayores a 0");
+            throw new IllegalArgumentException("El nÃºmero de pÃ¡gina y los " 
+                    + "resultados por pÃ¡gina deben ser mayores a 0");
         }
         
         this.pageNumber = pageNumber;
@@ -75,7 +75,7 @@ public class Paging {
         
         // 0 es validao ya que en una consulta pueda ser vacio...
         if(resultSize < 0) { 
-            throw new IllegalArgumentException("El tamaño del resultado " 
+            throw new IllegalArgumentException("El tamaÃ±o del resultado " 
                     + "debe ser mayor a 0");
         }
 
@@ -88,7 +88,7 @@ public class Paging {
 
 
     /**
-     * Retorna el número de la primer página.
+     * Retorna el nÃºmero de la primer pÃ¡gina.
      * 
      * @return the number of the first page
      */
@@ -97,7 +97,7 @@ public class Paging {
     }
     
     /**
-     * Retorna el número de la página previa.
+     * Retorna el nÃºmero de la pÃ¡gina previa.
      * 
      * @return the number of the previus page
      */
@@ -107,7 +107,7 @@ public class Paging {
     }
     
     /**
-     * Retorna el número de la página actual.
+     * Retorna el nÃºmero de la pÃ¡gina actual.
      * 
      * @return <code>int</code> with the pageNumber.
      */
@@ -116,7 +116,7 @@ public class Paging {
     }
     
     /**
-     * Retorna el número de la siguiente página.
+     * Retorna el nÃºmero de la siguiente pÃ¡gina.
      * 
      * @return the number of the next page
      */
@@ -126,13 +126,13 @@ public class Paging {
     }
     
     /**
-     * Retorna el número de la última página.
+     * Retorna el nÃºmero de la Ãºltima pÃ¡gina.
      * 
      * @return the last page number
      */
     public final int getLastPageNumber() {
         if(resultSize == null) {
-            throw new IllegalStateException("No se seteó el tamaño del " 
+            throw new IllegalStateException("No se seteÃ³ el tamaÃ±o del " 
                     + "resultado");
         }
         
@@ -148,7 +148,7 @@ public class Paging {
     }
     
     /**
-     * Cantidad de resultados por página.
+     * Cantidad de resultados por pÃ¡gina.
      * 
      * @return <code>int</code> with the resultsPerPage.
      */
@@ -177,7 +177,7 @@ public class Paging {
      */
     public final long getResultSize() {
         if(resultSize == null) {
-            throw new IllegalStateException("No se seteó el tamaño del " 
+            throw new IllegalStateException("No se seteÃ³ el tamaÃ±o del " 
                     + "resultado");
         }
 

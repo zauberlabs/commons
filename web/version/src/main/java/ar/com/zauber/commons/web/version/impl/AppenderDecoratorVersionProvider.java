@@ -22,7 +22,7 @@ import ar.com.zauber.commons.web.version.VersionProvider;
 
 /**
  * concatena un text estatico a otro {@link VersionProvider}. Por ejemplo si otro
- * {@link VersionProvider} retorna <em>25</em>, esta implentacion serviría para
+ * {@link VersionProvider} retorna <em>25</em>, esta implentacion servirÃ­a para
  * hacer decir que la version es: "build-25". No concatena si upstream es vacio 
  * 
  * @author Juan F. Codagnone

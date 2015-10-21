@@ -30,7 +30,7 @@ import org.w3c.dom.Node;
 public interface DOMScraper {
 
     /** 
-     * @param node  nodo DOM desde donde extraer la información
+     * @param node  nodo DOM desde donde extraer la informaciÃ³n
      * @param model model con datos extras necesarios para scrapear
      * @param writer donde dejar los resultados
      */

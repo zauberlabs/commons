@@ -38,7 +38,7 @@ import ar.com.zauber.commons.web.proxy.impl.InmutableURLResult;
  * Tests {@link HttpClientRequestProxy}.
  * 
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Oct 29, 2008
  */
 public class HttpClientRequestProxyTest extends TestCase {

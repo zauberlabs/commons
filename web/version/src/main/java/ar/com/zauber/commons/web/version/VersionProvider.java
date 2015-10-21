@@ -16,7 +16,7 @@
 package ar.com.zauber.commons.web.version;
 
 /**
- * Provee la versión de un módulo. Por ejemplo, de una aplicación web.
+ * Provee la versiÃ³n de un mÃ³dulo. Por ejemplo, de una aplicaciÃ³n web.
  * 
  * La idea de esta clase es que se utilize para versionar los archivos
  * estaticos de un proyecto web, para que sean facilmente cacheables por 

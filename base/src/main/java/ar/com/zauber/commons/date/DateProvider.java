@@ -25,7 +25,7 @@ import java.util.Date;
  */
 public interface DateProvider {
 
-    /** @return un {@link Date} según el criterio de implementación */
+    /** @return un {@link Date} segÃºn el criterio de implementaciÃ³n */
     Date getDate();
     
 }

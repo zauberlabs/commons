@@ -81,7 +81,7 @@ public class ChainedStorageTransformerClosureTest {
         
         //Se ejecuta
         cstc.execute(KEY);
-        //Debería haberse llamado con la respuesta
+        //DeberÃ­a haberse llamado con la respuesta
         verify(targetClosure).execute(matches(VALUE));
     }
 }

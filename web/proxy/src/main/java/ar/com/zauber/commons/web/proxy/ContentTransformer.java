@@ -41,7 +41,7 @@ public interface ContentTransformer {
     
     /** Metadata para ser pasada al Transformer */
     interface ContentMetadata {
-        /** @return la uri a la que est· asociado is. no puede ser nulo.*/
+        /** @return la uri a la que est√° asociado is. no puede ser nulo.*/
         String getUri();
         
         /** @return el content-type o <code>null</code> si no exite */

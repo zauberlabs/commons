@@ -22,7 +22,7 @@ import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * Implementación de {@link InvocationHandler} para test
+ * ImplementaciÃ³n de {@link InvocationHandler} para test
  * 
  * @author Cecilia Hagge
  * @since Oct 23, 2009

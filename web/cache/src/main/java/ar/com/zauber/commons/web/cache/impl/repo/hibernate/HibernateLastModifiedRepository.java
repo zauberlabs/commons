@@ -68,7 +68,7 @@ public class HibernateLastModifiedRepository implements
     /** @see LastModifiedRepository#getMaxTimestamp(K[]) */
     @Transactional(readOnly = true)
     public final Long getMaxTimestamp(final StringEntityKey... keys) {
-        // optimización para el caso simple
+        // optimizaciÃ³n para el caso simple
         if (keys.length == 1) {
             return this.getTimestamp(keys[0]);
         } else {

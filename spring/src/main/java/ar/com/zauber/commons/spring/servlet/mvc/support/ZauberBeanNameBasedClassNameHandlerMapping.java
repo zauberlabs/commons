@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping;
 
 /**
- * <em>configuracion por convensión</em> para url mappings. La convención es
+ * <em>configuracion por convensiÃ³n</em> para url mappings. La convenciÃ³n es
  * en base al nombre/id del bean. Se aplica a todos los beans que implementen
  * una subclase de {@link Controller} y que tengan un nombre/id que termine en
  * <em>Controller</em>. Toma el nombre, le quita el sufijo

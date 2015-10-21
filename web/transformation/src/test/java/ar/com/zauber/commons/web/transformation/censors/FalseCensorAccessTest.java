@@ -25,7 +25,7 @@ import ar.com.zauber.commons.web.transformation.censors.impl.FalseCensorAccess;
  * Tests for {@link CensorAccess}.
  * 
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Nov 11, 2008
  */
 public class FalseCensorAccessTest {

@@ -29,7 +29,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Filtra los {@link HttpServletRequest} mediante el header HTTP especificado, 
- * dejando pasar solo aquellos soportados por la aplicaciÛn, 
+ * dejando pasar solo aquellos soportados por la aplicaci√≥n, 
  * y desviando el resto a una URL definida. 
  * 
  * @author Pablo Grigolatto
@@ -44,15 +44,15 @@ public class HttpRequestHeaderFilter extends OncePerRequestFilter {
     /**
      * Constructor
      * 
-     * @param headerName el nombre del header que ser· evaluado para decidir 
+     * @param headerName el nombre del header que ser√° evaluado para decidir 
      *        sobre la validez del request. Case insensitive.
      * @param acceptableValues la lista de valores aceptados del header, 
-     *        un request es v·lido si contiene al menos uno de ellos. 
+     *        un request es v√°lido si contiene al menos uno de ellos. 
      *        Case insensitive. 
-     * @param statusCode el cÛdigo de estado HTTP que ser· enviado ante un 
-     *        request inv·lido. Ejemplo: 406 (Not Acceptable) 
-     * @param target la direcciÛn del recurso al cual ser· redireccionado 
-     *        cada request inv·lido. Ejemplo: "/invalidRequest.html" 
+     * @param statusCode el c√≥digo de estado HTTP que ser√° enviado ante un 
+     *        request inv√°lido. Ejemplo: 406 (Not Acceptable) 
+     * @param target la direcci√≥n del recurso al cual ser√° redireccionado 
+     *        cada request inv√°lido. Ejemplo: "/invalidRequest.html" 
      */
     public HttpRequestHeaderFilter(final String headerName, 
             final List<String> acceptableValues, 
@@ -79,7 +79,7 @@ public class HttpRequestHeaderFilter extends OncePerRequestFilter {
         final String headerValue = request.getHeader(headerName);
         
         if(headerValue != null && isAcceptableValue(headerValue)) {
-            //se contin˙a procesando el request
+            //se contin√∫a procesando el request
             filterChain.doFilter(request, response);
         } else {
             //se detiene el proceso y redirecciona a target
@@ -88,7 +88,7 @@ public class HttpRequestHeaderFilter extends OncePerRequestFilter {
         }
     }
 
-    /** @return true si el valor del header es v·lido */
+    /** @return true si el valor del header es v√°lido */
     private boolean isAcceptableValue(final String headerValue) {
         for (final String acceptableValue : acceptableValues) {
             if(headerValue.toLowerCase().contains(acceptableValue.toLowerCase())) {

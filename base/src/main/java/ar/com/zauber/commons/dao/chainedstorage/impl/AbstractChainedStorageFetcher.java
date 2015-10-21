@@ -21,17 +21,17 @@ import ar.com.zauber.commons.dao.chainedstorage.ChainedStorageFetcher;
 import ar.com.zauber.commons.dao.chainedstorage.Storage;
 
 /**
- * Clase abstracta que realiza la operaciÛn de encadenamiento de
+ * Clase abstracta que realiza la operaci√≥n de encadenamiento de
  * {@link ChainedStorageFetcher}. Para eso lo que realiza es la pregunta
  * "Yo lo tengo". Si lo tiene llama al padre con el dato. Si no lo tiene se
- * guarda al padre y llama al hijo, "encaden·ndose" al pasarse como par·metro de
+ * guarda al padre y llama al hijo, "encaden√°ndose" al pasarse como par√°metro de
  * {@link #fetch(Object, Storage)}. Cuando el hijo le devuelve el control
  * llamando a {@link #store(Object, Object)}, este se guarda el dato y continua
  * la cadena llamado al {@link #store(Object, Object)} del padre. Para preguntar
- * "tengo?" y "guardar" delega en sus implementaciones los mÈtodos abstractos.
+ * "tengo?" y "guardar" delega en sus implementaciones los m√©todos abstractos.
  * 
  * @param <K> el tipo de dato de los identificadores
- * @param <V> el tipo de dato de la informaciÛn
+ * @param <V> el tipo de dato de la informaci√≥n
  * 
  * @author Pablo Grigolatto, Marcelo Turrin
  * @since Jun 18, 2010

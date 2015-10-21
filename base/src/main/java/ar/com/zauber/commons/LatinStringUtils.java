@@ -34,53 +34,53 @@ public abstract class LatinStringUtils {
         new HashMap<Character, Character>();
     
     static {
-        ACCENTS_MAP.put('·', 'a');
-        ACCENTS_MAP.put('‡', 'a');
-        ACCENTS_MAP.put('‰', 'a');
-        ACCENTS_MAP.put('‚', 'a');
-        ACCENTS_MAP.put('¡', 'A');
-        ACCENTS_MAP.put('¿', 'A');
-        ACCENTS_MAP.put('ƒ', 'A');
-        ACCENTS_MAP.put('¬', 'A');
+        ACCENTS_MAP.put('√°', 'a');
+        ACCENTS_MAP.put('√†', 'a');
+        ACCENTS_MAP.put('√§', 'a');
+        ACCENTS_MAP.put('√¢', 'a');
+        ACCENTS_MAP.put('√Å', 'A');
+        ACCENTS_MAP.put('√Ä', 'A');
+        ACCENTS_MAP.put('√Ñ', 'A');
+        ACCENTS_MAP.put('√Ç', 'A');
         
-        ACCENTS_MAP.put('È', 'e');
-        ACCENTS_MAP.put('Ë', 'e');
-        ACCENTS_MAP.put('Î', 'e');
-        ACCENTS_MAP.put('Í', 'e');
-        ACCENTS_MAP.put('…', 'E');
-        ACCENTS_MAP.put('»', 'E');
-        ACCENTS_MAP.put('À', 'E');
-        ACCENTS_MAP.put(' ', 'E');
+        ACCENTS_MAP.put('√©', 'e');
+        ACCENTS_MAP.put('√®', 'e');
+        ACCENTS_MAP.put('√´', 'e');
+        ACCENTS_MAP.put('√™', 'e');
+        ACCENTS_MAP.put('√â', 'E');
+        ACCENTS_MAP.put('√à', 'E');
+        ACCENTS_MAP.put('√ã', 'E');
+        ACCENTS_MAP.put('√ä', 'E');
         
-        ACCENTS_MAP.put('Ì', 'i');
-        ACCENTS_MAP.put('Ï', 'i');
-        ACCENTS_MAP.put('Ô', 'i');
-        ACCENTS_MAP.put('Ó', 'i');
-        ACCENTS_MAP.put('Ã', 'I');
-        ACCENTS_MAP.put('Õ', 'I');
-        ACCENTS_MAP.put('œ', 'I');
-        ACCENTS_MAP.put('Œ', 'I');
+        ACCENTS_MAP.put('√≠', 'i');
+        ACCENTS_MAP.put('√¨', 'i');
+        ACCENTS_MAP.put('√Ø', 'i');
+        ACCENTS_MAP.put('√Æ', 'i');
+        ACCENTS_MAP.put('√å', 'I');
+        ACCENTS_MAP.put('√ç', 'I');
+        ACCENTS_MAP.put('√è', 'I');
+        ACCENTS_MAP.put('√é', 'I');
         
-        ACCENTS_MAP.put('Û', 'o');
-        ACCENTS_MAP.put('Ú', 'o');
-        ACCENTS_MAP.put('Ù', 'o');
-        ACCENTS_MAP.put('ˆ', 'o');
-        ACCENTS_MAP.put('”', 'O');
-        ACCENTS_MAP.put('“', 'O');
-        ACCENTS_MAP.put('÷', 'O');
-        ACCENTS_MAP.put('‘', 'O');
+        ACCENTS_MAP.put('√≥', 'o');
+        ACCENTS_MAP.put('√≤', 'o');
+        ACCENTS_MAP.put('√¥', 'o');
+        ACCENTS_MAP.put('√∂', 'o');
+        ACCENTS_MAP.put('√ì', 'O');
+        ACCENTS_MAP.put('√í', 'O');
+        ACCENTS_MAP.put('√ñ', 'O');
+        ACCENTS_MAP.put('√î', 'O');
         
-        ACCENTS_MAP.put('˙', 'u');
-        ACCENTS_MAP.put('˘', 'u');
-        ACCENTS_MAP.put('¸', 'u');
-        ACCENTS_MAP.put('˚', 'u');
-        ACCENTS_MAP.put('⁄', 'U');
-        ACCENTS_MAP.put('Ÿ', 'U');
-        ACCENTS_MAP.put('‹', 'U');
-        ACCENTS_MAP.put('€', 'U');
+        ACCENTS_MAP.put('√∫', 'u');
+        ACCENTS_MAP.put('√π', 'u');
+        ACCENTS_MAP.put('√º', 'u');
+        ACCENTS_MAP.put('√ª', 'u');
+        ACCENTS_MAP.put('√ö', 'U');
+        ACCENTS_MAP.put('√ô', 'U');
+        ACCENTS_MAP.put('√ú', 'U');
+        ACCENTS_MAP.put('√õ', 'U');
         
-        ACCENTS_MAP.put('Ò', 'n');
-        ACCENTS_MAP.put('—', 'N');
+        ACCENTS_MAP.put('√±', 'n');
+        ACCENTS_MAP.put('√ë', 'N');
         
     }
     

@@ -71,13 +71,13 @@ public class IdNameSEOIdStrategy  implements SEOIdStrategy {
             while(s.contains("--")) {
                 s = s.replace("--", "-");
             }
-            s = s.replace('·', 'a').replace('¡', 'A')
-             .replace('È', 'e').replace('…', 'E')
-             .replace('Ì', 'i').replace('Õ', 'I')
-             .replace('Û', 'o').replace('”', 'O')
-             .replace('˙', 'u').replace('⁄', 'U')
-             .replace('Ò', 'n').replace('—', 'N')
-             .replace('¸', 'u').replace('‹', 'U');
+            s = s.replace('√°', 'a').replace('√Å', 'A')
+             .replace('√©', 'e').replace('√â', 'E')
+             .replace('√≠', 'i').replace('√ç', 'I')
+             .replace('√≥', 'o').replace('√ì', 'O')
+             .replace('√∫', 'u').replace('√ö', 'U')
+             .replace('√±', 'n').replace('√ë', 'N')
+             .replace('√º', 'u').replace('√ú', 'U');
             
             ret = s.toLowerCase();
         }

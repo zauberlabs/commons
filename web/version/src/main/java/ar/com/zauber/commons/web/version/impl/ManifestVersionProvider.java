@@ -23,7 +23,7 @@ import org.apache.commons.lang.Validate;
 import ar.com.zauber.commons.web.version.VersionProvider;
 
 /**
- * Implementación de VersionProvider que saca la version de un campo del manifest
+ * ImplementaciÃ³n de VersionProvider que saca la version de un campo del manifest
  * 
  * @author Juan F. Codagnone
  * @since Jul 19, 2008

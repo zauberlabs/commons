@@ -136,9 +136,9 @@ public class SpringHibernateRepository extends HibernateDaoSupport implements
                 false);
         final SimpleQuery<T> simpleQuery = (SimpleQuery<T>) query;
         Criteria aCriteria;
-        // TODO Esto debería ir en el metodo que hace getCriteriaSpecification
+        // TODO Esto deberÃ­a ir en el metodo que hace getCriteriaSpecification
         // pero como no tiene DetachedCriteria posibilidad de setearle valores
-        // para paginación hubo que hacerlo así.
+        // para paginaciÃ³n hubo que hacerlo asÃ­.
         if(simpleQuery.getPaging() != null) {
             int firstResult = (simpleQuery.getPaging().getPageNumber() - 1)
                 * simpleQuery.getPaging().getResultsPerPage();

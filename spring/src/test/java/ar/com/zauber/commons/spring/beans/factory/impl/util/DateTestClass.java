@@ -20,7 +20,7 @@ import java.util.Date;
 import org.apache.commons.lang.Validate;
 
 /**
- * Implementación de {@link DateTestInterface}
+ * ImplementaciÃ³n de {@link DateTestInterface}
  * 
  * @author Cecilia Hagge
  * @since Oct 23, 2009

@@ -19,19 +19,19 @@ package ar.com.zauber.commons.repository;
 /**
  * Es la interfaz que debe implementar cualquier objeto que pueda ser
  * modificado. Permite realizar optimistic locking mediante un campo
- * de versión. También poseea metodos para auditoría.
+ * de versiÃ³n. TambiÃ©n poseea metodos para auditorÃ­a.
  * 
  * @author Martin Andres Marquez
  */
 public interface Modifiable {
 
     /**
-     * @return la versión del objeto
+     * @return la versiÃ³n del objeto
      */
     Long getVersion();
     
     /**
-     * @param version la versión del objeto
+     * @param version la versiÃ³n del objeto
      */
     void setVersion(Long version);
     

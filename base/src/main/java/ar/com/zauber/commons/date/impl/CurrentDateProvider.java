@@ -20,7 +20,7 @@ import java.util.Date;
 import ar.com.zauber.commons.date.DateProvider;
 
 /**
- * Implementación de {@link DateProvider} que retorna la fecha actual
+ * ImplementaciÃ³n de {@link DateProvider} que retorna la fecha actual
  * 
  * @author Pablo Grigolatto
  * @since Oct 6, 2009

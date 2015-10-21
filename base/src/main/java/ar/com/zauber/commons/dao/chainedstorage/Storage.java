@@ -20,14 +20,14 @@ package ar.com.zauber.commons.dao.chainedstorage;
  * guardan indizados por un elemento clave.
  * 
  * @param <K> el tipo de dato de los identificadores
- * @param <V> el tipo de dato de la información
+ * @param <V> el tipo de dato de la informaciÃ³n
  * 
  * @author Pablo Grigolatto, Marcelo Turrin
  * @since Jun 18, 2010
  */
 public interface Storage<K, V> {
     
-    /** Almacena el valor para la clave dada según corresponda al contenedor */
+    /** Almacena el valor para la clave dada segÃºn corresponda al contenedor */
     void store(K key, V value);
     
 }

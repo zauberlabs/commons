@@ -24,7 +24,7 @@ import org.springframework.mail.SimpleMailMessage;
 
 /**
  * <p>
- * Implementación de {@link MailSender} que manda los mensajes de 
+ * ImplementaciÃ³n de {@link MailSender} que manda los mensajes de 
  * MailSender a varias implementaciones.
  * </p>
  * </p>

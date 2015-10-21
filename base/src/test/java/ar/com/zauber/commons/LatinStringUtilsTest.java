@@ -28,8 +28,8 @@ public class LatinStringUtilsTest extends TestCase {
 
     /** test de unidad */
     public final void testReplaceAccent() {
-        assertEquals("hola", LatinStringUtils.replaceAccents("hol·"));
-        assertEquals("aeioun", LatinStringUtils.replaceAccents("·ÈÌÛ˙Ò"));
-        assertEquals("AEIOUN", LatinStringUtils.replaceAccents("¡…Õ”⁄—"));
+        assertEquals("hola", LatinStringUtils.replaceAccents("hol√°"));
+        assertEquals("aeioun", LatinStringUtils.replaceAccents("√°√©√≠√≥√∫√±"));
+        assertEquals("AEIOUN", LatinStringUtils.replaceAccents("√Å√â√ç√ì√ö√ë"));
     }
 }

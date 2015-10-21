@@ -189,7 +189,7 @@ public class HttpClientRequestProxy {
 
     // CHECKSTYLE:DESIGN:OFF
     /**
-     * Método que se puede overridear en el caso de necesitar otro comportamiento al
+     * MÃ©todo que se puede overridear en el caso de necesitar otro comportamiento al
      * no encontrarse un mapeo apropiado para la url recibida.
      * 
      * @param request
@@ -204,8 +204,8 @@ public class HttpClientRequestProxy {
     
     // CHECKSTYLE:DESIGN:OFF
     /**
-     * Método que se puede overridear en el caso de necesitar otro comportamiento al
-     * producirse un error de conexión.
+     * MÃ©todo que se puede overridear en el caso de necesitar otro comportamiento al
+     * producirse un error de conexiÃ³n.
      * 
      * @param request
      * @param response
@@ -222,7 +222,7 @@ public class HttpClientRequestProxy {
     // CHECKSTYLE:DESIGN::ON
     
     /**
-     * Método ideado para overriding en caso de necesitar realizar logs, o modificar
+     * MÃ©todo ideado para overriding en caso de necesitar realizar logs, o modificar
      * el response code. Para transformaciones del body, agregar un transformer. 
      * 
      * @param request

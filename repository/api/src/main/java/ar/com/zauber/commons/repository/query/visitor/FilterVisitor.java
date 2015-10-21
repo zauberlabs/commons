@@ -25,7 +25,7 @@ import ar.com.zauber.commons.repository.query.filters.NullFilter;
 /**
  * Se trata de la interfaz que hay que implementar para visitar un filtro. Es
  * decir que se va a utilizar para traducir los mismos a alguna forma que
- * entienda aquello que esté por debajo del repository.
+ * entienda aquello que estÃ© por debajo del repository.
  * 
  * @author Martin A. Marquez
  * @since Sep 24, 2007

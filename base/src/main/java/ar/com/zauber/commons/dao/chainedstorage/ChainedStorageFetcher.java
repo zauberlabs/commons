@@ -17,27 +17,27 @@ package ar.com.zauber.commons.dao.chainedstorage;
 
 /**
  * Interfaz que permite encadenar {@link Storage} de manera que si un
- * {@link Storage} no tiene el dato dado por la clave, llama al mÈtodo
- * {@link #fetch(Object, Storage)} de un {@link ChainedStorageFetcher} pas·ndose
- * como par·metro a si mismo, para que cuando este lo encuentre, llame al
+ * {@link Storage} no tiene el dato dado por la clave, llama al m√©todo
+ * {@link #fetch(Object, Storage)} de un {@link ChainedStorageFetcher} pas√°ndose
+ * como par√°metro a si mismo, para que cuando este lo encuentre, llame al
  * {@link #store(Object, Object)} del original.
  * 
  * @param <K> el tipo de dato de los identificadores
- * @param <V> el tipo de dato de la informaciÛn
+ * @param <V> el tipo de dato de la informaci√≥n
  * 
  * @author Pablo Grigolatto, Marcelo Turrin
  * @since Jun 18, 2010
  */
 public interface ChainedStorageFetcher<K, V> extends Storage<K, V> {
     /**
-     * MÈtodo de b˙squeda que encadena (busco en el mÌo y si encuentro llamo al
+     * M√©todo de b√∫squeda que encadena (busco en el m√≠o y si encuentro llamo al
      * {@link #store(Object, Object)} del parentStorage.
      * 
      * @param parentStorage
      *            un {@link Storage} al cual usar como contenedor, 
-     *            que se llamar· al encontrar el dato
+     *            que se llamar√° al encontrar el dato
      * @throws IllegalArgumentException
-     *            si el par·metro parentStorage es null
+     *            si el par√°metro parentStorage es null
      */
     void fetch(K key, Storage<K, V> parentStorage);
 }

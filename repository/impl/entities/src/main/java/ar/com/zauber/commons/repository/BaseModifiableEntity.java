@@ -24,7 +24,7 @@ import org.springframework.dao.ConcurrencyFailureException;
  * Clase base para entidades que pueden ser modificadas.
  * 
  * 
- * @author Martín Andrés Márquez
+ * @author MartÃ­n AndrÃ©s MÃ¡rquez
  * @since Nov 12, 2007
  */
 @MappedSuperclass

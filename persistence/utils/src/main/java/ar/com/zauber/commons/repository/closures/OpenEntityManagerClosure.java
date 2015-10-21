@@ -70,7 +70,7 @@ public final class OpenEntityManagerClosure<T> implements Closure<T> {
         this.dryrun = dryrun;
         
         if(dryrun) {
-            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producci�n)."
+            logger.warn("Corriendo en modo MULTI-SESSION (No apto para producciï¿½n)."
                     + "Cuidado con el starvation de conexiones jdbc.");
         }
     }

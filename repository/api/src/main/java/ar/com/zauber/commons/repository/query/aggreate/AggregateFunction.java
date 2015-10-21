@@ -17,8 +17,8 @@ package ar.com.zauber.commons.repository.query.aggreate;
 
 
 /**
- * Describe las funciones de agregación. 
- * Las funciones de agregación son parte de un patrón Visitor, donde el filtro 
+ * Describe las funciones de agregaciÃ³n. 
+ * Las funciones de agregaciÃ³n son parte de un patrÃ³n Visitor, donde el filtro 
  * es el elemento que acepta al visitador.
  * 
  * @author Juan F. Codagnone

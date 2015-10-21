@@ -53,7 +53,7 @@ public class SQLSecretMap<T> extends AbstractSecretsMap {
          * @param secret secret a mapear
          * @param cmd comando a mapear
          * @param expirationDate fecha a mapear
-         * @return un array de objetos con la representación de
+         * @return un array de objetos con la representaciÃ³n de
          *         secret, la fecha y el comando listo para 
          *         ser insertado en una tabla sql. 
          */

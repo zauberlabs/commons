@@ -46,6 +46,6 @@ public abstract class BinaryPropertyFilter extends PropertyFilter {
         visitor.visitBinaryPropertyFilter(this);
     }
 
-    /** @return el operador hql para la operación binaria (ej: =, +, ...)*/
+    /** @return el operador hql para la operaciÃ³n binaria (ej: =, +, ...)*/
     public abstract String getSymbol();
 }

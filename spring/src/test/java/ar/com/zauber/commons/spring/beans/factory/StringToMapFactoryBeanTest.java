@@ -26,7 +26,7 @@ import junit.framework.Assert;
  * Tests for {@link StringToMapFactoryBean}
  * 
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since May 3, 2010
  */
 public class StringToMapFactoryBeanTest {

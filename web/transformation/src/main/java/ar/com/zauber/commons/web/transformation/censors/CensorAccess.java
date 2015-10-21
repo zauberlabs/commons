@@ -18,7 +18,7 @@ package ar.com.zauber.commons.web.transformation.censors;
 /**
  * Clase que sabe que persona puede acceder a que.
  * 
- * @author Matías Tito
+ * @author MatÃ­as Tito
  * @since Oct 15, 2008
  */
 public interface CensorAccess {

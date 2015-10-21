@@ -21,7 +21,7 @@ import org.apache.commons.lang.Validate;
 
 /**
  * En caso de que sea un Absolute Path no llama al resto de los uriFactory
- * debería ser usado como una de las capas mas externas.
+ * deberÃ­a ser usado como una de las capas mas externas.
  * 
  * @author Mariano Semelman
  * @since Jun 18, 2010

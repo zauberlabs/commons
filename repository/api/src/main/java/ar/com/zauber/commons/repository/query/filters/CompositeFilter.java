@@ -22,7 +22,7 @@ import ar.com.zauber.commons.repository.query.visitor.FilterVisitor;
 
 
 /**
- * Filtro que es la composición de otros filtros definiendo un conector.
+ * Filtro que es la composiciÃ³n de otros filtros definiendo un conector.
  *
  *
  * @author Martin A. Marquez

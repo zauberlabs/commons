@@ -22,7 +22,7 @@ import ar.com.zauber.commons.spring.servlet.view.PermanentlyRedirectView;
 /**
  * Spring MVC utilities.
  * 
- * @author Andrés Moratti
+ * @author AndrÃ©s Moratti
  * @since Nov 8, 2005
  */
 public  class SpringWebUtil {

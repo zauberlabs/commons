@@ -76,7 +76,7 @@ import org.apache.commons.lang.StringUtils;
  *      href="http://blog.springsource.com/2010/01/25/ajax-simplifications-in-spring-3-0/#comment-171228"
  *      >Ajax Simplifications in Spring 3.0</a>
  * 
- * @author Francisco J. Gonz·lez CostanzÛ
+ * @author Francisco J. Gonz√°lez Costanz√≥
  * @since Jul 8, 2010
  */
 //CHECKSTYLE:ALL:ON
@@ -90,7 +90,7 @@ public class JSONPRequestFilter implements Filter {
             "application/json", 
         };
     
-    /** Nombre del par·metro de callback. Por defecto "callback". */
+    /** Nombre del par√°metro de callback. Por defecto "callback". */
     private String callbackParameterName = "callback";
     
     /**

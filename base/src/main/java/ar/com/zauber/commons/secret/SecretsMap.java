@@ -125,7 +125,7 @@ public interface SecretsMap<T> {
      */
     void cleanup();
 
-    /* estos mÈtodos podrian no estar, pero est·n buenos, porque le avisa al
+    /* estos m√©todos podrian no estar, pero est√°n buenos, porque le avisa al
      * programador que puede reusar estas clases en ves de reinventar la rueda 
      */
     /**

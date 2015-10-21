@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.com.zauber.commons.spring.web.handlers.strategy.TransactionStrategy;
 
 /**
- * Decorator de {@link HandlerAdapter} que delega la resolución del request
+ * Decorator de {@link HandlerAdapter} que delega la resoluciÃ³n del request
  * en un contexto transaccional definido por su Strategy
  * 
  * @author Pablo Grigolatto

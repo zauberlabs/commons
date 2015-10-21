@@ -81,13 +81,13 @@ public final class LoginController extends AbstractController {
         
         
         // XXX AuthenticationException tiene varios hijos, con lo cual se podria
-        // determinar diferentes p·ginas segun lo que haya pasado (expiraciÛn?)
+        // determinar diferentes p√°ginas segun lo que haya pasado (expiraci√≥n?)
         
         return new ModelAndView("login/form", model); 
     }
     
     /**
-     * Busca una propiedad en el request, y si est· seteada, la agrega al 
+     * Busca una propiedad en el request, y si est√° seteada, la agrega al 
      * modelo de la vista
      * 
      * @param request http request

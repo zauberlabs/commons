@@ -23,8 +23,8 @@ import org.apache.commons.lang.Validate;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * ImplementaciÛn de {@link TransactionStrategy} que retorna una implementaciÛn 
- * de {@link TransactionTemplate} distinta si la clase del handler est· o no 
+ * Implementaci√≥n de {@link TransactionStrategy} que retorna una implementaci√≥n 
+ * de {@link TransactionTemplate} distinta si la clase del handler est√° o no 
  * en el {@link Set} inyectado.
  * 
  * @author Pablo Grigolatto
@@ -38,11 +38,11 @@ public class ByClassTransactionStrategy implements TransactionStrategy {
     /**
      * Constructor 
      * 
-     * @param defaultTemplate la implementaciÛn a retornar por default
-     * @param specialTemplate la implementaciÛn a retornar si la clase del 
+     * @param defaultTemplate la implementaci√≥n a retornar por default
+     * @param specialTemplate la implementaci√≥n a retornar si la clase del 
      *        handler se encuentra en el set 
      * @param specialClass el set de clases de handlers para los cuales 
-     *        se retorna la implementaciÛn especial
+     *        se retorna la implementaci√≥n especial
      */
     public ByClassTransactionStrategy(final TransactionTemplate defaultTemplate,
             final TransactionTemplate specialTemplate, 

@@ -23,7 +23,7 @@ import org.apache.commons.lang.time.DateUtils;
 import ar.com.zauber.commons.date.DateProvider;
 
 /**
- * Recorta la fecha luego del último digito significativo.
+ * Recorta la fecha luego del Ãºltimo digito significativo.
  * Por ejemplo: para 2010-03-03 19:54:22 podria retornar 2010-03-03 00:00:00
  * 
  * @author Pablo Grigolatto

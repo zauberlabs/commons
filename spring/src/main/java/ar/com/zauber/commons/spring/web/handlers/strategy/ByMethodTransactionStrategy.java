@@ -39,12 +39,12 @@ public class ByMethodTransactionStrategy implements TransactionStrategy {
     /**
      * Constructor 
      * 
-     * @param readTemplate la implementación a retornar para solo lectura
-     * @param writeTemplate la implementación a retornar si la clase del 
+     * @param readTemplate la implementaciÃ³n a retornar para solo lectura
+     * @param writeTemplate la implementaciÃ³n a retornar si la clase del 
      *        handler se encuentra en el set o si el metodo es de escritura (POST,
      *        PUT, DELETE)
      * @param specialClass el set de clases de handlers para los cuales 
-     *        se retorna la implementación especial aunque el metodo del request
+     *        se retorna la implementaciÃ³n especial aunque el metodo del request
      *        sea de lectura (GET)
      */
     public ByMethodTransactionStrategy(final TransactionTemplate readTemplate,

@@ -17,8 +17,8 @@ package ar.com.zauber.commons.dao.exception;
 
 
 /**
- * Excepción indicando que no existe la entidad. [ Basada en el
- * NoSuchEntityException de Mariano de conae, nada mas que lo pasé a Runtime.
+ * ExcepciÃ³n indicando que no existe la entidad. [ Basada en el
+ * NoSuchEntityException de Mariano de conae, nada mas que lo pasÃ© a Runtime.
  * Seria interesante hacer tipada a la exception <T>, y poder cachear la
  * excepcion esperando un tipo especifico, pero el compilador no me deja --
  * wiki:Main.JuanCodagnone Sun Jun 19 00:32:02 ART 2005 ]

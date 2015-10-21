@@ -39,7 +39,7 @@ public class Validate extends org.apache.commons.lang.Validate {
     /**
      * Valida que los objetos recibidos no sean null mediante 
      * {@link Validate}.notNull() y, en caso de ser {@link String}, 
-     * valida que no esté vacío mediante {@link StringUtils}.isNotBlank()
+     * valida que no estÃ© vacÃ­o mediante {@link StringUtils}.isNotBlank()
      *  
      * @param objects los objetos a evaluar
      */
@@ -96,12 +96,12 @@ public class Validate extends org.apache.commons.lang.Validate {
         }
     }
     
-    /** @return el mensaje de error para validación por blank*/
+    /** @return el mensaje de error para validaciÃ³n por blank*/
     private static String blankMessage(final int i) {
         return errorMessage(i, "blank"); 
     }
 
-    /** @return el mensaje de error para validación por null */
+    /** @return el mensaje de error para validaciÃ³n por null */
     private static String nullMessage(final int i) {
         return errorMessage(i, "null");
     }
