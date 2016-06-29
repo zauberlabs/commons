@@ -16,6 +16,7 @@
 package ar.com.zauber.commons.dao.closure.processors;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
@@ -36,11 +37,17 @@ import ar.com.zauber.commons.dao.closure.processors.MergeResult.Operation;
  * @since Jun 18, 2009
  * @param <T> clase de entidad a mergear
  */
-public class OneWayMergeClosureProcessor<T extends Comparable<T>> 
+public class OneWayMergeClosureProcessor<T> 
        implements ClosureProcessor<MergeResult<T>> {
     private final Iterable<T> currentStateIterable;
     private final Iterable<T> idealStateIterable;
+    private final Comparator<T> comparator;
     
+    public OneWayMergeClosureProcessor(final Iterable<T> currentStateIterable,
+                                       final Iterable<T> idealStateIterable) {
+        this(currentStateIterable, idealStateIterable, (a, b)-> ((Comparable)a).compareTo(b));
+    }
+            
     /** 
      * @param currentStateIterable da un iterador del estado actual. el iterador 
      * tiene que estar ordenado lexicograficamente.
@@ -48,12 +55,15 @@ public class OneWayMergeClosureProcessor<T extends Comparable<T>>
      * lexicograficamente.
      */
     public OneWayMergeClosureProcessor(final Iterable<T> currentStateIterable,
-            final Iterable<T> idealStateIterable) {
+            final Iterable<T> idealStateIterable, 
+            final Comparator<T> comparator) {
         Validate.notNull(currentStateIterable);
         Validate.notNull(idealStateIterable);
+        Validate.notNull(comparator);
         
         this.currentStateIterable = currentStateIterable;
         this.idealStateIterable = idealStateIterable;
+        this.comparator = comparator;
     }
 
     /** @see ClosureProcessor#process(Closure) */
@@ -84,7 +94,7 @@ public class OneWayMergeClosureProcessor<T extends Comparable<T>>
             forwardRight();
             
             while(l != null && r != null) {
-                int i = l.compareTo(r);
+                int i = comparator.compare(l, r);
                 if(i < 0) {
                     notifyAdd(closure);
                     forwardLeft();
