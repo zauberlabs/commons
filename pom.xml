@@ -9,7 +9,7 @@
   <name>Zauber::Commons</name>
   <groupId>com.zaubersoftware.commons</groupId>
   <artifactId>zauber-commons-parent</artifactId>
-  <version>3.51-SNAPSHOT</version>
+  <version>3.52</version>
   <packaging>pom</packaging>
 
    <description>
@@ -21,6 +21,7 @@
     <connection>scm:git:git@github.com:zauberlabs/commons.git</connection>
     <url>scm:git:git@github.com:zauberlabs/commons.git</url>
     <developerConnection>scm:git:git@github.com:zauberlabs/commons.git</developerConnection>
+    <tag>3.52</tag>
   </scm>
 
   <licenses>
