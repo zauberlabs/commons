@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>com.zaubersoftware.commons.image</groupId>
-    <version>3.52</version>
+    <version>3.53-SNAPSHOT</version>
   </parent>
   <name>Zauber::Commons::Image:Implementation</name>
   <artifactId>commons-image-impl</artifactId>
