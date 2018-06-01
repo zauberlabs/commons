@@ -40,12 +40,13 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     /** our domain (ej. eventz.com.ar) */
     private final String senderDomain;
 
-    private String account;
+    private final String account;
 
     /**
      * @deprecated Use 
      * {@link #SimpleEmailNotificationStrategy(MailSender, String, String)}
      */
+    @Deprecated
     public SimpleEmailNotificationStrategy(final MailSender mailSender, 
             final String senderDomain) {
         this(mailSender, senderDomain, "bounce");
@@ -66,8 +67,8 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
         this.account = account;
     }
     
-    /** @see NotificationStrategy#execute(NotificationAddress[], Message) */
     //CHECKSTYLE:ALL:OFF
+    @Override
     public void execute(final NotificationAddress [] addresses,
             final Message message) {
                 
