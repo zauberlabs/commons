@@ -41,6 +41,8 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     private final String senderDomain;
 
     private final String account;
+    /** blind copy for archiving */
+    protected final NotificationAddress bcc;
 
     /**
      * @deprecated Use 
@@ -49,9 +51,13 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     @Deprecated
     public SimpleEmailNotificationStrategy(final MailSender mailSender, 
             final String senderDomain) {
-        this(mailSender, senderDomain, "bounce");
+        this(mailSender, senderDomain, "bounce", null);
     }
 
+    public SimpleEmailNotificationStrategy(final MailSender mailSender,
+            final String senderDomain, final String account) {
+        this(mailSender, senderDomain, account, null);
+    }
     /**
      * @param mailSender
      *            the class that actually know how to send an email
@@ -61,10 +67,12 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
      *            account that appears in the from address
      */
     public SimpleEmailNotificationStrategy(final MailSender mailSender, 
-            final String senderDomain, final String account) {
+            final String senderDomain, final String account,
+            final NotificationAddress bcc) {
         this.mailSender = mailSender;
         this.senderDomain = senderDomain;
         this.account = account;
+        this.bcc = bcc;
     }
     
     //CHECKSTYLE:ALL:OFF
@@ -75,9 +83,11 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
         final SimpleMailMessage mail = new SimpleMailMessage();
         mail.setFrom(getFromAddress().getEmailStr());
         mail.setTo(getEmailAddresses(addresses));
+        if(bcc instanceof JavaMailEmailAddress) {
+            mail.setBcc(((JavaMailEmailAddress)bcc).getEmailStr());
+        }
         mail.setReplyTo(getEmailAddress(message.getReplyToAddress()));
         mail.setSubject(message.getSubject());
-        
         mail.setText(message.getContent());
         mailSender.send(mail);
     }

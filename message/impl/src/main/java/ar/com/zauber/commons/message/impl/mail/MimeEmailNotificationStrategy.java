@@ -47,6 +47,11 @@ import ar.com.zauber.commons.message.NotificationAddress;
 public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrategy {
     private static final String HTML_CONTENT_TYPE = "text/html";
 
+    public MimeEmailNotificationStrategy(final MailSender mailSender,
+            final String senderDomain, final String account,
+            final boolean multipart) {
+        this(mailSender, senderDomain, account, multipart, null);
+    }
     /**
      * @param mailSender
      *            the class that actually know how to send an email
@@ -55,10 +60,11 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
      * @param account
      *            account that appears in the from address
      */
-    public MimeEmailNotificationStrategy(final MailSender mailSender, 
-            final String senderDomain, final String account, 
-            final boolean multipart) {
-        super(mailSender, senderDomain, account);
+    public MimeEmailNotificationStrategy(final MailSender mailSender,
+            final String senderDomain, final String account,
+            final boolean multipart,
+            final NotificationAddress bcc) {
+        super(mailSender, senderDomain, account, bcc);
     }
     
     @Override
@@ -76,6 +82,9 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
                 helper.setFrom(getFromAddress().getEmailStr());
                 helper.setTo(SimpleEmailNotificationStrategy.getEmailAddresses(
                         addresses));
+                if(bcc instanceof JavaMailEmailAddress) {
+                    helper.setBcc(((JavaMailEmailAddress)bcc).getEmailStr());
+                }
                 helper.setReplyTo(getEmailAddress(message.getReplyToAddress()));
                 helper.setSubject(message.getSubject());
                 setContent(helper, (MultipartMessage) message);
@@ -85,6 +94,9 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
                 final SimpleMailMessage mail = new SimpleMailMessage();
                 mail.setFrom(getFromAddress().getEmailStr());
                 mail.setTo(getEmailAddresses(addresses));
+                if(bcc instanceof JavaMailEmailAddress) {
+                    mail.setBcc(((JavaMailEmailAddress)bcc).getEmailStr());
+                }
                 mail.setReplyTo(getEmailAddress(message.getReplyToAddress()));
                 mail.setSubject(message.getSubject());
                 mail.setText(message.getContent());
