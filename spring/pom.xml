@@ -105,10 +105,6 @@
       <artifactId>mail</artifactId>
       <version>1.4</version>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context-support</artifactId>
-    </dependency>
     <!-- END: GAE Java Mail Sender -->
   </dependencies>
 </project>
