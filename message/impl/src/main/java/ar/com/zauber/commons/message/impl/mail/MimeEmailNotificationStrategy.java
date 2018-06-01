@@ -34,7 +34,6 @@ import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessagePart;
 import ar.com.zauber.commons.message.MultipartMessage;
 import ar.com.zauber.commons.message.NotificationAddress;
-import ar.com.zauber.commons.message.NotificationStrategy;
 
 /**
  * Idem to {@link SimpleEmailNotificationStrategy} but for Mime Messages 
@@ -46,7 +45,6 @@ import ar.com.zauber.commons.message.NotificationStrategy;
  */
 @Entity
 public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrategy {
-
     private static final String HTML_CONTENT_TYPE = "text/html";
 
     /**
@@ -63,7 +61,7 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
         super(mailSender, senderDomain, account);
     }
     
-    /** @see NotificationStrategy#execute(NotificationAddress[], Message) */
+    @Override
     public final void execute(final NotificationAddress [] addresses,
             final Message message) {
         try {
@@ -102,12 +100,8 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
 
     /**
      * If message is a {@link HeaderMessage}, adds headers to the {@link MimeMessage}
-     * @param message
-     * @param mail
-     * @throws UnsupportedEncodingException 
-     * @throws MessagingException 
      */
-    private void addHeaders(final Message message, final MimeMessage mail)
+    private static void addHeaders(final Message message, final MimeMessage mail)
         throws MessagingException, UnsupportedEncodingException {
         if(message instanceof HeaderMessage) {
             final Map<String, String> headers = ((HeaderMessage)message).getHeaders();
@@ -117,12 +111,7 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
         }
     }
 
-    /**
-     * @param helper
-     * @param message
-     * @throws MessagingException 
-     */
-    private void setContent(final MimeMessageHelper helper, 
+    private static void setContent(final MimeMessageHelper helper, 
             final MultipartMessage message) throws MessagingException {
         final MessagePart htmlPart = message.getPart(HTML_CONTENT_TYPE);
         if (htmlPart != null) {
