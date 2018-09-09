@@ -36,27 +36,15 @@ import ar.com.zauber.commons.message.NotificationStrategy;
 public class SimpleEmailNotificationStrategy implements NotificationStrategy {
     /** mail sender */
     private final MailSender mailSender;
-
-    /** our domain (ej. eventz.com.ar) */
-    private final String senderDomain;
-
-    private final String account;
+    
+    protected final JavaMailEmailAddress from;
+    
     /** blind copy for archiving */
     protected final NotificationAddress bcc;
 
-    /**
-     * @deprecated Use 
-     * {@link #SimpleEmailNotificationStrategy(MailSender, String, String)}
-     */
-    @Deprecated
-    public SimpleEmailNotificationStrategy(final MailSender mailSender, 
-            final String senderDomain) {
-        this(mailSender, senderDomain, "bounce", null);
-    }
-
-    public SimpleEmailNotificationStrategy(final MailSender mailSender,
-            final String senderDomain, final String account) {
-        this(mailSender, senderDomain, account, null);
+    public SimpleEmailNotificationStrategy(final MailSender           mailSender,
+                                           final JavaMailEmailAddress from) {
+        this(mailSender, from, null);
     }
     /**
      * @param mailSender
@@ -66,13 +54,13 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
      * @param account
      *            account that appears in the from address
      */
-    public SimpleEmailNotificationStrategy(final MailSender mailSender, 
-            final String senderDomain, final String account,
-            final NotificationAddress bcc) {
+    public SimpleEmailNotificationStrategy(
+            final MailSender           mailSender, 
+            final JavaMailEmailAddress from,
+            final NotificationAddress  bcc) {
         this.mailSender = mailSender;
-        this.senderDomain = senderDomain;
-        this.account = account;
-        this.bcc = bcc;
+        this.from       = from;
+        this.bcc         = bcc;
     }
     
     //CHECKSTYLE:ALL:OFF
@@ -136,8 +124,7 @@ public class SimpleEmailNotificationStrategy implements NotificationStrategy {
      * @return the from address to use in the email
      */
     protected final JavaMailEmailAddress getFromAddress() {
-        return new JavaMailEmailAddress(account + "@"
-                + senderDomain);
+        return from;
     }
 
     /**

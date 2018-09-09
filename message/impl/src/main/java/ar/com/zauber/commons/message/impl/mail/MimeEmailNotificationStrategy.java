@@ -48,9 +48,9 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
     private static final String HTML_CONTENT_TYPE = "text/html";
 
     public MimeEmailNotificationStrategy(final MailSender mailSender,
-            final String senderDomain, final String account,
-            final boolean multipart) {
-        this(mailSender, senderDomain, account, multipart, null);
+                                         final JavaMailEmailAddress from,
+                                         final boolean multipart) {
+        this(mailSender, from, multipart, null);
     }
     /**
      * @param mailSender
@@ -61,10 +61,10 @@ public class MimeEmailNotificationStrategy extends SimpleEmailNotificationStrate
      *            account that appears in the from address
      */
     public MimeEmailNotificationStrategy(final MailSender mailSender,
-            final String senderDomain, final String account,
+            final JavaMailEmailAddress from,
             final boolean multipart,
             final NotificationAddress bcc) {
-        super(mailSender, senderDomain, account, bcc);
+        super(mailSender, from, bcc);
     }
     
     @Override
