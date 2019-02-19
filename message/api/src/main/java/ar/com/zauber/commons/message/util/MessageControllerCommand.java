@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.Validate;
 
+import ar.com.zauber.commons.message.Message;
 import ar.com.zauber.commons.message.MessageFactory;
 import ar.com.zauber.commons.message.NotificationAddress;
 import ar.com.zauber.commons.message.NotificationStrategy;
@@ -34,8 +35,8 @@ import ar.com.zauber.commons.message.NotificationStrategy;
  */
 public class MessageControllerCommand  {
     private final NotificationStrategy notificationStrategy;
-    private final MessageFactory messageFactory;
-    private final String viewName;
+    private final MessageFactory       messageFactory;
+    private final String               viewName;
     
     /**
      * 
@@ -49,25 +50,27 @@ public class MessageControllerCommand  {
      */
     public MessageControllerCommand(
             final NotificationStrategy notificationStrategy,
-            final MessageFactory messageFactory,
-            final String viewName) {        
+            final MessageFactory       messageFactory,
+            final String               viewName) {        
         Validate.notNull(notificationStrategy, "notificationStrategy");
-        Validate.notNull(messageFactory, "messageFactory");
-        Validate.notNull(viewName, viewName);
+        Validate.notNull(messageFactory,       "messageFactory");
+        Validate.notNull(viewName,             viewName);
         
         this.notificationStrategy = notificationStrategy;
-        this.messageFactory = messageFactory;
-        this.viewName = viewName;
+        this.messageFactory       = messageFactory;
+        this.viewName             = viewName;
     }
     
     /**
      * Sends a Message with the model to to[]
      * @param model model of the message
-     * @param to reciver
      */
     public final void sendMessage(final Map<String, Object> model,
             final NotificationAddress [] to) {
-        notificationStrategy.execute(to, messageFactory.createMessage(viewName,
-                model));
+        notificationStrategy.execute(to, render(model));
+    }
+
+    public Message render(final Map<String, Object> model) {
+        return messageFactory.createMessage(viewName, model);
     }
 }
